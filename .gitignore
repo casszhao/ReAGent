@@ -21,3 +21,6 @@ huggingface/gpt2_test_output
 huggingface/gpt2_logs
 huggingface/rationalization_results
 huggingface/__pycache__
+
+
+.vscode
