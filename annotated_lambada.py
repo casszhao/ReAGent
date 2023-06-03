@@ -9,6 +9,7 @@ Raffaella Bernardi, Sandro Pezzelle, Marco Baroni, Gemma Boleda, and Raquel
 Fernández. 2016. The LAMBADA dataset: Word prediction requiring a broad 
 discourse context. In Association for Computational Linguistics.
 """
+
 import argparse
 import os
 import json
@@ -17,7 +18,7 @@ import time
 import numpy as np
 import pandas as pd
 
-from rationalization_fairseq import baseline_rationalize_lm, rationalize_lm
+from rationalization.greedy_masking.huggingface import baseline_rationalize_lm, rationalize_lm
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 parser = argparse.ArgumentParser()
@@ -45,8 +46,7 @@ def convert(o):
   raise TypeError
 
 
-huggingface_dir = os.path.dirname(__file__)
-project_dir = os.path.abspath(os.path.join(huggingface_dir, os.pardir))
+project_dir = os.path.dirname(__file__)
 
 # Load annotated lambada.
 df = pd.read_json(os.path.join(project_dir, 'annotated_lambada.json'), 
@@ -114,7 +114,7 @@ for row_num in range(len(df)):
   rationalization_log['human_subword_rationale'] = subword_rationale
   # Save rationalization results
   results_dir = os.path.join(
-    huggingface_dir, 
+    project_dir, 
     "rationalization_results/lambada/{}".format(args.method))
   if not os.path.exists(results_dir):
     os.makedirs(results_dir)

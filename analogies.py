@@ -11,8 +11,8 @@ import torch
 
 import numpy as np
 
-from data_utils import create_analogy_templates, preprocess_analogies
-from rationalization_fairseq import baseline_rationalize_lm, exhaustive_rationalize_lm, rationalize_lm
+from utils.data_utils import create_analogy_templates, preprocess_analogies
+from rationalization.greedy_masking.huggingface import baseline_rationalize_lm, exhaustive_rationalize_lm, rationalize_lm
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 parser = argparse.ArgumentParser()

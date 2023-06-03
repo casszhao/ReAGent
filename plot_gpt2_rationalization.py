@@ -7,7 +7,7 @@ import numpy as np
 import seaborn as sns
 
 from matplotlib import colors
-from rationalization_fairseq import rationalize_lm
+from rationalization.greedy_masking.fairseq import rationalize_lm
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 parser = argparse.ArgumentParser()

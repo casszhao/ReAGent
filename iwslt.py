@@ -13,7 +13,7 @@ import numpy as np
 
 from fairseq import utils
 from fairseq.models.transformer import TransformerModel
-from rationalization_fairseq import baseline_rationalize_conditional_model, rationalize_conditional_model
+from rationalization.greedy_masking.fairseq import baseline_rationalize_conditional_model, rationalize_conditional_model
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--checkpoint_dir", 
