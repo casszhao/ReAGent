@@ -1,4 +1,4 @@
-from huggingface.rationalization import rationalize_lm
+from rationalization_huggingface import rationalize_lm
 from transformers import AutoTokenizer, AutoModelWithLMHead
 
 # Load model from Hugging Face
