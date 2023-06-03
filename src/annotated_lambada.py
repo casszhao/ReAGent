@@ -46,10 +46,12 @@ def convert(o):
   raise TypeError
 
 
-project_dir = os.path.dirname(__file__)
+src_dir = os.path.dirname(__file__)
+project_dir = os.path.join(src_dir, os.path.pardir)
+data_dir = os.path.join(project_dir, 'data')
 
 # Load annotated lambada.
-df = pd.read_json(os.path.join(project_dir, 'annotated_lambada.json'), 
+df = pd.read_json(os.path.join(data_dir, 'annotated_lambada.json'), 
                   orient='records', lines=True)
 # df has 3 columns:
 # - lamabdaIndex: The index of the example from the original LAMBADA dataset.
