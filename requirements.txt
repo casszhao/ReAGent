@@ -1,6 +1,7 @@
 datasets
-numpy
+fairseq
 matplotlib
+numpy
 pandas
 sacrebleu
 sacremoses
@@ -9,3 +10,4 @@ seaborn
 tensorboard
 tensorboardX
 torch
+transformers
