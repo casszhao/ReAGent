@@ -23,6 +23,7 @@ from transformers import AutoModelForCausalLM
 parser = argparse.ArgumentParser()
 parser.add_argument("--checkpoint_dir", 
                     type=str,
+                    default="checkpoints",
                     help="Directory where trained checkpoint is stored")
 args = parser.parse_args()
 

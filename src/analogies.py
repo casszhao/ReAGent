@@ -16,8 +16,21 @@ from rationalization.greedy_masking.huggingface import baseline_rationalize_lm, 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 parser = argparse.ArgumentParser()
+# parser.add_argument("--checkpoint_dir", 
+#                     type=str,
+#                     default="checkpoints",
+#                     help="Directory where trained checkpoint is stored")
+# parser.add_argument("--checkpoint_name", 
+#                     type=str,
+#                     default="compatible_gpt2/checkpoint-45000",
+#                     help="Directory where trained checkpoint is stored")
 parser.add_argument("--checkpoint_dir", 
                     type=str,
+                    default="",
+                    help="Directory where trained checkpoint is stored")
+parser.add_argument("--checkpoint_name", 
+                    type=str,
+                    default="gpt2-medium",
                     help="Directory where trained checkpoint is stored")
 parser.add_argument("--method", 
                     type=str,
@@ -46,12 +59,12 @@ rs = np.random.RandomState(0)
 
 tokenizer = AutoTokenizer.from_pretrained('gpt2-medium')
 model = AutoModelForCausalLM.from_pretrained(
-  os.path.join(args.checkpoint_dir, "compatible_gpt2/checkpoint-45000"))
+  os.path.join(args.checkpoint_dir, args.checkpoint_name))
 model.cuda()
 model.eval()
 
-huggingface_dir = os.path.dirname(__file__)
-analogies_file = os.path.join(huggingface_dir, "data/analogies.txt")
+src_dir = os.path.dirname(__file__)
+analogies_file = os.path.join(src_dir, "../data/analogies.txt")
 with open(analogies_file) as f:
   analogies = f.readlines()
 analogies = [line.rstrip('\n') for line in analogies]
@@ -143,8 +156,8 @@ for label_index, analogy_label in enumerate(analogy_labels):
           rationalization_log['distractor_end'] = distractor_end
           # Save rationalization results
           results_dir = os.path.join(
-            huggingface_dir, 
-            "rationalization_results/analogies/{}".format(args.method))
+            src_dir, 
+            "../rationalization_results/analogies/{}".format(args.method))
           if not os.path.exists(results_dir):
             os.makedirs(results_dir)
           file_name = os.path.join(

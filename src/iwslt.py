@@ -18,6 +18,7 @@ from rationalization.greedy_masking.fairseq import baseline_rationalize_conditio
 parser = argparse.ArgumentParser()
 parser.add_argument("--checkpoint_dir", 
                     type=str,
+                    default="checkpoints",
                     help="Directory where trained checkpoint is stored")
 parser.add_argument("--task", 
                     type=str,
