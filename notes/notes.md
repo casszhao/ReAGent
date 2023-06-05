@@ -44,3 +44,19 @@ if they are not working as usual, how can we relies on those predicted likelihoo
 
 Note 2: they (Keyon etc.) fine-tune the model to make those cases (un-continual sequence) usual for model, then the model will (hopefully) work as usual for those cases.
 
+
+
+
+
+
+
+
+
+# 06-05
+
+- replacement
+  - random replace
+  - replace with predicted words
+    - is the final likelihood valid in this case?
+- update inportance score
+  - base on replaced sequence likelihood
