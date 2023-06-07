@@ -17,7 +17,7 @@ def evaluate_stop_condition(model, tokenizer, input_ids, target_id, logit_import
 
     logits_replaced = model(input_ids_replaced)['logits'][0]
     prob_replaced_target = torch.softmax(logits_replaced[input_ids_replaced.shape[1] - 1], 0)[target_id]
-    id_max_logits = torch.argmax(logits_replaced)
+    id_max_logits = torch.argmax(logits_replaced[-1])
     word_max_logits = tokenizer.decode([ id_max_logits ])
     
     print(f"Likelihood of the target: { prob_replaced_target }; Word with max likelihood: {word_max_logits}")
