@@ -15,10 +15,10 @@ def evaluate_stop_condition(model, tokenizer, input_ids, target_id, logit_import
 
     # Whether the result \hat{y^{(e)}_{t+1}} consistent with y_{t+1}
 
-    logits_replaced = model(input_ids_replaced)['logits'][0]
-    prob_replaced_target = torch.softmax(logits_replaced[input_ids_replaced.shape[1] - 1], 0)[target_id]
-    id_max_logits = torch.argmax(logits_replaced[-1])
-    word_max_logits = tokenizer.decode([ id_max_logits ])
+    logits_replaced = model(input_ids_replaced)['logits']
+    prob_replaced_target = torch.softmax(logits_replaced[:, input_ids_replaced.shape[1] - 1, :], -1)[:, target_id]
+    id_max_logits = torch.argmax(logits_replaced[:,-1,:], dim=1)
+    word_max_logits = ([ tokenizer.decode([i]) for i in id_max_logits ])
     
     print(f"Likelihood of the target: { prob_replaced_target }; Word with max likelihood: {word_max_logits}")
 
@@ -36,8 +36,8 @@ def update_importance_score(logit_importance_score, model, tokenizer, input_ids,
     
     # Inference \hat{p^{(y)}} = p(y_{t+1}|\hat{y_{1...t}})
 
-    logits_replaced = model(input_ids_replaced)['logits'][0]
-    prob_replaced_target = torch.softmax(logits_replaced[input_ids_replaced.shape[1] - 1], 0)[target_id]
+    logits_replaced = model(input_ids_replaced)['logits']
+    prob_replaced_target = torch.softmax(logits_replaced[:, input_ids_replaced.shape[1] - 1, :], -1)[:, target_id]
 
     # Compute changes delta = p^{(y)} - \hat{p^{(y)}}
 
@@ -47,8 +47,8 @@ def update_importance_score(logit_importance_score, model, tokenizer, input_ids,
     # Update importance scores based on delta (magnitude) and replacement (direction)
 
     logit_importance_score = logit_importance_score.clone()
-    logit_importance_score[mask_replacing[0] == 1] += delta_prob_target
-    logit_importance_score[mask_replacing[0] == 0] -= delta_prob_target
+    logit_importance_score[mask_replacing == 1] += delta_prob_target
+    logit_importance_score[mask_replacing == 0] -= delta_prob_target
 
     print(f"Updated importance score: { torch.softmax(logit_importance_score, 0) }")
 
@@ -59,12 +59,12 @@ def rationalize_random_replacing(model, tokenizer, input_ids, target_id):
     
     # Inference p^{(y)} = p(y_{t+1}|y_{1...t})
 
-    logits_original = model(input_ids)['logits'][0]
-    prob_original_target = torch.softmax(logits_original[input_ids.shape[1] - 1], 0)[target_id]
+    logits_original = model(input_ids)['logits']
+    prob_original_target = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)[:, target_id]
 
     # Initialize importance score s for each token in the sequence y_{1...t}
 
-    logit_importance_score = torch.zeros([ input_ids.shape[1] ], device=input_ids.device)
+    logit_importance_score = torch.zeros(input_ids.shape, device=input_ids.device)
     print(f"Initialize importance score:  { torch.softmax(logit_importance_score, 0) }")
     print()
 
