@@ -34,7 +34,7 @@ class ImportanceScoreEvaluator():
         logit_importance_score = logit_importance_score + delta_score
         print(f"Updated importance score: { torch.softmax(logit_importance_score, -1) }")
 
-        return torch.softmax(logit_importance_score, -1)
+        return logit_importance_score
 
     def evaluate(self, input_ids, target_id):
         
