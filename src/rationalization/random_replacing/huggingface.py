@@ -14,8 +14,8 @@ def main():
     # ======== model loading ========
 
     # Load model from Hugging Face
-    model = AutoModelWithLMHead.from_pretrained("gpt2-large")
-    tokenizer = AutoTokenizer.from_pretrained("gpt2-large")
+    model = AutoModelWithLMHead.from_pretrained("gpt2-medium")
+    tokenizer = AutoTokenizer.from_pretrained("gpt2-medium")
 
     model.cuda()
     model.eval()
@@ -48,7 +48,7 @@ def main():
     # ======== rationalization ========
     
     approach_sample_replacing_token = "uniform"
-    approach_sample_replacing_token = "inference"
+    # approach_sample_replacing_token = "inference"
 
     # prepare rationalizer
     if approach_sample_replacing_token == "uniform":
