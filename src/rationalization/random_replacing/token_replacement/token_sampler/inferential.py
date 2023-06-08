@@ -6,6 +6,7 @@ class InferentialTokenSampler(TokenSampler):
   """Sample tokens from a seq-2-seq model
 
   """
+  
   def __init__(self, tokenizer: AutoTokenizer, model: AutoModelWithLMHead) -> None:
     """Constructor
 
@@ -21,10 +22,11 @@ class InferentialTokenSampler(TokenSampler):
     """Sample a tensor
 
     Args:
-      input: input tensor [batch, sequence, feature]
+      input: input tensor [batch, sequence]
     
     Returns:
       token_inferences: sampled (placement) tokens by inference
+
     """
 
     logits_replacing = self.model(input)['logits']

@@ -2,14 +2,19 @@
 import math
 import torch
 
-class Rationalizer():
+from importance_score_evaluator import ImportanceScoreEvaluator
 
-    def __init__(self, importance_score_evaluator, top_n: float = 0, top_n_ratio: float = 0) -> None:
+class Rationalizer():
+    """Rationalizer
+    
+    """
+
+    def __init__(self, importance_score_evaluator: ImportanceScoreEvaluator, top_n: float = 0, top_n_ratio: float = 0) -> None:
         self.importance_score_evaluator = importance_score_evaluator
         self.top_n = top_n
         self.top_n_ratio = top_n_ratio
 
-    def rationalize(self, input_ids, target_id):
+    def rationalize(self, input_ids: torch.Tensor, target_id: torch.Tensor):
         importance_score = self.importance_score_evaluator.evaluate(input_ids, target_id)
         
         pos_sorted = torch.argsort(importance_score, dim=-1, descending=True)

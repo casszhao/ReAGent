@@ -1,4 +1,5 @@
 import math
+from typing import Union
 import torch
 from .base import TokenReplacer
 from ..token_sampler.base import TokenSampler
@@ -7,12 +8,16 @@ class RankingTokenReplacer(TokenReplacer):
     """Replace tokens in a sequence based on top-N ranking
 
     """
+    
     def __init__(self, token_sampler: TokenSampler, top_n: int = 0, top_n_ratio: float = 0, replace_greater: bool = False) -> None:
         """Constructor
 
         Args:
             token_sampler: A TokenSampler for sampling replace token.
-            threshold: replacing threshold, 
+            top_n: Top N as the threshold. If top_n is 0, use top_n_ratio instead.
+            top_n_ratio: Use ratio of input to control to top_n
+            replace_greater: Whether replace top-n. Otherwise, replace the rests.
+
         """
         super().__init__(token_sampler)
         self.top_n = top_n
@@ -35,15 +40,16 @@ class RankingTokenReplacer(TokenReplacer):
         else:
             self.mask_replacing = torch.zeros(value.shape, device=value.device, dtype=torch.bool).scatter(-1, pos_top_n, 1)
 
-    def sample(self, input: torch.Tensor) -> torch.Tensor:
+    def sample(self, input: torch.Tensor) -> Union[torch.Tensor, torch.Tensor]:
         """Sample a sequence
 
         Args:
-            input: input sequence
+            input: input sequence [batch, sequence]
         
         Returns:
-            input_replaced: A replaced sequence
-            mask_replacing: Identify which token has been replaced
+            input_replaced: A replaced sequence [batch, sequence]
+            mask_replacing: Identify which token has been replaced [batch, sequence]
+
         """
 
         token_sampled = self.token_sampler.sample(input)

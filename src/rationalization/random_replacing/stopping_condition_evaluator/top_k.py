@@ -11,6 +11,18 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
     """
 
     def __init__(self, model: AutoModelWithLMHead, token_sampler: TokenSampler, top_k: int, top_n: int = 0, top_n_ratio: float = 0, tokenizer: AutoTokenizer = None) -> None:
+        """Constructor
+        
+        Args:
+            model: A Huggingface AutoModelWithLMHead.
+            token_sampler: A TokenSampler to sample replacement tokens
+            top_k: Stop condition achieved when target exist in top k predictions
+            top_n: Top n tokens based on importance_score are not been replaced during the prediction inference.
+                top_n_ratio will be used if top_n has been set to 0
+            top_n_ratio: Use ratio of input length to control the top n
+            tokenizer: (Optional) Used for print out top_k_words at each step
+            
+        """
         self.model = model
         self.token_sampler = token_sampler
         self.top_k = top_k
@@ -18,6 +30,17 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
         self.tokenizer = tokenizer
 
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_score: torch.Tensor) -> bool:
+        """Evaluate stop condition
+
+        Args:
+            input_ids: Input sequence [batch, sequence]
+            target_id: Target token [batch]
+            importance_score: Importance score of the input [batch, sequence]
+
+        Return:
+            Whether the stop condition achieved
+
+        """
         # Replace tokens with low importance score and then inference \hat{y^{(e)}_{t+1}}
         
         self.token_replacer.set_score(importance_score)

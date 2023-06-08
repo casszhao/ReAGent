@@ -1,16 +1,43 @@
-
 import torch
+from transformers import AutoTokenizer, AutoModelWithLMHead
+from stopping_condition_evaluator.base import StoppingConditionEvaluator
+
+from token_replacement.token_replacer.base import TokenReplacer
 
 class ImportanceScoreEvaluator():
+    """Importance Score Evaluator
+    
+    """
 
-    def __init__(self, model, tokenizer, token_replacer, stopping_condition_evaluator) -> None:
+    def __init__(self, model: AutoModelWithLMHead, tokenizer: AutoTokenizer, token_replacer: TokenReplacer, stopping_condition_evaluator: StoppingConditionEvaluator) -> None:
+        """Constructor
+
+        Args:
+            model: A Huggingface AutoModelWithLMHead model
+            tokenizer: A Huggingface AutoTokenizer
+            token_replacer: A TokenReplacer
+            stopping_condition_evaluator: A StoppingConditionEvaluator
+
+        """
         self.model = model
         self.tokenizer = tokenizer
         self.token_replacer = token_replacer
         self.stopping_condition_evaluator = stopping_condition_evaluator
         pass
 
-    def update_importance_score(self, logit_importance_score, input_ids, target_id, prob_original_target):
+    def update_importance_score(self, logit_importance_score: torch.Tensor, input_ids: torch.Tensor, target_id: torch.Tensor, prob_original_target: torch.Tensor) -> torch.Tensor:
+        """Update importance score by one step
+
+        Args:
+            logit_importance_score: Current importance score in logistic scale [batch]
+            input_ids: input tensor [batch, sequence]
+            target_id: target tensor [batch]
+            prob_original_target: predictive probability of the target on the original sequence [batch]
+
+        Return:
+            logit_importance_score: updated importance score in logistic scale [batch]
+
+        """
         # Randomly replace a set of tokens R to form a new sequence \hat{y_{1...t}}
 
         input_ids_replaced, mask_replacing = self.token_replacer.sample(input_ids)
@@ -36,8 +63,17 @@ class ImportanceScoreEvaluator():
 
         return logit_importance_score
 
-    def evaluate(self, input_ids, target_id):
-        
+    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
+        """Evaluate important score of input sequence
+
+        Args:
+            input_ids: input sequence [batch, sequence]
+            target_id: target token [batch]
+
+        Return:
+            importance_score: evaluated importance score for each token in the input [batch, sequence]
+
+        """
         # Inference p^{(y)} = p(y_{t+1}|y_{1...t})
 
         logits_original = self.model(input_ids)['logits']
