@@ -1,3 +1,4 @@
+import torch
 from importance_score_evaluator import ImportanceScoreEvaluator
 from token_replacement.token_sampler.inferential import InferentialTokenSampler
 from rationalizer import Rationalizer
@@ -5,7 +6,8 @@ from stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
 from token_replacement.token_sampler.uniform import UniformTokenSampler
 from token_replacement.token_replacer.uniform import UniformTokenReplacer
 
-if __name__ == '__main__':
+@torch.no_grad()
+def main():
 
     from transformers import AutoTokenizer, AutoModelWithLMHead
 
@@ -101,3 +103,6 @@ if __name__ == '__main__':
 
     print(f"Rational positions: {pos_rational}")
     print(f"Rational words: {text_rational}")
+
+if __name__ == '__main__':
+    main()
