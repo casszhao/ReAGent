@@ -101,8 +101,13 @@ def main():
     ids_rational = input_ids[0, pos_rational[0]]
     text_rational = [ tokenizer.decode([id_rational]) for id_rational in ids_rational ]
 
-    print(f"Rational positions: {pos_rational}")
-    print(f"Rational words: {text_rational}")
+    print()
+    print(f"========================")
+    print()
+    print(f'Input --> {input_string[0]}')
+    print(f'Target --> {tokenizer.decode(target_id[0])}')
+    print(f"Rational positions --> {pos_rational}")
+    print(f"Rational words --> {text_rational}")
 
 if __name__ == '__main__':
     main()
