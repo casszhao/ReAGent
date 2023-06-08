@@ -7,7 +7,7 @@ class UniformTokenReplacer(TokenReplacer):
     """Replace tokens in a sequence where selecting is base on uniform distribution
 
     """
-    def __init__(self, token_sampler: TokenSampler, ratio: float):
+    def __init__(self, token_sampler: TokenSampler, ratio: float) -> None:
         """Constructor
 
         Args:
@@ -17,7 +17,7 @@ class UniformTokenReplacer(TokenReplacer):
         super().__init__(token_sampler)
         self.ratio = ratio
 
-    def sample(self, input):
+    def sample(self, input: torch.Tensor) -> torch.Tensor:
         """Sample a sequence
 
         Args:

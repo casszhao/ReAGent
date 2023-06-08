@@ -1,3 +1,4 @@
+import math
 import torch
 from .base import TokenReplacer
 from ..token_sampler.base import TokenSampler
@@ -6,7 +7,7 @@ class RankingTokenReplacer(TokenReplacer):
     """Replace tokens in a sequence based on top-N ranking
 
     """
-    def __init__(self, token_sampler: TokenSampler, top_n: float, replace_greater: bool = False):
+    def __init__(self, token_sampler: TokenSampler, top_n: int = 0, top_n_ratio: float = 0, replace_greater: bool = False) -> None:
         """Constructor
 
         Args:
@@ -15,19 +16,26 @@ class RankingTokenReplacer(TokenReplacer):
         """
         super().__init__(token_sampler)
         self.top_n = top_n
+        self.top_n_ratio = top_n_ratio
         self.replace_greater = replace_greater
 
-    def set_score(self, value):
+    def set_score(self, value: torch.Tensor) -> None:
         
-        rank = torch.argsort(value)
-        top_n_rank = rank[..., :self.top_n]      
+        pos_sorted = torch.argsort(value, descending=True)
+
+        top_n = self.top_n
+
+        if top_n == 0:
+            top_n = int(math.ceil(self.top_n_ratio * value.shape[-1]))
+
+        pos_top_n = pos_sorted[..., :top_n]
 
         if not self.replace_greater:
-            self.mask_replacing = torch.ones(value.shape, device=value.device, dtype=torch.bool).scatter(-1, top_n_rank, 0)
+            self.mask_replacing = torch.ones(value.shape, device=value.device, dtype=torch.bool).scatter(-1, pos_top_n, 0)
         else:
-            self.mask_replacing = torch.zeros(value.shape, device=value.device, dtype=torch.bool).scatter(-1, top_n_rank, 1)
+            self.mask_replacing = torch.zeros(value.shape, device=value.device, dtype=torch.bool).scatter(-1, pos_top_n, 1)
 
-    def sample(self, input):
+    def sample(self, input: torch.Tensor) -> torch.Tensor:
         """Sample a sequence
 
         Args:

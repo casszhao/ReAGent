@@ -7,7 +7,7 @@ class ThresholdTokenReplacer(TokenReplacer):
     """Replace tokens in a sequence based on a threshold
 
     """
-    def __init__(self, token_sampler: TokenSampler, threshold: float, replace_greater: bool = False):
+    def __init__(self, token_sampler: TokenSampler, threshold: float, replace_greater: bool = False) -> None:
         """Constructor
 
         Args:
@@ -18,13 +18,13 @@ class ThresholdTokenReplacer(TokenReplacer):
         self.threshold = threshold
         self.replace_greater = replace_greater
 
-    def set_value(self, value):
+    def set_value(self, value: torch.Tensor) -> None:
         if not self.replace_greater:
             self.mask_replacing = value < self.threshold
         else:
             self.mask_replacing = value > self.threshold
 
-    def sample(self, input):
+    def sample(self, input: torch.Tensor) -> torch.Tensor:
         """Sample a sequence
 
         Args:
