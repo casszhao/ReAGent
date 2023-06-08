@@ -17,7 +17,7 @@ class RankingTokenReplacer(TokenReplacer):
         self.top_n = top_n
         self.replace_greater = replace_greater
 
-    def set_value(self, value):
+    def set_score(self, value):
         
         rank = torch.argsort(value)
         top_n_rank = rank[..., :self.top_n]      
