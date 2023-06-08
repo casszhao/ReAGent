@@ -64,7 +64,7 @@ class ImportanceScoreEvaluator():
         return logit_importance_score
 
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
-        """Evaluate important score of input sequence
+        """Evaluate importance score of input sequence
 
         Args:
             input_ids: input sequence [batch, sequence]
