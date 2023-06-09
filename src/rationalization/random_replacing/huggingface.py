@@ -1,5 +1,6 @@
 import torch
 from importance_score_evaluator import ImportanceScoreEvaluator
+from utils.serializing import serialize_rational
 from token_replacement.token_sampler.inferential import InferentialTokenSampler
 from rationalizer import Rationalizer
 from stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
@@ -23,7 +24,7 @@ def main():
     # ======== prepare data ========
 
     # batch with size 1
-    input_string = [ 
+    input_string = [
         "I love eating breakfast out the"
     ]
 
@@ -108,6 +109,24 @@ def main():
     print(f'Target --> {tokenizer.decode(target_id[0])}')
     print(f"Rational positions --> {pos_rational}")
     print(f"Rational words --> {text_rational}")
+
+    # output
+
+    serialize_rational(
+        "rational_results/demo.json", 
+        -1, 
+        input_ids[0], 
+        target_id[0], 
+        pos_rational[0], 
+        tokenizer, 
+        rationalizer.importance_score_evaluator.important_score[0],
+        compact=False,
+        comments= {
+            "message": "This is a demo output. [comments] is an optional field",
+            "model": "gpt2-medium",
+            "approach_type": approach_sample_replacing_token
+        }
+    )
 
 if __name__ == '__main__':
     main()

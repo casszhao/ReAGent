@@ -23,6 +23,7 @@ class ImportanceScoreEvaluator():
         self.tokenizer = tokenizer
         self.token_replacer = token_replacer
         self.stopping_condition_evaluator = stopping_condition_evaluator
+        self.important_score = None
         pass
 
     def update_importance_score(self, logit_importance_score: torch.Tensor, input_ids: torch.Tensor, target_id: torch.Tensor, prob_original_target: torch.Tensor) -> torch.Tensor:
@@ -91,8 +92,10 @@ class ImportanceScoreEvaluator():
             # Update importance score
             logit_importance_score = self.update_importance_score(logit_importance_score, input_ids, target_id, prob_original_target)
 
+            self.important_score = torch.softmax(logit_importance_score, -1)
+
             # Evaluate stop condition
-            if self.stopping_condition_evaluator.evaluate(input_ids, target_id, torch.softmax(logit_importance_score, -1)):
+            if self.stopping_condition_evaluator.evaluate(input_ids, target_id, self.important_score):
                 break
 
         return torch.softmax(logit_importance_score, -1)
