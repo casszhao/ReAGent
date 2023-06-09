@@ -43,7 +43,7 @@ def main():
     # keep top n word based on importance score for both stop condition evaluation and rationalization
     top_n_ratio = 0.5
     # stop when target exist in top k predictions
-    top_k = 0.5
+    top_k = 3
 
     # ======== rationalization ========
     
@@ -64,7 +64,7 @@ def main():
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=UniformTokenSampler(tokenizer), 
-                    top_k=3, 
+                    top_k=top_k, 
                     top_n_ratio=top_n_ratio, 
                     tokenizer=tokenizer
                 )
@@ -84,7 +84,7 @@ def main():
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=InferentialTokenSampler(tokenizer=tokenizer, model=model), 
-                    top_k=3, 
+                    top_k=top_k, 
                     top_n_ratio=top_n_ratio, 
                     tokenizer=tokenizer
                 )
