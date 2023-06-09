@@ -21,8 +21,9 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
                 top_n_ratio will be used if top_n has been set to 0
             top_n_ratio: Use ratio of input length to control the top n
             tokenizer: (Optional) Used for print out top_k_words at each step
-            
+
         """
+        super().__init__()
         self.model = model
         self.token_sampler = token_sampler
         self.top_k = top_k
@@ -52,7 +53,10 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
 
         logits_replaced = self.model(input_ids_replaced)['logits']
 
-        ids_prediction_sorted = torch.argsort(logits_replaced[:,-1,:], descending=True)
+        if self.trace_target_likelihood != None:
+            self.trace_target_likelihood.append(torch.softmax(logits_replaced, dim=-1)[:, -1, target_id])
+
+        ids_prediction_sorted = torch.argsort(logits_replaced[:, -1 ,:], descending=True)
         ids_prediction_top_k = ids_prediction_sorted[:, :self.top_k]
 
         if self.tokenizer:
@@ -65,3 +69,19 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
         # Stops only when all the samples in a batch completed
         # TODO: optimization - stop/bypass part of the batch
         return torch.prod(match_hit) > 0
+
+    def trace_start(self) -> None:
+        """Start tracing
+
+        """
+        super().trace_start()
+        self.token_sampler.trace_start()
+        self.token_replacer.trace_start()
+
+    def trace_stop(self) -> None:
+        """Stop tracing
+        
+        """
+        super().trace_stop()
+        self.token_sampler.trace_stop()
+        self.token_replacer.trace_stop()

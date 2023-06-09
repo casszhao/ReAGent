@@ -95,6 +95,8 @@ def main():
     else:
         raise ValueError("Invalid approach_sample_replacing_token")
     
+    rationalizer.trace_start()
+
     # rationalization
     pos_rational = rationalizer.rationalize(input_ids, generated_input[:, input_ids.shape[1]])
 
@@ -113,7 +115,7 @@ def main():
     # output
 
     serialize_rational(
-        "rational_results/demo.json", 
+        "rationalization_results/demo.json", 
         -1, 
         input_ids[0], 
         target_id[0], 
@@ -125,8 +127,11 @@ def main():
             "message": "This is a demo output. [comments] is an optional field",
             "model": "gpt2-medium",
             "approach_type": approach_sample_replacing_token
-        }
+        },
+        trace_rationalizer=rationalizer
     )
+
+    rationalizer.trace_stop()
 
 if __name__ == '__main__':
     main()

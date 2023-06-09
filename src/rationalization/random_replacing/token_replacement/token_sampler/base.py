@@ -1,6 +1,7 @@
 import torch
+from utils.traceable import Traceable
 
-class TokenSampler():
+class TokenSampler(Traceable):
   """Base class for token samplers
 
   """
@@ -13,6 +14,6 @@ class TokenSampler():
 
   def sample(self, input: torch.Tensor) -> torch.Tensor:
     """Dummy sample
-    
+
     """
     raise NotImplementedError()

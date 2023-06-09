@@ -3,8 +3,9 @@ import math
 import torch
 
 from importance_score_evaluator import ImportanceScoreEvaluator
+from utils.traceable import Traceable
 
-class Rationalizer():
+class Rationalizer(Traceable):
     """Rationalizer
     
     """
@@ -27,3 +28,17 @@ class Rationalizer():
         pos_top_n = pos_sorted[:, :top_n]
 
         return pos_top_n
+
+    def trace_start(self) -> None:
+        """Start tracing
+        
+        """
+        super().trace_start()
+        self.importance_score_evaluator.trace_start()
+
+    def trace_stop(self) -> None:
+        """Stop tracing
+        
+        """
+        super().trace_stop()
+        self.importance_score_evaluator.trace_stop()

@@ -84,6 +84,48 @@
         "comments": {
             "description": "Additional comments",
             "type": "object"
+        },
+        "trace": {
+            "description": "Trace of the process",
+            "type": "object",
+            "properties": {
+                "importance-scores": {
+                    "description": "Trace of importance scores",
+                    "type": "array",
+                    "items": {
+                        "description": "One stage of importance scores",
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                        },
+                        "minItems": 1,
+                        "uniqueItems": false
+                    }
+                },
+                "target-likelihood-original": {
+                    "description": "Target likelihood with the original sequence",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "target-likelihood": {
+                    "description": "Trace of target likelihood with rational not replaced",
+                    "type": "array",
+                    "items": {
+                        "description": "One stage of target likelihood with rational not replaced",
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                    }
+                }
+            },
+            "required": [
+                "importance-scores",
+                "target-likelihood-original",
+                "target-likelihood"
+            ]
         }
     },
     "required": [

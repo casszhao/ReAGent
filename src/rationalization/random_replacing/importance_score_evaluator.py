@@ -1,10 +1,11 @@
 import torch
 from transformers import AutoTokenizer, AutoModelWithLMHead
+from utils.traceable import Traceable
 from stopping_condition_evaluator.base import StoppingConditionEvaluator
 
 from token_replacement.token_replacer.base import TokenReplacer
 
-class ImportanceScoreEvaluator():
+class ImportanceScoreEvaluator(Traceable):
     """Importance Score Evaluator
     
     """
@@ -24,6 +25,9 @@ class ImportanceScoreEvaluator():
         self.token_replacer = token_replacer
         self.stopping_condition_evaluator = stopping_condition_evaluator
         self.important_score = None
+
+        self.trace_importance_score = None
+        self.trace_target_likelihood_original = None
         pass
 
     def update_importance_score(self, logit_importance_score: torch.Tensor, input_ids: torch.Tensor, target_id: torch.Tensor, prob_original_target: torch.Tensor) -> torch.Tensor:
@@ -50,6 +54,7 @@ class ImportanceScoreEvaluator():
 
         logits_replaced = self.model(input_ids_replaced)['logits']
         prob_replaced_target = torch.softmax(logits_replaced[:, input_ids_replaced.shape[1] - 1, :], -1)[:, target_id]
+        self.trace_prob_original_target = prob_replaced_target
 
         # Compute changes delta = p^{(y)} - \hat{p^{(y)}}
 
@@ -80,6 +85,9 @@ class ImportanceScoreEvaluator():
         logits_original = self.model(input_ids)['logits']
         prob_original_target = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)[:, target_id]
 
+        if self.trace_target_likelihood_original != None:
+            self.trace_target_likelihood_original = prob_original_target
+
         # Initialize importance score s for each token in the sequence y_{1...t}
 
         logit_importance_score = torch.zeros(input_ids.shape, device=input_ids.device)
@@ -93,9 +101,29 @@ class ImportanceScoreEvaluator():
             logit_importance_score = self.update_importance_score(logit_importance_score, input_ids, target_id, prob_original_target)
 
             self.important_score = torch.softmax(logit_importance_score, -1)
+            if self.trace_importance_score != None:
+                self.trace_importance_score.append(self.important_score)
 
             # Evaluate stop condition
             if self.stopping_condition_evaluator.evaluate(input_ids, target_id, self.important_score):
                 break
 
         return torch.softmax(logit_importance_score, -1)
+    
+    def trace_start(self):
+        """Start tracing
+        
+        """
+        super().trace_start()
+        self.trace_importance_score = []
+        self.trace_target_likelihood_original = -1
+        self.stopping_condition_evaluator.trace_start()
+
+    def trace_stop(self):
+        """Stop tracing
+        
+        """
+        super().trace_stop()
+        self.trace_importance_score = None
+        self.trace_target_likelihood_original = None
+        self.stopping_condition_evaluator.trace_stop()
