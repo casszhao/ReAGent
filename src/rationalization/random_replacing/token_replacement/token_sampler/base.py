@@ -1,3 +1,4 @@
+from typing_extensions import override
 import torch
 from utils.traceable import Traceable
 
@@ -5,15 +6,15 @@ class TokenSampler(Traceable):
   """Base class for token samplers
 
   """
-
+  
+  @override
   def __init__(self) -> None:
-    """Constructor
+    """Base Constructor
     
     """
-    raise NotImplementedError("This is the base class for token sampler, please use an actual class (e.g. UniformTokenSampler)")
+    super().__init__()
 
   def sample(self, input: torch.Tensor) -> torch.Tensor:
-    """Dummy sample
+    """Base sample
 
     """
-    raise NotImplementedError()

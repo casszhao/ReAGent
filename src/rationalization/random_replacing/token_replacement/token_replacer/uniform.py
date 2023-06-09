@@ -1,5 +1,6 @@
 
 from typing import Union
+from typing_extensions import override
 import torch
 from .base import TokenReplacer
 from ..token_sampler.base import TokenSampler
@@ -9,6 +10,7 @@ class UniformTokenReplacer(TokenReplacer):
 
     """
 
+    @override
     def __init__(self, token_sampler: TokenSampler, ratio: float) -> None:
         """Constructor
 
@@ -18,8 +20,10 @@ class UniformTokenReplacer(TokenReplacer):
 
         """
         super().__init__(token_sampler)
+
         self.ratio = ratio
 
+    @override
     def sample(self, input: torch.Tensor) -> Union[torch.Tensor, torch.Tensor]:
         """Sample a sequence
 
@@ -31,6 +35,8 @@ class UniformTokenReplacer(TokenReplacer):
             mask_replacing: Identify which token has been replaced [batch, sequence]
 
         """
+        super().sample(input)
+
         sample_uniform = torch.rand(input.shape, device=input.device)
         mask_replacing = sample_uniform < self.ratio
 

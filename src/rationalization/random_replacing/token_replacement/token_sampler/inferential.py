@@ -1,3 +1,4 @@
+from typing_extensions import override
 import torch
 from .base import TokenSampler
 from transformers import AutoTokenizer, AutoModelWithLMHead
@@ -6,7 +7,8 @@ class InferentialTokenSampler(TokenSampler):
   """Sample tokens from a seq-2-seq model
 
   """
-  
+
+  @override
   def __init__(self, tokenizer: AutoTokenizer, model: AutoModelWithLMHead) -> None:
     """Constructor
 
@@ -15,9 +17,12 @@ class InferentialTokenSampler(TokenSampler):
       model: A Huggingface AutoModelWithLMHead for inference the output.
 
     """
+    super().__init__()
+
     self.tokenizer = tokenizer
     self.model = model
 
+  @override
   def sample(self, input: torch.Tensor) -> torch.Tensor:
     """Sample a tensor
 
@@ -28,6 +33,7 @@ class InferentialTokenSampler(TokenSampler):
       token_inferences: sampled (placement) tokens by inference
 
     """
+    super().sample(input)
 
     logits_replacing = self.model(input)['logits']
     ids_infer = torch.argmax(logits_replacing, dim=-1)

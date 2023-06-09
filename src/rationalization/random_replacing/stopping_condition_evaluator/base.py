@@ -7,13 +7,12 @@ class StoppingConditionEvaluator(Traceable):
     """
 
     def __init__(self):
-        """Dummy Constructor
+        """Base Constructor
         
         """
         self.trace_target_likelihood = []
 
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_score: torch.Tensor) -> bool:
-        """Dummy evaluate
+        """Base evaluate
         
         """
-        raise NotImplementedError()

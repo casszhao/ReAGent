@@ -1,5 +1,6 @@
 import math
 from typing import Union
+from typing_extensions import override
 import torch
 from .base import TokenReplacer
 from ..token_sampler.base import TokenSampler
@@ -8,7 +9,8 @@ class RankingTokenReplacer(TokenReplacer):
     """Replace tokens in a sequence based on top-N ranking
 
     """
-    
+
+    @override
     def __init__(self, token_sampler: TokenSampler, top_n: int = 0, top_n_ratio: float = 0, replace_greater: bool = False) -> None:
         """Constructor
 
@@ -20,6 +22,7 @@ class RankingTokenReplacer(TokenReplacer):
 
         """
         super().__init__(token_sampler)
+
         self.top_n = top_n
         self.top_n_ratio = top_n_ratio
         self.replace_greater = replace_greater
@@ -40,6 +43,7 @@ class RankingTokenReplacer(TokenReplacer):
         else:
             self.mask_replacing = torch.zeros(value.shape, device=value.device, dtype=torch.bool).scatter(-1, pos_top_n, 1)
 
+    @override
     def sample(self, input: torch.Tensor) -> Union[torch.Tensor, torch.Tensor]:
         """Sample a sequence
 
@@ -51,6 +55,7 @@ class RankingTokenReplacer(TokenReplacer):
             mask_replacing: Identify which token has been replaced [batch, sequence]
 
         """
+        super().sample(input)
 
         token_sampled = self.token_sampler.sample(input)
 

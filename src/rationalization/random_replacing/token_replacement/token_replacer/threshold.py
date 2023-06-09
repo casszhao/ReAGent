@@ -1,5 +1,6 @@
 
 from typing import Union
+from typing_extensions import override
 import torch
 from .base import TokenReplacer
 from ..token_sampler.base import TokenSampler
@@ -8,7 +9,8 @@ class ThresholdTokenReplacer(TokenReplacer):
     """Replace tokens in a sequence based on a threshold
 
     """
-    
+
+    @override
     def __init__(self, token_sampler: TokenSampler, threshold: float, replace_greater: bool = False) -> None:
         """Constructor
 
@@ -19,6 +21,7 @@ class ThresholdTokenReplacer(TokenReplacer):
 
         """
         super().__init__(token_sampler)
+
         self.threshold = threshold
         self.replace_greater = replace_greater
 
@@ -34,6 +37,7 @@ class ThresholdTokenReplacer(TokenReplacer):
         else:
             self.mask_replacing = value > self.threshold
 
+    @override
     def sample(self, input: torch.Tensor) -> Union[torch.Tensor, torch.Tensor]:
         """Sample a sequence
 
@@ -45,6 +49,7 @@ class ThresholdTokenReplacer(TokenReplacer):
             mask_replacing: Identify which token has been replaced [batch, sequence]
 
         """
+        super().sample(input)
 
         token_sampled = self.token_sampler.sample(input)
 

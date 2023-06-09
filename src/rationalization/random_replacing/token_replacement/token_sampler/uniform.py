@@ -1,3 +1,4 @@
+from typing_extensions import override
 import torch
 from .base import TokenSampler
 from transformers import AutoTokenizer
@@ -6,7 +7,8 @@ class UniformTokenSampler(TokenSampler):
   """Sample tokens from Uniform distribution
 
   """
-  
+
+  @override
   def __init__(self, tokenizer: AutoTokenizer) -> None:
     """Constructor
 
@@ -14,6 +16,8 @@ class UniformTokenSampler(TokenSampler):
       tokenizer: A Huggingface AutoTokenizer.
 
     """
+    super().__init__()
+
     self.tokenizer = tokenizer
 
     # masking tokens
@@ -26,7 +30,8 @@ class UniformTokenSampler(TokenSampler):
 
     # collect available tokens
     self.avail_tokens = torch.arange(tokenizer.vocab_size)[avail_mask != 0]
-
+  
+  @override
   def sample(self, input: torch.Tensor) -> torch.Tensor:
     """Sample a tensor
 
@@ -37,6 +42,8 @@ class UniformTokenSampler(TokenSampler):
       token_uniform: A sampled tensor where its shape is the same with the input
 
     """
+    super().sample(input)
+
     # sample idx form uniform distribution
     sample_uniform = torch.rand(input.shape, device=input.device)
     sample_uniform_idx = (sample_uniform * self.avail_tokens.shape[0]).type(torch.int32)

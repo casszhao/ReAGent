@@ -1,3 +1,4 @@
+from typing_extensions import override
 import torch
 from transformers import AutoTokenizer, AutoModelWithLMHead
 from utils.traceable import Traceable
@@ -20,6 +21,7 @@ class ImportanceScoreEvaluator(Traceable):
             stopping_condition_evaluator: A StoppingConditionEvaluator
 
         """
+
         self.model = model
         self.tokenizer = tokenizer
         self.token_replacer = token_replacer
@@ -28,7 +30,6 @@ class ImportanceScoreEvaluator(Traceable):
 
         self.trace_importance_score = None
         self.trace_target_likelihood_original = None
-        pass
 
     def update_importance_score(self, logit_importance_score: torch.Tensor, input_ids: torch.Tensor, target_id: torch.Tensor, prob_original_target: torch.Tensor) -> torch.Tensor:
         """Update importance score by one step
@@ -110,20 +111,24 @@ class ImportanceScoreEvaluator(Traceable):
 
         return torch.softmax(logit_importance_score, -1)
     
+    @override
     def trace_start(self):
         """Start tracing
         
         """
         super().trace_start()
+
         self.trace_importance_score = []
         self.trace_target_likelihood_original = -1
         self.stopping_condition_evaluator.trace_start()
 
+    @override
     def trace_stop(self):
         """Stop tracing
         
         """
         super().trace_stop()
+
         self.trace_importance_score = None
         self.trace_target_likelihood_original = None
         self.stopping_condition_evaluator.trace_stop()

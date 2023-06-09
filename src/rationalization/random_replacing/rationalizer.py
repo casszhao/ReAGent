@@ -1,5 +1,6 @@
 
 import math
+from typing_extensions import override
 import torch
 
 from importance_score_evaluator import ImportanceScoreEvaluator
@@ -29,16 +30,20 @@ class Rationalizer(Traceable):
 
         return pos_top_n
 
+    @override
     def trace_start(self) -> None:
         """Start tracing
         
         """
         super().trace_start()
+
         self.importance_score_evaluator.trace_start()
 
+    @override
     def trace_stop(self) -> None:
         """Stop tracing
         
         """
         super().trace_stop()
+
         self.importance_score_evaluator.trace_stop()
