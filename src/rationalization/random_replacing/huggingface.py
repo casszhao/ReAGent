@@ -27,11 +27,14 @@ def main():
     # batch with size 1
     input_string = [
         # "I love eating breakfast in the",
-        "When my flight landed in Thailand, I converted my currency and slowly fell asleep. I was staying in the capital city of"
+        "When my flight landed in Thailand. I was staying in the capital city of"
+        # "When my flight landed in Thailand, I converted my currency and slowly fell asleep. I was staying in the capital city of"
+        # "When my flight landed in Thailand, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital city of"
     ]
 
     # generate prediction 
     input_ids = tokenizer(input_string, return_tensors='pt')['input_ids'].to(model.device)
+    batch_input_ids = input_ids.repeat(5, 1)
     generated_input = model.generate(input_ids=input_ids, max_length=80, do_sample=False) 
     print(' generated input -->', [ [ tokenizer.decode(token) for token in seq] for seq in generated_input ])
 
@@ -129,11 +132,10 @@ def main():
     rationalizer.trace_start()
 
     # rationalization
-    pos_rational = rationalizer.rationalize(input_ids, generated_input[:, input_ids.shape[1]])
+    pos_rational = rationalizer.rationalize(batch_input_ids, generated_input[:, input_ids.shape[1]])
 
     # convert result (for 1st sequence in the batch)
-    ids_rational = input_ids[0, pos_rational[0]]
-    text_rational = [ tokenizer.decode([id_rational]) for id_rational in ids_rational ]
+
 
     print()
     print(f"========================")
@@ -141,7 +143,11 @@ def main():
     print(f'Input --> {input_string[0]}')
     print(f'Target --> {tokenizer.decode(target_id[0])}')
     print(f"Rational positions --> {pos_rational}")
-    print(f"Rational words --> {text_rational}")
+    print(f"Rational words -->")
+    for i in range(pos_rational.shape[0]):
+        ids_rational = input_ids[0, pos_rational[i]]
+        text_rational = [ tokenizer.decode([id_rational]) for id_rational in ids_rational ]
+        print(f"{text_rational}")
 
     # output
 

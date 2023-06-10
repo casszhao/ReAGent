@@ -43,7 +43,7 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
             importance_score: Importance score of the input [batch, sequence]
 
         Return:
-            Whether the stop condition achieved
+            Whether the stop condition achieved [batch]
 
         """
         super().evaluate(input_ids, target_id, importance_score)
@@ -70,11 +70,10 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
             print(top_k_words)
 
         match_mask = ids_prediction_top_k == target_id
-        match_hit = torch.sum(match_mask, dim=-1)
+        match_hit = torch.sum(match_mask, dim=-1, dtype=torch.bool)
 
-        # Stops only when all the samples in a batch completed
-        # TODO: optimization - stop/bypass part of the batch
-        return torch.prod(match_hit) > 0
+        # Stop flags for each sample in the batch
+        return match_hit
 
     @override
     def trace_start(self) -> None:

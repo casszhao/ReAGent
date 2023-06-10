@@ -81,6 +81,9 @@ class ImportanceScoreEvaluator(Traceable):
             importance_score: evaluated importance score for each token in the input [batch, sequence]
 
         """
+
+        self.stop_mask = torch.zeros([input_ids.shape[0]], dtype=torch.bool, device=input_ids.device)
+
         # Inference p^{(y)} = p(y_{t+1}|y_{1...t})
 
         logits_original = self.model(input_ids)['logits']
@@ -99,14 +102,16 @@ class ImportanceScoreEvaluator(Traceable):
         while True:
             
             # Update importance score
-            logit_importance_score = self.update_importance_score(logit_importance_score, input_ids, target_id, prob_original_target)
+            logit_importance_score_update = self.update_importance_score(logit_importance_score, input_ids, target_id, prob_original_target)
+            logit_importance_score = ~torch.unsqueeze(self.stop_mask, 1) * logit_importance_score_update + torch.unsqueeze(self.stop_mask, 1) * logit_importance_score
 
             self.important_score = torch.softmax(logit_importance_score, -1)
             if self.trace_importance_score != None:
                 self.trace_importance_score.append(self.important_score)
 
             # Evaluate stop condition
-            if self.stopping_condition_evaluator.evaluate(input_ids, target_id, self.important_score):
+            self.stop_mask = self.stopping_condition_evaluator.evaluate(input_ids, target_id, self.important_score)
+            if torch.prod(self.stop_mask) > 0:
                 break
 
         return torch.softmax(logit_importance_score, -1)
