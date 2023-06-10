@@ -1,5 +1,6 @@
 import torch
 from importance_score_evaluator import ImportanceScoreEvaluator
+from token_replacement.token_sampler.postag import POSTagTokenSampler
 from utils.serializing import serialize_rational
 from token_replacement.token_sampler.inferential import InferentialTokenSampler
 from rationalizer import Rationalizer
@@ -50,6 +51,7 @@ def main():
     
     approach_sample_replacing_token = "uniform"
     # approach_sample_replacing_token = "inference"
+    # approach_sample_replacing_token = "postag"
 
     # prepare rationalizer
     if approach_sample_replacing_token == "uniform":
@@ -85,6 +87,27 @@ def main():
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=InferentialTokenSampler(tokenizer=tokenizer, model=model), 
+                    top_k=top_k, 
+                    top_n_ratio=top_n_ratio, 
+                    tokenizer=tokenizer
+                )
+            ), 
+            top_n_ratio=top_n_ratio
+        )
+    elif approach_sample_replacing_token == "postag":
+        # Approach 3: sample replacing token from uniform distribution on a set of words with the same POS tag
+        ts = POSTagTokenSampler(tokenizer=tokenizer, device=input_ids.device) # Initialize POSTagTokenSampler takes time so share it
+        rationalizer = Rationalizer(
+            importance_score_evaluator=ImportanceScoreEvaluator(
+                model=model, 
+                tokenizer=tokenizer, 
+                token_replacer=UniformTokenReplacer(
+                    token_sampler=ts, 
+                    ratio=replacing_ratio
+                ),
+                stopping_condition_evaluator=TopKStoppingConditionEvaluator(
+                    model=model, 
+                    token_sampler=ts, 
                     top_k=top_k, 
                     top_n_ratio=top_n_ratio, 
                     tokenizer=tokenizer
