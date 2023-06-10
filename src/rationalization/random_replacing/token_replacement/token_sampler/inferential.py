@@ -4,40 +4,40 @@ from .base import TokenSampler
 from transformers import AutoTokenizer, AutoModelWithLMHead
 
 class InferentialTokenSampler(TokenSampler):
-  """Sample tokens from a seq-2-seq model
-
-  """
-
-  @override
-  def __init__(self, tokenizer: AutoTokenizer, model: AutoModelWithLMHead) -> None:
-    """Constructor
-
-    Args:
-      tokenizer: A Huggingface AutoTokenizer.
-      model: A Huggingface AutoModelWithLMHead for inference the output.
+    """Sample tokens from a seq-2-seq model
 
     """
-    super().__init__()
 
-    self.tokenizer = tokenizer
-    self.model = model
+    @override
+    def __init__(self, tokenizer: AutoTokenizer, model: AutoModelWithLMHead) -> None:
+        """Constructor
 
-  @override
-  def sample(self, input: torch.Tensor) -> torch.Tensor:
-    """Sample a tensor
+        Args:
+            tokenizer: A Huggingface AutoTokenizer.
+            model: A Huggingface AutoModelWithLMHead for inference the output.
 
-    Args:
-      input: input tensor [batch, sequence]
-    
-    Returns:
-      token_inferences: sampled (placement) tokens by inference
+        """
+        super().__init__()
 
-    """
-    super().sample(input)
+        self.tokenizer = tokenizer
+        self.model = model
 
-    logits_replacing = self.model(input)['logits']
-    ids_infer = torch.argmax(logits_replacing, dim=-1)
+    @override
+    def sample(self, input: torch.Tensor) -> torch.Tensor:
+        """Sample a tensor
 
-    token_inferences = torch.cat([ input[:, 0:1], ids_infer[:, :-1] ], dim=1)
+        Args:
+            input: input tensor [batch, sequence]
+        
+        Returns:
+            token_inferences: sampled (placement) tokens by inference
 
-    return token_inferences
+        """
+        super().sample(input)
+
+        logits_replacing = self.model(input)['logits']
+        ids_infer = torch.argmax(logits_replacing, dim=-1)
+
+        token_inferences = torch.cat([ input[:, 0:1], ids_infer[:, :-1] ], dim=1)
+
+        return token_inferences
