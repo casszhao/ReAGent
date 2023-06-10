@@ -31,7 +31,7 @@ def main():
 
     # generate prediction 
     input_ids = tokenizer(input_string, return_tensors='pt')['input_ids'].to(model.device)
-    generated_input = model.generate(input_ids=input_ids, max_length=8, do_sample=False) 
+    generated_input = model.generate(input_ids=input_ids, max_length=80, do_sample=False) 
     print(' generated input -->', [ [ tokenizer.decode(token) for token in seq] for seq in generated_input ])
 
     # extract target from prediction
@@ -41,11 +41,12 @@ def main():
     # ======== hyper-parameters ========
 
     # replacing ratio during importance score updating
-    replacing_ratio = 0.5
+    updating_replacing_ratio = 0.3
     # keep top n word based on importance score for both stop condition evaluation and rationalization
-    top_n_ratio = 0.5
+    rational_size_ratio = None
+    rational_size = 5
     # stop when target exist in top k predictions
-    top_k = 3
+    stop_condition_tolerance = 3
 
     # ======== rationalization ========
     
@@ -62,17 +63,19 @@ def main():
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
                     token_sampler=UniformTokenSampler(tokenizer), 
-                    ratio=replacing_ratio
+                    ratio=updating_replacing_ratio
                 ),
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=UniformTokenSampler(tokenizer), 
-                    top_k=top_k, 
-                    top_n_ratio=top_n_ratio, 
+                    top_k=stop_condition_tolerance, 
+                    top_n=rational_size, 
+                    top_n_ratio=rational_size_ratio, 
                     tokenizer=tokenizer
                 )
             ), 
-            top_n_ratio=top_n_ratio
+            top_n=rational_size, 
+            top_n_ratio=rational_size_ratio
         )
     elif approach_sample_replacing_token == "inference":
         # Approach 2: sample replacing token from model inference
@@ -82,17 +85,19 @@ def main():
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
                     token_sampler=InferentialTokenSampler(tokenizer=tokenizer, model=model), 
-                    ratio=replacing_ratio
+                    ratio=updating_replacing_ratio
                 ),
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=InferentialTokenSampler(tokenizer=tokenizer, model=model), 
-                    top_k=top_k, 
-                    top_n_ratio=top_n_ratio, 
+                    top_k=stop_condition_tolerance, 
+                    top_n=rational_size, 
+                    top_n_ratio=rational_size_ratio, 
                     tokenizer=tokenizer
                 )
             ), 
-            top_n_ratio=top_n_ratio
+            top_n=rational_size, 
+            top_n_ratio=rational_size_ratio
         )
     elif approach_sample_replacing_token == "postag":
         # Approach 3: sample replacing token from uniform distribution on a set of words with the same POS tag
@@ -103,17 +108,19 @@ def main():
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
                     token_sampler=ts, 
-                    ratio=replacing_ratio
+                    ratio=updating_replacing_ratio
                 ),
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=ts, 
-                    top_k=top_k, 
-                    top_n_ratio=top_n_ratio, 
+                    top_k=stop_condition_tolerance, 
+                    top_n=rational_size, 
+                    top_n_ratio=rational_size_ratio, 
                     tokenizer=tokenizer
                 )
             ), 
-            top_n_ratio=top_n_ratio
+            top_n=rational_size, 
+            top_n_ratio=rational_size_ratio
         )
     else:
         raise ValueError("Invalid approach_sample_replacing_token")
