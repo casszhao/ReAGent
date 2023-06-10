@@ -26,7 +26,8 @@ def main():
 
     # batch with size 1
     input_string = [
-        "I love eating breakfast out the"
+        # "I love eating breakfast in the",
+        "When my flight landed in Thailand, I converted my currency and slowly fell asleep. I was staying in the capital city of"
     ]
 
     # generate prediction 
