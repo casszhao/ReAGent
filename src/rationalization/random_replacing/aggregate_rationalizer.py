@@ -11,20 +11,26 @@ class AggregateRationalizer(Traceable):
     
     """
 
-    def __init__(self, importance_score_evaluator: ImportanceScoreEvaluator, batch_size: int, occurrence_threshold: int, top_n: float = 0, top_n_ratio: float = 0) -> None:
+    def __init__(self, importance_score_evaluator: ImportanceScoreEvaluator, batch_size: int, overlap_threshold: int, overlap_strict_pos: bool = True, top_n: float = 0, top_n_ratio: float = 0) -> None:
         """Constructor
 
         Args:
             importance_score_evaluator: A ImportanceScoreEvaluator
+            batch_size: Batch size for aggregate
+            overlap_threshold: Overlap threshold of rational tokens within a batch
+            overlap_strict_pos: Whether overlap strict to position ot not
             top_n: Rational size
             top_n_ratio: Use ratio of sequence to define rational size
 
         """
         self.importance_score_evaluator = importance_score_evaluator
         self.batch_size = batch_size
-        self.occurrence_threshold = occurrence_threshold
+        self.overlap_threshold = overlap_threshold
+        self.overlap_strict_pos = overlap_strict_pos
         self.top_n = top_n
         self.top_n_ratio = top_n_ratio
+
+        assert overlap_strict_pos == True, "overlap_strict_pos = False not been supported yet"
 
     def rationalize(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
         """Compute rational of a sequence on a target
@@ -37,6 +43,8 @@ class AggregateRationalizer(Traceable):
             pos_top_n: rational position in the sequence [batch, rational_size]
 
         """
+        assert input_ids.shape[0] == 1, "the first dimension of input (batch_size) need to be 1"
+
         batch_input_ids = input_ids.repeat(self.batch_size, 1)
 
         importance_score = self.importance_score_evaluator.evaluate(batch_input_ids, target_id)
@@ -48,13 +56,20 @@ class AggregateRationalizer(Traceable):
 
         if top_n == 0:
             top_n = int(math.ceil(self.top_n_ratio * input_ids.shape[-1]))
-            
+
         pos_top_n = pos_sorted[:, :top_n]
 
-        count_occurrence = torch.bincount(pos_top_n.flatten(), minlength=input_ids.shape[1])
-        pos_top_n = torch.unsqueeze(torch.nonzero(count_occurrence >= self.occurrence_threshold, as_tuple=True)[0], 0)
-
-        return pos_top_n
+        if self.overlap_strict_pos:
+            count_overlap = torch.bincount(pos_top_n.flatten(), minlength=input_ids.shape[1])
+            pos_top_n_overlap = torch.unsqueeze(torch.nonzero(count_overlap >= self.overlap_threshold, as_tuple=True)[0], 0)
+            return pos_top_n_overlap
+        else:
+            token_id_top_n = input_ids[0, pos_top_n]
+            count_overlap = torch.bincount(token_id_top_n.flatten(), minlength=input_ids.shape[1])
+            token_id_top_n_overlap = torch.unsqueeze(torch.nonzero(count_overlap >= self.overlap_threshold, as_tuple=True)[0], 0)
+            # TODO: Convert back to pos
+            raise NotImplementedError("TODO")
+            
 
     @override
     def trace_start(self) -> None:
@@ -125,6 +140,13 @@ def main():
     # stop when target exist in top k predictions
     stop_condition_tolerance = 5
 
+    # Batch size for aggregate
+    aggregate_batch_size = 5
+    # Overlap threshold of rational tokens within a batch
+    overlap_threshold = 3
+    # Whether overlap strict to position ot not
+    overlap_strict_pos = True
+
     # ======== rationalization ========
     
     approach_sample_replacing_token = "uniform"
@@ -151,8 +173,9 @@ def main():
                     tokenizer=tokenizer
                 )
             ), 
-            batch_size=5,
-            occurrence_threshold=3,
+            batch_size=aggregate_batch_size,
+            overlap_threshold=overlap_threshold,
+            overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
             top_n_ratio=rational_size_ratio
         )
@@ -175,8 +198,9 @@ def main():
                     tokenizer=tokenizer
                 )
             ), 
-            batch_size=5,
-            occurrence_threshold=3,
+            batch_size=aggregate_batch_size,
+            overlap_threshold=overlap_threshold,
+            overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
             top_n_ratio=rational_size_ratio
         )
@@ -200,8 +224,9 @@ def main():
                     tokenizer=tokenizer
                 )
             ), 
-            batch_size=5,
-            occurrence_threshold=3,
+            batch_size=aggregate_batch_size,
+            overlap_threshold=overlap_threshold,
+            overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
             top_n_ratio=rational_size_ratio
         )
