@@ -48,8 +48,8 @@ class ImportanceScoreEvaluator(Traceable):
 
         input_ids_replaced, mask_replacing = self.token_replacer.sample(input_ids)
 
-        print(f"Replacing mask:     { [ mask_replacing[0, i].item() for i in range(mask_replacing.shape[1]) ] }")
-        print(f"Replaced sequence:  { [ self.tokenizer.decode(input_ids_replaced[0, i]) for i in range(input_ids_replaced.shape[1]) ] }")
+        print(f"Replacing mask:     { mask_replacing }")
+        print(f"Replaced sequence:  { [[ self.tokenizer.decode(seq[i]) for i in range(input_ids_replaced.shape[1]) ] for seq in input_ids_replaced ] }")
         
         # Inference \hat{p^{(y)}} = p(y_{t+1}|\hat{y_{1...t}})
 
@@ -110,7 +110,7 @@ class ImportanceScoreEvaluator(Traceable):
                 self.trace_importance_score.append(self.important_score)
 
             # Evaluate stop condition
-            self.stop_mask = self.stopping_condition_evaluator.evaluate(input_ids, target_id, self.important_score)
+            self.stop_mask = self.stop_mask | self.stopping_condition_evaluator.evaluate(input_ids, target_id, self.important_score)
             if torch.prod(self.stop_mask) > 0:
                 break
 
