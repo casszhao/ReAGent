@@ -213,8 +213,7 @@ def main():
     # rationalization
     pos_rational = rationalizer.rationalize(input_ids, generated_input[:, input_ids.shape[1]])
 
-    # convert result (for 1st sequence in the batch)
-
+    # convert results
 
     print()
     print(f"========================")
