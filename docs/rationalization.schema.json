@@ -5,6 +5,7 @@
     "type": "object",
     "properties": {
         "id": {
+            "description": "Result ID",
             "type": "number",
             "minimum": -1
         },
