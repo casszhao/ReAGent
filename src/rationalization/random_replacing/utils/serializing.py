@@ -43,12 +43,14 @@ def serialize_rational(
         "input-tokens": [i.item() for i in token_inputs],
         "target-text": tokenizer.decode([token_target]),
         "target-token": token_target.item(),
-        "importance-scores": [i.item() for i in important_score],
         "rational-size": position_rational.shape[0],
         "rational-positions": [i.item() for i in position_rational],
         "rational-text": [tokenizer.decode([i]) for i in token_inputs[position_rational]],
         "rational-tokens": [i.item() for i in token_inputs[position_rational]],
     }
+
+    if important_score != None:
+        data["importance-scores"] = [i.item() for i in important_score]
 
     if comments:
         data["comments"] = comments

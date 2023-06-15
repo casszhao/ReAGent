@@ -198,7 +198,7 @@ if __name__ == "__main__":
         output_filename = os.path.join(output_dir, filename)
         serialize_rational(
             output_filename,
-            -1, 
+            data["id"], 
             input_tokens[0], 
             target_token[0], 
             pos_rational[0], 
@@ -206,6 +206,7 @@ if __name__ == "__main__":
             rationalizer.importance_score_evaluator.important_score[0],
             compact=False,
             comments= {
+                "created-by": os.path.basename(__file__),
                 "args" : args.__dict__
             },
             # trace_rationalizer=rationalizer # Enable trace logs
