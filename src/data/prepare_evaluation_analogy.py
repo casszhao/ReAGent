@@ -102,8 +102,8 @@ for analogy_idx, (analogy_label, analogy_config) in enumerate(all_analogies.item
             data = {
                 "$schema": schema_uri,
                 "id": data_id,
-                "input-text": full_sentence_list,
-                "input-tokens": full_ids_list,
+                "text": full_sentence_list,
+                "tokens": full_ids_list,
                 "target": target_pos.item(),
                 "relative": relative_pos.item(),
                 "distractor": {

@@ -9,8 +9,8 @@
             "type": "number",
             "minimum": -1
         },
-        "input-text": {
-            "description": "Text corresponding to input-tokens",
+        "text": {
+            "description": "Text corresponding to tokens",
             "type": "array",
             "items": {
                 "type": "string"
@@ -18,8 +18,8 @@
             "minItems": 1,
             "uniqueItems": false
         },
-        "input-tokens": {
-            "description": "Tokens of the input sequence",
+        "tokens": {
+            "description": "Tokens of the sequence",
             "type": "array",
             "items": {
                 "type": "number",
