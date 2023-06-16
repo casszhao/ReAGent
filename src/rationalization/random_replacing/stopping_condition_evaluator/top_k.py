@@ -1,3 +1,4 @@
+import logging
 from typing_extensions import override
 import torch
 from .base import StoppingConditionEvaluator
@@ -22,7 +23,7 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
             top_n: Top n tokens based on importance_score are not been replaced during the prediction inference.
                 top_n_ratio will be used if top_n has been set to 0
             top_n_ratio: Use ratio of input length to control the top n
-            tokenizer: (Optional) Used for print out top_k_words at each step
+            tokenizer: (Optional) Used for logging top_k_words at each step
 
         """
         super().__init__()
@@ -53,7 +54,7 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
         self.token_replacer.set_score(importance_score)
         input_ids_replaced, mask_replacing = self.token_replacer.sample(input_ids)
 
-        print(f"Replacing mask based on importance score: { mask_replacing }")
+        logging.debug(f"Replacing mask based on importance score -> { mask_replacing }")
 
         # Whether the result \hat{y^{(e)}_{t+1}} consistent with y_{t+1}
 
@@ -67,7 +68,7 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
 
         if self.tokenizer:
             top_k_words = [ [ self.tokenizer.decode([token_id]) for token_id in seq] for seq in ids_prediction_top_k ]
-            print(top_k_words)
+            logging.debug(f"Top K words -> {top_k_words}")
 
         match_mask = ids_prediction_top_k == target_id
         match_hit = torch.sum(match_mask, dim=-1, dtype=torch.bool)

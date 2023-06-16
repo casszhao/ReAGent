@@ -1,5 +1,6 @@
 import argparse
 import json
+import logging
 import os
 import time
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -173,7 +174,7 @@ if __name__ == "__main__":
         tokens = torch.unsqueeze(torch.tensor(data['tokens']), 0)
         input_tokens = tokens[:, :data["target"]]
         target_token = tokens[:, data["target"]]
-        print(filename)
+        logging.info(f"Rationalizing {filename} ...")
 
         # rationalizer.trace_start()
 
@@ -183,21 +184,21 @@ if __name__ == "__main__":
             pos_rational = rationalizer.rationalize(input_tokens, target_token)
             time_end = time.time()
             time_elapsed = time_end - time_start
-            print(f"rationalization done in {time_elapsed}")
+            logging.info(f"Rationalization done in {time_elapsed}")
 
         # convert results
 
-        print()
-        print(f"========================")
-        print()
-        print(f'Input --> {tokenizer.decode(input_tokens[0])}')
-        print(f'Target --> {tokenizer.decode(target_token[0])}')
-        print(f"Rational positions --> {pos_rational}")
-        print(f"Rational words -->")
+        logging.info("")
+        logging.info(f"========================")
+        logging.info("")
+        logging.info(f'Input --> {tokenizer.decode(input_tokens[0])}')
+        logging.info(f'Target --> {tokenizer.decode(target_token[0])}')
+        logging.info(f"Rational positions --> {pos_rational}")
+        logging.info(f"Rational words -->")
         for i in range(pos_rational.shape[0]):
             ids_rational = tokens[0, pos_rational[i]]
             text_rational = [ tokenizer.decode([id_rational]) for id_rational in ids_rational ]
-            print(f"{text_rational}")
+            logging.info(f"{text_rational}")
 
         # output
         output_filename = os.path.join(output_dir, filename)
@@ -220,4 +221,4 @@ if __name__ == "__main__":
         
         # rationalizer.trace_stop()
 
-        print(f'{filename} done.')
+        logging.info(f'{filename} done.')

@@ -1,3 +1,4 @@
+import logging
 from typing_extensions import override
 import torch
 from transformers import AutoTokenizer, AutoModelWithLMHead
@@ -48,8 +49,8 @@ class ImportanceScoreEvaluator(Traceable):
 
         input_ids_replaced, mask_replacing = self.token_replacer.sample(input_ids)
 
-        print(f"Replacing mask:     { mask_replacing }")
-        print(f"Replaced sequence:  { [[ self.tokenizer.decode(seq[i]) for i in range(input_ids_replaced.shape[1]) ] for seq in input_ids_replaced ] }")
+        logging.debug(f"Replacing mask:     { mask_replacing }")
+        logging.debug(f"Replaced sequence:  { [[ self.tokenizer.decode(seq[i]) for i in range(input_ids_replaced.shape[1]) ] for seq in input_ids_replaced ] }")
         
         # Inference \hat{p^{(y)}} = p(y_{t+1}|\hat{y_{1...t}})
 
@@ -60,13 +61,13 @@ class ImportanceScoreEvaluator(Traceable):
         # Compute changes delta = p^{(y)} - \hat{p^{(y)}}
 
         delta_prob_target = prob_original_target - prob_replaced_target
-        print(f"likelihood delta: { delta_prob_target }")
+        logging.debug(f"likelihood delta: { delta_prob_target }")
 
         # Update importance scores based on delta (magnitude) and replacement (direction)
 
         delta_score = mask_replacing * delta_prob_target + ~mask_replacing * -delta_prob_target
         logit_importance_score = logit_importance_score + delta_score
-        print(f"Updated importance score: { torch.softmax(logit_importance_score, -1) }")
+        logging.debug(f"Updated importance score: { torch.softmax(logit_importance_score, -1) }")
 
         return logit_importance_score
 
@@ -95,8 +96,7 @@ class ImportanceScoreEvaluator(Traceable):
         # Initialize importance score s for each token in the sequence y_{1...t}
 
         logit_importance_score = torch.zeros(input_ids.shape, device=input_ids.device)
-        print(f"Initialize importance score:  { torch.softmax(logit_importance_score, -1) }")
-        print()
+        logging.debug(f"Initialize importance score:  { torch.softmax(logit_importance_score, -1) }")
 
         # TODO: limit max steps
         while True:

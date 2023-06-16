@@ -2,6 +2,7 @@
 import argparse
 import csv
 import json
+import logging
 import os
 
 import torch
@@ -55,7 +56,7 @@ if __name__ == "__main__":
 
         path_data = os.path.join(data_dir, filename)
         if not os.path.exists(path_data):
-            print(f"[Warning] {path_data} not found. Skipping ground truth.")
+            logging.warning(f"[Warning] {path_data} not found. Skipping ground truth.")
         else:
             with open(path_data) as f:
                 data = json.load(f)
@@ -77,7 +78,7 @@ if __name__ == "__main__":
 
         path_baseline = os.path.join(baseline_dir, filename)
         if not os.path.exists(path_baseline):
-            print(f"[Warning] {path_baseline} not found. Skipping baseline.")
+            logging.warning(f"[Warning] {path_baseline} not found. Skipping baseline.")
         else:
             with open(path_baseline) as f:
                 result_baseline = json.load(f)
@@ -93,10 +94,10 @@ if __name__ == "__main__":
     ratio_contain_relative = torch.mean(torch.tensor(contain_relatives, dtype=torch.float))
     mean_baseline_approximation_ratio = torch.mean(torch.tensor(baseline_approximation_ratios, dtype=torch.float))
 
-    print(f"Mean rational size: {mean_rational_size}")
-    print(f"Ratio no distractor: {ratio_no_distractor}")
-    print(f"Ratio contain relative: {ratio_contain_relative}")
-    print(f"Mean baseline approximation ratio: {mean_baseline_approximation_ratio}")
+    logging.info(f"Mean rational size: {mean_rational_size}")
+    logging.info(f"Ratio no distractor: {ratio_no_distractor}")
+    logging.info(f"Ratio contain relative: {ratio_contain_relative}")
+    logging.info(f"Mean baseline approximation ratio: {mean_baseline_approximation_ratio}")
 
     with open(output_path, "w", newline="") as csv_f:
         writer = csv.writer(csv_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)

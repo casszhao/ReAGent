@@ -1,5 +1,6 @@
 import argparse
 import json
+import logging
 import os
 
 import torch
@@ -127,4 +128,4 @@ for analogy_idx, (analogy_label, analogy_config) in enumerate(all_analogies.item
                 f_output.write(json_str)
 
             data_id += 1
-            print(data_id)
+            logging.info(f"done {data_id}")

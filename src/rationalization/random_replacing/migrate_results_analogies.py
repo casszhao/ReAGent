@@ -1,6 +1,7 @@
 
 import argparse
 import json
+import logging
 import os
 
 import torch
@@ -48,7 +49,7 @@ if __name__ == "__main__":
 
         result_old_path = os.path.join(input_dir, f"{analogy_idx}_{pair_idx}.json")
         if not os.path.exists(result_old_path):
-            print(f"[Warning] {result_old_path} not found. Skipping {filename}")
+            logging.warning(f"[Warning] {result_old_path} not found. Skipping {filename}")
             continue
 
         with open(result_old_path) as result_old_f:
@@ -71,4 +72,4 @@ if __name__ == "__main__":
             # trace_rationalizer=rationalizer # Enable trace logs
         )
 
-        print(filename)
+        logging.info(filename)
