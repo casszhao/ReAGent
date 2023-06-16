@@ -59,7 +59,7 @@ if __name__ == "__main__":
                         type=int,
                         default=5,
                         help="keep top n word based on importance score for both stop condition evaluation and rationalization")
-    parser.add_argument("--stop-condition-tolerance", 
+    parser.add_argument("--stopping-condition-tolerance", 
                         type=int,
                         default=5,
                         help="stop when target exist in top k predictions")
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     rational_size_ratio = args.rational_size_ratio
     rational_size = args.rational_size
     # stop when target exist in top k predictions
-    stop_condition_tolerance = args.stop_condition_tolerance
+    stopping_condition_tolerance = args.stopping_condition_tolerance
 
     # Batch size for aggregate
     aggregate_batch_size = args.aggregate_batch_size
@@ -125,7 +125,7 @@ if __name__ == "__main__":
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=token_sampler, 
-                    top_k=stop_condition_tolerance, 
+                    top_k=stopping_condition_tolerance, 
                     top_n=rational_size, 
                     top_n_ratio=rational_size_ratio, 
                     tokenizer=tokenizer
@@ -146,7 +146,7 @@ if __name__ == "__main__":
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=token_sampler, 
-                    top_k=stop_condition_tolerance, 
+                    top_k=stopping_condition_tolerance, 
                     top_n=rational_size, 
                     top_n_ratio=rational_size_ratio, 
                     tokenizer=tokenizer
