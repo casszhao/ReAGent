@@ -24,7 +24,8 @@ python src/data/prepare_evaluation_analogy.py \
     --analogies-file data/analogies.txt \
     --output-dir data/analogies \
     --compact-output True \
-    --schema-uri ../../docs/analogy.schema.json 
+    --schema-uri ../../docs/analogy.schema.json \
+    --device cuda
 
 # Run rationalization task
 mkdir -p rationalization_results/analogies/gpt2-medium.sampling.uniform
