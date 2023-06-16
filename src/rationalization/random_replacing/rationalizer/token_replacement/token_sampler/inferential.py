@@ -1,7 +1,9 @@
-from typing_extensions import override
 import torch
+from transformers import AutoModelWithLMHead, AutoTokenizer
+from typing_extensions import override
+
 from .base import TokenSampler
-from transformers import AutoTokenizer, AutoModelWithLMHead
+
 
 class InferentialTokenSampler(TokenSampler):
     """Sample tokens from a seq-2-seq model

@@ -1,41 +1,56 @@
 
 import math
-from typing_extensions import override
+
 import torch
+from .base import BaseRationalizer
+from rationalizer.importance_score.evaluator import ImportanceScoreEvaluator
+from typing_extensions import override
 
-from importance_score_evaluator import ImportanceScoreEvaluator
-from utils.traceable import Traceable
 
-class Rationalizer(Traceable):
-    """Rationalizer
+class AggregateRationalizer(BaseRationalizer):
+    """AggregateRationalizer
     
     """
 
-    def __init__(self, importance_score_evaluator: ImportanceScoreEvaluator, top_n: float = 0, top_n_ratio: float = 0) -> None:
+    def __init__(self, importance_score_evaluator: ImportanceScoreEvaluator, batch_size: int, overlap_threshold: int, overlap_strict_pos: bool = True, top_n: float = 0, top_n_ratio: float = 0) -> None:
         """Constructor
 
         Args:
             importance_score_evaluator: A ImportanceScoreEvaluator
+            batch_size: Batch size for aggregate
+            overlap_threshold: Overlap threshold of rational tokens within a batch
+            overlap_strict_pos: Whether overlap strict to position ot not
             top_n: Rational size
             top_n_ratio: Use ratio of sequence to define rational size
 
         """
-        self.importance_score_evaluator = importance_score_evaluator
+        super().__init__(importance_score_evaluator)
+
+        self.batch_size = batch_size
+        self.overlap_threshold = overlap_threshold
+        self.overlap_strict_pos = overlap_strict_pos
         self.top_n = top_n
         self.top_n_ratio = top_n_ratio
+
+        assert overlap_strict_pos == True, "overlap_strict_pos = False not been supported yet"
 
     def rationalize(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
         """Compute rational of a sequence on a target
 
         Args:
-            input_ids: The sequence [batch, sequence]
+            input_ids: The sequence [batch, sequence] (first dimension need to be 1)
             target_id: The target [batch]
 
         Return:
             pos_top_n: rational position in the sequence [batch, rational_size]
 
         """
-        importance_score = self.importance_score_evaluator.evaluate(input_ids, target_id)
+        assert input_ids.shape[0] == 1, "the first dimension of input (batch_size) need to be 1"
+
+        batch_input_ids = input_ids.repeat(self.batch_size, 1)
+
+        importance_score = self.importance_score_evaluator.evaluate(batch_input_ids, target_id)
+        self.importance_score_mean = torch.mean(importance_score, dim=0)
         
         pos_sorted = torch.argsort(importance_score, dim=-1, descending=True)
 
@@ -43,10 +58,20 @@ class Rationalizer(Traceable):
 
         if top_n == 0:
             top_n = int(math.ceil(self.top_n_ratio * input_ids.shape[-1]))
-            
+
         pos_top_n = pos_sorted[:, :top_n]
 
-        return pos_top_n
+        if self.overlap_strict_pos:
+            count_overlap = torch.bincount(pos_top_n.flatten(), minlength=input_ids.shape[1])
+            pos_top_n_overlap = torch.unsqueeze(torch.nonzero(count_overlap >= self.overlap_threshold, as_tuple=True)[0], 0)
+            return pos_top_n_overlap
+        else:
+            token_id_top_n = input_ids[0, pos_top_n]
+            count_overlap = torch.bincount(token_id_top_n.flatten(), minlength=input_ids.shape[1])
+            token_id_top_n_overlap = torch.unsqueeze(torch.nonzero(count_overlap >= self.overlap_threshold, as_tuple=True)[0], 0)
+            # TODO: Convert back to pos
+            raise NotImplementedError("TODO")
+            
 
     @override
     def trace_start(self) -> None:
@@ -66,20 +91,24 @@ class Rationalizer(Traceable):
 
         self.importance_score_evaluator.trace_stop()
 
+
 @torch.no_grad()
 def main():
 
-    from transformers import AutoTokenizer, AutoModelWithLMHead
-    from importance_score_evaluator import ImportanceScoreEvaluator
-    from token_replacement.token_sampler.postag import POSTagTokenSampler
-    from utils.serializing import serialize_rational
-    from token_replacement.token_sampler.inferential import InferentialTokenSampler
-    from stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
-    from token_replacement.token_sampler.uniform import UniformTokenSampler
+    from stopping_condition_evaluator.top_k import \
+        TopKStoppingConditionEvaluator
     from token_replacement.token_replacer.uniform import UniformTokenReplacer
+    from token_replacement.token_sampler.inferential import \
+        InferentialTokenSampler
+    from token_replacement.token_sampler.postag import POSTagTokenSampler
+    from token_replacement.token_sampler.uniform import UniformTokenSampler
+    from transformers import AutoModelWithLMHead, AutoTokenizer
+
+    from rationalization.random_replacing.rationalizer.importance_score.evaluator import \
+        ImportanceScoreEvaluator
+    from utils.serializing import serialize_rational
 
     # ======== model loading ========
-
     # Load model from Hugging Face
     model = AutoModelWithLMHead.from_pretrained("gpt2-medium")
     tokenizer = AutoTokenizer.from_pretrained("gpt2-medium")
@@ -116,6 +145,13 @@ def main():
     # stop when target exist in top k predictions
     stop_condition_tolerance = 5
 
+    # Batch size for aggregate
+    aggregate_batch_size = 5
+    # Overlap threshold of rational tokens within a batch
+    overlap_threshold = 3
+    # Whether overlap strict to position ot not
+    overlap_strict_pos = True
+
     # ======== rationalization ========
     
     approach_sample_replacing_token = "uniform"
@@ -125,7 +161,7 @@ def main():
     # prepare rationalizer
     if approach_sample_replacing_token == "uniform":
         # Approach 1: sample replacing token from uniform distribution
-        rationalizer = Rationalizer(
+        rationalizer = AggregateRationalizer(
             importance_score_evaluator=ImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
@@ -142,12 +178,15 @@ def main():
                     tokenizer=tokenizer
                 )
             ), 
+            batch_size=aggregate_batch_size,
+            overlap_threshold=overlap_threshold,
+            overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
             top_n_ratio=rational_size_ratio
         )
     elif approach_sample_replacing_token == "inference":
         # Approach 2: sample replacing token from model inference
-        rationalizer = Rationalizer(
+        rationalizer = AggregateRationalizer(
             importance_score_evaluator=ImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
@@ -164,13 +203,16 @@ def main():
                     tokenizer=tokenizer
                 )
             ), 
+            batch_size=aggregate_batch_size,
+            overlap_threshold=overlap_threshold,
+            overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
             top_n_ratio=rational_size_ratio
         )
     elif approach_sample_replacing_token == "postag":
         # Approach 3: sample replacing token from uniform distribution on a set of words with the same POS tag
         ts = POSTagTokenSampler(tokenizer=tokenizer, device=input_ids.device) # Initialize POSTagTokenSampler takes time so share it
-        rationalizer = Rationalizer(
+        rationalizer = AggregateRationalizer(
             importance_score_evaluator=ImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
@@ -187,6 +229,9 @@ def main():
                     tokenizer=tokenizer
                 )
             ), 
+            batch_size=aggregate_batch_size,
+            overlap_threshold=overlap_threshold,
+            overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
             top_n_ratio=rational_size_ratio
         )

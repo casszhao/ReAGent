@@ -4,19 +4,18 @@ import logging
 import os
 import sys
 import time
-from transformers import AutoTokenizer, AutoModelForCausalLM
 
 import torch
-from aggregate_rationalizer import AggregateRationalizer
-from utils.serializing import serialize_rational
-from token_replacement.token_replacer.uniform import UniformTokenReplacer
-from importance_score_evaluator import ImportanceScoreEvaluator
-from rationalizer import Rationalizer
-from stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
-from token_replacement.token_sampler.inferential import InferentialTokenSampler
-from token_replacement.token_sampler.postag import POSTagTokenSampler
-from token_replacement.token_sampler.uniform import UniformTokenSampler
-
+from rationalizer.aggregate_rationalizer import AggregateRationalizer
+from rationalizer.importance_score.evaluator import ImportanceScoreEvaluator
+from rationalizer.sample_rationalizer import SampleRationalizer
+from rationalizer.stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
+from rationalizer.token_replacement.token_replacer.uniform import UniformTokenReplacer
+from rationalizer.token_replacement.token_sampler.inferential import InferentialTokenSampler
+from rationalizer.token_replacement.token_sampler.postag import POSTagTokenSampler
+from rationalizer.token_replacement.token_sampler.uniform import UniformTokenSampler
+from rationalizer.utils.serializing import serialize_rational
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 if __name__ == "__main__":
     
@@ -138,7 +137,7 @@ if __name__ == "__main__":
         raise ValueError(f"Invalid replacement_sampling: {replacement_sampling_type}")
     
     if rationalizer_type == "sampling":
-        rationalizer = Rationalizer(
+        rationalizer = SampleRationalizer(
             importance_score_evaluator=ImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 

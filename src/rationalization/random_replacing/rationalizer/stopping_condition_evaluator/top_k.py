@@ -1,10 +1,13 @@
 import logging
-from typing_extensions import override
+
 import torch
+from transformers import AutoModelWithLMHead, AutoTokenizer
+from typing_extensions import override
+
+from ..token_replacement.token_replacer.ranking import RankingTokenReplacer
+from ..token_replacement.token_sampler.base import TokenSampler
 from .base import StoppingConditionEvaluator
-from token_replacement.token_sampler.base import TokenSampler
-from token_replacement.token_replacer.ranking import RankingTokenReplacer
-from transformers import AutoTokenizer, AutoModelWithLMHead
+
 
 class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
     """

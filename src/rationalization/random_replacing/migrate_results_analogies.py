@@ -6,7 +6,7 @@ import os
 
 import torch
 
-from utils.serializing import serialize_rational
+from rationalizer.utils.serializing import serialize_rational
 from transformers import AutoTokenizer
 
 

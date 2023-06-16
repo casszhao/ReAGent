@@ -1,11 +1,13 @@
 import logging
-from typing_extensions import override
-import torch
-from transformers import AutoTokenizer, AutoModelWithLMHead
-from utils.traceable import Traceable
-from stopping_condition_evaluator.base import StoppingConditionEvaluator
 
-from token_replacement.token_replacer.base import TokenReplacer
+import torch
+from transformers import AutoModelWithLMHead, AutoTokenizer
+from typing_extensions import override
+
+from ..stopping_condition_evaluator.base import StoppingConditionEvaluator
+from ..token_replacement.token_replacer.base import TokenReplacer
+from ..utils.traceable import Traceable
+
 
 class ImportanceScoreEvaluator(Traceable):
     """Importance Score Evaluator

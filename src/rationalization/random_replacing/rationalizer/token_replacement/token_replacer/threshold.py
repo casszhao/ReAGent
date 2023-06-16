@@ -1,9 +1,12 @@
 
 from typing import Union
-from typing_extensions import override
+
 import torch
-from .base import TokenReplacer
+from typing_extensions import override
+
 from ..token_sampler.base import TokenSampler
+from .base import TokenReplacer
+
 
 class ThresholdTokenReplacer(TokenReplacer):
     """Replace tokens in a sequence based on a threshold

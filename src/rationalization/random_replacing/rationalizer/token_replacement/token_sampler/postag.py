@@ -1,9 +1,10 @@
-from typing_extensions import override
+import nltk
 import torch
 from transformers import AutoTokenizer
-import nltk
+from typing_extensions import override
 
 from .base import TokenSampler
+
 
 class POSTagTokenSampler(TokenSampler):
     """Sample tokens from Uniform distribution on a set of words with the same POS tag

@@ -1,8 +1,11 @@
 from typing import Union
-from typing_extensions import override
+
 import torch
+from typing_extensions import override
+
+from ...utils.traceable import Traceable
 from ..token_sampler.base import TokenSampler
-from utils.traceable import Traceable
+
 
 class TokenReplacer(Traceable):
     """

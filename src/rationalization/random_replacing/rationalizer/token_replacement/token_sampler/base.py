@@ -1,6 +1,8 @@
-from typing_extensions import override
 import torch
-from utils.traceable import Traceable
+from typing_extensions import override
+
+from ...utils.traceable import Traceable
+
 
 class TokenSampler(Traceable):
     """Base class for token samplers

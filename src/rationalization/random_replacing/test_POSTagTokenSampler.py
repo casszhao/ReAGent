@@ -1,5 +1,5 @@
 from transformers import AutoTokenizer
-from token_replacement.token_sampler.postag import POSTagTokenSampler
+from rationalizer.token_replacement.token_sampler.postag import POSTagTokenSampler
 
 if __name__ == "__main__":
     

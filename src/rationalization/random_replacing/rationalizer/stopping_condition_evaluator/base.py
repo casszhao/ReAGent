@@ -1,5 +1,7 @@
 import torch
-from utils.traceable import Traceable
+
+from ..utils.traceable import Traceable
+
 
 class StoppingConditionEvaluator(Traceable):
     """Base class for Stopping Condition Evaluators

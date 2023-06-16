@@ -1,8 +1,9 @@
 import json
+
 import torch
 from transformers import AutoTokenizer
 
-from rationalizer import Rationalizer
+from ..base import BaseRationalizer
 
 
 def serialize_rational(
@@ -15,7 +16,7 @@ def serialize_rational(
     important_score: torch.Tensor,
     comments: dict = None,
     compact: bool = False,
-    trace_rationalizer: Rationalizer = None,
+    trace_rationalizer: BaseRationalizer = None,
     trace_batch_idx: int = 0,
     schema_file: str = "../docs/rationalization.schema.json"
 ) -> None:
