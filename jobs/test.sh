@@ -30,7 +30,7 @@ python src/data/prepare_evaluation_analogy.py \
 # Run rationalization task
 mkdir -p rationalization_results/analogies/gpt2-medium.sampling.uniform
 mkdir -p logs/analogies/gpt2-medium.sampling.uniform
-python src/rationalization/random_replacing/run_anallogies.py \
+python src/rationalization/random_replacing/run_analogies.py \
     --replacement-sampling uniform \
     --rationalizer sampling \
     --model gpt2-medium \
