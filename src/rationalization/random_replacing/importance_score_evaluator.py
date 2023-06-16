@@ -31,6 +31,7 @@ class ImportanceScoreEvaluator(Traceable):
 
         self.trace_importance_score = None
         self.trace_target_likelihood_original = None
+        self.num_steps = 0
 
     def update_importance_score(self, logit_importance_score: torch.Tensor, input_ids: torch.Tensor, target_id: torch.Tensor, prob_original_target: torch.Tensor) -> torch.Tensor:
         """Update importance score by one step
@@ -96,10 +97,12 @@ class ImportanceScoreEvaluator(Traceable):
         # Initialize importance score s for each token in the sequence y_{1...t}
 
         logit_importance_score = torch.zeros(input_ids.shape, device=input_ids.device)
-        logging.debug(f"Initialize importance score:  { torch.softmax(logit_importance_score, -1) }")
+        logging.debug(f"Initialize importance score -> { torch.softmax(logit_importance_score, -1) }")
 
         # TODO: limit max steps
+        self.num_steps = 0
         while True:
+            self.num_steps += 1
             
             # Update importance score
             logit_importance_score_update = self.update_importance_score(logit_importance_score, input_ids, target_id, prob_original_target)
@@ -113,6 +116,8 @@ class ImportanceScoreEvaluator(Traceable):
             self.stop_mask = self.stop_mask | self.stopping_condition_evaluator.evaluate(input_ids, target_id, self.important_score)
             if torch.prod(self.stop_mask) > 0:
                 break
+        
+        logging.info(f"Importance score evaluated in {self.num_steps} steps.")
 
         return torch.softmax(logit_importance_score, -1)
     
