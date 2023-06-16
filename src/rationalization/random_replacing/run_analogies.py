@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import time
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 import torch
@@ -178,7 +179,11 @@ if __name__ == "__main__":
 
         # rationalization
         with torch.no_grad():
+            time_start = time.time()
             pos_rational = rationalizer.rationalize(input_tokens, target_token)
+            time_end = time.time()
+            time_elapsed = time_end - time_start
+            print(f"rationalization done in {time_elapsed}")
 
         # convert results
 
@@ -207,7 +212,8 @@ if __name__ == "__main__":
             compact=False,
             comments= {
                 "created-by": os.path.basename(__file__),
-                "args" : args.__dict__
+                "args" : args.__dict__,
+                "time_elapsed": time_elapsed
             },
             # trace_rationalizer=rationalizer # Enable trace logs
         )
