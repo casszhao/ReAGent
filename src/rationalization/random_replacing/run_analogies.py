@@ -2,6 +2,7 @@ import argparse
 import json
 import logging
 import os
+import sys
 import time
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
@@ -77,9 +78,30 @@ if __name__ == "__main__":
                         type=bool,
                         default=True,
                         help="Whether overlap strict to position ot not")
+    parser.add_argument("--logfile", 
+                        type=str,
+                        default=None,
+                        help="Logfile location to output")
     args = parser.parse_args()
 
+    # setup logging system
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
+    
+    if args.logfile:
+        file_handler = logging.FileHandler(args.logfile)
+        file_handler.setLevel(logging.INFO)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
 
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.setLevel(logging.INFO)
+    stdout_handler.setFormatter(formatter)
+    logger.addHandler(stdout_handler)
+
+
+    # parameters
     replacement_sampling_type = args.replacement_sampling
     rationalizer_type = args.rationalizer
     data_dir = args.data_dir

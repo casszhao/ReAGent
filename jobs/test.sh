@@ -28,6 +28,7 @@ python src/data/prepare_evaluation_analogy.py \
 
 # Run rationalization task
 mkdir -p rationalization_results/analogies/gpt2-medium.sampling.uniform
+mkdir -p logs/analogies/gpt2-medium.sampling.uniform
 python src/rationalization/random_replacing/run_anallogies.py \
     --replacement-sampling uniform \
     --rationalizer sampling \
@@ -41,7 +42,8 @@ python src/rationalization/random_replacing/run_anallogies.py \
     --stopping-condition-tolerance 5 \
     --aggregate-batch-size 5 \
     --aggregate-overlap-threshold 3 \
-    --aggregate-overlap-strict-pos True 
+    --aggregate-overlap-strict-pos True \
+    --logfile logs/analogies/gpt2-medium.sampling.uniform/test.log \
 
 # Migrate baseline results (Only need to be done once for each approach)
 # mkdir -p rationalization_results/analogies/gpt2-medium.last_attention
