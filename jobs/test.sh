@@ -6,16 +6,17 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=16G
 #SBATCH --output=output.%j.test.out
-#SBATCH --time=08:00:00
-#SBATCH --mail-user=username@sheffield.ac.uk
+#SBATCH --time=24:00:00
+#SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
 # Load modules & activate env
 
 module load Anaconda3/2022.10
-module load cuDNN/8.0.4.30-CUDA-11.1.1
+module load CUDA/11.7.0
 
 # Activate env
-source activate seq_rarionales      # via conda
+eval "$(conda shell.bash hook)"
+source activate seq      # via conda
 # source .venv/bin/activate           # via venv
 
 # Generate evaluation data set (Only need to be done once)
