@@ -8,9 +8,11 @@ import time
 import torch
 from rationalizer.aggregate_rationalizer import AggregateRationalizer
 from rationalizer.importance_score_evaluator.delta_prob import DeltaProbImportanceScoreEvaluator
+from rationalizer.importance_score_evaluator.bayesian_opti import BayesianOptimizationImportanceScoreEvaluator
 from rationalizer.sample_rationalizer import SampleRationalizer
 from rationalizer.stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
 from rationalizer.token_replacement.token_replacer.uniform import UniformTokenReplacer
+from rationalizer.token_replacement.token_replacer.ranking import RankingTokenReplacer
 from rationalizer.token_replacement.token_sampler.inferential import InferentialTokenSampler
 from rationalizer.token_replacement.token_sampler.postag import POSTagTokenSampler
 from rationalizer.token_replacement.token_sampler.uniform import UniformTokenSampler
@@ -28,6 +30,10 @@ if __name__ == "__main__":
                         type=str,
                         default="sampling",
                         help="[sampling, aggregate]") # TODO
+    parser.add_argument("--evaluator", 
+                        type=str,
+                        default="bayesian-opti",
+                        help="[delta-prob, bayesian-opti]") # TODO
     parser.add_argument("--model", 
                         type=str,
                         default="gpt2-medium",
@@ -77,6 +83,10 @@ if __name__ == "__main__":
                         type=bool,
                         default=True,
                         help="Whether overlap strict to position ot not")
+    parser.add_argument("--bayesian-num-samples", 
+                        type=int,
+                        default=30,
+                        help="Number of samples for bayesian-opti")
     parser.add_argument("--logfile", 
                         type=str,
                         default=None,
@@ -102,6 +112,7 @@ if __name__ == "__main__":
 
     # parameters
     replacement_sampling_type = args.replacement_sampling
+    evaluator_type = args.evaluator
     rationalizer_type = args.rationalizer
     data_dir = args.data_dir
     output_dir = args.output_dir
@@ -122,6 +133,9 @@ if __name__ == "__main__":
     # Whether overlap strict to position ot not
     overlap_strict_pos = args.aggregate_overlap_strict_pos
 
+    # Number of sample for bayesian-opti
+    bayesian_num_samples = args.bayesian_num_samples
+
     
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
     model = AutoModelForCausalLM.from_pretrained(args.model)
@@ -137,8 +151,8 @@ if __name__ == "__main__":
         raise ValueError(f"Invalid replacement_sampling: {replacement_sampling_type}")
     
     if rationalizer_type == "sampling":
-        rationalizer = SampleRationalizer(
-            importance_score_evaluator=DeltaProbImportanceScoreEvaluator(
+        if evaluator_type == 'delta-prob':
+            importance_score_evaluator = DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
@@ -153,11 +167,36 @@ if __name__ == "__main__":
                     top_n_ratio=rational_size_ratio, 
                     tokenizer=tokenizer
                 )
-            ), 
+            )
+        elif evaluator_type == 'bayesian-opti':
+            importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
+                model=model, 
+                tokenizer=tokenizer, 
+                token_replacer=RankingTokenReplacer(
+                    token_sampler=token_sampler, 
+                    top_n=rational_size, 
+                    top_n_ratio=rational_size_ratio, 
+                ),
+                stopping_condition_evaluator=TopKStoppingConditionEvaluator(
+                    model=model, 
+                    token_sampler=token_sampler, 
+                    top_k=stopping_condition_tolerance, 
+                    top_n=rational_size, 
+                    top_n_ratio=rational_size_ratio, 
+                    tokenizer=tokenizer
+                ),
+                num_samples=bayesian_num_samples
+            )
+        else:
+            raise ValueError(f"Invalid evaluator-type: {evaluator_type}")
+        rationalizer = SampleRationalizer(
+            importance_score_evaluator=importance_score_evaluator, 
             top_n=rational_size, 
             top_n_ratio=rational_size_ratio
         )
     elif rationalizer_type == "aggregate":
+        assert evaluator_type == 'delta-prob' 'aggregate rationalizer require delta-prob evaluator'
+
         rationalizer = AggregateRationalizer(
             importance_score_evaluator=DeltaProbImportanceScoreEvaluator(
                 model=model, 
