@@ -3,7 +3,7 @@ import math
 
 import torch
 from .base import BaseRationalizer
-from rationalizer.importance_score.evaluator import ImportanceScoreEvaluator
+from rationalizer.importance_score_evaluator.base import BaseImportanceScoreEvaluator
 from typing_extensions import override
 
 
@@ -12,7 +12,7 @@ class SampleRationalizer(BaseRationalizer):
     
     """
 
-    def __init__(self, importance_score_evaluator: ImportanceScoreEvaluator, top_n: float = 0, top_n_ratio: float = 0) -> None:
+    def __init__(self, importance_score_evaluator: BaseImportanceScoreEvaluator, top_n: float = 0, top_n_ratio: float = 0) -> None:
         """Constructor
 
         Args:
@@ -80,8 +80,8 @@ def main():
     from token_replacement.token_sampler.uniform import UniformTokenSampler
     from transformers import AutoModelWithLMHead, AutoTokenizer
 
-    from rationalization.random_replacing.rationalizer.importance_score.evaluator import \
-        ImportanceScoreEvaluator
+    from rationalization.random_replacing.rationalizer.importance_score_evaluator.delta_prob import \
+        DeltaProbImportanceScoreEvaluator
     from utils.serializing import serialize_rational
 
     # ======== model loading ========
@@ -131,7 +131,7 @@ def main():
     if approach_sample_replacing_token == "uniform":
         # Approach 1: sample replacing token from uniform distribution
         rationalizer = SampleRationalizer(
-            importance_score_evaluator=ImportanceScoreEvaluator(
+            importance_score_evaluator=DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
@@ -153,7 +153,7 @@ def main():
     elif approach_sample_replacing_token == "inference":
         # Approach 2: sample replacing token from model inference
         rationalizer = SampleRationalizer(
-            importance_score_evaluator=ImportanceScoreEvaluator(
+            importance_score_evaluator=DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
@@ -176,7 +176,7 @@ def main():
         # Approach 3: sample replacing token from uniform distribution on a set of words with the same POS tag
         ts = POSTagTokenSampler(tokenizer=tokenizer, device=input_ids.device) # Initialize POSTagTokenSampler takes time so share it
         rationalizer = SampleRationalizer(
-            importance_score_evaluator=ImportanceScoreEvaluator(
+            importance_score_evaluator=DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(

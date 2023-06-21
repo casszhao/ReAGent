@@ -7,7 +7,7 @@ import time
 
 import torch
 from rationalizer.aggregate_rationalizer import AggregateRationalizer
-from rationalizer.importance_score.evaluator import ImportanceScoreEvaluator
+from rationalizer.importance_score_evaluator.delta_prob import DeltaProbImportanceScoreEvaluator
 from rationalizer.sample_rationalizer import SampleRationalizer
 from rationalizer.stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
 from rationalizer.token_replacement.token_replacer.uniform import UniformTokenReplacer
@@ -85,17 +85,17 @@ if __name__ == "__main__":
 
     # setup logging system
     logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
     if args.logfile:
         file_handler = logging.FileHandler(args.logfile)
-        file_handler.setLevel(logging.INFO)
+        file_handler.setLevel(logging.DEBUG)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
     stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setLevel(logging.INFO)
+    stdout_handler.setLevel(logging.DEBUG)
     stdout_handler.setFormatter(formatter)
     logger.addHandler(stdout_handler)
 
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     
     if rationalizer_type == "sampling":
         rationalizer = SampleRationalizer(
-            importance_score_evaluator=ImportanceScoreEvaluator(
+            importance_score_evaluator=DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
@@ -159,7 +159,7 @@ if __name__ == "__main__":
         )
     elif rationalizer_type == "aggregate":
         rationalizer = AggregateRationalizer(
-            importance_score_evaluator=ImportanceScoreEvaluator(
+            importance_score_evaluator=DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
