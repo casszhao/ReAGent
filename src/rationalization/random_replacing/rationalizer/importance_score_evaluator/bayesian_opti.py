@@ -45,14 +45,16 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
             logit_importance_score: updated importance score in logistic scale [1]
 
         """
-        # TODO: test
+        # TODO: WIP
 
+        # TODO: move imports to the beginning
         from botorch import fit_fully_bayesian_model_nuts
         from botorch.acquisition import qExpectedImprovement
         from botorch.models.fully_bayesian import SaasFullyBayesianSingleTaskGP
         from botorch.models.transforms import Standardize
         from botorch.optim import optimize_acqf
 
+        # TODO: use config
         N_ITERATIONS = 5
         SMOKE_TEST = True
         WARMUP_STEPS = 256 if not SMOKE_TEST else 32
@@ -61,6 +63,7 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
 
         for i in range(N_ITERATIONS):
             opti_target = -1 * delta_prob_targets  # Flip the sign since we want to minimize f(x)
+            # See: https://botorch.org/api/models.html#botorch.models.fully_bayesian.SaasFullyBayesianSingleTaskGP
             gp = SaasFullyBayesianSingleTaskGP(
                 train_X=logit_importance_scores,
                 train_Y=opti_target,
@@ -74,8 +77,10 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
                     disable_progbar=True,
                 )
 
+        # Maybe?: https://botorch.org/api/acquisition.html#botorch.acquisition.monte_carlo.qExpectedImprovement
         ei = qExpectedImprovement(model=gp, best_f=opti_target.max())
         # FIXME: dim matching issue
+        # Maybe?: https://botorch.org/api/optim.html#botorch.optim.optimize.optimize_acqf
         candidates, acq_values = optimize_acqf(
             ei,
             bounds=torch.cat((torch.ones(1, opti_target.shape[1]) * -1000, torch.ones(1, opti_target.shape[1]) * 1000)).to(opti_target.device),
@@ -84,6 +89,7 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
             raw_samples=1024,
         )
 
+        # pick candidates
         logit_importance_score = candidates[0]
         return logit_importance_score
 
