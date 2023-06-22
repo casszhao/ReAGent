@@ -1,0 +1,142 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Rational results",
+    "description": "Rational results from experiments",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Result ID",
+            "type": "number",
+            "minimum": -1
+        },
+        "input-text": {
+            "description": "Text corresponding to input-tokens",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "input-tokens": {
+            "description": "Tokens of the input sequence",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "minimum": 0
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "target-text": {
+            "description": "Text corresponding to target-token",
+            "type": "string"
+        },
+        "target-token": {
+            "description": "Target token to predict from the input sequence",
+            "type": "number",
+            "minimum": 0
+        },
+        "importance-scores": {
+            "description": "Importance scores of each token in the input sequence",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "rational-size": {
+            "description": "Size of the rational. Define how many items in the rational-tokens.",
+            "type": "number",
+            "minimum": 1
+        },
+        "rational-positions": {
+            "description": "Positions of tokens of input which included in the rational",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "minimum": 0
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "rational-text": {
+            "description": "Text corresponding to rational-tokens",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "rational-tokens": {
+            "description": "Tokens included in the rational",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "minimum": 0
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "comments": {
+            "description": "Additional comments",
+            "type": "object"
+        },
+        "trace": {
+            "description": "Trace of the process",
+            "type": "object",
+            "properties": {
+                "importance-scores": {
+                    "description": "Trace of importance scores",
+                    "type": "array",
+                    "items": {
+                        "description": "One stage of importance scores",
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                        },
+                        "minItems": 1,
+                        "uniqueItems": false
+                    }
+                },
+                "target-likelihood-original": {
+                    "description": "Target likelihood with the original sequence",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "target-likelihood": {
+                    "description": "Trace of target likelihood with rational not replaced",
+                    "type": "array",
+                    "items": {
+                        "description": "One stage of target likelihood with rational not replaced",
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                    }
+                }
+            },
+            "required": [
+                "importance-scores",
+                "target-likelihood-original",
+                "target-likelihood"
+            ]
+        }
+    },
+    "required": [
+        "input-text",
+        "input-tokens",
+        "target-text",
+        "target-token",
+        "rational-size",
+        "rational-positions",
+        "rational-text",
+        "rational-tokens"
+    ]
+}

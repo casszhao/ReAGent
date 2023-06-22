@@ -1,0 +1,73 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Analogies",
+    "description": "Analogies for metric evaluation",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Sample ID",
+            "type": "number",
+            "minimum": -1
+        },
+        "text": {
+            "description": "Text corresponding to tokens",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "tokens": {
+            "description": "Tokens of the sequence",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "minimum": 0
+            },
+            "minItems": 1,
+            "uniqueItems": false
+        },
+        "target": {
+            "description": "Target position to predict from the input sequence",
+            "type": "number",
+            "minimum": 0
+        },
+        "relative": {
+            "description": "Antecedent position that related to the target",
+            "type": "number",
+            "minimum": 0
+        },
+        "distractor": {
+            "description": "Information related to the distractor",
+            "type": "object",
+            "properties": {
+                "start": {
+                    "description": "Starting position of the distractor",
+                    "type": "number",
+                    "minimum": 0
+                },
+                "end": {
+                    "description": "Ending position of the distractor",
+                    "type": "number",
+                    "minimum": 0
+                }
+            },
+            "required": [
+                "start",
+                "end"
+            ]
+        },
+        "comments": {
+            "description": "Comments",
+            "type": "object"
+        }
+    },
+    "required": [
+        "input-text",
+        "input-tokens",
+        "target",
+        "relative",
+        "distractor"
+    ]
+}

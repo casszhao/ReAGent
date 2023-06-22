@@ -23,5 +23,10 @@ huggingface/rationalization_results
 huggingface/__pycache__
 
 
+__pycache__
 .vscode
 .venv
+__pycache__
+data/*
+rationalization_results
+evaluation_results
