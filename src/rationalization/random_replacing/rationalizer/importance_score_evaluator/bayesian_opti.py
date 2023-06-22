@@ -60,7 +60,6 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
         THINNING = 16
 
         for i in range(N_ITERATIONS):
-            # FIXME: dim matching issue
             opti_target = -1 * delta_prob_targets  # Flip the sign since we want to minimize f(x)
             gp = SaasFullyBayesianSingleTaskGP(
                 train_X=logit_importance_scores,
@@ -75,16 +74,17 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
                     disable_progbar=True,
                 )
 
-            ei = qExpectedImprovement(model=gp, best_f=opti_target.max())
-            candidates, acq_values = optimize_acqf(
-                ei,
-                bounds=torch.cat((torch.ones(1, opti_target.shape[1]) * -1000, torch.ones(1, opti_target.shape[1]) * 1000)).to(opti_target.device),
-                q=1,
-                num_restarts=10,
-                raw_samples=1024,
-            )
+        ei = qExpectedImprovement(model=gp, best_f=opti_target.max())
+        # FIXME: dim matching issue
+        candidates, acq_values = optimize_acqf(
+            ei,
+            bounds=torch.cat((torch.ones(1, opti_target.shape[1]) * -1000, torch.ones(1, opti_target.shape[1]) * 1000)).to(opti_target.device),
+            q=1,
+            num_restarts=10,
+            raw_samples=1024,
+        )
 
-            logit_importance_score = candidates[0]
+        logit_importance_score = candidates[0]
         return logit_importance_score
 
     def expand_samples(self, input_ids, target_id, prob_original_target):
