@@ -6,10 +6,10 @@ from typing_extensions import override
 
 from ..stopping_condition_evaluator.base import StoppingConditionEvaluator
 from ..token_replacement.token_replacer.base import TokenReplacer
-from ..utils.traceable import Traceable
+from .base import BaseImportanceScoreEvaluator
 
 
-class ImportanceScoreEvaluator(Traceable):
+class DeltaProbImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
     """Importance Score Evaluator
     
     """
