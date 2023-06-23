@@ -81,9 +81,13 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
         ei = qExpectedImprovement(model=gp, best_f=opti_target.max())
         # FIXME: dim matching issue
         # Maybe?: https://botorch.org/api/optim.html#botorch.optim.optimize.optimize_acqf
+
+        upper_bounds = torch.ones(1, opti_target.shape[1]) * -1000
+        bottom_bountds = torch.ones(1, opti_target.shape[1]) * 1000
+
         candidates, acq_values = optimize_acqf(
             ei,
-            bounds=torch.cat((torch.ones(1, opti_target.shape[1]) * -1000, torch.ones(1, opti_target.shape[1]) * 1000)).to(opti_target.device),
+            bounds=torch.cat(upper_bounds, bottom_bountds).to(opti_target.device),
             q=1,
             num_restarts=10,
             raw_samples=1024,
