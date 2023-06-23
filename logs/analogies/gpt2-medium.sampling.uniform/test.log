@@ -1,0 +1,162 @@
+2023-06-16 15:42:26,446 [INFO] Rationalizing 0.json ...
+2023-06-16 15:43:35,906 [INFO] Rationalizing 0.json ...
+2023-06-16 15:44:11,579 [INFO] Rationalizing 0.json ...
+2023-06-18 16:04:51,109 [INFO] Rationalizing 0.json ...
+2023-06-18 16:53:57,343 [INFO] Rationalizing 0.json ...
+2023-06-18 16:55:26,892 [INFO] Rationalizing 0.json ...
+2023-06-18 18:11:47,048 [INFO] Importance score evaluated in 31031 steps.
+2023-06-18 18:11:47,050 [INFO] Rationalization done in 4580.157092809677
+2023-06-18 18:11:47,050 [INFO] 
+2023-06-18 18:11:47,050 [INFO] ========================
+2023-06-18 18:11:47,051 [INFO] 
+2023-06-18 18:11:47,051 [INFO] Input --> When my flight landed in Greece, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-06-18 18:11:47,051 [INFO] Target -->  Athens
+2023-06-18 18:11:47,051 [INFO] Rational positions --> tensor([[18, 30, 11,  3,  5]])
+2023-06-18 18:11:47,051 [INFO] Rational words -->
+2023-06-18 18:11:47,051 [INFO] [' had', ' story', ' and', ' landed', ' Greece']
+2023-06-18 18:11:47,061 [INFO] 0.json done.
+2023-06-18 18:11:47,089 [INFO] Rationalizing 1.json ...
+2023-06-19 00:03:25,334 [INFO] Importance score evaluated in 26427 steps.
+2023-06-19 00:03:25,355 [INFO] Rationalization done in 28714.23688364029
+2023-06-19 00:03:25,355 [INFO] 
+2023-06-19 00:03:25,355 [INFO] ========================
+2023-06-19 00:03:25,355 [INFO] 
+2023-06-19 00:03:25,355 [INFO] Input --> When my flight landed in Greece, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-06-19 00:03:25,355 [INFO] Target -->  Athens
+2023-06-19 00:03:25,356 [INFO] Rational positions --> tensor([[36, 39, 38, 40, 41]])
+2023-06-19 00:03:25,356 [INFO] Rational words -->
+2023-06-19 00:03:25,356 [INFO] [' was', ' the', ' in', ' capital', ',']
+2023-06-19 00:03:25,435 [INFO] 0.json done.
+2023-06-19 00:03:25,457 [INFO] Rationalizing 1.json ...
+2023-06-19 01:56:07,830 [INFO] Importance score evaluated in 6229 steps.
+2023-06-19 01:56:07,856 [INFO] Rationalization done in 6762.399628400803
+2023-06-19 01:56:07,856 [INFO] 
+2023-06-19 01:56:07,856 [INFO] ========================
+2023-06-19 01:56:07,857 [INFO] 
+2023-06-19 01:56:07,857 [INFO] Input --> When my flight landed in Iraq, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-06-19 01:56:07,857 [INFO] Target -->  Baghdad
+2023-06-19 01:56:07,857 [INFO] Rational positions --> tensor([[15, 40, 16, 41,  2]])
+2023-06-19 01:56:07,857 [INFO] Rational words -->
+2023-06-19 01:56:07,857 [INFO] ['.', ' capital', ' (', ',', ' flight']
+2023-06-19 01:56:07,879 [INFO] 1.json done.
+2023-06-19 01:56:07,904 [INFO] Rationalizing 10.json ...
+2023-06-19 11:57:11,496 [INFO] Importance score evaluated in 33103 steps.
+2023-06-19 11:57:11,517 [INFO] Rationalization done in 36063.61285972595
+2023-06-19 11:57:11,517 [INFO] 
+2023-06-19 11:57:11,517 [INFO] ========================
+2023-06-19 11:57:11,517 [INFO] 
+2023-06-19 11:57:11,517 [INFO] Input --> When my flight landed in Afghanistan, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-06-19 11:57:11,517 [INFO] Target -->  Kabul
+2023-06-19 11:57:11,518 [INFO] Rational positions --> tensor([[35,  5, 32, 22, 23]])
+2023-06-19 11:57:11,518 [INFO] Rational words -->
+2023-06-19 11:57:11,518 [INFO] [' I', ' Afghanistan', ' another', ' about', ' my']
+2023-06-19 11:57:11,538 [INFO] 10.json done.
+2023-06-19 11:57:11,556 [INFO] Rationalizing 100.json ...
+2023-06-19 12:34:14,776 [INFO] Importance score evaluated in 2009 steps.
+2023-06-19 12:34:14,777 [INFO] Rationalization done in 2223.2202270030975
+2023-06-19 12:34:14,777 [INFO] 
+2023-06-19 12:34:14,777 [INFO] ========================
+2023-06-19 12:34:14,777 [INFO] 
+2023-06-19 12:34:14,777 [INFO] Input --> I thought it would be the darkest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 12:34:14,777 [INFO] Target -->  dark
+2023-06-19 12:34:14,777 [INFO] Rational positions --> tensor([[38,  6, 12, 40, 41]])
+2023-06-19 12:34:14,777 [INFO] Rational words -->
+2023-06-19 12:34:14,778 [INFO] [' it', ' darkest', '.', "'t", ' so']
+2023-06-19 12:34:14,785 [INFO] 100.json done.
+2023-06-19 12:34:14,816 [INFO] Rationalizing 101.json ...
+2023-06-19 12:42:01,422 [INFO] Importance score evaluated in 403 steps.
+2023-06-19 12:42:01,422 [INFO] Rationalization done in 466.60538387298584
+2023-06-19 12:42:01,422 [INFO] 
+2023-06-19 12:42:01,422 [INFO] ========================
+2023-06-19 12:42:01,422 [INFO] 
+2023-06-19 12:42:01,422 [INFO] Input --> I thought it would be the easiest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 12:42:01,422 [INFO] Target -->  easy
+2023-06-19 12:42:01,423 [INFO] Rational positions --> tensor([[ 2,  5, 41, 36,  6]])
+2023-06-19 12:42:01,423 [INFO] Rational words -->
+2023-06-19 12:42:01,423 [INFO] [' it', ' the', ' so', ' turned', ' easiest']
+2023-06-19 12:42:01,427 [INFO] 101.json done.
+2023-06-19 12:42:01,458 [INFO] Rationalizing 102.json ...
+2023-06-19 12:42:20,010 [INFO] Importance score evaluated in 18 steps.
+2023-06-19 12:42:20,010 [INFO] Rationalization done in 18.552751779556274
+2023-06-19 12:42:20,010 [INFO] 
+2023-06-19 12:42:20,011 [INFO] ========================
+2023-06-19 12:42:20,011 [INFO] 
+2023-06-19 12:42:20,011 [INFO] Input --> I thought it would be the fastest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 12:42:20,011 [INFO] Target -->  fast
+2023-06-19 12:42:20,011 [INFO] Rational positions --> tensor([[41, 24,  5, 40, 30]])
+2023-06-19 12:42:20,011 [INFO] Rational words -->
+2023-06-19 12:42:20,011 [INFO] [' so', ' pocket', ' the', "'t", ' end']
+2023-06-19 12:42:20,029 [INFO] 102.json done.
+2023-06-19 12:42:20,063 [INFO] Rationalizing 103.json ...
+2023-06-19 12:42:21,565 [INFO] Importance score evaluated in 1 steps.
+2023-06-19 12:42:21,565 [INFO] Rationalization done in 1.5026988983154297
+2023-06-19 12:42:21,565 [INFO] 
+2023-06-19 12:42:21,566 [INFO] ========================
+2023-06-19 12:42:21,566 [INFO] 
+2023-06-19 12:42:21,566 [INFO] Input --> I thought it would be the greatest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 12:42:21,566 [INFO] Target -->  great
+2023-06-19 12:42:21,566 [INFO] Rational positions --> tensor([[ 1, 41, 40, 39, 35]])
+2023-06-19 12:42:21,566 [INFO] Rational words -->
+2023-06-19 12:42:21,566 [INFO] [' thought', ' so', "'t", ' wasn', ' it']
+2023-06-19 12:42:21,572 [INFO] 103.json done.
+2023-06-19 12:42:21,601 [INFO] Rationalizing 104.json ...
+2023-06-19 12:51:29,425 [INFO] Importance score evaluated in 545 steps.
+2023-06-19 12:51:29,425 [INFO] Rationalization done in 547.8243808746338
+2023-06-19 12:51:29,425 [INFO] 
+2023-06-19 12:51:29,425 [INFO] ========================
+2023-06-19 12:51:29,425 [INFO] 
+2023-06-19 12:51:29,426 [INFO] Input --> I thought it would be the highest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 12:51:29,426 [INFO] Target -->  high
+2023-06-19 12:51:29,426 [INFO] Rational positions --> tensor([[36, 40, 20,  5, 37]])
+2023-06-19 12:51:29,426 [INFO] Rational words -->
+2023-06-19 12:51:29,426 [INFO] [' turned', "'t", ' vibr', ' the', ' out']
+2023-06-19 12:51:29,431 [INFO] 104.json done.
+2023-06-19 12:51:29,450 [INFO] Rationalizing 105.json ...
+2023-06-19 13:33:16,591 [INFO] Importance score evaluated in 2232 steps.
+2023-06-19 13:33:16,593 [INFO] Rationalization done in 2507.1428842544556
+2023-06-19 13:33:16,593 [INFO] 
+2023-06-19 13:33:16,593 [INFO] ========================
+2023-06-19 13:33:16,593 [INFO] 
+2023-06-19 13:33:16,593 [INFO] Input --> I thought it would be the hottest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 13:33:16,593 [INFO] Target -->  hot
+2023-06-19 13:33:16,593 [INFO] Rational positions --> tensor([[40,  3, 27,  5,  6]])
+2023-06-19 13:33:16,594 [INFO] Rational words -->
+2023-06-19 13:33:16,594 [INFO] ["'t", ' would', ' when', ' the', ' hottest']
+2023-06-19 13:33:16,614 [INFO] 105.json done.
+2023-06-19 13:33:16,640 [INFO] Rationalizing 106.json ...
+2023-06-19 14:05:09,506 [INFO] Importance score evaluated in 1779 steps.
+2023-06-19 14:05:09,506 [INFO] Rationalization done in 1912.8666200637817
+2023-06-19 14:05:09,506 [INFO] 
+2023-06-19 14:05:09,507 [INFO] ========================
+2023-06-19 14:05:09,507 [INFO] 
+2023-06-19 14:05:09,507 [INFO] Input --> I thought it would be the lowest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 14:05:09,507 [INFO] Target -->  low
+2023-06-19 14:05:09,507 [INFO] Rational positions --> tensor([[ 5,  1, 41, 21, 26]])
+2023-06-19 14:05:09,507 [INFO] Rational words -->
+2023-06-19 14:05:09,507 [INFO] [' the', ' thought', ' so', 'ating', ' But']
+2023-06-19 14:05:09,514 [INFO] 106.json done.
+2023-06-19 14:05:09,530 [INFO] Rationalizing 107.json ...
+2023-06-19 14:14:43,650 [INFO] Importance score evaluated in 497 steps.
+2023-06-19 14:14:43,650 [INFO] Rationalization done in 574.1199345588684
+2023-06-19 14:14:43,650 [INFO] 
+2023-06-19 14:14:43,650 [INFO] ========================
+2023-06-19 14:14:43,650 [INFO] 
+2023-06-19 14:14:43,651 [INFO] Input --> I thought it would be the oldest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 14:14:43,651 [INFO] Target -->  old
+2023-06-19 14:14:43,651 [INFO] Rational positions --> tensor([[37, 38,  0, 21, 11]])
+2023-06-19 14:14:43,651 [INFO] Rational words -->
+2023-06-19 14:14:43,651 [INFO] [' out', ' it', 'I', 'ating', ' encounter']
+2023-06-19 14:14:43,656 [INFO] 107.json done.
+2023-06-19 14:14:43,682 [INFO] Rationalizing 108.json ...
+2023-06-19 14:20:05,225 [INFO] Importance score evaluated in 277 steps.
+2023-06-19 14:20:05,225 [INFO] Rationalization done in 321.5427966117859
+2023-06-19 14:20:05,226 [INFO] 
+2023-06-19 14:20:05,226 [INFO] ========================
+2023-06-19 14:20:05,226 [INFO] 
+2023-06-19 14:20:05,226 [INFO] Input --> I thought it would be the simplest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-06-19 14:20:05,226 [INFO] Target -->  simple
+2023-06-19 14:20:05,226 [INFO] Rational positions --> tensor([[40, 39, 24, 41,  1]])
+2023-06-19 14:20:05,226 [INFO] Rational words -->
+2023-06-19 14:20:05,226 [INFO] ["'t", ' wasn', ' pocket', ' so', ' thought']
+2023-06-19 14:20:05,232 [INFO] 108.json done.
+2023-06-19 14:20:05,251 [INFO] Rationalizing 109.json ...
