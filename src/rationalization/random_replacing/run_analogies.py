@@ -22,18 +22,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("--replacement-sampling", 
-                        type=str,
-                        default="uniform",
-                        help="[uniform, inferential, postag]")
-    parser.add_argument("--rationalizer", 
-                        type=str,
-                        default="sampling",
-                        help="[sampling, aggregate]") # TODO
-    parser.add_argument("--evaluator", 
-                        type=str,
-                        default="bayesian-opti",
-                        help="[delta-prob, bayesian-opti]") # TODO
+
     parser.add_argument("--model", 
                         type=str,
                         default="gpt2-medium",
@@ -55,38 +44,11 @@ if __name__ == "__main__":
                         default="cuda",
                         help="") # TODO
 
-    parser.add_argument("--updating-replacing-ratio", 
-                        type=float,
-                        default=0.3,
-                        help="replacing ratio during importance score updating")
-    parser.add_argument("--rational-size-ratio", 
-                        type=float,
-                        default=None,
-                        help="keep top n word based on importance score for both stop condition evaluation and rationalization")
-    parser.add_argument("--rational-size", 
-                        type=int,
-                        default=5,
-                        help="keep top n word based on importance score for both stop condition evaluation and rationalization")
-    parser.add_argument("--stopping-condition-tolerance", 
-                        type=int,
-                        default=5,
-                        help="stop when target exist in top k predictions")
-    parser.add_argument("--aggregate-batch-size", 
-                        type=int,
-                        default=5,
-                        help="Batch size for aggregation")
-    parser.add_argument("--aggregate-overlap-threshold", 
-                        type=int,
-                        default=3,
-                        help="Overlap threshold of rational tokens within a batch")
-    parser.add_argument("--aggregate-overlap-strict-pos", 
-                        type=bool,
-                        default=True,
-                        help="Whether overlap strict to position ot not")
-    parser.add_argument("--bayesian-num-samples", 
-                        type=int,
-                        default=30,
-                        help="Number of samples for bayesian-opti")
+    parser.add_argument("--rationalization-config", 
+                        type=str,
+                        default="config/test.json",
+                        help="") # TODO
+    
     parser.add_argument("--logfile", 
                         type=str,
                         default=None,
@@ -109,93 +71,77 @@ if __name__ == "__main__":
     stdout_handler.setFormatter(formatter)
     logger.addHandler(stdout_handler)
 
-
-    # parameters
-    replacement_sampling_type = args.replacement_sampling
-    evaluator_type = args.evaluator
-    rationalizer_type = args.rationalizer
     data_dir = args.data_dir
     output_dir = args.output_dir
     device = args.device
-
-    # replacing ratio during importance score updating
-    updating_replacing_ratio = args.updating_replacing_ratio
-    # keep top n word based on importance score for both stop condition evaluation and rationalization
-    rational_size_ratio = args.rational_size_ratio
-    rational_size = args.rational_size
-    # stop when target exist in top k predictions
-    stopping_condition_tolerance = args.stopping_condition_tolerance
-
-    # Batch size for aggregate
-    aggregate_batch_size = args.aggregate_batch_size
-    # Overlap threshold of rational tokens within a batch
-    overlap_threshold = args.aggregate_overlap_threshold
-    # Whether overlap strict to position ot not
-    overlap_strict_pos = args.aggregate_overlap_strict_pos
-
-    # Number of sample for bayesian-opti
-    bayesian_num_samples = args.bayesian_num_samples
-
     
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
     model = AutoModelForCausalLM.from_pretrained(args.model)
 
+    with open(args.rationalization_config) as f_config:
+        rationalization_config = json.load(f_config)
 
-    if replacement_sampling_type == "uniform":
+    replacing_type = rationalization_config["replacing"]["type"]
+    if replacing_type == "uniform":
         token_sampler = UniformTokenSampler(tokenizer)
-    elif replacement_sampling_type == "inferential":
+    elif replacing_type == "inferential":
         token_sampler = InferentialTokenSampler(tokenizer=tokenizer, model=model)
-    elif replacement_sampling_type == "postag":
+    elif replacing_type == "postag":
         token_sampler = POSTagTokenSampler(tokenizer=tokenizer, device=device)
     else:
-        raise ValueError(f"Invalid replacement_sampling: {replacement_sampling_type}")
+        raise ValueError(f"Invalid replacement_sampling: {replacing_type}")
     
+    rationalizer_type = rationalization_config["rationalizer"]["type"]
+    evaluator_type = rationalization_config["importance_score_evaluator"]["type"]
     if rationalizer_type == "sampling":
-        if evaluator_type == 'delta-prob':
+        if evaluator_type == 'delta_probability':
             importance_score_evaluator = DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
                     token_sampler=token_sampler, 
-                    ratio=updating_replacing_ratio
+                    ratio=rationalization_config["importance_score_evaluator"]["delta_probability"]["replacing_ratio"]
                 ),
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=token_sampler, 
-                    top_k=stopping_condition_tolerance, 
-                    top_n=rational_size, 
-                    top_n_ratio=rational_size_ratio, 
+                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
+                    top_n=rationalization_config["rational"]["size"], 
+                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
                     tokenizer=tokenizer
                 )
             )
-        elif evaluator_type == 'bayesian-opti':
+        elif evaluator_type == 'bayesian_optimization':
             importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=RankingTokenReplacer(
                     token_sampler=token_sampler, 
-                    top_n=rational_size, 
-                    top_n_ratio=rational_size_ratio, 
+                    top_n=rationalization_config["rational"]["size"], 
+                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
                 ),
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=token_sampler, 
-                    top_k=stopping_condition_tolerance, 
-                    top_n=rational_size, 
-                    top_n_ratio=rational_size_ratio, 
+                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
+                    top_n=rationalization_config["rational"]["size"], 
+                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
                     tokenizer=tokenizer
                 ),
-                num_samples=bayesian_num_samples
+                sample_multiplier=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["sampling"]["multiplier"],
+                sample_increment=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["sampling"]["increment"],
+                training_config=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["training"],
+                optimizing_config=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["optimizing"]
             )
         else:
             raise ValueError(f"Invalid evaluator-type: {evaluator_type}")
         rationalizer = SampleRationalizer(
             importance_score_evaluator=importance_score_evaluator, 
-            top_n=rational_size, 
-            top_n_ratio=rational_size_ratio
+            top_n=rationalization_config["rational"]["size"], 
+            top_n_ratio=rationalization_config["rational"]["size_ratio"]
         )
-    elif rationalizer_type == "aggregate":
-        assert evaluator_type == 'delta-prob' 'aggregate rationalizer require delta-prob evaluator'
+    elif rationalizer_type == "aggregation":
+        assert evaluator_type == 'delta_probability', 'aggregate rationalizer require delta_probability evaluator'
 
         rationalizer = AggregateRationalizer(
             importance_score_evaluator=DeltaProbImportanceScoreEvaluator(
@@ -203,23 +149,25 @@ if __name__ == "__main__":
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
                     token_sampler=token_sampler, 
-                    ratio=updating_replacing_ratio
+                    ratio=rationalization_config["importance_score_evaluator"]["delta_probability"]["replacing_ratio"]
                 ),
                 stopping_condition_evaluator=TopKStoppingConditionEvaluator(
                     model=model, 
                     token_sampler=token_sampler, 
-                    top_k=stopping_condition_tolerance, 
-                    top_n=rational_size, 
-                    top_n_ratio=rational_size_ratio, 
+                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
+                    top_n=rationalization_config["rational"]["size"], 
+                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
                     tokenizer=tokenizer
                 )
             ),
-            batch_size=aggregate_batch_size,
-            overlap_threshold=overlap_threshold,
-            overlap_strict_pos=overlap_strict_pos,
-            top_n=rational_size, 
-            top_n_ratio=rational_size_ratio
+            batch_size=rationalization_config["rationalizer"]["aggregation"]["batch_size"],
+            overlap_threshold=rationalization_config["rationalizer"]["aggregation"]["overlap_threshold"],
+            overlap_strict_pos=rationalization_config["rationalizer"]["aggregation"]["overlap_strict_pos"],
+            top_n=rationalization_config["rational"]["size"], 
+            top_n_ratio=rationalization_config["rational"]["size_ratio"]
         )
+    else:
+        raise ValueError(f"Invalid rationalizer_type {rationalizer_type}")
     
     dirpath, dirnames, filenames = next(os.walk(data_dir))
     filenames.sort()
