@@ -1,6 +1,10 @@
 import logging
 
 import torch
+from botorch import fit_fully_bayesian_model_nuts
+from botorch.acquisition import qExpectedImprovement
+from botorch.models.fully_bayesian import SaasFullyBayesianSingleTaskGP
+from botorch.optim import optimize_acqf
 from transformers import AutoModelWithLMHead, AutoTokenizer
 from typing_extensions import override
 
@@ -45,14 +49,7 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
             logit_importance_score: updated importance score in logistic scale [1]
 
         """
-        # TODO: WIP
-
-        # TODO: move imports to the beginning
-        from botorch import fit_fully_bayesian_model_nuts
-        from botorch.acquisition import qExpectedImprovement
-        from botorch.models.fully_bayesian import SaasFullyBayesianSingleTaskGP
-        from botorch.models.transforms import Standardize
-        from botorch.optim import optimize_acqf
+        # TODO: WIP      
 
         # TODO: use config
         N_ITERATIONS = 5
