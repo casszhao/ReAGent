@@ -79,19 +79,19 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
 
         # Maybe?: https://botorch.org/api/acquisition.html#botorch.acquisition.monte_carlo.qExpectedImprovement
         ei = qExpectedImprovement(model=gp, best_f=opti_target.max())
-        # FIXME: dim matching issue
+
         # Maybe?: https://botorch.org/api/optim.html#botorch.optim.optimize.optimize_acqf
+        with torch.enable_grad():
+            upper_bounds = torch.ones(1, logit_importance_scores.shape[1]) * -1000
+            bottom_bountds = torch.ones(1, logit_importance_scores.shape[1]) * 1000
 
-        upper_bounds = torch.ones(1, opti_target.shape[1]) * -1000
-        bottom_bountds = torch.ones(1, opti_target.shape[1]) * 1000
-
-        candidates, acq_values = optimize_acqf(
-            ei,
-            bounds=torch.cat(upper_bounds, bottom_bountds).to(opti_target.device),
-            q=1,
-            num_restarts=10,
-            raw_samples=1024,
-        )
+            candidates, acq_values = optimize_acqf(
+                ei,
+                bounds=torch.cat([upper_bounds, bottom_bountds]).to(opti_target.device),
+                q=1,
+                num_restarts=10,
+                raw_samples=1024,
+            )
 
         # pick candidates
         logit_importance_score = candidates[0]
