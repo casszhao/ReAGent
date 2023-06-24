@@ -31,19 +31,12 @@ python src/data/prepare_evaluation_analogy.py \
 mkdir -p rationalization_results/analogies/gpt2-medium.sampling.uniform
 mkdir -p logs/analogies/gpt2-medium.sampling.uniform
 python src/rationalization/random_replacing/run_analogies.py \
-    --replacement-sampling uniform \
-    --rationalizer sampling \
+    --rationalization-config config/test.json \
     --model gpt2-medium \
     --tokenizer gpt2-medium \
     --data-dir data/analogies \
     --output-dir rationalization_results/analogies/gpt2-medium.sampling.uniform \
     --device cuda \
-    --updating-replacing-ratio 0.3 \
-    --rational-size 5 \
-    --stopping-condition-tolerance 5 \
-    --aggregate-batch-size 5 \
-    --aggregate-overlap-threshold 3 \
-    --aggregate-overlap-strict-pos True \
     --logfile logs/analogies/gpt2-medium.sampling.uniform/test.log \
 
 # Migrate baseline results (Only need to be done once for each approach)
