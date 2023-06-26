@@ -192,7 +192,7 @@ if __name__ == "__main__":
         with open(os.path.join(dirpath, filename)) as data_f:
             data = json.load(data_f)
 
-        tokens = torch.unsqueeze(torch.tensor(data['tokens']), 0)
+        tokens = torch.unsqueeze(torch.tensor(data['tokens'], device=device), 0)
         input_tokens = tokens[:, :data["target"]]
         target_token = tokens[:, data["target"]]
         logging.info(f"Rationalizing {filename} ...")
