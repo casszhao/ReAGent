@@ -81,7 +81,7 @@ if __name__ == "__main__":
     device = args.device
     
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
-    model = AutoModelForCausalLM.from_pretrained(args.model).to(device)
+    model = AutoModelForCausalLM.from_pretrained(args.model)
 
     with open(args.rationalization_config) as f_config:
         rationalization_config = json.load(f_config)

@@ -23,14 +23,14 @@ source activate seq_rarionales      # via conda
 mkdir -p rationalization_results/analogies/gpt2-medium.sampling.uniform
 mkdir -p logs/analogies/gpt2-medium.sampling.uniform
 python src/rationalization/random_replacing/run_analogies.py \
-    --rationalization-config config/test.json \
+    --rationalization-config config/cass.json \
     --model gpt2-medium \
     --tokenizer gpt2-medium \
     --data-dir data/analogies \
     --output-dir rationalization_results/analogies/gpt2-medium.sampling.uniform \
     --device cuda \
     --logfile logs/analogies/gpt2-medium.sampling.uniform/test.log \
-    --input_data_size 0.02 \
+    --input_data_size 0.000001 \
 
 # Migrate baseline results (Only need to be done once for each approach)
 # mkdir -p rationalization_results/analogies/gpt2-medium.last_attention
