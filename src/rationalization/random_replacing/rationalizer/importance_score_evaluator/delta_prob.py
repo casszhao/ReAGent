@@ -68,7 +68,8 @@ class DeltaProbImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
         # Update importance scores based on delta (magnitude) and replacement (direction)
 
         delta_score = mask_replacing * delta_prob_target + ~mask_replacing * -delta_prob_target
-        logit_importance_score = logit_importance_score + delta_score
+        logit_delta_score = torch.logit(delta_score)
+        logit_importance_score = logit_importance_score + logit_delta_score
         logging.debug(f"Updated importance score: { torch.softmax(logit_importance_score, -1) }")
 
         return logit_importance_score
