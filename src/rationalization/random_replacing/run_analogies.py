@@ -53,6 +53,11 @@ if __name__ == "__main__":
                         type=str,
                         default=None,
                         help="Logfile location to output")
+    
+    parser.add_argument("--input_data_size", 
+                        type=float,
+                        default=1,
+                        help="how many data we want to feed to model (percentage)")
     args = parser.parse_args()
 
     # setup logging system
@@ -171,6 +176,13 @@ if __name__ == "__main__":
     
     dirpath, dirnames, filenames = next(os.walk(data_dir))
     filenames.sort()
+
+    total_file_num = len(filenames)
+
+    if args.input_data_size != 1:
+        input_num = int(total_file_num * args.input_data_size)
+        filenames = filenames[:input_num]
+    
 
     # run all experiments
     
