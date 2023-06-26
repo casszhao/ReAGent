@@ -76,7 +76,7 @@ if __name__ == "__main__":
     device = args.device
     
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
-    model = AutoModelForCausalLM.from_pretrained(args.model)
+    model = AutoModelForCausalLM.from_pretrained(args.model).to(device)
 
     with open(args.rationalization_config) as f_config:
         rationalization_config = json.load(f_config)
@@ -179,7 +179,7 @@ if __name__ == "__main__":
         with open(os.path.join(dirpath, filename)) as data_f:
             data = json.load(data_f)
 
-        tokens = torch.unsqueeze(torch.tensor(data['tokens']), 0)
+        tokens = torch.unsqueeze(torch.tensor(data['tokens'], device=device), 0)
         input_tokens = tokens[:, :data["target"]]
         target_token = tokens[:, data["target"]]
         logging.info(f"Rationalizing {filename} ...")
