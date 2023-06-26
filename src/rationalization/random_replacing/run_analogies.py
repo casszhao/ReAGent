@@ -36,11 +36,11 @@ if __name__ == "__main__":
                         help="[delta-prob, bayesian-opti]") # TODO
     parser.add_argument("--model", 
                         type=str,
-                        default="gpt2-medium",
+                        default="gpt2", # gpt2-medium gpt2-large
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
-                        default="gpt2-medium",
+                        default="gpt2",
                         help="") # TODO
     parser.add_argument("--data-dir", 
                         type=str,
@@ -85,7 +85,7 @@ if __name__ == "__main__":
                         help="Whether overlap strict to position ot not")
     parser.add_argument("--bayesian-num-samples", 
                         type=int,
-                        default=30,
+                        default=2000,
                         help="Number of samples for bayesian-opti")
     parser.add_argument("--logfile", 
                         type=str,
