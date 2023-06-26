@@ -25,11 +25,11 @@ if __name__ == "__main__":
 
     parser.add_argument("--model", 
                         type=str,
-                        default="gpt2-medium",
+                        default="gpt2", # gpt2-medium gpt2-large
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
-                        default="gpt2-medium",
+                        default="gpt2",
                         help="") # TODO
     parser.add_argument("--data-dir", 
                         type=str,
