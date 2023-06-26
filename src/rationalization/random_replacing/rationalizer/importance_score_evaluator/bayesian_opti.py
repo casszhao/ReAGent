@@ -6,7 +6,6 @@ from botorch.acquisition import qExpectedImprovement
 from botorch.models.fully_bayesian import SaasFullyBayesianSingleTaskGP
 from botorch.optim import optimize_acqf
 from transformers import AutoModelWithLMHead, AutoTokenizer
-from typing_extensions import override
 
 from ..stopping_condition_evaluator.base import StoppingConditionEvaluator
 from ..token_replacement.token_replacer.ranking import RankingTokenReplacer
@@ -18,7 +17,8 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
     
     """
 
-    def __init__(self, model: AutoModelWithLMHead, tokenizer: AutoTokenizer, token_replacer: RankingTokenReplacer, stopping_condition_evaluator: StoppingConditionEvaluator, num_samples: int) -> None:
+    def __init__(self, model: AutoModelWithLMHead, tokenizer: AutoTokenizer, token_replacer: RankingTokenReplacer, stopping_condition_evaluator: StoppingConditionEvaluator, 
+                 sample_multiplier: float, sample_increment: int, training_config: dict, optimizing_config: dict) -> None:
         """Constructor
 
         Args:
@@ -30,7 +30,10 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
         """
         super().__init__(model, tokenizer, token_replacer, stopping_condition_evaluator)
         self.token_replacer = token_replacer
-        self.num_samples = num_samples
+        self.sample_multiplier = sample_multiplier
+        self.sample_increment = sample_increment
+        self.training_config = training_config
+        self.optimizing_config = optimizing_config
 
         self.important_score = None
 
@@ -49,36 +52,28 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
             logit_importance_score: updated importance score in logistic scale [1]
 
         """
-        # TODO: WIP      
 
-        # TODO: use config
-        N_ITERATIONS = 5
-        SMOKE_TEST = True
-        WARMUP_STEPS = 256 if not SMOKE_TEST else 32
-        NUM_SAMPLES = 128 if not SMOKE_TEST else 16
-        THINNING = 16
+        # TODO: Use multiple candidates and add them into the sample set
 
-        for i in range(N_ITERATIONS):
-            opti_target = -1 * delta_prob_targets  # Flip the sign since we want to minimize f(x)
-            # See: https://botorch.org/api/models.html#botorch.models.fully_bayesian.SaasFullyBayesianSingleTaskGP
-            gp = SaasFullyBayesianSingleTaskGP(
-                train_X=logit_importance_scores,
-                train_Y=opti_target,
+        opti_target = -1 * delta_prob_targets  # Flip the sign since we want to minimize the delta
+        # See: https://botorch.org/api/models.html#botorch.models.fully_bayesian.SaasFullyBayesianSingleTaskGP
+        gp = SaasFullyBayesianSingleTaskGP(
+            train_X=logit_importance_scores,
+            train_Y=opti_target,
+        )
+        with torch.enable_grad():
+            fit_fully_bayesian_model_nuts(
+                gp,
+                disable_progbar=True,
+                **self.training_config
             )
-            with torch.enable_grad():
-                fit_fully_bayesian_model_nuts(
-                    gp,
-                    warmup_steps=WARMUP_STEPS,
-                    num_samples=NUM_SAMPLES,
-                    thinning=THINNING,
-                    disable_progbar=True,
-                )
 
         # Maybe?: https://botorch.org/api/acquisition.html#botorch.acquisition.monte_carlo.qExpectedImprovement
         ei = qExpectedImprovement(model=gp, best_f=opti_target.max())
 
         # Maybe?: https://botorch.org/api/optim.html#botorch.optim.optimize.optimize_acqf
         with torch.enable_grad():
+            # TODO: make bounds config
             lower_bounds = torch.ones(1, logit_importance_scores.shape[1]) * -1000
             upper_bounds = torch.ones(1, logit_importance_scores.shape[1]) * 1000
 
@@ -86,8 +81,7 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
                 ei,
                 bounds=torch.cat([lower_bounds, upper_bounds]).to(opti_target.device),
                 q=1,
-                num_restarts=10,
-                raw_samples=1024,
+                **self.optimizing_config
             )
 
         # pick candidates
@@ -95,7 +89,8 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
         return logit_importance_score
 
     def expand_samples(self, input_ids, target_id, prob_original_target):
-        logit_importance_score = torch.rand([self.num_samples, input_ids.shape[1]], device=input_ids.device)
+        num_expand = self.samples_logit_importance_score.shape[0] * (self.sample_multiplier - 1) + self.sample_increment
+        logit_importance_score = torch.rand([num_expand, input_ids.shape[1]], device=input_ids.device)
 
         self.token_replacer.set_score(logit_importance_score)
         input_ids_replaced, mask_replaced = self.token_replacer.sample(input_ids)
@@ -106,6 +101,8 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
 
         self.samples_logit_importance_score = torch.cat([self.samples_logit_importance_score, logit_importance_score])
         self.samples_delta_prob_target = torch.cat([self.samples_delta_prob_target, delta_prob_target])
+
+        logging.debug(f"Expand sample set to {self.samples_delta_prob_target.shape[0]}")
 
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
         """Evaluate importance score of input sequence
@@ -154,25 +151,3 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
         logging.info(f"Importance score evaluated in {self.num_steps} steps.")
 
         return self.important_score
-    
-    @override
-    def trace_start(self):
-        """Start tracing
-        
-        """
-        super().trace_start()
-
-        self.trace_importance_score = []
-        self.trace_target_likelihood_original = -1
-        self.stopping_condition_evaluator.trace_start()
-
-    @override
-    def trace_stop(self):
-        """Stop tracing
-        
-        """
-        super().trace_stop()
-
-        self.trace_importance_score = None
-        self.trace_target_likelihood_original = None
-        self.stopping_condition_evaluator.trace_stop()

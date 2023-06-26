@@ -1,5 +1,3 @@
-import logging
-
 import torch
 from transformers import AutoModelWithLMHead, AutoTokenizer
 from typing_extensions import override
@@ -34,21 +32,6 @@ class BaseImportanceScoreEvaluator(Traceable):
         self.trace_importance_score = None
         self.trace_target_likelihood_original = None
         self.num_steps = 0
-
-    def update_importance_score(self, logit_importance_score: torch.Tensor, input_ids: torch.Tensor, target_id: torch.Tensor, prob_original_target: torch.Tensor) -> torch.Tensor:
-        """Update importance score by one step
-
-        Args:
-            logit_importance_score: Current importance score in logistic scale [batch]
-            input_ids: input tensor [batch, sequence]
-            target_id: target tensor [batch]
-            prob_original_target: predictive probability of the target on the original sequence [batch]
-
-        Return:
-            logit_importance_score: updated importance score in logistic scale [batch]
-
-        """
-        raise NotImplementedError()
 
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
         """Evaluate importance score of input sequence
