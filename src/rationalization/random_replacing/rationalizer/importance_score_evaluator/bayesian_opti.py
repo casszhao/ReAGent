@@ -6,7 +6,6 @@ from botorch.acquisition import qExpectedImprovement
 from botorch.models.fully_bayesian import SaasFullyBayesianSingleTaskGP
 from botorch.optim import optimize_acqf
 from transformers import AutoModelWithLMHead, AutoTokenizer
-from typing_extensions import override
 
 from ..stopping_condition_evaluator.base import StoppingConditionEvaluator
 from ..token_replacement.token_replacer.ranking import RankingTokenReplacer
@@ -152,25 +151,3 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
         logging.info(f"Importance score evaluated in {self.num_steps} steps.")
 
         return self.important_score
-    
-    @override
-    def trace_start(self):
-        """Start tracing
-        
-        """
-        super().trace_start()
-
-        self.trace_importance_score = []
-        self.trace_target_likelihood_original = -1
-        self.stopping_condition_evaluator.trace_start()
-
-    @override
-    def trace_stop(self):
-        """Stop tracing
-        
-        """
-        super().trace_stop()
-
-        self.trace_importance_score = None
-        self.trace_target_likelihood_original = None
-        self.stopping_condition_evaluator.trace_stop()
