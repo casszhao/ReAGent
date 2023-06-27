@@ -30,3 +30,5 @@ __pycache__
 data/*
 rationalization_results
 evaluation_results
+
+./config/run_eval2.json

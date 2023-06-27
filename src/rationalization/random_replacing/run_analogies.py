@@ -172,6 +172,14 @@ if __name__ == "__main__":
     dirpath, dirnames, filenames = next(os.walk(data_dir))
     filenames.sort()
 
+    total_file_num = len(filenames)
+
+    if args.input_data_size != 1:
+        input_num = int(total_file_num * args.input_data_size)
+        if input_num < 1: input_num = 1
+        filenames = filenames[:input_num]
+    
+
     # run all experiments
     
     for filename in filenames:
