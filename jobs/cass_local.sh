@@ -30,7 +30,7 @@ python src/rationalization/random_replacing/run_analogies.py \
     --output-dir rationalization_results/analogies/gpt2-medium.sampling.uniform \
     --device cuda \
     --logfile logs/analogies/gpt2-medium.sampling.uniform/test.log \
-    --input_data_size 0.000001 \
+    --input_data_size 0.01 \
 
 # Migrate baseline results (Only need to be done once for each approach)
 # mkdir -p rationalization_results/analogies/gpt2-medium.last_attention
