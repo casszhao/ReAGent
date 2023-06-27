@@ -173,7 +173,8 @@
                     "description": "Type of stopping condition",
                     "type": "string",
                     "enum": [
-                        "top_k"
+                        "top_k",
+                        "dummy"
                     ]
                 },
                 "top_k": {
@@ -186,6 +187,11 @@
                             "minimum": 1
                         }
                     }
+                },
+                "dummy": {
+                    "description": "For debugging only",
+                    "type": "object",
+                    "properties": { }
                 }
             },
             "required": [

@@ -10,6 +10,7 @@ from rationalizer.aggregate_rationalizer import AggregateRationalizer
 from rationalizer.importance_score_evaluator.delta_prob import DeltaProbImportanceScoreEvaluator
 from rationalizer.importance_score_evaluator.bayesian_opti import BayesianOptimizationImportanceScoreEvaluator
 from rationalizer.sample_rationalizer import SampleRationalizer
+from rationalizer.stopping_condition_evaluator.dummy import DummyStoppingConditionEvaluator
 from rationalizer.stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
 from rationalizer.token_replacement.token_replacer.uniform import UniformTokenReplacer
 from rationalizer.token_replacement.token_replacer.ranking import RankingTokenReplacer
@@ -91,6 +92,21 @@ if __name__ == "__main__":
     else:
         raise ValueError(f"Invalid replacement_sampling: {replacing_type}")
     
+    stopping_condition_type = rationalization_config["stopping_condition"]["type"]
+    if stopping_condition_type == "top_k":
+        stopping_condition_evaluator = TopKStoppingConditionEvaluator(
+            model=model, 
+            token_sampler=token_sampler, 
+            top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
+            top_n=rationalization_config["rational"]["size"], 
+            top_n_ratio=rationalization_config["rational"]["size_ratio"], 
+            tokenizer=tokenizer
+        )
+    elif stopping_condition_type == "dummy":
+        stopping_condition_evaluator = DummyStoppingConditionEvaluator()
+    else:
+        raise ValueError(f"Invalid stopping_condition: {stopping_condition_type}")
+
     rationalizer_type = rationalization_config["rationalizer"]["type"]
     evaluator_type = rationalization_config["importance_score_evaluator"]["type"]
     if rationalizer_type == "sampling":
@@ -102,14 +118,7 @@ if __name__ == "__main__":
                     token_sampler=token_sampler, 
                     ratio=rationalization_config["importance_score_evaluator"]["delta_probability"]["replacing_ratio"]
                 ),
-                stopping_condition_evaluator=TopKStoppingConditionEvaluator(
-                    model=model, 
-                    token_sampler=token_sampler, 
-                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
-                    top_n=rationalization_config["rational"]["size"], 
-                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
-                    tokenizer=tokenizer
-                )
+                stopping_condition_evaluator=stopping_condition_evaluator
             )
         elif evaluator_type == 'bayesian_optimization':
             importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
@@ -120,14 +129,7 @@ if __name__ == "__main__":
                     top_n=rationalization_config["rational"]["size"], 
                     top_n_ratio=rationalization_config["rational"]["size_ratio"], 
                 ),
-                stopping_condition_evaluator=TopKStoppingConditionEvaluator(
-                    model=model, 
-                    token_sampler=token_sampler, 
-                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
-                    top_n=rationalization_config["rational"]["size"], 
-                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
-                    tokenizer=tokenizer
-                ),
+                stopping_condition_evaluator=stopping_condition_evaluator,
                 sample_multiplier=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["sampling"]["multiplier"],
                 sample_increment=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["sampling"]["increment"],
                 training_config=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["training"],
@@ -151,14 +153,7 @@ if __name__ == "__main__":
                     token_sampler=token_sampler, 
                     ratio=rationalization_config["importance_score_evaluator"]["delta_probability"]["replacing_ratio"]
                 ),
-                stopping_condition_evaluator=TopKStoppingConditionEvaluator(
-                    model=model, 
-                    token_sampler=token_sampler, 
-                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
-                    top_n=rationalization_config["rational"]["size"], 
-                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
-                    tokenizer=tokenizer
-                )
+                stopping_condition_evaluator=stopping_condition_evaluator
             ),
             batch_size=rationalization_config["rationalizer"]["aggregation"]["batch_size"],
             overlap_threshold=rationalization_config["rationalizer"]["aggregation"]["overlap_threshold"],
