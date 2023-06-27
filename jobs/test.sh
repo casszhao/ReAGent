@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=16G
 #SBATCH --output=output.%j.test.out
-#SBATCH --time=08:00:00
+#SBATCH --time=4-00:00:00
 #SBATCH --mail-user=username@sheffield.ac.uk
 
 # Load modules & activate env
@@ -15,8 +15,12 @@ module load Anaconda3/2022.10
 module load cuDNN/8.0.4.30-CUDA-11.1.1
 
 # Activate env
-source activate seq_rarionales      # via conda
+source activate seq      # via conda
 # source .venv/bin/activate           # via venv
+
+# just to make sure
+pip install -r requirements.txt
+python setup_nltk.py
 
 # Generate evaluation data set (Only need to be done once)
 mkdir -p data/analogies
