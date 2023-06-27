@@ -10,6 +10,7 @@ from rationalizer.aggregate_rationalizer import AggregateRationalizer
 from rationalizer.importance_score_evaluator.delta_prob import DeltaProbImportanceScoreEvaluator
 from rationalizer.importance_score_evaluator.bayesian_opti import BayesianOptimizationImportanceScoreEvaluator
 from rationalizer.sample_rationalizer import SampleRationalizer
+from rationalizer.stopping_condition_evaluator.dummy import DummyStoppingConditionEvaluator
 from rationalizer.stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
 from rationalizer.token_replacement.token_replacer.uniform import UniformTokenReplacer
 from rationalizer.token_replacement.token_replacer.ranking import RankingTokenReplacer
@@ -53,26 +54,26 @@ if __name__ == "__main__":
                         type=str,
                         default=None,
                         help="Logfile location to output")
-    
-    parser.add_argument("--input_data_size", 
-                        type=float,
-                        default=1,
-                        help="how many data we want to feed to model (percentage)")
+    parser.add_argument("--loglevel", 
+                        type=int,
+                        default=20,
+                        help="Debug level from [CRITICAL = 50, ERROR = 40, WARNING = 30, INFO = 20, DEBUG = 10, NOTSET = 0]")
     args = parser.parse_args()
 
+    loglevel = args.loglevel
     # setup logging system
     logger = logging.getLogger()
-    logger.setLevel(logging.INFO) # DEBUG OR INFO
+    logger.setLevel(loglevel)
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
     if args.logfile:
         file_handler = logging.FileHandler(args.logfile)
-        file_handler.setLevel(logging.DEBUG)
+        file_handler.setLevel(loglevel)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
     stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setLevel(logging.DEBUG)
+    stdout_handler.setLevel(loglevel)
     stdout_handler.setFormatter(formatter)
     logger.addHandler(stdout_handler)
 
@@ -96,6 +97,21 @@ if __name__ == "__main__":
     else:
         raise ValueError(f"Invalid replacement_sampling: {replacing_type}")
     
+    stopping_condition_type = rationalization_config["stopping_condition"]["type"]
+    if stopping_condition_type == "top_k":
+        stopping_condition_evaluator = TopKStoppingConditionEvaluator(
+            model=model, 
+            token_sampler=token_sampler, 
+            top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
+            top_n=rationalization_config["rational"]["size"], 
+            top_n_ratio=rationalization_config["rational"]["size_ratio"], 
+            tokenizer=tokenizer
+        )
+    elif stopping_condition_type == "dummy":
+        stopping_condition_evaluator = DummyStoppingConditionEvaluator()
+    else:
+        raise ValueError(f"Invalid stopping_condition: {stopping_condition_type}")
+
     rationalizer_type = rationalization_config["rationalizer"]["type"]
     evaluator_type = rationalization_config["importance_score_evaluator"]["type"]
     if rationalizer_type == "sampling":
@@ -107,14 +123,7 @@ if __name__ == "__main__":
                     token_sampler=token_sampler, 
                     ratio=rationalization_config["importance_score_evaluator"]["delta_probability"]["replacing_ratio"]
                 ),
-                stopping_condition_evaluator=TopKStoppingConditionEvaluator(
-                    model=model, 
-                    token_sampler=token_sampler, 
-                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
-                    top_n=rationalization_config["rational"]["size"], 
-                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
-                    tokenizer=tokenizer
-                )
+                stopping_condition_evaluator=stopping_condition_evaluator
             )
         elif evaluator_type == 'bayesian_optimization':
             importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
@@ -125,14 +134,7 @@ if __name__ == "__main__":
                     top_n=rationalization_config["rational"]["size"], 
                     top_n_ratio=rationalization_config["rational"]["size_ratio"], 
                 ),
-                stopping_condition_evaluator=TopKStoppingConditionEvaluator(
-                    model=model, 
-                    token_sampler=token_sampler, 
-                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
-                    top_n=rationalization_config["rational"]["size"], 
-                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
-                    tokenizer=tokenizer
-                ),
+                stopping_condition_evaluator=stopping_condition_evaluator,
                 sample_multiplier=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["sampling"]["multiplier"],
                 sample_increment=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["sampling"]["increment"],
                 training_config=rationalization_config["importance_score_evaluator"]["bayesian_optimization"]["training"],
@@ -156,14 +158,7 @@ if __name__ == "__main__":
                     token_sampler=token_sampler, 
                     ratio=rationalization_config["importance_score_evaluator"]["delta_probability"]["replacing_ratio"]
                 ),
-                stopping_condition_evaluator=TopKStoppingConditionEvaluator(
-                    model=model, 
-                    token_sampler=token_sampler, 
-                    top_k=rationalization_config["stopping_condition"]["top_k"]["tolerance"], 
-                    top_n=rationalization_config["rational"]["size"], 
-                    top_n_ratio=rationalization_config["rational"]["size_ratio"], 
-                    tokenizer=tokenizer
-                )
+                stopping_condition_evaluator=stopping_condition_evaluator
             ),
             batch_size=rationalization_config["rationalizer"]["aggregation"]["batch_size"],
             overlap_threshold=rationalization_config["rationalizer"]["aggregation"]["overlap_threshold"],
@@ -223,6 +218,20 @@ if __name__ == "__main__":
 
         # output
         output_filename = os.path.join(output_dir, filename)
+
+        # TODO: Save model for BO
+        
+        comments = {
+            "created-by": os.path.basename(__file__),
+            "args" : args.__dict__,
+            "time_elapsed": time_elapsed
+        }
+
+        # Append comment for separate_rational
+        if rationalization_config["rationalizer"]["type"] == "aggregation" and rationalization_config["rationalizer"]["aggregation"]["save_separate_rational"]:
+            pos_rationals, rationals = rationalizer.get_separate_rational(input_tokens, tokenizer)
+            comments["separate_rational"] = rationals
+
         serialize_rational(
             output_filename,
             data["id"], 
@@ -232,11 +241,7 @@ if __name__ == "__main__":
             tokenizer, 
             rationalizer.importance_score_evaluator.important_score[0],
             compact=False,
-            comments= {
-                "created-by": os.path.basename(__file__),
-                "args" : args.__dict__,
-                "time_elapsed": time_elapsed
-            },
+            comments=comments,
             # trace_rationalizer=rationalizer # Enable trace logs
         )
         

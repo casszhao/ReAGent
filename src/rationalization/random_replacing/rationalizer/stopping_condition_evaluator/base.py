@@ -14,7 +14,7 @@ class StoppingConditionEvaluator(Traceable):
         """
         self.trace_target_likelihood = []
 
-    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_score: torch.Tensor) -> bool:
+    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_score: torch.Tensor) -> torch.Tensor:
         """Base evaluate
         
         """

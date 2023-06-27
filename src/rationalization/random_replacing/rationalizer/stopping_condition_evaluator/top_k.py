@@ -38,7 +38,7 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
         self.tokenizer = tokenizer
 
     @override
-    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_score: torch.Tensor) -> bool:
+    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_score: torch.Tensor) -> torch.Tensor:
         """Evaluate stop condition
 
         Args:
