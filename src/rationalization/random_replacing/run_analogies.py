@@ -54,21 +54,26 @@ if __name__ == "__main__":
                         type=str,
                         default=None,
                         help="Logfile location to output")
+    parser.add_argument("--loglevel", 
+                        type=int,
+                        default=20,
+                        help="Debug level from [CRITICAL = 50, ERROR = 40, WARNING = 30, INFO = 20, DEBUG = 10, NOTSET = 0]")
     args = parser.parse_args()
 
+    loglevel = args.loglevel
     # setup logging system
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(loglevel)
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
     if args.logfile:
         file_handler = logging.FileHandler(args.logfile)
-        file_handler.setLevel(logging.DEBUG)
+        file_handler.setLevel(loglevel)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
     stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setLevel(logging.DEBUG)
+    stdout_handler.setLevel(loglevel)
     stdout_handler.setFormatter(formatter)
     logger.addHandler(stdout_handler)
 
