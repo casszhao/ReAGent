@@ -205,6 +205,20 @@ if __name__ == "__main__":
 
         # output
         output_filename = os.path.join(output_dir, filename)
+
+        # TODO: Save model for BO
+        
+        comments = {
+            "created-by": os.path.basename(__file__),
+            "args" : args.__dict__,
+            "time_elapsed": time_elapsed
+        }
+
+        # Append comment for separate_rational
+        if rationalization_config["rationalizer"]["type"] == "aggregation" and rationalization_config["rationalizer"]["aggregation"]["save_separate_rational"]:
+            pos_rationals, rationals = rationalizer.get_separate_rational(input_tokens, tokenizer)
+            comments["separate_rational"] = rationals
+
         serialize_rational(
             output_filename,
             data["id"], 
@@ -214,11 +228,7 @@ if __name__ == "__main__":
             tokenizer, 
             rationalizer.importance_score_evaluator.important_score[0],
             compact=False,
-            comments= {
-                "created-by": os.path.basename(__file__),
-                "args" : args.__dict__,
-                "time_elapsed": time_elapsed
-            },
+            comments=comments,
             # trace_rationalizer=rationalizer # Enable trace logs
         )
         

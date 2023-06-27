@@ -1,5 +1,6 @@
 
 import math
+from typing import Union
 
 import torch
 from .base import BaseRationalizer
@@ -35,6 +36,13 @@ class AggregateRationalizer(BaseRationalizer):
 
         assert overlap_strict_pos == True, "overlap_strict_pos = False not been supported yet"
 
+    def get_separate_rational(self, input_ids, tokenizer) -> Union[torch.Tensor, list[list[str]]]:
+
+        tokens = [ [ tokenizer.decode([input_ids[0, i]]) for i in s] for s in self.pos_top_n ]
+
+        return self.pos_top_n, tokens
+
+
     def rationalize(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
         """Compute rational of a sequence on a target
 
@@ -50,10 +58,10 @@ class AggregateRationalizer(BaseRationalizer):
 
         batch_input_ids = input_ids.repeat(self.batch_size, 1)
 
-        importance_score = self.importance_score_evaluator.evaluate(batch_input_ids, target_id)
-        self.importance_score_mean = torch.mean(importance_score, dim=0)
+        importance_scores = self.importance_score_evaluator.evaluate(batch_input_ids, target_id)
+        self.importance_scores = importance_scores
         
-        pos_sorted = torch.argsort(importance_score, dim=-1, descending=True)
+        pos_sorted = torch.argsort(importance_scores, dim=-1, descending=True)
 
         top_n = self.top_n
 
@@ -61,6 +69,7 @@ class AggregateRationalizer(BaseRationalizer):
             top_n = int(math.ceil(self.top_n_ratio * input_ids.shape[-1]))
 
         pos_top_n = pos_sorted[:, :top_n]
+        self.pos_top_n = pos_top_n
 
         if self.overlap_strict_pos:
             count_overlap = torch.bincount(pos_top_n.flatten(), minlength=input_ids.shape[1])

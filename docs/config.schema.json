@@ -65,6 +65,10 @@
                         "overlap_strict_pos": {
                             "description": "Whether strict to token position. Otherwise, consider token it self",
                             "type": "boolean"
+                        },
+                        "save_separate_rational": {
+                            "description": "Whether to save a separate version of rational for each sample in a batch",
+                            "type": "boolean"
                         }
                     }
                 }

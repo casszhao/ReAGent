@@ -10,7 +10,8 @@
         "aggregation": {
             "batch_size": 5,
             "overlap_threshold": 3,
-            "overlap_strict_pos": true
+            "overlap_strict_pos": true,
+            "save_separate_rational": true
         }
     },
     "importance_score_evaluator": {
