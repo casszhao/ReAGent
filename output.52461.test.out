@@ -1,0 +1,56 @@
+Traceback (most recent call last):
+  File "/users/ac1zzx/.conda/envs/seq/bin/fairseq-train", line 5, in <module>
+    from fairseq_cli.train import cli_main
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq_cli/train.py", line 30, in <module>
+    from fairseq import checkpoint_utils, options, quantization_utils, tasks, utils
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/__init__.py", line 20, in <module>
+    from fairseq.distributed import utils as distributed_utils
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/distributed/__init__.py", line 7, in <module>
+    from .fully_sharded_data_parallel import (
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/distributed/fully_sharded_data_parallel.py", line 10, in <module>
+    from fairseq.dataclass.configs import DistributedTrainingConfig
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/dataclass/__init__.py", line 6, in <module>
+    from .configs import FairseqDataclass
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/dataclass/configs.py", line 1104, in <module>
+    @dataclass
+     ^^^^^^^^^
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/dataclasses.py", line 1221, in dataclass
+    return wrap(cls)
+           ^^^^^^^^^
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/dataclasses.py", line 1211, in wrap
+    return _process_class(cls, init, repr, eq, order, unsafe_hash,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/dataclasses.py", line 959, in _process_class
+    cls_fields.append(_get_field(cls, name, type, kw_only))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/dataclasses.py", line 816, in _get_field
+    raise ValueError(f'mutable default {type(f.default)} for field '
+ValueError: mutable default <class 'fairseq.dataclass.configs.CommonConfig'> for field common is not allowed: use default_factory
+Traceback (most recent call last):
+  File "/users/ac1zzx/.conda/envs/seq/bin/fairseq-generate", line 5, in <module>
+    from fairseq_cli.generate import cli_main
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq_cli/generate.py", line 22, in <module>
+    from fairseq import checkpoint_utils, options, scoring, tasks, utils
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/__init__.py", line 20, in <module>
+    from fairseq.distributed import utils as distributed_utils
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/distributed/__init__.py", line 7, in <module>
+    from .fully_sharded_data_parallel import (
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/distributed/fully_sharded_data_parallel.py", line 10, in <module>
+    from fairseq.dataclass.configs import DistributedTrainingConfig
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/dataclass/__init__.py", line 6, in <module>
+    from .configs import FairseqDataclass
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/site-packages/fairseq/dataclass/configs.py", line 1104, in <module>
+    @dataclass
+     ^^^^^^^^^
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/dataclasses.py", line 1221, in dataclass
+    return wrap(cls)
+           ^^^^^^^^^
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/dataclasses.py", line 1211, in wrap
+    return _process_class(cls, init, repr, eq, order, unsafe_hash,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/dataclasses.py", line 959, in _process_class
+    cls_fields.append(_get_field(cls, name, type, kw_only))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/users/ac1zzx/.conda/envs/seq/lib/python3.11/dataclasses.py", line 816, in _get_field
+    raise ValueError(f'mutable default {type(f.default)} for field '
+ValueError: mutable default <class 'fairseq.dataclass.configs.CommonConfig'> for field common is not allowed: use default_factory

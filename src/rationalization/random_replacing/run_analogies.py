@@ -49,6 +49,11 @@ if __name__ == "__main__":
                         type=str,
                         default="config/test.json",
                         help="") # TODO
+
+    parser.add_argument("--input_data_size", 
+                        type=float,
+                        default=1,
+                        help="") # TODO
     
     parser.add_argument("--logfile", 
                         type=str,
