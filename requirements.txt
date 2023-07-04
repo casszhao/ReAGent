@@ -2,6 +2,7 @@ botorch
 datasets
 fairseq
 matplotlib
+nltk
 numpy
 pandas
 sacrebleu
