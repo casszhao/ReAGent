@@ -8,6 +8,7 @@ import os
 import torch
 
 from transformers import AutoTokenizer
+from natsort import natsorted
 
 
 if __name__ == "__main__":
@@ -47,7 +48,8 @@ if __name__ == "__main__":
     baseline_approximation_ratios = []
 
     dirpath, dirnames, filenames = next(os.walk(target_dir))
-    filenames.sort()
+    # filenames.sort()
+    filenames = natsorted(filenames)
 
     for filename in filenames:
         path_target = os.path.join(dirpath, filename)

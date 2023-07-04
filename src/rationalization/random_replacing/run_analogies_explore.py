@@ -18,6 +18,7 @@ from rationalizer.token_replacement.token_sampler.postag import POSTagTokenSampl
 from rationalizer.token_replacement.token_sampler.uniform import UniformTokenSampler
 from rationalizer.utils.serializing import serialize_rational
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from natsort import natsorted
 
 if __name__ == "__main__":
     
@@ -175,7 +176,8 @@ if __name__ == "__main__":
         raise ValueError(f"Invalid rationalizer_type {rationalizer_type}")
     
     dirpath, dirnames, filenames = next(os.walk(data_dir))
-    filenames.sort()
+    # filenames.sort()
+    filenames = natsorted(filenames)
 
     total_file_num = len(filenames)
 

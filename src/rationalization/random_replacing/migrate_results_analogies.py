@@ -8,6 +8,7 @@ import torch
 
 from rationalizer.utils.serializing import serialize_rational
 from transformers import AutoTokenizer
+from natsort import natsorted
 
 
 if __name__ == "__main__":
@@ -37,7 +38,8 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
 
     dirpath, dirnames, filenames = next(os.walk(data_dir))
-    filenames.sort()
+    # filenames.sort()
+    filenames = natsorted(filenames)
 
     for filename in filenames:
 
