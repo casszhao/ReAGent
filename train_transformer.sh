@@ -1,6 +1,4 @@
 #!/bin/bash
-<<<<<<< HEAD
-=======
 #SBATCH --comment=train_transformers_translation
 #SBATCH --nodes=1
 #SBATCH --partition=gpu
@@ -18,7 +16,6 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 
 # Activate env
 source activate seq      # via conda
->>>>>>> 1a4e776116a4f16f703012239fe61b8c8fa0491f
 
 
 CHECKPOINT_DIR="./model/"
