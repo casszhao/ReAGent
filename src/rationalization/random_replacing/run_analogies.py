@@ -210,7 +210,6 @@ if __name__ == "__main__":
         # convert results
 
         logging.info("")
-        logging.info(f"========================")
         logging.info("")
         logging.info(f'Input --> {tokenizer.decode(input_tokens[0])}')
         logging.info(f'Target --> {tokenizer.decode(target_token[0])}')
@@ -253,3 +252,6 @@ if __name__ == "__main__":
         # rationalizer.trace_stop()
 
         logging.info(f'{filename} done.')
+        logging.info("")
+        logging.info(f"========================")
+        logging.info("")
