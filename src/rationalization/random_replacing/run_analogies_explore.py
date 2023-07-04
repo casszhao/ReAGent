@@ -38,7 +38,7 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--output-dir", 
                         type=str,
-                        default="rationalization_results/analogies/gpt2-medium.sampling.uniform",
+                        default="rationalization_results/analogies/test",
                         help="") # TODO
     parser.add_argument("--device", 
                         type=str,
