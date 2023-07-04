@@ -106,7 +106,7 @@ class DeltaProbImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
 
         # TODO: limit max steps
         self.num_steps = 0
-        while self.num_steps <= self.max_steps:
+        while self.num_steps < self.max_steps:
             self.num_steps += 1
             
             # Update importance score
