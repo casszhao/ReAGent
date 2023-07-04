@@ -1,4 +1,24 @@
 #!/bin/bash
+<<<<<<< HEAD
+=======
+#SBATCH --comment=train_transformers_translation
+#SBATCH --nodes=1
+#SBATCH --partition=gpu
+#SBATCH --qos=gpu
+#SBATCH --gres=gpu:1
+#SBATCH --mem=16G
+#SBATCH --output=output.%j.test.out
+#SBATCH --time=4-00:00:00
+#SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
+
+# Load modules & activate env
+
+module load Anaconda3/2022.10
+module load cuDNN/8.0.4.30-CUDA-11.1.1
+
+# Activate env
+source activate seq      # via conda
+>>>>>>> 1a4e776116a4f16f703012239fe61b8c8fa0491f
 
 
 CHECKPOINT_DIR="./model/"
