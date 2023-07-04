@@ -128,7 +128,8 @@ if __name__ == "__main__":
                     token_sampler=token_sampler, 
                     ratio=rationalization_config["importance_score_evaluator"]["delta_probability"]["replacing_ratio"]
                 ),
-                stopping_condition_evaluator=stopping_condition_evaluator
+                stopping_condition_evaluator=stopping_condition_evaluator,
+                max_steps=rationalization_config["importance_score_evaluator"]["delta_probability"]["max_steps"]
             )
         elif evaluator_type == 'bayesian_optimization':
             importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
@@ -163,7 +164,8 @@ if __name__ == "__main__":
                     token_sampler=token_sampler, 
                     ratio=rationalization_config["importance_score_evaluator"]["delta_probability"]["replacing_ratio"]
                 ),
-                stopping_condition_evaluator=stopping_condition_evaluator
+                stopping_condition_evaluator=stopping_condition_evaluator,
+                max_steps=rationalization_config["importance_score_evaluator"]["delta_probability"]["max_steps"]
             ),
             batch_size=rationalization_config["rationalizer"]["aggregation"]["batch_size"],
             overlap_threshold=rationalization_config["rationalizer"]["aggregation"]["overlap_threshold"],
@@ -230,6 +232,13 @@ if __name__ == "__main__":
             "args" : args.__dict__,
             "time_elapsed": time_elapsed
         }
+
+        # Append comment for steps of updating
+        if rationalization_config["importance_score_evaluator"]["type"] == "delta_probability":
+            comments["updating"] = {
+                "num_steps": rationalizer.importance_score_evaluator.num_steps,
+                "max_steps": rationalization_config["importance_score_evaluator"]["delta_probability"]["max_steps"]
+            }
 
         # Append comment for separate_rational
         if rationalization_config["rationalizer"]["type"] == "aggregation" and rationalization_config["rationalizer"]["aggregation"]["save_separate_rational"]:

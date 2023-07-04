@@ -16,7 +16,8 @@
     "importance_score_evaluator": {
         "type": "delta_probability",
         "delta_probability": {
-            "replacing_ratio": 0.3
+            "replacing_ratio": 0.3,
+            "max_steps": 5000
         },
         "bayesian_optimization": {
             "sampling": {

@@ -13,7 +13,7 @@ class DeltaProbImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
     
     """
 
-    def __init__(self, model: AutoModelWithLMHead, tokenizer: AutoTokenizer, token_replacer: TokenReplacer, stopping_condition_evaluator: StoppingConditionEvaluator) -> None:
+    def __init__(self, model: AutoModelWithLMHead, tokenizer: AutoTokenizer, token_replacer: TokenReplacer, stopping_condition_evaluator: StoppingConditionEvaluator, max_steps: float) -> None:
         """Constructor
 
         Args:
@@ -28,8 +28,9 @@ class DeltaProbImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
         self.tokenizer = tokenizer
         self.token_replacer = token_replacer
         self.stopping_condition_evaluator = stopping_condition_evaluator
-        self.important_score = None
+        self.max_steps = max_steps
 
+        self.important_score = None
         self.trace_importance_score = None
         self.trace_target_likelihood_original = None
         self.num_steps = 0
@@ -105,7 +106,7 @@ class DeltaProbImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
 
         # TODO: limit max steps
         self.num_steps = 0
-        while True:
+        while self.num_steps <= self.max_steps:
             self.num_steps += 1
             
             # Update importance score
