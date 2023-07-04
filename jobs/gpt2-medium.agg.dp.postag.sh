@@ -5,7 +5,7 @@
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --mem=16G
-#SBATCH --output=output.%j.test.out
+#SBATCH --output=jobs.out/%j.log
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=username@sheffield.ac.uk
 
