@@ -85,130 +85,170 @@
                     "description": "Type of importance score evaluator",
                     "type": "string",
                     "enum": [
-                        "delta_probability",
-                        "bayesian_optimization"
+                        "replacing",
+                        "attention"
                     ]
                 },
-                "delta_probability": {
-                    "description": "Config for delta_probability type",
+                "replacing": {
+                    "description": "Replacing importance score evaluators",
                     "type": "object",
                     "properties": {
-                        "replacing_ratio": {
-                            "description": "Replacing ratio when updating importance score",
-                            "type": "number",
-                            "exclusiveMinimum": 0,
-                            "exclusiveMaximum": 1
-                        }
-                    }
-                },
-                "bayesian_optimization": {
-                    "description": "Config for bayesian_optimization type",
-                    "type": "object",
-                    "properties": {
-                        "sampling": {
-                            "description": "Sampling config",
+                        "optimization": {
+                            "description": "optimization method for replacing importance score evaluator",
                             "type": "object",
                             "properties": {
-                                "multiplier": {
-                                    "description": "Multiplier when expanding sample set",
-                                    "type": "number",
-                                    "minimum": 1
+                                "type": {
+                                    "description": "Type of replacing importance score evaluator",
+                                    "type": "string",
+                                    "enum": [
+                                        "delta_probability",
+                                        "bayesian_optimization"
+                                    ]
                                 },
-                                "increment": {
-                                    "description": "Increment when expanding sample set",
-                                    "type": "integer",
-                                    "minimum": 1
+                                "delta_probability": {
+                                    "description": "Config for delta_probability type",
+                                    "type": "object",
+                                    "properties": {
+                                        "replacing_ratio": {
+                                            "description": "Replacing ratio when updating importance score",
+                                            "type": "number",
+                                            "exclusiveMinimum": 0,
+                                            "exclusiveMaximum": 1
+                                        }
+                                    }
+                                },
+                                "bayesian_optimization": {
+                                    "description": "Config for bayesian_optimization type",
+                                    "type": "object",
+                                    "properties": {
+                                        "sampling": {
+                                            "description": "Sampling config",
+                                            "type": "object",
+                                            "properties": {
+                                                "multiplier": {
+                                                    "description": "Multiplier when expanding sample set",
+                                                    "type": "number",
+                                                    "minimum": 1
+                                                },
+                                                "increment": {
+                                                    "description": "Increment when expanding sample set",
+                                                    "type": "integer",
+                                                    "minimum": 1
+                                                }
+                                            }
+                                        },
+                                        "training": {
+                                            "description": "Training config. See: BoTorch",
+                                            "type": "object"
+                                        },
+                                        "optimizing": {
+                                            "description": "Optimizing config. See: BoTorch",
+                                            "type": "object"
+                                        }
+                                    }
                                 }
-                            }
+                            },
+                            "required": [
+                                "type"
+                            ]
                         },
-                        "training": {
-                            "description": "Training config. See: BoTorch",
-                            "type": "object"
+                        "replacing": {
+                            "description": "Config for replacing",
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "description": "Type of replacement token sampling",
+                                    "type": "string",
+                                    "enum": [
+                                        "uniform",
+                                        "inferential",
+                                        "postag"
+                                    ]
+                                },
+                                "uniform": {
+                                    "description": "Config for uniform type",
+                                    "type": "object",
+                                    "properties": { }
+                                },
+                                "inferential": {
+                                    "description": "Config for inferential type",
+                                    "type": "object",
+                                    "properties": { }
+                                },
+                                "postag": {
+                                    "description": "Config for postag type",
+                                    "type": "object",
+                                    "properties": { }
+                                }
+                            },
+                            "required": [
+                                "type"
+                            ]
                         },
-                        "optimizing": {
-                            "description": "Optimizing config. See: BoTorch",
-                            "type": "object"
+                        "stopping_condition": {
+                            "description": "Config for stopping_condition",
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "description": "Type of stopping condition",
+                                    "type": "string",
+                                    "enum": [
+                                        "top_k",
+                                        "dummy"
+                                    ]
+                                },
+                                "top_k": {
+                                    "description": "Config for top_k type",
+                                    "type": "object",
+                                    "properties": {
+                                        "tolerance": {
+                                            "description": "tolerance (k) for stopping condition evaluation",
+                                            "type": "integer",
+                                            "minimum": 1
+                                        }
+                                    }
+                                },
+                                "dummy": {
+                                    "description": "For debugging only",
+                                    "type": "object",
+                                    "properties": { }
+                                }
+                            },
+                            "required": [
+                                "type"
+                            ]
                         }
-                    }
-                }
-            },
-            "required": [
-                "type"
-            ]
-        },
-        "replacing": {
-            "description": "Config for replacing",
-            "type": "object",
-            "properties": {
-                "type": {
-                    "description": "Type of replacement token sampling",
-                    "type": "string",
-                    "enum": [
-                        "uniform",
-                        "inferential",
-                        "postag"
+                    },
+                    "required": [
+                        "optimization",
+                        "replacing",
+                        "stopping_condition"
                     ]
                 },
-                "uniform": {
-                    "description": "Config for uniform type",
+                "attention": {
+                    "description": "Attention importance score evaluators",
                     "type": "object",
-                    "properties": { }
-                },
-                "inferential": {
-                    "description": "Config for inferential type",
-                    "type": "object",
-                    "properties": { }
-                },
-                "postag": {
-                    "description": "Config for postag type",
-                    "type": "object",
-                    "properties": { }
-                }
-            },
-            "required": [
-                "type"
-            ]
-        },
-        "stopping_condition": {
-            "description": "Config for stopping_condition",
-            "type": "object",
-            "properties": {
-                "type": {
-                    "description": "Type of stopping condition",
-                    "type": "string",
-                    "enum": [
-                        "top_k",
-                        "dummy"
-                    ]
-                },
-                "top_k": {
-                    "description": "Config for top_k type",
-                    "type": "object",
-                    "properties": {
-                        "tolerance": {
-                            "description": "tolerance (k) for stopping condition evaluation",
-                            "type": "integer",
-                            "minimum": 1
+                    "properties": { 
+                        "type": {
+                            "description": "Type of attention",
+                            "type": "string",
+                            "enum": [
+                                "last",
+                                "all",
+                                "rollout"
+                            ]
                         }
                     }
-                },
-                "dummy": {
-                    "description": "For debugging only",
-                    "type": "object",
-                    "properties": { }
                 }
             },
             "required": [
                 "type"
             ]
         }
-        
     },
     "required": [
         "rational",
         "rationalizer",
-        "importance_score_evaluator",
-        "replacing",
-        "stopping_condition"
+        "importance_score_evaluator"
     ]
 }

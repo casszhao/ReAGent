@@ -3,7 +3,7 @@ import math
 
 import torch
 from .base import BaseRationalizer
-from rationalizer.importance_score_evaluator.base import BaseImportanceScoreEvaluator
+from .importance_score_evaluator.base import BaseImportanceScoreEvaluator
 from typing_extensions import override
 
 
