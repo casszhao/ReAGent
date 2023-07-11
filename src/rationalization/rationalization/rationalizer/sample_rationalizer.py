@@ -80,7 +80,7 @@ def main():
     from token_replacement.token_sampler.uniform import UniformTokenSampler
     from transformers import AutoModelWithLMHead, AutoTokenizer
 
-    from rationalization.random_replacing.rationalizer.importance_score_evaluator.delta_prob import \
+    from rationalization.rationalizer.importance_score_evaluator.delta_prob import \
         DeltaProbImportanceScoreEvaluator
     from utils.serializing import serialize_rational
 
