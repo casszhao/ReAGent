@@ -24,15 +24,10 @@ class DeltaProbImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
 
         """
 
-        self.model = model
-        self.tokenizer = tokenizer
+        super().__init__(model, tokenizer)
+
         self.token_replacer = token_replacer
         self.stopping_condition_evaluator = stopping_condition_evaluator
-        self.important_score = None
-
-        self.trace_importance_score = None
-        self.trace_target_likelihood_original = None
-        self.num_steps = 0
 
     def update_importance_score(self, logit_importance_score: torch.Tensor, input_ids: torch.Tensor, target_id: torch.Tensor, prob_original_target: torch.Tensor) -> torch.Tensor:
         """Update importance score by one step

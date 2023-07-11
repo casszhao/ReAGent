@@ -28,18 +28,15 @@ class BayesianOptimizationImportanceScoreEvaluator(BaseImportanceScoreEvaluator)
             stopping_condition_evaluator: A StoppingConditionEvaluator
 
         """
-        super().__init__(model, tokenizer, token_replacer, stopping_condition_evaluator)
+        super().__init__(model, tokenizer)
+
         self.token_replacer = token_replacer
+        self.stopping_condition_evaluator = stopping_condition_evaluator
+
         self.sample_multiplier = sample_multiplier
         self.sample_increment = sample_increment
         self.training_config = training_config
         self.optimizing_config = optimizing_config
-
-        self.important_score = None
-
-        self.trace_importance_score = None
-        self.trace_target_likelihood_original = None
-        self.num_steps = 0
 
     def bayesian_opti(self, logit_importance_scores, delta_prob_targets):
         """SAASBO optimization for logit_importance_score

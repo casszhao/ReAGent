@@ -12,21 +12,18 @@ class BaseImportanceScoreEvaluator(Traceable):
     
     """
 
-    def __init__(self, model: AutoModelWithLMHead, tokenizer: AutoTokenizer, token_replacer: TokenReplacer, stopping_condition_evaluator: StoppingConditionEvaluator) -> None:
+    def __init__(self, model: AutoModelWithLMHead, tokenizer: AutoTokenizer) -> None:
         """Base Constructor
 
         Args:
             model: A Huggingface AutoModelWithLMHead model
             tokenizer: A Huggingface AutoTokenizer
-            token_replacer: A TokenReplacer
-            stopping_condition_evaluator: A StoppingConditionEvaluator
 
         """
 
         self.model = model
         self.tokenizer = tokenizer
-        self.token_replacer = token_replacer
-        self.stopping_condition_evaluator = stopping_condition_evaluator
+        
         self.important_score = None
 
         self.trace_importance_score = None
