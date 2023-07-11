@@ -68,7 +68,12 @@ if __name__ == "__main__":
             with open(path_data) as f:
                 data = json.load(f)
 
-                
+            # comprehensiveness
+
+            
+
+            # sufficiency
+
             
             # # rational_sizes
             # rational_size_target = result_target["rational-size"]
