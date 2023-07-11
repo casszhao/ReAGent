@@ -1,0 +1,3 @@
+- [ ] implement baselines FAs with importance score logged
+- [ ] implement metric Suff & Comp and with top 20%
+- [ ] implement metric Soft Suff & Soft Comp
