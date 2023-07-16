@@ -8,17 +8,13 @@ import sys
 
 import torch
 
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM
 
 @torch.no_grad()
 def main():
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--data-dir", 
-                        type=str,
-                        default="data/analogies",
-                        help="") # TODO
     parser.add_argument("--target-dir", 
                         type=str,
                         default="rationalization_results/analogies/test",
@@ -67,13 +63,11 @@ def main():
     stdout_handler.setFormatter(formatter)
     logger.addHandler(stdout_handler)
 
-    data_dir = args.data_dir
     target_dir = args.target_dir
     output_path = args.output_path
     device = args.device
 
     logging.info(f"Loading model...")
-    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
     model = AutoModelForCausalLM.from_pretrained(args.model).to(device)
     logging.info(f"Model loaded")
     
@@ -88,13 +82,6 @@ def main():
         path_target = os.path.join(dirpath, filename)
         with open(path_target) as f:
             rationalization_result = json.load(f)
-
-        path_data = os.path.join(data_dir, filename)
-        if not os.path.exists(path_data):
-            logging.warning(f"[Warning] {path_data} not found. Skipping ground truth.")
-        else:
-            with open(path_data) as f:
-                data = json.load(f)
 
         input_ids = torch.tensor([rationalization_result["input-tokens"]], device=device)
         target_id = torch.tensor([rationalization_result["target-token"]], device=device)
