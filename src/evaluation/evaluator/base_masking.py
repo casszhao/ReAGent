@@ -112,7 +112,7 @@ class BaseMaskingEvaluator(BaseEvaluator):
         """
 
         uniform_samples = torch.rand(embedding.shape, device=embedding.device)
-        feature_mask = uniform_samples < torch.unsqueeze(token_mask_ratio, 2)
+        feature_mask = uniform_samples < torch.unsqueeze(token_mask_ratio, 2).to(uniform_samples.device)
         masked_embedding = embedding * feature_mask
 
         return masked_embedding
