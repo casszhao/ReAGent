@@ -26,7 +26,7 @@ class SoftComprehensivenessEvaluator(BaseMaskingEvaluator):
             feature_masking_ratio [batch, sequence]
 
         """
-        return importance_scores
+        return 1 - importance_scores
 
     @override
     def get_metric(self, prob_target_original: torch.Tensor, prob_target_masked: torch.Tensor) -> torch.Tensor:

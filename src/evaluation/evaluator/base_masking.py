@@ -70,7 +70,7 @@ class BaseMaskingEvaluator(BaseEvaluator):
         
         # masked prob
         feature_masking_ratio = self.get_feature_masking_ratio(importance_scores)
-        input_wte_masked = BaseMaskingEvaluator.zero_mask_embedding(input_wte, feature_masking_ratio)
+        input_wte_masked = BaseMaskingEvaluator.mask_zero_embedding(input_wte, feature_masking_ratio)
 
         logits_masked = self.model(inputs_embeds=input_wte_masked)["logits"]
         prob_masked = torch.softmax(logits_masked[:, input_ids.shape[1] - 1, :], -1)
@@ -94,11 +94,11 @@ class BaseMaskingEvaluator(BaseEvaluator):
         """
         ranking = torch.argsort(importance_scores, dim=1, descending=True)
         mask_pos = ranking[:,:top_k]
-        rational_mask = torch.ones(importance_scores.shape, device=importance_scores.device).scatter(-1, mask_pos, 0)
+        rational_mask = torch.zeros(importance_scores.shape, device=importance_scores.device).scatter(-1, mask_pos, 1)
         
         return rational_mask
 
-    def zero_mask_embedding(embedding: torch.Tensor, token_mask_ratio: torch.Tensor) -> torch.Tensor:
+    def mask_zero_embedding(embedding: torch.Tensor, token_mask_ratio: torch.Tensor) -> torch.Tensor:
         """
             Mask embedding elements to zeros with regards to a ratio for each token
 
@@ -111,7 +111,8 @@ class BaseMaskingEvaluator(BaseEvaluator):
 
         """
 
-        feature_mask = torch.rand(embedding.shape, device=embedding.device) < torch.unsqueeze(token_mask_ratio, 2)
+        uniform_samples = torch.rand(embedding.shape, device=embedding.device)
+        feature_mask = uniform_samples < torch.unsqueeze(token_mask_ratio, 2)
         masked_embedding = embedding * feature_mask
 
         return masked_embedding

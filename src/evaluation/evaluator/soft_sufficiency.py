@@ -25,7 +25,7 @@ class SoftSufficiencyEvaluator(BaseMaskingEvaluator):
             feature_masking_ratio [batch, sequence]
 
         """
-        return 1 - importance_scores
+        return importance_scores
 
     @override
     def get_metric(self, prob_target_original: torch.Tensor, prob_target_masked: torch.Tensor) -> torch.Tensor:

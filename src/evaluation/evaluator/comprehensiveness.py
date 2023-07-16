@@ -30,7 +30,8 @@ class ComprehensivenessEvaluator(BaseMaskingEvaluator):
         """
         top_k = int(self.rational_ratio * importance_scores.shape[1])
         binary_rational_mask = BaseMaskingEvaluator.create_binary_rational_mask(importance_scores, top_k)
-        return binary_rational_mask
+        binary_nonrational_mask = 1 - binary_rational_mask
+        return binary_nonrational_mask
 
     @override
     def get_metric(self, prob_target_original: torch.Tensor, prob_target_masked: torch.Tensor) -> torch.Tensor:
