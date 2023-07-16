@@ -74,6 +74,8 @@ def main():
     rational_size_ratio = args.rational_size_ratio
     device = args.device
 
+    torch.set_default_dtype(torch.float64)
+
     logging.info(f"Loading model...")
     model = AutoModelForCausalLM.from_pretrained(args.model).to(device)
     logging.info(f"Model loaded")
