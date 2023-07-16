@@ -1,12 +1,12 @@
 from typing_extensions import override
 import torch
 from transformers import AutoModelForCausalLM
-from base_masking import BaseMaskingEvaluator
+from .base_masking import BaseMaskingEvaluator
 
 class SoftComprehensivenessEvaluator(BaseMaskingEvaluator):
 
     @override
-    def __init__(self, model: AutoModelForCausalLM, rational_ratio: float) -> None:
+    def __init__(self, model: AutoModelForCausalLM) -> None:
         """ Constructor
 
         Args:
@@ -14,7 +14,6 @@ class SoftComprehensivenessEvaluator(BaseMaskingEvaluator):
 
         """
         super().__init__(model)
-        self.rational_ratio = rational_ratio
 
     @override
     def get_feature_masking_ratio(self, importance_scores: torch.Tensor) -> torch.Tensor:

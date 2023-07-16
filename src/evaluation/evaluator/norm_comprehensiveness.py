@@ -1,9 +1,9 @@
 from typing_extensions import override
 import torch
 from transformers import AutoModelForCausalLM
-from base import BaseEvaluator
-from sufficiency import SufficiencyEvaluator
-from comprehensiveness import ComprehensivenessEvaluator
+from .base import BaseEvaluator
+from .sufficiency import SufficiencyEvaluator
+from .comprehensiveness import ComprehensivenessEvaluator
 
 class NormalizedComprehensivenessEvaluator(BaseEvaluator):
 

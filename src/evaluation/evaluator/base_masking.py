@@ -1,7 +1,7 @@
 from typing_extensions import override
 import torch
 from transformers import AutoModelForCausalLM
-from base import BaseEvaluator
+from .base import BaseEvaluator
 
 class BaseMaskingEvaluator(BaseEvaluator):
 

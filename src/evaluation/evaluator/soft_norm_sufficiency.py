@@ -1,11 +1,11 @@
 from typing_extensions import override
 import torch
 from transformers import AutoModelForCausalLM
-from base import BaseEvaluator
-from sufficiency import SufficiencyEvaluator
-from comprehensiveness import ComprehensivenessEvaluator
-from soft_sufficiency import SoftSufficiencyEvaluator
-from soft_comprehensiveness import SoftComprehensivenessEvaluator
+from .base import BaseEvaluator
+from .sufficiency import SufficiencyEvaluator
+from .comprehensiveness import ComprehensivenessEvaluator
+from .soft_sufficiency import SoftSufficiencyEvaluator
+from .soft_comprehensiveness import SoftComprehensivenessEvaluator
 
 class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
 
