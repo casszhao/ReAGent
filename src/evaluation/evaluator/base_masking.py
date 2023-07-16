@@ -17,7 +17,20 @@ class BaseMaskingEvaluator(BaseEvaluator):
 
         self.model = model
 
-    def get_feature_masking_ratio(self, importance_scores: torch.Tensor) -> torch.Tensor:
+    # def get_feature_masking_ratio(self, importance_scores: torch.Tensor) -> torch.Tensor:
+    #     """ Get feature masking ratio for each token
+
+    #     Args:
+    #         importance_scores: importance_scores [batch, sequence]
+
+    #     Return:
+    #         feature_masking_ratio [batch, sequence]
+
+    #     """
+    #     raise NotImplementedError()
+
+
+    def get_feature_masking_ratio(self, importance_scores: torch.Tensor) -> torch.Tensor:  # by cass: need to fix
         """ Get feature masking ratio for each token
 
         Args:
@@ -27,7 +40,9 @@ class BaseMaskingEvaluator(BaseEvaluator):
             feature_masking_ratio [batch, sequence]
 
         """
-        raise NotImplementedError()
+        top_k = int(self.rational_ratio * importance_scores.shape[1])
+        binary_rational_mask = BaseMaskingEvaluator.create_binary_rational_mask(importance_scores, top_k)
+        return binary_rational_mask
 
     def get_metric(self, prob_target_original: torch.Tensor, prob_target_masked: torch.Tensor) -> torch.Tensor:
         """ Get metric score
@@ -58,7 +73,6 @@ class BaseMaskingEvaluator(BaseEvaluator):
             score [batch]
 
         """
-        
         if input_wte == None:
             input_wte = self.model.transformer.wte.weight[input_ids,:]
 

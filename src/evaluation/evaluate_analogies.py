@@ -21,9 +21,9 @@ def main():
                         type=str,
                         default="rationalization_results/analogies/gpt2-medium.sampling.uniform",
                         help="the saved output of rationalization log") # TODO
-    parser.add_argument("--output-path", 
+    parser.add_argument("--output_path", 
                         type=str,
-                        default="evaluation_results/analogies/test.csv",
+                        default="evaluation_results/analogies/",
                         help="path to save the evaluation metrics") # TODO
     parser.add_argument("--model", 
                         type=str,
@@ -35,7 +35,7 @@ def main():
                         help="") # TODO
     parser.add_argument("--rational-size-ratio", 
                         type=str,
-                        default=0.3,
+                        default=0.1,
                         help="") # TODO
     parser.add_argument("--device", 
                         type=str,
@@ -89,6 +89,8 @@ def main():
     metrics = []
 
     for filename in filenames:
+        input_identifier = str(filename[:-5])
+        print(f"==>> input_identifier: {input_identifier}")
         path_target = os.path.join(dirpath, filename)
         with open(path_target) as f:
             rationalization_result = json.load(f)
@@ -100,37 +102,56 @@ def main():
         target_id = torch.tensor([rationalization_result["target-token"]], device=device)
         
 
-        from evaluator.norm_sufficiency import NormalizedSufficiencyEvaluator
-        norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, rational_size_ratio)
-        norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
+        from evaluator.norm_sufficiency import Norm_Suff_Evaluator
+        print(' ')
+        print( ' ')
+        print("  SUFF ".center(50, "-"))
+        norm_suff_evaluator = Norm_Suff_Evaluator(model, rational_size_ratio)
+        norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores) # input_wte=None prob_target_original=None
+        print(f"==>> norm_suff: {norm_suff}")
+
+        print(' ')
+        print(' ')
+        print( ' ')
+        print("  RANDOM !!! SUFF ".center(50, "-"))
         norm_suff_random = norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+        print(f"==>> norm_suff_random: {norm_suff_random}")
+        print(' ')
 
 
-        from evaluator.norm_comprehensiveness import NormalizedComprehensivenessEvaluator
-        norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, rational_size_ratio)
-        norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
-        norm_comp_random = norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+        # from evaluator.soft_norm_sufficiency import Norm_Soft_Suff_Evaluator
+        # print(' ')
+        # print( ' ')
+        # print("  SOFT SUFF ".center(50, "-"))
+        # soft_norm_suff_evaluator = Norm_Soft_Suff_Evaluator(model)
+        # soft_norm_suff = soft_norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
+        # print(f"==>> soft_norm_suff: {soft_norm_suff}")
+        #soft_norm_suff_random = soft_norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
-        from evaluator.soft_norm_sufficiency import SoftNormalizedSufficiencyEvaluator
-        soft_norm_suff_evaluator = SoftNormalizedSufficiencyEvaluator(model)
-        soft_norm_suff = soft_norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
-        soft_norm_suff_random = soft_norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
-        from evaluator.soft_norm_comprehensiveness import SoftNormalizedComprehensivenessEvaluator
-        soft_norm_comp_evaluator = SoftNormalizedComprehensivenessEvaluator(model)
-        soft_norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
-        soft_norm_comp_random = soft_norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+        # from evaluator.norm_comprehensiveness import Norm_Comp_Evaluator
+        # norm_comp_evaluator = Norm_Comp_Evaluator(model, rational_size_ratio)
+        # norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
+        # norm_comp_random = norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+
+        # from evaluator.soft_norm_comprehensiveness import Norm_Soft_Comp_Evaluator
+        # soft_norm_comp_evaluator = Norm_Soft_Comp_Evaluator(model)
+        # soft_norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
+        # soft_norm_comp_random = soft_norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+
+
 
         logging.info(f"{filename} - {norm_suff.item()}, {soft_norm_suff.item()}, {norm_comp.item()}, {soft_norm_comp.item()}, {norm_suff_random.item()}, {soft_norm_suff_random.item()}, {norm_comp_random.item()}, {soft_norm_comp_random.item()}")
-        metrics.append([norm_suff.item(), soft_norm_suff.item(), norm_comp.item(), soft_norm_comp.item(),
+        metrics.append([input_identifier, norm_suff.item(), soft_norm_suff.item(), norm_comp.item(), soft_norm_comp.item(),
                         norm_suff_random.item(), soft_norm_suff_random.item(), norm_comp_random.item(), soft_norm_comp_random.item()])
+        metrics.to_csv(f'{output_path}_{model}_details.csv')
     
     metrics_t = torch.tensor(metrics)
     metrics_mean = torch.mean(metrics_t, dim=0)
 
     logging.info(f"mean - {metrics_mean[0].item()}, {metrics_mean[1].item()}, {metrics_mean[2].item()}, {metrics_mean[3].item()}, {metrics_mean[4].item()}, {metrics_mean[5].item()}, {metrics_mean[6].item()}, {metrics_mean[7].item()}")
 
-    with open(output_path, "w", newline="") as csv_f:
+    with open(f"{output_path}_{model}.csv", "w", newline="") as csv_f:
         writer = csv.writer(csv_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
         writer.writerow([ "norm_suff", "soft_norm_suff", "norm_comp", "soft_norm_comp" ])
         writer.writerow([ metrics_mean[0].item(), metrics_mean[1].item(), metrics_mean[2].item(), metrics_mean[3].item() ])

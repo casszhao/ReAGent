@@ -2,10 +2,10 @@ from typing_extensions import override
 import torch
 from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
-from .sufficiency import SufficiencyEvaluator
-from .comprehensiveness import ComprehensivenessEvaluator
+from .sufficiency import Suff_Evaluator
+from .comprehensiveness import Comp_Evaluator
 
-class NormalizedSufficiencyEvaluator(BaseEvaluator):
+class Norm_Suff_Evaluator(BaseEvaluator):
 
     @override
     def __init__(self, model: AutoModelForCausalLM, rational_ratio: float) -> None:
@@ -18,8 +18,8 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, 0)
-        self.sufficiency_evaluator = SufficiencyEvaluator(model, rational_ratio)
+        self.sufficiency_evaluator_0 = Suff_Evaluator(model, 0)
+        self.sufficiency_evaluator = Suff_Evaluator(model, rational_ratio)
 
     @torch.no_grad()
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_scores: torch.Tensor, input_wte: torch.Tensor = None, prob_target_original: torch.Tensor = None) -> torch.Tensor:
@@ -38,7 +38,10 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         """
 
         if input_wte == None:
-            input_wte = self.model.transformer.wte.weight[input_ids,:]
+            # input_wte = self.model.transformer.wte.weight[input_ids,:] #debug by cass this is the original
+            # debug commen: we need the embeding, not the weights of the embeddings
+            input_wte = self.model.transformer.wte.weight
+            input_wte =input_wte[input_ids,:]
 
         # original prob
         if prob_target_original == None:
@@ -46,8 +49,8 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
             prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
             prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
         
-
         sufficiency = self.sufficiency_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
+
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
         norm_sufficiency = (sufficiency - sufficiency_0) / (1 - sufficiency_0)
         
@@ -76,11 +79,9 @@ if __name__ == "__main__":
     # generate prediction 
     input_ids = tokenizer(input_string, return_tensors='pt')['input_ids'].to(model.device)
     generated_input = model.generate(input_ids=input_ids, max_length=80, do_sample=False) 
-    print(' generated input -->', [ [ tokenizer.decode(token) for token in seq] for seq in generated_input ])
 
     # extract target from prediction
     target_id = generated_input[:, input_ids.shape[1]]
-    print(' target -->', [ tokenizer.decode(token) for token in target_id ])
 
     importance_scores = torch.softmax(torch.tensor([
         [ 0, 0, 0, 0, 500, 1000, 0, 0, 0, 0, -500, -500, 1000, 1000, 1000, ],
@@ -88,7 +89,6 @@ if __name__ == "__main__":
     ], dtype=torch.float, device=input_ids.device), -1)
 
 
-    evaluator = NormalizedSufficiencyEvaluator(model, 0.5)
+    evaluator = Norm_Suff_Evaluator(model, 0.5)
     metric = evaluator.evaluate(input_ids, target_id, importance_scores)
 
-    print(metric)

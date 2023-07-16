@@ -2,12 +2,12 @@ from typing_extensions import override
 import torch
 from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
-from .sufficiency import SufficiencyEvaluator
-from .comprehensiveness import ComprehensivenessEvaluator
-from .soft_sufficiency import SoftSufficiencyEvaluator
-from .soft_comprehensiveness import SoftComprehensivenessEvaluator
+from .sufficiency import Suff_Evaluator
+from .comprehensiveness import Comp_Evaluator
+from .soft_sufficiency import Soft_Suff_Evaluator
+from .soft_comprehensiveness import Soft_Comp_Evaluator
 
-class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
+class Norm_Soft_Suff_Evaluator(BaseEvaluator):
 
     @override
     def __init__(self, model: AutoModelForCausalLM) -> None:
@@ -20,8 +20,8 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, 0)
-        self.soft_sufficiency_evaluator = SoftSufficiencyEvaluator(model)
+        self.sufficiency_evaluator_0 = Suff_Evaluator(model, 0)
+        self.soft_sufficiency_evaluator = Soft_Suff_Evaluator(model)
 
     @torch.no_grad()
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_scores: torch.Tensor, input_wte: torch.Tensor = None, prob_target_original: torch.Tensor = None) -> torch.Tensor:

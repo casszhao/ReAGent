@@ -3,7 +3,7 @@ import torch
 from transformers import AutoModelForCausalLM
 from .base_masking import BaseMaskingEvaluator
 
-class SufficiencyEvaluator(BaseMaskingEvaluator):    
+class Suff_Evaluator(BaseMaskingEvaluator):   # class BaseMaskingEvaluator(BaseEvaluator)
     @override
     def __init__(self, model: AutoModelForCausalLM, rational_ratio: float) -> None:
         """ Constructor
@@ -69,11 +69,9 @@ if __name__ == "__main__":
     # generate prediction 
     input_ids = tokenizer(input_string, return_tensors='pt')['input_ids'].to(model.device)
     generated_input = model.generate(input_ids=input_ids, do_sample=False) 
-    print(' generated input -->', [ [ tokenizer.decode(token) for token in seq] for seq in generated_input ])
 
     # extract target from prediction
     target_id = generated_input[:, input_ids.shape[1]]
-    print(' target -->', [ tokenizer.decode(token) for token in target_id ])
 
     importance_scores = torch.softmax(torch.tensor([
         [ 0, 0, 0, 0, 500, 1000, 0, 0, 0, 0, -500, -500, 1000, 1000, 1000, ],
@@ -81,7 +79,6 @@ if __name__ == "__main__":
     ], dtype=torch.float, device=input_ids.device), -1)
 
 
-    evaluator = SufficiencyEvaluator(model, 0.9)
+    evaluator = Suff_Evaluator(model, 0.9)
     metric = evaluator.evaluate(input_ids, target_id, importance_scores)
 
-    print(metric)

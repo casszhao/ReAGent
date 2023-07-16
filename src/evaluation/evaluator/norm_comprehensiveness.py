@@ -2,10 +2,10 @@ from typing_extensions import override
 import torch
 from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
-from .sufficiency import SufficiencyEvaluator
-from .comprehensiveness import ComprehensivenessEvaluator
+from .sufficiency import Suff_Evaluator
+from .comprehensiveness import Comp_Evaluator
 
-class NormalizedComprehensivenessEvaluator(BaseEvaluator):
+class Norm_Comp_Evaluator(BaseEvaluator):
 
     @override
     def __init__(self, model: AutoModelForCausalLM, rational_ratio: float) -> None:
@@ -18,8 +18,8 @@ class NormalizedComprehensivenessEvaluator(BaseEvaluator):
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, 0)
-        self.comprehensiveness_evaluator = ComprehensivenessEvaluator(model, rational_ratio)
+        self.sufficiency_evaluator_0 = Suff_Evaluator(model, 0)
+        self.comprehensiveness_evaluator = Comp_Evaluator(model, rational_ratio)
 
     
     @torch.no_grad()

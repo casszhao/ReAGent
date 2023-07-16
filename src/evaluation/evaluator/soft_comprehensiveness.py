@@ -3,7 +3,7 @@ import torch
 from transformers import AutoModelForCausalLM
 from .base_masking import BaseMaskingEvaluator
 
-class SoftComprehensivenessEvaluator(BaseMaskingEvaluator):
+class Soft_Comp_Evaluator(BaseMaskingEvaluator):
 
     @override
     def __init__(self, model: AutoModelForCausalLM) -> None:
