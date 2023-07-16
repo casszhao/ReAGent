@@ -10,6 +10,8 @@ import torch
 
 from transformers import AutoModelForCausalLM
 
+from natsort import natsorted
+
 @torch.no_grad()
 def main():
 
@@ -30,6 +32,10 @@ def main():
     parser.add_argument("--tokenizer", 
                         type=str,
                         default="gpt2-medium",
+                        help="") # TODO
+    parser.add_argument("--rational-size-ratio", 
+                        type=str,
+                        default=0.3,
                         help="") # TODO
     parser.add_argument("--device", 
                         type=str,
@@ -65,6 +71,7 @@ def main():
 
     target_dir = args.target_dir
     output_path = args.output_path
+    rational_size_ratio = args.rational_size_ratio
     device = args.device
 
     logging.info(f"Loading model...")
@@ -73,8 +80,8 @@ def main():
     
 
     dirpath, dirnames, filenames = next(os.walk(target_dir))
-    filenames.sort()
-
+    # filenames.sort()
+    filenames = natsorted(filenames)
 
     metrics = []
 
@@ -88,11 +95,11 @@ def main():
         importance_scores = torch.tensor([rationalization_result["importance-scores"]], device=device)
 
         from evaluator.norm_sufficiency import NormalizedSufficiencyEvaluator
-        norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, 0.2)
+        norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, rational_size_ratio)
         norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
 
         from evaluator.norm_comprehensiveness import NormalizedComprehensivenessEvaluator
-        norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, 0.2)
+        norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, rational_size_ratio)
         norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
 
         from evaluator.soft_norm_sufficiency import SoftNormalizedSufficiencyEvaluator
