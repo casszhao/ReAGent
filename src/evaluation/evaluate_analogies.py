@@ -20,11 +20,11 @@ def main():
     parser.add_argument("--target-dir", 
                         type=str,
                         default="rationalization_results/analogies/test",
-                        help="") # TODO
+                        help="the saved output of rationalization log") # TODO
     parser.add_argument("--output-path", 
                         type=str,
                         default="evaluation_results/analogies/test.csv",
-                        help="") # TODO
+                        help="path to save the evaluation metrics") # TODO
     parser.add_argument("--model", 
                         type=str,
                         default="gpt2-medium",
