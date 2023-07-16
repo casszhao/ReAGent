@@ -1,5 +1,7 @@
 # WIP
 
+For the analogies experiment, we use the [analogies dataset](https://aclweb.org/aclwiki/Google_analogy_test_set_(State_of_the_art)) provided by [Mikolev et al](https://arxiv.org/abs/1301.3781). The dataset is already included in our Github, so there is no need to download anything else.
+
 ## Repo structure
 
 ### Source code

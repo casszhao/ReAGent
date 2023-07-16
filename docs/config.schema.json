@@ -114,6 +114,11 @@
                                             "type": "number",
                                             "exclusiveMinimum": 0,
                                             "exclusiveMaximum": 1
+                                        },
+                                        "max_steps": {
+                                            "description": "Max steps of updating",
+                                            "type": "number",
+                                            "minimum": 1
                                         }
                                     }
                                 },

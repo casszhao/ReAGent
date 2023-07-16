@@ -18,6 +18,7 @@ from rationalizer.token_replacement.token_sampler.postag import POSTagTokenSampl
 from rationalizer.token_replacement.token_sampler.uniform import UniformTokenSampler
 from rationalizer.utils.serializing import serialize_rational
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from natsort import natsorted
 
 if __name__ == "__main__":
     
@@ -25,11 +26,11 @@ if __name__ == "__main__":
 
     parser.add_argument("--model", 
                         type=str,
-                        default="gpt2", # gpt2-medium gpt2-large
+                        default="gpt2-medium", # gpt2-medium gpt2-large
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
-                        default="gpt2",
+                        default="gpt2-medium",
                         help="") # TODO
     parser.add_argument("--data-dir", 
                         type=str,
@@ -37,7 +38,7 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--output-dir", 
                         type=str,
-                        default="rationalization_results/analogies/gpt2-medium.sampling.uniform",
+                        default="rationalization_results/analogies/test",
                         help="") # TODO
     parser.add_argument("--device", 
                         type=str,
@@ -175,7 +176,8 @@ if __name__ == "__main__":
         raise ValueError(f"Invalid rationalizer_type {rationalizer_type}")
     
     dirpath, dirnames, filenames = next(os.walk(data_dir))
-    filenames.sort()
+    # filenames.sort()
+    filenames = natsorted(filenames)
 
     total_file_num = len(filenames)
 

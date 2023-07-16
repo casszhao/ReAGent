@@ -20,6 +20,7 @@ from rationalizer.token_replacement.token_sampler.uniform import UniformTokenSam
 from rationalizer.utils.serializing import serialize_rational
 from rationalizer.importance_score_evaluator.attention import AttentionImportanceScoreEvaluator
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from natsort import natsorted
 
 if __name__ == "__main__":
     
@@ -27,11 +28,11 @@ if __name__ == "__main__":
 
     parser.add_argument("--model", 
                         type=str,
-                        default="gpt2", # gpt2-medium gpt2-large
+                        default="gpt2-medium", # gpt2-medium gpt2-large
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
-                        default="gpt2",
+                        default="gpt2-medium",
                         help="") # TODO
     parser.add_argument("--data-dir", 
                         type=str,
@@ -131,7 +132,8 @@ if __name__ == "__main__":
                     token_sampler=token_sampler, 
                     ratio=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["replacing_ratio"]
                 ),
-                stopping_condition_evaluator=stopping_condition_evaluator
+                stopping_condition_evaluator=stopping_condition_evaluator,
+                max_steps=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["max_steps"]
             )
         elif evaluator_type == 'bayesian_optimization':
             importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
@@ -180,7 +182,8 @@ if __name__ == "__main__":
         raise ValueError(f"Invalid rationalizer_type {rationalizer_type}")
     
     dirpath, dirnames, filenames = next(os.walk(data_dir))
-    filenames.sort()
+    # filenames.sort()
+    filenames = natsorted(filenames)
 
     total_file_num = len(filenames)
 
@@ -215,7 +218,6 @@ if __name__ == "__main__":
         # convert results
 
         logging.info("")
-        logging.info(f"========================")
         logging.info("")
         logging.info(f'Input --> {tokenizer.decode(input_tokens[0])}')
         logging.info(f'Target --> {tokenizer.decode(target_token[0])}')
@@ -236,6 +238,13 @@ if __name__ == "__main__":
             "args" : args.__dict__,
             "time_elapsed": time_elapsed
         }
+
+        # Append comment for steps of updating
+        if rationalization_config["importance_score_evaluator"]["type"] == "delta_probability":
+            comments["updating"] = {
+                "num_steps": rationalizer.importance_score_evaluator.num_steps,
+                "max_steps": rationalization_config["importance_score_evaluator"]["delta_probability"]["max_steps"]
+            }
 
         # Append comment for separate_rational
         if rationalization_config["rationalizer"]["type"] == "aggregation" and rationalization_config["rationalizer"]["aggregation"]["save_separate_rational"]:
@@ -258,3 +267,6 @@ if __name__ == "__main__":
         # rationalizer.trace_stop()
 
         logging.info(f'{filename} done.')
+        logging.info("")
+        logging.info(f"========================")
+        logging.info("")

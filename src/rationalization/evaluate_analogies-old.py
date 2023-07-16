@@ -8,6 +8,7 @@ import os
 import torch
 
 from transformers import AutoTokenizer
+from natsort import natsorted
 
 
 if __name__ == "__main__":
@@ -19,7 +20,7 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--target-dir", 
                         type=str,
-                        default="rationalization_results/analogies/gpt2-medium.sampling.uniform",
+                        default="rationalization_results/analogies/test",
                         help="") # TODO
     parser.add_argument("--baseline-dir", 
                         type=str,
@@ -27,7 +28,7 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--output-path", 
                         type=str,
-                        default="evaluation_results/analogies/gpt2-medium.sampling.uniform.csv",
+                        default="evaluation_results/analogies/test.csv",
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
@@ -47,7 +48,8 @@ if __name__ == "__main__":
     baseline_approximation_ratios = []
 
     dirpath, dirnames, filenames = next(os.walk(target_dir))
-    filenames.sort()
+    # filenames.sort()
+    filenames = natsorted(filenames)
 
     for filename in filenames:
         path_target = os.path.join(dirpath, filename)
