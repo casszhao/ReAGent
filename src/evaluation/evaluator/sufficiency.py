@@ -1,5 +1,6 @@
 from typing_extensions import override
 import torch
+import torch.nn.functional as F
 from transformers import AutoModelForCausalLM
 from .base_masking import BaseMaskingEvaluator
 
@@ -42,8 +43,29 @@ class Suff_Evaluator(BaseMaskingEvaluator):   # class BaseMaskingEvaluator(BaseE
         Return:
             score [batch]
 
+        by cass ===> 
+        we calcualte the cross entropy between two distribution
+
+        for SUFF, if it is faithful, we expect a similar distribution, therefore, small cross entropy, "low loss". 
+        so, similar to the original suff, the lower the better before normalised. 
+        <===== 
+
         """
-        sufficiency = 1 - torch.max(torch.tensor(0, device=prob_target_original.device), prob_target_original - prob_target_masked)
+        #sufficiency = 1 - torch.max(torch.tensor(0, device=prob_target_original.device), prob_target_original - prob_target_masked)
+
+        # q = prob_target_original
+        # p = prob_target_masked
+
+        print('prob_target_original ', prob_target_original)
+        print('prob_target_original ', prob_target_original[0])
+        print('prob_target_masked ', prob_target_masked)
+
+        sufficiency = 1 - torch.max(torch.tensor(0, device=prob_target_original.device), 
+        
+                                    torch.tensor(F.kl_div(prob_target_original[0].log(), prob_target_masked[0], reduction='sum'), device=prob_target_original.device))
+        print(f"==>> sufficiency <===: {sufficiency}")
+        
+
         return sufficiency
 
 if __name__ == "__main__":

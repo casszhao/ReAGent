@@ -1,6 +1,6 @@
 from typing_extensions import override
 import torch
-from transformers import AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from .base import BaseEvaluator
 from .sufficiency import Suff_Evaluator
 from .comprehensiveness import Comp_Evaluator
@@ -38,21 +38,26 @@ class Norm_Suff_Evaluator(BaseEvaluator):
         """
 
         if input_wte == None:
-            # input_wte = self.model.transformer.wte.weight[input_ids,:] #debug by cass this is the original
-            # debug commen: we need the embeding, not the weights of the embeddings
-            input_wte = self.model.transformer.wte.weight
-            input_wte =input_wte[input_ids,:]
+            input_wte = self.model.transformer.wte.weight[input_ids,:] 
 
         # original prob
         if prob_target_original == None:
-            logits_original = self.model(inputs_embeds=input_wte)["logits"]
-            prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
-            prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
+            prob_target_original = self.model.generate(inputs_embeds=input_wte)["logits"]  # by cass
+            #prob_target_original = self.model.generate(input_ids, max_new_tokens=1)["logits"] 
+            print(' ')
+            print(' ')
+            print(f"==>> prob_target_original: {prob_target_original}")
+            quit()
+            # prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)  # commentout by cass
+            # prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id] # commentout by cass
         
         sufficiency = self.sufficiency_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
+        print(f"==>> sufficiency for NORM: {sufficiency}")
 
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
+        print(f"==>> sufficiency_0  for NORM: {sufficiency_0}")
         norm_sufficiency = (sufficiency - sufficiency_0) / (1 - sufficiency_0)
+        print(f"==>> norm_sufficiency: {norm_sufficiency}")
         
         return norm_sufficiency
 

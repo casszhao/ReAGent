@@ -3,6 +3,9 @@ import torch
 from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
 
+
+import torch.nn.functional as F
+
 class BaseMaskingEvaluator(BaseEvaluator):
 
     @override
@@ -76,6 +79,13 @@ class BaseMaskingEvaluator(BaseEvaluator):
         if input_wte == None:
             input_wte = self.model.transformer.wte.weight[input_ids,:]
 
+        ''' 
+        by cass 
+        1. we change the predictive likelihood on target word to the overall predictive distribution
+        2. we compare the two distribution with cross entropy
+        
+        the original code --->
+
         # original prob
         if prob_target_original == None:
             logits_original = self.model(inputs_embeds=input_wte)["logits"]
@@ -89,8 +99,19 @@ class BaseMaskingEvaluator(BaseEvaluator):
         logits_masked = self.model(inputs_embeds=input_wte_masked)["logits"]
         prob_masked = torch.softmax(logits_masked[:, input_ids.shape[1] - 1, :], -1)
         prob_target_masked = prob_masked[torch.arange(prob_masked.shape[0]), target_id]
+        '''
 
-        # metric
+        # original prob
+        if prob_target_original == None:
+            prob_target_original = self.model.generate(inputs_embeds=input_wte)["logits"]
+        
+        # masked prob
+        feature_masking_ratio = self.get_feature_masking_ratio(importance_scores)
+        input_wte_masked = BaseMaskingEvaluator.mask_zero_embedding(input_wte, feature_masking_ratio)
+
+        prob_target_masked = self.model(inputs_embeds=input_wte_masked)["logits"]
+
+        # metric, suff and comp are different, suff return suff as metric value, comp return comp as metric value
         metric = self.get_metric(prob_target_original, prob_target_masked)
 
         return metric

@@ -44,9 +44,9 @@ class Norm_Soft_Suff_Evaluator(BaseEvaluator):
 
         # original prob
         if prob_target_original == None:
-            logits_original = self.model(inputs_embeds=input_wte)["logits"]
-            prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
-            prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
+            prob_target_original = self.model.generate(inputs_embeds=input_wte)["logits"]
+            # prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
+            # prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
         
 
         soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
