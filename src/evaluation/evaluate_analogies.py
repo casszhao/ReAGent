@@ -19,19 +19,19 @@ def main():
 
     parser.add_argument("--target-dir", 
                         type=str,
-                        default="rationalization_results/analogies/gpt2-medium.sampling.uniform",
+                        default="rationalization_results/analogies/test",
                         help="") # TODO
     parser.add_argument("--output-dir", 
                         type=str,
-                        default="evaluation_results/analogies/",
+                        default="evaluation_results/analogies/test",
                         help="") # TODO
     parser.add_argument("--model", 
                         type=str,
-                        default="bigscience/bloom",  # KoboldAI/OPT-6.7B-Erebus openlm-research/open_llama_7b_v2
+                        default="gpt2-medium",  # Use gpt2-medium as default for quick testing, pass any other model by commandline/job-script.
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
-                        default="bigscience/bloom",  
+                        default="gpt2-medium",  
                         help="") # TODO
     parser.add_argument("--rational-size-ratio", 
                         type=str,
