@@ -3,7 +3,6 @@
 - [x] implement metric Soft Suff & Soft Comp
 
 - [x] evaluate analogy Suff & Comp
-- [ ] intergrate module inseq
 
 
 
@@ -23,9 +22,10 @@ I know we have done attention, but compare to previous paper, we need at least a
   - [ ] FAs: integrated grads, 
   - [ ] FAs: gradients, 
   - [ ] FAs: gradients * embeddings, 
-  - [x] FAs: attention rollout
-  - [x] FAs: last attention
-  - [x] FAs: attention all
+  - [x] FAs: attention rollout (config.json - importance_score_evaluator.attention.type = rollout)
+  - [x] FAs: last attention (config.json - importance_score_evaluator.attention.type = last)
+  - [x] FAs: attention all (config.json - importance_score_evaluator.attention.type = all)
+  - [ ] Alternative: intergrate module inseq
 - Results
   - [ ] FAs: integrated grads, 
   - [ ] FAs: gradients, 
@@ -33,6 +33,7 @@ I know we have done attention, but compare to previous paper, we need at least a
   - [ ] FAs: attention rollout
   - [ ] FAs: last attention
   - [ ] FAs: attention all
+  - [ ] Alternative: intergrate module inseq
 
 
 
