@@ -23,19 +23,19 @@ pip install -r requirements.txt
 python setup_nltk.py
 
 # Generate evaluation data set (Only need to be done once)
-mkdir -p data/analogies
-python src/data/prepare_evaluation_analogy.py \
-    --analogies-file data/analogies.txt \
-    --output-dir data/analogies \
-    --compact-output True \
-    --schema-uri ../../docs/analogy.schema.json \
-    --device cuda
+# mkdir -p data/analogies
+# python src/data/prepare_evaluation_analogy.py \
+#     --analogies-file data/analogies.txt \
+#     --output-dir data/analogies \
+#     --compact-output True \
+#     --schema-uri ../../docs/analogy.schema.json \
+#     --device cuda
 
 # Run rationalization task
 mkdir -p rationalization_results/analogies/gpt2-medium.sampling.uniform
 mkdir -p logs/analogies/gpt2-medium.sampling.uniform
 python src/rationalization/random_replacing/run_analogies.py \
-    --rationalization-config config/test.json \
+    --rationalization-config config/test2.json \
     --model gpt2-medium \
     --tokenizer gpt2-medium \
     --data-dir data/analogies \
