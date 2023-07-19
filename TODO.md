@@ -18,12 +18,22 @@ We will test on other model and feature attribution too. Do feature attribution 
 
 
 I know we have done attention, but compare to previous paper, we need at least another 3. I have some suggestion, but due to the time limit, please do the ones which are fast. package inseq
-- [ ] FAs: integrated grads, 
-- [ ] FAs: gradients, 
-- [ ] FAs: gradients * embeddings, 
-- [ ] FAs: attention rollout
-- [ ] FAs: last attention
-- [ ] FAs: 
+
+- Code
+  - [ ] FAs: integrated grads, 
+  - [ ] FAs: gradients, 
+  - [ ] FAs: gradients * embeddings, 
+  - [x] FAs: attention rollout
+  - [x] FAs: last attention
+  - [x] FAs: attention all
+- Results
+  - [ ] FAs: integrated grads, 
+  - [ ] FAs: gradients, 
+  - [ ] FAs: gradients * embeddings, 
+  - [ ] FAs: attention rollout
+  - [ ] FAs: last attention
+  - [ ] FAs: attention all
+
 
 
 
