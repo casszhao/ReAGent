@@ -17,11 +17,11 @@ def main():
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--target-dir", 
+    parser.add_argument("--importance_results_dir", 
                         type=str,
                         default="rationalization_results/analogies/test",
-                        help="") # TODO
-    parser.add_argument("--output-dir", 
+                        help="path for storing the importance scores extracted") # TODO
+    parser.add_argument("--eva_output_dir", 
                         type=str,
                         default="evaluation_results/analogies/test",
                         help="") # TODO
@@ -33,10 +33,10 @@ def main():
                         type=str,
                         default="gpt2-medium",  
                         help="") # TODO
-    parser.add_argument("--rational-size-ratio", 
+    parser.add_argument("--rational_size_ratio", 
                         type=str,
                         default=0.3,
-                        help="") # TODO
+                        help="") # when using bash, it has error by cass
     parser.add_argument("--device", 
                         type=str,
                         default="cuda",
@@ -69,8 +69,8 @@ def main():
     stdout_handler.setFormatter(formatter)
     logger.addHandler(stdout_handler)
 
-    target_dir = args.target_dir
-    output_dir = args.output_dir
+    target_dir = args.importance_results_dir
+    output_dir = args.eva_output_dir
     rational_size_ratio = args.rational_size_ratio
     device = args.device
 
@@ -91,7 +91,7 @@ def main():
 
     with open(os.path.join(output_dir, 'details.csv'), "w", newline="") as csv_details_f:
         details_writer = csv.writer(csv_details_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
-        details_writer.writerow(['id', "norm_suff", "soft_norm_suff", "norm_comp", "soft_norm_comp","random_norm_suff", "random_soft_norm_suff", "random_norm_comp", "random_soft_norm_comp"])
+        details_writer.writerow(['id', "suff", "soft_suff", "comp", "soft_comp","random_suff", "random_soft_suff", "random_comp", "random_soft_comp"])
         csv_details_f.flush()
 
         for filename in filenames:
@@ -142,7 +142,7 @@ def main():
 
     with open(os.path.join(output_dir, 'mean.csv'), "w", newline="") as csv_mean_f:
         writer = csv.writer(csv_mean_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
-        writer.writerow([ "norm_suff", "soft_norm_suff", "norm_comp", "soft_norm_comp","random_norm_suff", "random_soft_norm_suff", "random_norm_comp", "random_soft_norm_comp" ])
+        writer.writerow([ "suff", "soft_suff", "comp", "soft_comp","random_suff", "random_soft_suff", "random_comp", "random_soft_comp" ])
         writer.writerow([ metrics_mean[0].item(), metrics_mean[1].item(), metrics_mean[2].item(), metrics_mean[3].item(), metrics_mean[4].item(), metrics_mean[5].item(), metrics_mean[6].item(), metrics_mean[7].item() ])
 
 if __name__ == "__main__":

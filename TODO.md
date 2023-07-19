@@ -42,3 +42,10 @@ I know we have done attention, but compare to previous paper, we need at least a
 - [ ] model: KoboldAI/OPT-6.7B-Erebus (too big to load locally)
 - [ ] model: openlm-research/open_llama_7b_v2 (downloading killed)
 - [ ] model: bigscience/bloom (half hour downloading, only done 10%)
+
+
+
+====> cass done
+0719
+1. have done extracting importance scores and evaluation for the 3 attention FA, using local_attention.sh (3 different config). runnable. 
+2. accidently delete our methods extracted importance scores. SORRY!

@@ -29,8 +29,8 @@ source activate seq      # via conda
     
 
 # Run rationalization task
-mkdir -p rationalization_results/analogies/gpt2-medium.sampling.uniform
-mkdir -p logs/analogies/gpt2-medium.sampling.uniform
+mkdir -p rationalization_results/analogies/gpt2_medium_attention
+mkdir -p logs/analogies/gpt2_medium_attention
 python src/rationalization/random_replacing/run_analogies.py \
     --rationalization-config config/cass.json \
     --model gpt2-medium \

@@ -38,7 +38,7 @@ if __name__ == "__main__":
                         type=str,
                         default="data/analogies",
                         help="") # TODO
-    parser.add_argument("--output-dir", 
+    parser.add_argument("--importance_results_dir", 
                         type=str,
                         default="rationalization_results/analogies/test",
                         help="") # TODO
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     logger.addHandler(stdout_handler)
 
     data_dir = args.data_dir
-    output_dir = args.output_dir
+    output_dir = args.importance_results_dir
     device = args.device
     
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)

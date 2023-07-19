@@ -1,0 +1,2041 @@
+2023-07-19 22:21:43,254 [INFO] Rationalizing 0.json ...
+2023-07-19 22:21:43,769 [INFO] Rationalization done in 0.5142781734466553
+2023-07-19 22:21:43,769 [INFO] 
+2023-07-19 22:21:43,769 [INFO] 
+2023-07-19 22:21:43,770 [INFO] Input --> When my flight landed in Greece, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,770 [INFO] Target -->  Athens
+2023-07-19 22:21:43,771 [INFO] Rational positions --> tensor([[ 0, 41, 38, 40,  5]], device='cuda:0')
+2023-07-19 22:21:43,771 [INFO] Rational words -->
+2023-07-19 22:21:43,771 [INFO] ['When', ',', ' in', ' capital', ' Greece']
+2023-07-19 22:21:43,773 [INFO] 0.json done.
+2023-07-19 22:21:43,773 [INFO] 
+2023-07-19 22:21:43,773 [INFO] ========================
+2023-07-19 22:21:43,773 [INFO] 
+2023-07-19 22:21:43,773 [INFO] Rationalizing 1.json ...
+2023-07-19 22:21:43,783 [INFO] Rationalization done in 0.010409355163574219
+2023-07-19 22:21:43,783 [INFO] 
+2023-07-19 22:21:43,783 [INFO] 
+2023-07-19 22:21:43,784 [INFO] Input --> When my flight landed in Iraq, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,784 [INFO] Target -->  Baghdad
+2023-07-19 22:21:43,785 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  4]], device='cuda:0')
+2023-07-19 22:21:43,785 [INFO] Rational words -->
+2023-07-19 22:21:43,785 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:43,787 [INFO] 1.json done.
+2023-07-19 22:21:43,787 [INFO] 
+2023-07-19 22:21:43,787 [INFO] ========================
+2023-07-19 22:21:43,787 [INFO] 
+2023-07-19 22:21:43,787 [INFO] Rationalizing 2.json ...
+2023-07-19 22:21:43,797 [INFO] Rationalization done in 0.010286569595336914
+2023-07-19 22:21:43,797 [INFO] 
+2023-07-19 22:21:43,797 [INFO] 
+2023-07-19 22:21:43,798 [INFO] Input --> When my flight landed in Thailand, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,798 [INFO] Target -->  Bangkok
+2023-07-19 22:21:43,798 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  5]], device='cuda:0')
+2023-07-19 22:21:43,798 [INFO] Rational words -->
+2023-07-19 22:21:43,799 [INFO] ['When', ',', ' capital', ' in', ' Thailand']
+2023-07-19 22:21:43,800 [INFO] 2.json done.
+2023-07-19 22:21:43,800 [INFO] 
+2023-07-19 22:21:43,800 [INFO] ========================
+2023-07-19 22:21:43,800 [INFO] 
+2023-07-19 22:21:43,801 [INFO] Rationalizing 3.json ...
+2023-07-19 22:21:43,811 [INFO] Rationalization done in 0.010199308395385742
+2023-07-19 22:21:43,811 [INFO] 
+2023-07-19 22:21:43,811 [INFO] 
+2023-07-19 22:21:43,812 [INFO] Input --> When my flight landed in China, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,813 [INFO] Target -->  Beijing
+2023-07-19 22:21:43,816 [INFO] Rational positions --> tensor([[ 0, 40, 38, 41,  4]], device='cuda:0')
+2023-07-19 22:21:43,817 [INFO] Rational words -->
+2023-07-19 22:21:43,820 [INFO] ['When', ' capital', ' in', ',', ' in']
+2023-07-19 22:21:43,827 [INFO] 3.json done.
+2023-07-19 22:21:43,827 [INFO] 
+2023-07-19 22:21:43,827 [INFO] ========================
+2023-07-19 22:21:43,827 [INFO] 
+2023-07-19 22:21:43,827 [INFO] Rationalizing 4.json ...
+2023-07-19 22:21:43,837 [INFO] Rationalization done in 0.010289669036865234
+2023-07-19 22:21:43,837 [INFO] 
+2023-07-19 22:21:43,837 [INFO] 
+2023-07-19 22:21:43,839 [INFO] Input --> When my flight landed in Germany, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,840 [INFO] Target -->  Berlin
+2023-07-19 22:21:43,843 [INFO] Rational positions --> tensor([[ 0, 41, 40,  4, 38]], device='cuda:0')
+2023-07-19 22:21:43,844 [INFO] Rational words -->
+2023-07-19 22:21:43,847 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:43,852 [INFO] 4.json done.
+2023-07-19 22:21:43,852 [INFO] 
+2023-07-19 22:21:43,852 [INFO] ========================
+2023-07-19 22:21:43,853 [INFO] 
+2023-07-19 22:21:43,853 [INFO] Rationalizing 5.json ...
+2023-07-19 22:21:43,863 [INFO] Rationalization done in 0.010603189468383789
+2023-07-19 22:21:43,863 [INFO] 
+2023-07-19 22:21:43,864 [INFO] 
+2023-07-19 22:21:43,865 [INFO] Input --> When my flight landed in Egypt, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,866 [INFO] Target -->  Cairo
+2023-07-19 22:21:43,869 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  4]], device='cuda:0')
+2023-07-19 22:21:43,870 [INFO] Rational words -->
+2023-07-19 22:21:43,872 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:43,878 [INFO] 5.json done.
+2023-07-19 22:21:43,879 [INFO] 
+2023-07-19 22:21:43,879 [INFO] ========================
+2023-07-19 22:21:43,879 [INFO] 
+2023-07-19 22:21:43,879 [INFO] Rationalizing 6.json ...
+2023-07-19 22:21:43,889 [INFO] Rationalization done in 0.010211944580078125
+2023-07-19 22:21:43,889 [INFO] 
+2023-07-19 22:21:43,889 [INFO] 
+2023-07-19 22:21:43,890 [INFO] Input --> When my flight landed in Australia, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,890 [INFO] Target -->  Canberra
+2023-07-19 22:21:43,890 [INFO] Rational positions --> tensor([[ 0, 40, 41, 38,  4]], device='cuda:0')
+2023-07-19 22:21:43,890 [INFO] Rational words -->
+2023-07-19 22:21:43,890 [INFO] ['When', ' capital', ',', ' in', ' in']
+2023-07-19 22:21:43,893 [INFO] 6.json done.
+2023-07-19 22:21:43,893 [INFO] 
+2023-07-19 22:21:43,893 [INFO] ========================
+2023-07-19 22:21:43,893 [INFO] 
+2023-07-19 22:21:43,893 [INFO] Rationalizing 7.json ...
+2023-07-19 22:21:43,903 [INFO] Rationalization done in 0.010147571563720703
+2023-07-19 22:21:43,903 [INFO] 
+2023-07-19 22:21:43,903 [INFO] 
+2023-07-19 22:21:43,904 [INFO] Input --> When my flight landed in Cuba, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,906 [INFO] Target -->  Havana
+2023-07-19 22:21:43,909 [INFO] Rational positions --> tensor([[ 0, 40, 41, 38,  5]], device='cuda:0')
+2023-07-19 22:21:43,910 [INFO] Rational words -->
+2023-07-19 22:21:43,913 [INFO] ['When', ' capital', ',', ' in', ' Cuba']
+2023-07-19 22:21:43,918 [INFO] 7.json done.
+2023-07-19 22:21:43,919 [INFO] 
+2023-07-19 22:21:43,919 [INFO] ========================
+2023-07-19 22:21:43,919 [INFO] 
+2023-07-19 22:21:43,919 [INFO] Rationalizing 8.json ...
+2023-07-19 22:21:43,929 [INFO] Rationalization done in 0.010557174682617188
+2023-07-19 22:21:43,929 [INFO] 
+2023-07-19 22:21:43,929 [INFO] 
+2023-07-19 22:21:43,930 [INFO] Input --> When my flight landed in Finland, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,930 [INFO] Target -->  Helsinki
+2023-07-19 22:21:43,930 [INFO] Rational positions --> tensor([[ 0, 41, 38, 40,  4]], device='cuda:0')
+2023-07-19 22:21:43,931 [INFO] Rational words -->
+2023-07-19 22:21:43,931 [INFO] ['When', ',', ' in', ' capital', ' in']
+2023-07-19 22:21:43,932 [INFO] 8.json done.
+2023-07-19 22:21:43,932 [INFO] 
+2023-07-19 22:21:43,932 [INFO] ========================
+2023-07-19 22:21:43,932 [INFO] 
+2023-07-19 22:21:43,933 [INFO] Rationalizing 9.json ...
+2023-07-19 22:21:43,943 [INFO] Rationalization done in 0.009943962097167969
+2023-07-19 22:21:43,943 [INFO] 
+2023-07-19 22:21:43,943 [INFO] 
+2023-07-19 22:21:43,944 [INFO] Input --> When my flight landed in Pakistan, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,945 [INFO] Target -->  Islamabad
+2023-07-19 22:21:43,948 [INFO] Rational positions --> tensor([[ 0, 41, 40,  4, 38]], device='cuda:0')
+2023-07-19 22:21:43,949 [INFO] Rational words -->
+2023-07-19 22:21:43,951 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:43,958 [INFO] 9.json done.
+2023-07-19 22:21:43,958 [INFO] 
+2023-07-19 22:21:43,958 [INFO] ========================
+2023-07-19 22:21:43,958 [INFO] 
+2023-07-19 22:21:43,959 [INFO] Rationalizing 10.json ...
+2023-07-19 22:21:43,969 [INFO] Rationalization done in 0.01029658317565918
+2023-07-19 22:21:43,969 [INFO] 
+2023-07-19 22:21:43,969 [INFO] 
+2023-07-19 22:21:43,971 [INFO] Input --> When my flight landed in Afghanistan, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,972 [INFO] Target -->  Kabul
+2023-07-19 22:21:43,975 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  5]], device='cuda:0')
+2023-07-19 22:21:43,975 [INFO] Rational words -->
+2023-07-19 22:21:43,978 [INFO] ['When', ',', ' capital', ' in', ' Afghanistan']
+2023-07-19 22:21:43,984 [INFO] 10.json done.
+2023-07-19 22:21:43,984 [INFO] 
+2023-07-19 22:21:43,984 [INFO] ========================
+2023-07-19 22:21:43,984 [INFO] 
+2023-07-19 22:21:43,984 [INFO] Rationalizing 11.json ...
+2023-07-19 22:21:43,995 [INFO] Rationalization done in 0.010637044906616211
+2023-07-19 22:21:43,995 [INFO] 
+2023-07-19 22:21:43,995 [INFO] 
+2023-07-19 22:21:43,997 [INFO] Input --> When my flight landed in England, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:43,998 [INFO] Target -->  London
+2023-07-19 22:21:44,001 [INFO] Rational positions --> tensor([[ 0, 40,  4, 38, 41]], device='cuda:0')
+2023-07-19 22:21:44,001 [INFO] Rational words -->
+2023-07-19 22:21:44,004 [INFO] ['When', ' capital', ' in', ' in', ',']
+2023-07-19 22:21:44,010 [INFO] 11.json done.
+2023-07-19 22:21:44,010 [INFO] 
+2023-07-19 22:21:44,010 [INFO] ========================
+2023-07-19 22:21:44,010 [INFO] 
+2023-07-19 22:21:44,010 [INFO] Rationalizing 12.json ...
+2023-07-19 22:21:44,021 [INFO] Rationalization done in 0.010273933410644531
+2023-07-19 22:21:44,021 [INFO] 
+2023-07-19 22:21:44,021 [INFO] 
+2023-07-19 22:21:44,021 [INFO] Input --> When my flight landed in Spain, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:44,022 [INFO] Target -->  Madrid
+2023-07-19 22:21:44,022 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  4]], device='cuda:0')
+2023-07-19 22:21:44,022 [INFO] Rational words -->
+2023-07-19 22:21:44,022 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:44,024 [INFO] 12.json done.
+2023-07-19 22:21:44,024 [INFO] 
+2023-07-19 22:21:44,024 [INFO] ========================
+2023-07-19 22:21:44,024 [INFO] 
+2023-07-19 22:21:44,024 [INFO] Rationalizing 13.json ...
+2023-07-19 22:21:44,034 [INFO] Rationalization done in 0.010140657424926758
+2023-07-19 22:21:44,035 [INFO] 
+2023-07-19 22:21:44,035 [INFO] 
+2023-07-19 22:21:44,036 [INFO] Input --> When my flight landed in Russia, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:44,037 [INFO] Target -->  Moscow
+2023-07-19 22:21:44,040 [INFO] Rational positions --> tensor([[ 0, 38, 40, 41,  4]], device='cuda:0')
+2023-07-19 22:21:44,041 [INFO] Rational words -->
+2023-07-19 22:21:44,044 [INFO] ['When', ' in', ' capital', ',', ' in']
+2023-07-19 22:21:44,050 [INFO] 13.json done.
+2023-07-19 22:21:44,050 [INFO] 
+2023-07-19 22:21:44,050 [INFO] ========================
+2023-07-19 22:21:44,050 [INFO] 
+2023-07-19 22:21:44,050 [INFO] Rationalizing 14.json ...
+2023-07-19 22:21:44,061 [INFO] Rationalization done in 0.010640859603881836
+2023-07-19 22:21:44,061 [INFO] 
+2023-07-19 22:21:44,061 [INFO] 
+2023-07-19 22:21:44,062 [INFO] Input --> When my flight landed in Norway, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:44,064 [INFO] Target -->  Oslo
+2023-07-19 22:21:44,066 [INFO] Rational positions --> tensor([[ 0, 38, 41, 40,  4]], device='cuda:0')
+2023-07-19 22:21:44,067 [INFO] Rational words -->
+2023-07-19 22:21:44,070 [INFO] ['When', ' in', ',', ' capital', ' in']
+2023-07-19 22:21:44,076 [INFO] 14.json done.
+2023-07-19 22:21:44,076 [INFO] 
+2023-07-19 22:21:44,076 [INFO] ========================
+2023-07-19 22:21:44,076 [INFO] 
+2023-07-19 22:21:44,076 [INFO] Rationalizing 15.json ...
+2023-07-19 22:21:44,087 [INFO] Rationalization done in 0.010272741317749023
+2023-07-19 22:21:44,087 [INFO] 
+2023-07-19 22:21:44,087 [INFO] 
+2023-07-19 22:21:44,088 [INFO] Input --> When my flight landed in France, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:44,090 [INFO] Target -->  Paris
+2023-07-19 22:21:44,092 [INFO] Rational positions --> tensor([[ 0,  4, 38, 40, 41]], device='cuda:0')
+2023-07-19 22:21:44,093 [INFO] Rational words -->
+2023-07-19 22:21:44,096 [INFO] ['When', ' in', ' in', ' capital', ',']
+2023-07-19 22:21:44,102 [INFO] 15.json done.
+2023-07-19 22:21:44,102 [INFO] 
+2023-07-19 22:21:44,102 [INFO] ========================
+2023-07-19 22:21:44,102 [INFO] 
+2023-07-19 22:21:44,102 [INFO] Rationalizing 16.json ...
+2023-07-19 22:21:44,113 [INFO] Rationalization done in 0.010586738586425781
+2023-07-19 22:21:44,113 [INFO] 
+2023-07-19 22:21:44,113 [INFO] 
+2023-07-19 22:21:44,114 [INFO] Input --> When my flight landed in Italy, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:44,114 [INFO] Target -->  Rome
+2023-07-19 22:21:44,114 [INFO] Rational positions --> tensor([[ 0, 38,  4,  5, 41]], device='cuda:0')
+2023-07-19 22:21:44,114 [INFO] Rational words -->
+2023-07-19 22:21:44,114 [INFO] ['When', ' in', ' in', ' Italy', ',']
+2023-07-19 22:21:44,116 [INFO] 16.json done.
+2023-07-19 22:21:44,116 [INFO] 
+2023-07-19 22:21:44,116 [INFO] ========================
+2023-07-19 22:21:44,116 [INFO] 
+2023-07-19 22:21:44,116 [INFO] Rationalizing 17.json ...
+2023-07-19 22:21:44,126 [INFO] Rationalization done in 0.010323286056518555
+2023-07-19 22:21:44,127 [INFO] 
+2023-07-19 22:21:44,127 [INFO] 
+2023-07-19 22:21:44,127 [INFO] Input --> When my flight landed in Sweden, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:44,127 [INFO] Target -->  Stockholm
+2023-07-19 22:21:44,128 [INFO] Rational positions --> tensor([[ 0, 41, 38,  5,  4]], device='cuda:0')
+2023-07-19 22:21:44,128 [INFO] Rational words -->
+2023-07-19 22:21:44,128 [INFO] ['When', ',', ' in', ' Sweden', ' in']
+2023-07-19 22:21:44,130 [INFO] 17.json done.
+2023-07-19 22:21:44,130 [INFO] 
+2023-07-19 22:21:44,130 [INFO] ========================
+2023-07-19 22:21:44,130 [INFO] 
+2023-07-19 22:21:44,130 [INFO] Rationalizing 18.json ...
+2023-07-19 22:21:44,140 [INFO] Rationalization done in 0.009943485260009766
+2023-07-19 22:21:44,140 [INFO] 
+2023-07-19 22:21:44,140 [INFO] 
+2023-07-19 22:21:44,141 [INFO] Input --> When my flight landed in Iran, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:44,141 [INFO] Target -->  Tehran
+2023-07-19 22:21:44,142 [INFO] Rational positions --> tensor([[ 0, 40, 38, 41,  5]], device='cuda:0')
+2023-07-19 22:21:44,142 [INFO] Rational words -->
+2023-07-19 22:21:44,142 [INFO] ['When', ' capital', ' in', ',', ' Iran']
+2023-07-19 22:21:44,143 [INFO] 18.json done.
+2023-07-19 22:21:44,143 [INFO] 
+2023-07-19 22:21:44,143 [INFO] ========================
+2023-07-19 22:21:44,143 [INFO] 
+2023-07-19 22:21:44,144 [INFO] Rationalizing 19.json ...
+2023-07-19 22:21:44,154 [INFO] Rationalization done in 0.01027536392211914
+2023-07-19 22:21:44,154 [INFO] 
+2023-07-19 22:21:44,154 [INFO] 
+2023-07-19 22:21:44,155 [INFO] Input --> When my flight landed in Japan, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was staying in the capital,
+2023-07-19 22:21:44,155 [INFO] Target -->  Tokyo
+2023-07-19 22:21:44,155 [INFO] Rational positions --> tensor([[ 0, 41, 38, 40,  4]], device='cuda:0')
+2023-07-19 22:21:44,155 [INFO] Rational words -->
+2023-07-19 22:21:44,155 [INFO] ['When', ',', ' in', ' capital', ' in']
+2023-07-19 22:21:44,157 [INFO] 19.json done.
+2023-07-19 22:21:44,157 [INFO] 
+2023-07-19 22:21:44,157 [INFO] ========================
+2023-07-19 22:21:44,157 [INFO] 
+2023-07-19 22:21:44,158 [INFO] Rationalizing 20.json ...
+2023-07-19 22:21:44,167 [INFO] Rationalization done in 0.009875297546386719
+2023-07-19 22:21:44,168 [INFO] 
+2023-07-19 22:21:44,168 [INFO] 
+2023-07-19 22:21:44,168 [INFO] Input --> When my flight landed in Turkey, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,168 [INFO] Target -->  Ankara
+2023-07-19 22:21:44,169 [INFO] Rational positions --> tensor([[ 0, 41, 38, 40,  4]], device='cuda:0')
+2023-07-19 22:21:44,169 [INFO] Rational words -->
+2023-07-19 22:21:44,169 [INFO] ['When', ',', ' in', ' capital', ' in']
+2023-07-19 22:21:44,170 [INFO] 20.json done.
+2023-07-19 22:21:44,170 [INFO] 
+2023-07-19 22:21:44,171 [INFO] ========================
+2023-07-19 22:21:44,171 [INFO] 
+2023-07-19 22:21:44,171 [INFO] Rationalizing 21.json ...
+2023-07-19 22:21:44,181 [INFO] Rationalization done in 0.010520458221435547
+2023-07-19 22:21:44,181 [INFO] 
+2023-07-19 22:21:44,181 [INFO] 
+2023-07-19 22:21:44,182 [INFO] Input --> When my flight landed in Greece, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,182 [INFO] Target -->  Athens
+2023-07-19 22:21:44,182 [INFO] Rational positions --> tensor([[ 0, 41, 38, 40,  5]], device='cuda:0')
+2023-07-19 22:21:44,182 [INFO] Rational words -->
+2023-07-19 22:21:44,183 [INFO] ['When', ',', ' in', ' capital', ' Greece']
+2023-07-19 22:21:44,184 [INFO] 21.json done.
+2023-07-19 22:21:44,184 [INFO] 
+2023-07-19 22:21:44,184 [INFO] ========================
+2023-07-19 22:21:44,184 [INFO] 
+2023-07-19 22:21:44,184 [INFO] Rationalizing 22.json ...
+2023-07-19 22:21:44,195 [INFO] Rationalization done in 0.010133028030395508
+2023-07-19 22:21:44,195 [INFO] 
+2023-07-19 22:21:44,195 [INFO] 
+2023-07-19 22:21:44,196 [INFO] Input --> When my flight landed in Iraq, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,196 [INFO] Target -->  Baghdad
+2023-07-19 22:21:44,196 [INFO] Rational positions --> tensor([[ 0, 41, 40,  5, 38]], device='cuda:0')
+2023-07-19 22:21:44,196 [INFO] Rational words -->
+2023-07-19 22:21:44,196 [INFO] ['When', ',', ' capital', ' Iraq', ' in']
+2023-07-19 22:21:44,198 [INFO] 22.json done.
+2023-07-19 22:21:44,198 [INFO] 
+2023-07-19 22:21:44,198 [INFO] ========================
+2023-07-19 22:21:44,198 [INFO] 
+2023-07-19 22:21:44,198 [INFO] Rationalizing 23.json ...
+2023-07-19 22:21:44,208 [INFO] Rationalization done in 0.009942054748535156
+2023-07-19 22:21:44,208 [INFO] 
+2023-07-19 22:21:44,208 [INFO] 
+2023-07-19 22:21:44,209 [INFO] Input --> When my flight landed in Thailand, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,209 [INFO] Target -->  Bangkok
+2023-07-19 22:21:44,209 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  5]], device='cuda:0')
+2023-07-19 22:21:44,209 [INFO] Rational words -->
+2023-07-19 22:21:44,209 [INFO] ['When', ',', ' capital', ' in', ' Thailand']
+2023-07-19 22:21:44,211 [INFO] 23.json done.
+2023-07-19 22:21:44,211 [INFO] 
+2023-07-19 22:21:44,211 [INFO] ========================
+2023-07-19 22:21:44,211 [INFO] 
+2023-07-19 22:21:44,211 [INFO] Rationalizing 24.json ...
+2023-07-19 22:21:44,222 [INFO] Rationalization done in 0.010297775268554688
+2023-07-19 22:21:44,222 [INFO] 
+2023-07-19 22:21:44,222 [INFO] 
+2023-07-19 22:21:44,223 [INFO] Input --> When my flight landed in China, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,223 [INFO] Target -->  Beijing
+2023-07-19 22:21:44,223 [INFO] Rational positions --> tensor([[ 0, 40, 38, 41,  4]], device='cuda:0')
+2023-07-19 22:21:44,223 [INFO] Rational words -->
+2023-07-19 22:21:44,223 [INFO] ['When', ' capital', ' in', ',', ' in']
+2023-07-19 22:21:44,225 [INFO] 24.json done.
+2023-07-19 22:21:44,225 [INFO] 
+2023-07-19 22:21:44,225 [INFO] ========================
+2023-07-19 22:21:44,225 [INFO] 
+2023-07-19 22:21:44,225 [INFO] Rationalizing 25.json ...
+2023-07-19 22:21:44,235 [INFO] Rationalization done in 0.010114669799804688
+2023-07-19 22:21:44,235 [INFO] 
+2023-07-19 22:21:44,235 [INFO] 
+2023-07-19 22:21:44,236 [INFO] Input --> When my flight landed in Lebanon, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,236 [INFO] Target -->  Beirut
+2023-07-19 22:21:44,236 [INFO] Rational positions --> tensor([[ 0,  5, 40, 41, 38]], device='cuda:0')
+2023-07-19 22:21:44,236 [INFO] Rational words -->
+2023-07-19 22:21:44,237 [INFO] ['When', ' Lebanon', ' capital', ',', ' in']
+2023-07-19 22:21:44,238 [INFO] 25.json done.
+2023-07-19 22:21:44,238 [INFO] 
+2023-07-19 22:21:44,238 [INFO] ========================
+2023-07-19 22:21:44,238 [INFO] 
+2023-07-19 22:21:44,238 [INFO] Rationalizing 26.json ...
+2023-07-19 22:21:44,248 [INFO] Rationalization done in 0.010060548782348633
+2023-07-19 22:21:44,249 [INFO] 
+2023-07-19 22:21:44,249 [INFO] 
+2023-07-19 22:21:44,249 [INFO] Input --> When my flight landed in Germany, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,249 [INFO] Target -->  Berlin
+2023-07-19 22:21:44,250 [INFO] Rational positions --> tensor([[ 0, 41,  4, 40, 38]], device='cuda:0')
+2023-07-19 22:21:44,250 [INFO] Rational words -->
+2023-07-19 22:21:44,250 [INFO] ['When', ',', ' in', ' capital', ' in']
+2023-07-19 22:21:44,252 [INFO] 26.json done.
+2023-07-19 22:21:44,252 [INFO] 
+2023-07-19 22:21:44,252 [INFO] ========================
+2023-07-19 22:21:44,252 [INFO] 
+2023-07-19 22:21:44,252 [INFO] Rationalizing 27.json ...
+2023-07-19 22:21:44,262 [INFO] Rationalization done in 0.010191202163696289
+2023-07-19 22:21:44,262 [INFO] 
+2023-07-19 22:21:44,263 [INFO] 
+2023-07-19 22:21:44,263 [INFO] Input --> When my flight landed in Belgium, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,263 [INFO] Target -->  Brussels
+2023-07-19 22:21:44,264 [INFO] Rational positions --> tensor([[ 0, 40, 38, 41,  4]], device='cuda:0')
+2023-07-19 22:21:44,264 [INFO] Rational words -->
+2023-07-19 22:21:44,264 [INFO] ['When', ' capital', ' in', ',', ' in']
+2023-07-19 22:21:44,265 [INFO] 27.json done.
+2023-07-19 22:21:44,265 [INFO] 
+2023-07-19 22:21:44,265 [INFO] ========================
+2023-07-19 22:21:44,265 [INFO] 
+2023-07-19 22:21:44,266 [INFO] Rationalizing 28.json ...
+2023-07-19 22:21:44,276 [INFO] Rationalization done in 0.010383129119873047
+2023-07-19 22:21:44,276 [INFO] 
+2023-07-19 22:21:44,276 [INFO] 
+2023-07-19 22:21:44,278 [INFO] Input --> When my flight landed in Hungary, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,279 [INFO] Target -->  Budapest
+2023-07-19 22:21:44,282 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  5]], device='cuda:0')
+2023-07-19 22:21:44,282 [INFO] Rational words -->
+2023-07-19 22:21:44,285 [INFO] ['When', ',', ' capital', ' in', ' Hungary']
+2023-07-19 22:21:44,290 [INFO] 28.json done.
+2023-07-19 22:21:44,291 [INFO] 
+2023-07-19 22:21:44,291 [INFO] ========================
+2023-07-19 22:21:44,291 [INFO] 
+2023-07-19 22:21:44,291 [INFO] Rationalizing 29.json ...
+2023-07-19 22:21:44,301 [INFO] Rationalization done in 0.010092020034790039
+2023-07-19 22:21:44,301 [INFO] 
+2023-07-19 22:21:44,301 [INFO] 
+2023-07-19 22:21:44,302 [INFO] Input --> When my flight landed in Egypt, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,302 [INFO] Target -->  Cairo
+2023-07-19 22:21:44,302 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  5]], device='cuda:0')
+2023-07-19 22:21:44,302 [INFO] Rational words -->
+2023-07-19 22:21:44,302 [INFO] ['When', ',', ' capital', ' in', ' Egypt']
+2023-07-19 22:21:44,304 [INFO] 29.json done.
+2023-07-19 22:21:44,304 [INFO] 
+2023-07-19 22:21:44,304 [INFO] ========================
+2023-07-19 22:21:44,304 [INFO] 
+2023-07-19 22:21:44,304 [INFO] Rationalizing 30.json ...
+2023-07-19 22:21:44,314 [INFO] Rationalization done in 0.010179519653320312
+2023-07-19 22:21:44,315 [INFO] 
+2023-07-19 22:21:44,315 [INFO] 
+2023-07-19 22:21:44,316 [INFO] Input --> When my flight landed in Australia, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,317 [INFO] Target -->  Canberra
+2023-07-19 22:21:44,320 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  4]], device='cuda:0')
+2023-07-19 22:21:44,320 [INFO] Rational words -->
+2023-07-19 22:21:44,323 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:44,330 [INFO] 30.json done.
+2023-07-19 22:21:44,330 [INFO] 
+2023-07-19 22:21:44,330 [INFO] ========================
+2023-07-19 22:21:44,330 [INFO] 
+2023-07-19 22:21:44,330 [INFO] Rationalizing 31.json ...
+2023-07-19 22:21:44,341 [INFO] Rationalization done in 0.01059579849243164
+2023-07-19 22:21:44,341 [INFO] 
+2023-07-19 22:21:44,341 [INFO] 
+2023-07-19 22:21:44,342 [INFO] Input --> When my flight landed in Denmark, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,342 [INFO] Target -->  Copenhagen
+2023-07-19 22:21:44,342 [INFO] Rational positions --> tensor([[ 0, 38, 41,  5, 40]], device='cuda:0')
+2023-07-19 22:21:44,342 [INFO] Rational words -->
+2023-07-19 22:21:44,342 [INFO] ['When', ' in', ',', ' Denmark', ' capital']
+2023-07-19 22:21:44,344 [INFO] 31.json done.
+2023-07-19 22:21:44,344 [INFO] 
+2023-07-19 22:21:44,344 [INFO] ========================
+2023-07-19 22:21:44,344 [INFO] 
+2023-07-19 22:21:44,344 [INFO] Rationalizing 32.json ...
+2023-07-19 22:21:44,355 [INFO] Rationalization done in 0.010221242904663086
+2023-07-19 22:21:44,355 [INFO] 
+2023-07-19 22:21:44,355 [INFO] 
+2023-07-19 22:21:44,356 [INFO] Input --> When my flight landed in Syria, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,358 [INFO] Target -->  Damascus
+2023-07-19 22:21:44,361 [INFO] Rational positions --> tensor([[ 0, 38, 40,  4, 41]], device='cuda:0')
+2023-07-19 22:21:44,362 [INFO] Rational words -->
+2023-07-19 22:21:44,364 [INFO] ['When', ' in', ' capital', ' in', ',']
+2023-07-19 22:21:44,371 [INFO] 32.json done.
+2023-07-19 22:21:44,371 [INFO] 
+2023-07-19 22:21:44,371 [INFO] ========================
+2023-07-19 22:21:44,371 [INFO] 
+2023-07-19 22:21:44,371 [INFO] Rationalizing 33.json ...
+2023-07-19 22:21:44,382 [INFO] Rationalization done in 0.01051783561706543
+2023-07-19 22:21:44,382 [INFO] 
+2023-07-19 22:21:44,382 [INFO] 
+2023-07-19 22:21:44,382 [INFO] Input --> When my flight landed in Ireland, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,382 [INFO] Target -->  Dublin
+2023-07-19 22:21:44,383 [INFO] Rational positions --> tensor([[ 0, 41, 38,  5,  4]], device='cuda:0')
+2023-07-19 22:21:44,383 [INFO] Rational words -->
+2023-07-19 22:21:44,383 [INFO] ['When', ',', ' in', ' Ireland', ' in']
+2023-07-19 22:21:44,384 [INFO] 33.json done.
+2023-07-19 22:21:44,384 [INFO] 
+2023-07-19 22:21:44,384 [INFO] ========================
+2023-07-19 22:21:44,385 [INFO] 
+2023-07-19 22:21:44,385 [INFO] Rationalizing 34.json ...
+2023-07-19 22:21:44,395 [INFO] Rationalization done in 0.010494709014892578
+2023-07-19 22:21:44,395 [INFO] 
+2023-07-19 22:21:44,395 [INFO] 
+2023-07-19 22:21:44,396 [INFO] Input --> When my flight landed in Cuba, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,396 [INFO] Target -->  Havana
+2023-07-19 22:21:44,396 [INFO] Rational positions --> tensor([[ 0, 40, 41, 38,  5]], device='cuda:0')
+2023-07-19 22:21:44,397 [INFO] Rational words -->
+2023-07-19 22:21:44,397 [INFO] ['When', ' capital', ',', ' in', ' Cuba']
+2023-07-19 22:21:44,398 [INFO] 34.json done.
+2023-07-19 22:21:44,398 [INFO] 
+2023-07-19 22:21:44,398 [INFO] ========================
+2023-07-19 22:21:44,398 [INFO] 
+2023-07-19 22:21:44,399 [INFO] Rationalizing 35.json ...
+2023-07-19 22:21:44,409 [INFO] Rationalization done in 0.010428905487060547
+2023-07-19 22:21:44,409 [INFO] 
+2023-07-19 22:21:44,409 [INFO] 
+2023-07-19 22:21:44,410 [INFO] Input --> When my flight landed in Finland, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,412 [INFO] Target -->  Helsinki
+2023-07-19 22:21:44,415 [INFO] Rational positions --> tensor([[ 0, 41, 38, 40,  4]], device='cuda:0')
+2023-07-19 22:21:44,415 [INFO] Rational words -->
+2023-07-19 22:21:44,418 [INFO] ['When', ',', ' in', ' capital', ' in']
+2023-07-19 22:21:44,424 [INFO] 35.json done.
+2023-07-19 22:21:44,424 [INFO] 
+2023-07-19 22:21:44,424 [INFO] ========================
+2023-07-19 22:21:44,424 [INFO] 
+2023-07-19 22:21:44,424 [INFO] Rationalizing 36.json ...
+2023-07-19 22:21:44,435 [INFO] Rationalization done in 0.010558843612670898
+2023-07-19 22:21:44,435 [INFO] 
+2023-07-19 22:21:44,435 [INFO] 
+2023-07-19 22:21:44,436 [INFO] Input --> When my flight landed in Pakistan, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,438 [INFO] Target -->  Islamabad
+2023-07-19 22:21:44,441 [INFO] Rational positions --> tensor([[ 0, 41, 40,  4, 38]], device='cuda:0')
+2023-07-19 22:21:44,442 [INFO] Rational words -->
+2023-07-19 22:21:44,445 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:44,450 [INFO] 36.json done.
+2023-07-19 22:21:44,450 [INFO] 
+2023-07-19 22:21:44,450 [INFO] ========================
+2023-07-19 22:21:44,450 [INFO] 
+2023-07-19 22:21:44,450 [INFO] Rationalizing 37.json ...
+2023-07-19 22:21:44,461 [INFO] Rationalization done in 0.010769844055175781
+2023-07-19 22:21:44,461 [INFO] 
+2023-07-19 22:21:44,461 [INFO] 
+2023-07-19 22:21:44,462 [INFO] Input --> When my flight landed in Indonesia, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,464 [INFO] Target -->  Jakarta
+2023-07-19 22:21:44,466 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  4]], device='cuda:0')
+2023-07-19 22:21:44,467 [INFO] Rational words -->
+2023-07-19 22:21:44,469 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:44,476 [INFO] 37.json done.
+2023-07-19 22:21:44,476 [INFO] 
+2023-07-19 22:21:44,476 [INFO] ========================
+2023-07-19 22:21:44,476 [INFO] 
+2023-07-19 22:21:44,476 [INFO] Rationalizing 38.json ...
+2023-07-19 22:21:44,487 [INFO] Rationalization done in 0.01065826416015625
+2023-07-19 22:21:44,487 [INFO] 
+2023-07-19 22:21:44,487 [INFO] 
+2023-07-19 22:21:44,488 [INFO] Input --> When my flight landed in Afghanistan, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,488 [INFO] Target -->  Kabul
+2023-07-19 22:21:44,488 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  5]], device='cuda:0')
+2023-07-19 22:21:44,488 [INFO] Rational words -->
+2023-07-19 22:21:44,488 [INFO] ['When', ',', ' capital', ' in', ' Afghanistan']
+2023-07-19 22:21:44,490 [INFO] 38.json done.
+2023-07-19 22:21:44,490 [INFO] 
+2023-07-19 22:21:44,490 [INFO] ========================
+2023-07-19 22:21:44,490 [INFO] 
+2023-07-19 22:21:44,490 [INFO] Rationalizing 39.json ...
+2023-07-19 22:21:44,500 [INFO] Rationalization done in 0.010291576385498047
+2023-07-19 22:21:44,500 [INFO] 
+2023-07-19 22:21:44,500 [INFO] 
+2023-07-19 22:21:44,502 [INFO] Input --> When my flight landed in Ukraine, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,503 [INFO] Target -->  Kiev
+2023-07-19 22:21:44,506 [INFO] Rational positions --> tensor([[ 0, 40, 38, 41,  5]], device='cuda:0')
+2023-07-19 22:21:44,507 [INFO] Rational words -->
+2023-07-19 22:21:44,510 [INFO] ['When', ' capital', ' in', ',', ' Ukraine']
+2023-07-19 22:21:44,516 [INFO] 39.json done.
+2023-07-19 22:21:44,516 [INFO] 
+2023-07-19 22:21:44,516 [INFO] ========================
+2023-07-19 22:21:44,516 [INFO] 
+2023-07-19 22:21:44,516 [INFO] Rationalizing 40.json ...
+2023-07-19 22:21:44,527 [INFO] Rationalization done in 0.010743141174316406
+2023-07-19 22:21:44,527 [INFO] 
+2023-07-19 22:21:44,527 [INFO] 
+2023-07-19 22:21:44,528 [INFO] Input --> When my flight landed in Jamaica, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,530 [INFO] Target -->  Kingston
+2023-07-19 22:21:44,532 [INFO] Rational positions --> tensor([[ 0,  5, 41, 38, 40]], device='cuda:0')
+2023-07-19 22:21:44,533 [INFO] Rational words -->
+2023-07-19 22:21:44,536 [INFO] ['When', ' Jamaica', ',', ' in', ' capital']
+2023-07-19 22:21:44,542 [INFO] 40.json done.
+2023-07-19 22:21:44,542 [INFO] 
+2023-07-19 22:21:44,542 [INFO] ========================
+2023-07-19 22:21:44,542 [INFO] 
+2023-07-19 22:21:44,542 [INFO] Rationalizing 41.json ...
+2023-07-19 22:21:44,553 [INFO] Rationalization done in 0.010830879211425781
+2023-07-19 22:21:44,553 [INFO] 
+2023-07-19 22:21:44,553 [INFO] 
+2023-07-19 22:21:44,554 [INFO] Input --> When my flight landed in Peru, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,555 [INFO] Target -->  Lima
+2023-07-19 22:21:44,558 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  4]], device='cuda:0')
+2023-07-19 22:21:44,558 [INFO] Rational words -->
+2023-07-19 22:21:44,561 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:44,568 [INFO] 41.json done.
+2023-07-19 22:21:44,568 [INFO] 
+2023-07-19 22:21:44,568 [INFO] ========================
+2023-07-19 22:21:44,568 [INFO] 
+2023-07-19 22:21:44,568 [INFO] Rationalizing 42.json ...
+2023-07-19 22:21:44,579 [INFO] Rationalization done in 0.010784626007080078
+2023-07-19 22:21:44,579 [INFO] 
+2023-07-19 22:21:44,579 [INFO] 
+2023-07-19 22:21:44,580 [INFO] Input --> When my flight landed in Portugal, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,581 [INFO] Target -->  Lisbon
+2023-07-19 22:21:44,584 [INFO] Rational positions --> tensor([[ 0, 38, 41,  5, 40]], device='cuda:0')
+2023-07-19 22:21:44,585 [INFO] Rational words -->
+2023-07-19 22:21:44,587 [INFO] ['When', ' in', ',', ' Portugal', ' capital']
+2023-07-19 22:21:44,594 [INFO] 42.json done.
+2023-07-19 22:21:44,594 [INFO] 
+2023-07-19 22:21:44,594 [INFO] ========================
+2023-07-19 22:21:44,594 [INFO] 
+2023-07-19 22:21:44,594 [INFO] Rationalizing 43.json ...
+2023-07-19 22:21:44,604 [INFO] Rationalization done in 0.010583877563476562
+2023-07-19 22:21:44,605 [INFO] 
+2023-07-19 22:21:44,605 [INFO] 
+2023-07-19 22:21:44,606 [INFO] Input --> When my flight landed in England, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,607 [INFO] Target -->  London
+2023-07-19 22:21:44,610 [INFO] Rational positions --> tensor([[ 0, 40,  4, 38, 41]], device='cuda:0')
+2023-07-19 22:21:44,611 [INFO] Rational words -->
+2023-07-19 22:21:44,614 [INFO] ['When', ' capital', ' in', ' in', ',']
+2023-07-19 22:21:44,620 [INFO] 43.json done.
+2023-07-19 22:21:44,620 [INFO] 
+2023-07-19 22:21:44,620 [INFO] ========================
+2023-07-19 22:21:44,620 [INFO] 
+2023-07-19 22:21:44,620 [INFO] Rationalizing 44.json ...
+2023-07-19 22:21:44,635 [INFO] Rationalization done in 0.01495504379272461
+2023-07-19 22:21:44,636 [INFO] 
+2023-07-19 22:21:44,636 [INFO] 
+2023-07-19 22:21:44,637 [INFO] Input --> When my flight landed in Spain, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,639 [INFO] Target -->  Madrid
+2023-07-19 22:21:44,642 [INFO] Rational positions --> tensor([[ 0, 41, 38, 40,  4]], device='cuda:0')
+2023-07-19 22:21:44,643 [INFO] Rational words -->
+2023-07-19 22:21:44,647 [INFO] ['When', ',', ' in', ' capital', ' in']
+2023-07-19 22:21:44,651 [INFO] 44.json done.
+2023-07-19 22:21:44,651 [INFO] 
+2023-07-19 22:21:44,651 [INFO] ========================
+2023-07-19 22:21:44,651 [INFO] 
+2023-07-19 22:21:44,652 [INFO] Rationalizing 45.json ...
+2023-07-19 22:21:44,665 [INFO] Rationalization done in 0.013071775436401367
+2023-07-19 22:21:44,665 [INFO] 
+2023-07-19 22:21:44,665 [INFO] 
+2023-07-19 22:21:44,666 [INFO] Input --> When my flight landed in Philippines, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,667 [INFO] Target -->  Manila
+2023-07-19 22:21:44,670 [INFO] Rational positions --> tensor([[ 0, 41, 38,  5, 40]], device='cuda:0')
+2023-07-19 22:21:44,671 [INFO] Rational words -->
+2023-07-19 22:21:44,673 [INFO] ['When', ',', ' in', ' Philippines', ' capital']
+2023-07-19 22:21:44,680 [INFO] 45.json done.
+2023-07-19 22:21:44,680 [INFO] 
+2023-07-19 22:21:44,680 [INFO] ========================
+2023-07-19 22:21:44,680 [INFO] 
+2023-07-19 22:21:44,680 [INFO] Rationalizing 46.json ...
+2023-07-19 22:21:44,691 [INFO] Rationalization done in 0.01097249984741211
+2023-07-19 22:21:44,691 [INFO] 
+2023-07-19 22:21:44,691 [INFO] 
+2023-07-19 22:21:44,693 [INFO] Input --> When my flight landed in Russia, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,694 [INFO] Target -->  Moscow
+2023-07-19 22:21:44,696 [INFO] Rational positions --> tensor([[ 0, 38, 40, 41,  4]], device='cuda:0')
+2023-07-19 22:21:44,697 [INFO] Rational words -->
+2023-07-19 22:21:44,700 [INFO] ['When', ' in', ' capital', ',', ' in']
+2023-07-19 22:21:44,706 [INFO] 46.json done.
+2023-07-19 22:21:44,706 [INFO] 
+2023-07-19 22:21:44,706 [INFO] ========================
+2023-07-19 22:21:44,706 [INFO] 
+2023-07-19 22:21:44,706 [INFO] Rationalizing 47.json ...
+2023-07-19 22:21:44,717 [INFO] Rationalization done in 0.010535001754760742
+2023-07-19 22:21:44,717 [INFO] 
+2023-07-19 22:21:44,717 [INFO] 
+2023-07-19 22:21:44,718 [INFO] Input --> When my flight landed in Norway, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,718 [INFO] Target -->  Oslo
+2023-07-19 22:21:44,718 [INFO] Rational positions --> tensor([[ 0, 38, 41, 40,  5]], device='cuda:0')
+2023-07-19 22:21:44,718 [INFO] Rational words -->
+2023-07-19 22:21:44,718 [INFO] ['When', ' in', ',', ' capital', ' Norway']
+2023-07-19 22:21:44,720 [INFO] 47.json done.
+2023-07-19 22:21:44,720 [INFO] 
+2023-07-19 22:21:44,720 [INFO] ========================
+2023-07-19 22:21:44,720 [INFO] 
+2023-07-19 22:21:44,720 [INFO] Rationalizing 48.json ...
+2023-07-19 22:21:44,730 [INFO] Rationalization done in 0.010141611099243164
+2023-07-19 22:21:44,730 [INFO] 
+2023-07-19 22:21:44,731 [INFO] 
+2023-07-19 22:21:44,731 [INFO] Input --> When my flight landed in France, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,731 [INFO] Target -->  Paris
+2023-07-19 22:21:44,731 [INFO] Rational positions --> tensor([[ 0,  4, 38, 40, 41]], device='cuda:0')
+2023-07-19 22:21:44,731 [INFO] Rational words -->
+2023-07-19 22:21:44,732 [INFO] ['When', ' in', ' in', ' capital', ',']
+2023-07-19 22:21:44,733 [INFO] 48.json done.
+2023-07-19 22:21:44,733 [INFO] 
+2023-07-19 22:21:44,733 [INFO] ========================
+2023-07-19 22:21:44,733 [INFO] 
+2023-07-19 22:21:44,734 [INFO] Rationalizing 49.json ...
+2023-07-19 22:21:44,744 [INFO] Rationalization done in 0.010029077529907227
+2023-07-19 22:21:44,744 [INFO] 
+2023-07-19 22:21:44,744 [INFO] 
+2023-07-19 22:21:44,745 [INFO] Input --> When my flight landed in Italy, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,746 [INFO] Target -->  Rome
+2023-07-19 22:21:44,749 [INFO] Rational positions --> tensor([[ 0, 38,  5,  4, 41]], device='cuda:0')
+2023-07-19 22:21:44,749 [INFO] Rational words -->
+2023-07-19 22:21:44,752 [INFO] ['When', ' in', ' Italy', ' in', ',']
+2023-07-19 22:21:44,758 [INFO] 49.json done.
+2023-07-19 22:21:44,758 [INFO] 
+2023-07-19 22:21:44,758 [INFO] ========================
+2023-07-19 22:21:44,758 [INFO] 
+2023-07-19 22:21:44,758 [INFO] Rationalizing 50.json ...
+2023-07-19 22:21:44,769 [INFO] Rationalization done in 0.010319232940673828
+2023-07-19 22:21:44,769 [INFO] 
+2023-07-19 22:21:44,769 [INFO] 
+2023-07-19 22:21:44,770 [INFO] Input --> When my flight landed in Chile, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,770 [INFO] Target -->  Santiago
+2023-07-19 22:21:44,770 [INFO] Rational positions --> tensor([[ 0, 40, 41, 38,  5]], device='cuda:0')
+2023-07-19 22:21:44,770 [INFO] Rational words -->
+2023-07-19 22:21:44,770 [INFO] ['When', ' capital', ',', ' in', ' Chile']
+2023-07-19 22:21:44,772 [INFO] 50.json done.
+2023-07-19 22:21:44,772 [INFO] 
+2023-07-19 22:21:44,772 [INFO] ========================
+2023-07-19 22:21:44,772 [INFO] 
+2023-07-19 22:21:44,772 [INFO] Rationalizing 51.json ...
+2023-07-19 22:21:44,782 [INFO] Rationalization done in 0.010222673416137695
+2023-07-19 22:21:44,782 [INFO] 
+2023-07-19 22:21:44,782 [INFO] 
+2023-07-19 22:21:44,784 [INFO] Input --> When my flight landed in Sweden, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,785 [INFO] Target -->  Stockholm
+2023-07-19 22:21:44,788 [INFO] Rational positions --> tensor([[ 0, 41, 38,  5,  4]], device='cuda:0')
+2023-07-19 22:21:44,788 [INFO] Rational words -->
+2023-07-19 22:21:44,791 [INFO] ['When', ',', ' in', ' Sweden', ' in']
+2023-07-19 22:21:44,798 [INFO] 51.json done.
+2023-07-19 22:21:44,798 [INFO] 
+2023-07-19 22:21:44,798 [INFO] ========================
+2023-07-19 22:21:44,798 [INFO] 
+2023-07-19 22:21:44,798 [INFO] Rationalizing 52.json ...
+2023-07-19 22:21:44,808 [INFO] Rationalization done in 0.010280609130859375
+2023-07-19 22:21:44,809 [INFO] 
+2023-07-19 22:21:44,809 [INFO] 
+2023-07-19 22:21:44,809 [INFO] Input --> When my flight landed in Iran, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,809 [INFO] Target -->  Tehran
+2023-07-19 22:21:44,810 [INFO] Rational positions --> tensor([[ 0, 40, 38, 41,  5]], device='cuda:0')
+2023-07-19 22:21:44,810 [INFO] Rational words -->
+2023-07-19 22:21:44,810 [INFO] ['When', ' capital', ' in', ',', ' Iran']
+2023-07-19 22:21:44,812 [INFO] 52.json done.
+2023-07-19 22:21:44,812 [INFO] 
+2023-07-19 22:21:44,812 [INFO] ========================
+2023-07-19 22:21:44,812 [INFO] 
+2023-07-19 22:21:44,812 [INFO] Rationalizing 53.json ...
+2023-07-19 22:21:44,822 [INFO] Rationalization done in 0.010354042053222656
+2023-07-19 22:21:44,823 [INFO] 
+2023-07-19 22:21:44,823 [INFO] 
+2023-07-19 22:21:44,824 [INFO] Input --> When my flight landed in Japan, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,825 [INFO] Target -->  Tokyo
+2023-07-19 22:21:44,828 [INFO] Rational positions --> tensor([[ 0, 41, 38,  4, 40]], device='cuda:0')
+2023-07-19 22:21:44,829 [INFO] Rational words -->
+2023-07-19 22:21:44,832 [INFO] ['When', ',', ' in', ' in', ' capital']
+2023-07-19 22:21:44,838 [INFO] 53.json done.
+2023-07-19 22:21:44,838 [INFO] 
+2023-07-19 22:21:44,838 [INFO] ========================
+2023-07-19 22:21:44,838 [INFO] 
+2023-07-19 22:21:44,838 [INFO] Rationalizing 54.json ...
+2023-07-19 22:21:44,848 [INFO] Rationalization done in 0.009948968887329102
+2023-07-19 22:21:44,848 [INFO] 
+2023-07-19 22:21:44,848 [INFO] 
+2023-07-19 22:21:44,849 [INFO] Input --> When my flight landed in Libya, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,849 [INFO] Target -->  Tripoli
+2023-07-19 22:21:44,849 [INFO] Rational positions --> tensor([[ 0, 38, 41, 40,  5]], device='cuda:0')
+2023-07-19 22:21:44,849 [INFO] Rational words -->
+2023-07-19 22:21:44,850 [INFO] ['When', ' in', ',', ' capital', ' Libya']
+2023-07-19 22:21:44,851 [INFO] 54.json done.
+2023-07-19 22:21:44,851 [INFO] 
+2023-07-19 22:21:44,851 [INFO] ========================
+2023-07-19 22:21:44,851 [INFO] 
+2023-07-19 22:21:44,852 [INFO] Rationalizing 55.json ...
+2023-07-19 22:21:44,862 [INFO] Rationalization done in 0.010605812072753906
+2023-07-19 22:21:44,862 [INFO] 
+2023-07-19 22:21:44,862 [INFO] 
+2023-07-19 22:21:44,863 [INFO] Input --> When my flight landed in Tunisia, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,863 [INFO] Target -->  Tunis
+2023-07-19 22:21:44,864 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  5]], device='cuda:0')
+2023-07-19 22:21:44,864 [INFO] Rational words -->
+2023-07-19 22:21:44,864 [INFO] ['When', ',', ' capital', ' in', ' Tunisia']
+2023-07-19 22:21:44,866 [INFO] 55.json done.
+2023-07-19 22:21:44,866 [INFO] 
+2023-07-19 22:21:44,866 [INFO] ========================
+2023-07-19 22:21:44,866 [INFO] 
+2023-07-19 22:21:44,866 [INFO] Rationalizing 56.json ...
+2023-07-19 22:21:44,876 [INFO] Rationalization done in 0.01024484634399414
+2023-07-19 22:21:44,876 [INFO] 
+2023-07-19 22:21:44,876 [INFO] 
+2023-07-19 22:21:44,878 [INFO] Input --> When my flight landed in Austria, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,879 [INFO] Target -->  Vienna
+2023-07-19 22:21:44,882 [INFO] Rational positions --> tensor([[ 0, 38, 41,  5,  4]], device='cuda:0')
+2023-07-19 22:21:44,883 [INFO] Rational words -->
+2023-07-19 22:21:44,886 [INFO] ['When', ' in', ',', ' Austria', ' in']
+2023-07-19 22:21:44,892 [INFO] 56.json done.
+2023-07-19 22:21:44,892 [INFO] 
+2023-07-19 22:21:44,892 [INFO] ========================
+2023-07-19 22:21:44,892 [INFO] 
+2023-07-19 22:21:44,892 [INFO] Rationalizing 57.json ...
+2023-07-19 22:21:44,902 [INFO] Rationalization done in 0.010112524032592773
+2023-07-19 22:21:44,902 [INFO] 
+2023-07-19 22:21:44,902 [INFO] 
+2023-07-19 22:21:44,903 [INFO] Input --> When my flight landed in Poland, I converted my currency and slowly fell asleep. (I was behind on a couple of assignments, but I tried not to think about them). I was staying in the capital,
+2023-07-19 22:21:44,903 [INFO] Target -->  Warsaw
+2023-07-19 22:21:44,904 [INFO] Rational positions --> tensor([[ 0, 41, 40, 38,  4]], device='cuda:0')
+2023-07-19 22:21:44,904 [INFO] Rational words -->
+2023-07-19 22:21:44,904 [INFO] ['When', ',', ' capital', ' in', ' in']
+2023-07-19 22:21:44,905 [INFO] 57.json done.
+2023-07-19 22:21:44,905 [INFO] 
+2023-07-19 22:21:44,905 [INFO] ========================
+2023-07-19 22:21:44,905 [INFO] 
+2023-07-19 22:21:44,906 [INFO] Rationalizing 58.json ...
+2023-07-19 22:21:44,916 [INFO] Rationalization done in 0.01052713394165039
+2023-07-19 22:21:44,916 [INFO] 
+2023-07-19 22:21:44,916 [INFO] 
+2023-07-19 22:21:44,918 [INFO] Input --> As soon as I arrived in Europe, I checked into my hotel and took a long nap. (I had finally finished the book I was reading and it was amazing). I had to figure out the exchange rate to the local currency, which is apparently called the
+2023-07-19 22:21:44,919 [INFO] Target -->  Euro
+2023-07-19 22:21:44,922 [INFO] Rational positions --> tensor([[ 0, 50, 51, 40, 46]], device='cuda:0')
+2023-07-19 22:21:44,922 [INFO] Rational words -->
+2023-07-19 22:21:44,925 [INFO] ['As', ' called', ' the', ' exchange', ',']
+2023-07-19 22:21:44,932 [INFO] 58.json done.
+2023-07-19 22:21:44,932 [INFO] 
+2023-07-19 22:21:44,932 [INFO] ========================
+2023-07-19 22:21:44,932 [INFO] 
+2023-07-19 22:21:44,932 [INFO] Rationalizing 59.json ...
+2023-07-19 22:21:44,943 [INFO] Rationalization done in 0.010689973831176758
+2023-07-19 22:21:44,943 [INFO] 
+2023-07-19 22:21:44,943 [INFO] 
+2023-07-19 22:21:44,944 [INFO] Input --> As soon as I arrived in Japan, I checked into my hotel and took a long nap. (I had finally finished the book I was reading and it was amazing). I had to figure out the exchange rate to the local currency, which is apparently called the
+2023-07-19 22:21:44,945 [INFO] Target -->  yen
+2023-07-19 22:21:44,948 [INFO] Rational positions --> tensor([[ 0, 50, 51, 40, 48]], device='cuda:0')
+2023-07-19 22:21:44,949 [INFO] Rational words -->
+2023-07-19 22:21:44,952 [INFO] ['As', ' called', ' the', ' exchange', ' is']
+2023-07-19 22:21:44,958 [INFO] 59.json done.
+2023-07-19 22:21:44,958 [INFO] 
+2023-07-19 22:21:44,958 [INFO] ========================
+2023-07-19 22:21:44,958 [INFO] 
+2023-07-19 22:21:44,958 [INFO] Rationalizing 60.json ...
+2023-07-19 22:21:44,969 [INFO] Rationalization done in 0.010831356048583984
+2023-07-19 22:21:44,969 [INFO] 
+2023-07-19 22:21:44,969 [INFO] 
+2023-07-19 22:21:44,971 [INFO] Input --> As soon as I arrived in Korea, I checked into my hotel and took a long nap. (I had finally finished the book I was reading and it was amazing). I had to figure out the exchange rate to the local currency, which is apparently called the
+2023-07-19 22:21:44,972 [INFO] Target -->  Won
+2023-07-19 22:21:44,975 [INFO] Rational positions --> tensor([[ 0, 50, 51,  6, 48]], device='cuda:0')
+2023-07-19 22:21:44,975 [INFO] Rational words -->
+2023-07-19 22:21:44,978 [INFO] ['As', ' called', ' the', ' Korea', ' is']
+2023-07-19 22:21:44,985 [INFO] 60.json done.
+2023-07-19 22:21:44,985 [INFO] 
+2023-07-19 22:21:44,985 [INFO] ========================
+2023-07-19 22:21:44,985 [INFO] 
+2023-07-19 22:21:44,985 [INFO] Rationalizing 61.json ...
+2023-07-19 22:21:44,996 [INFO] Rationalization done in 0.010770797729492188
+2023-07-19 22:21:44,996 [INFO] 
+2023-07-19 22:21:44,997 [INFO] 
+2023-07-19 22:21:44,998 [INFO] Input --> As soon as I arrived in Illinois, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:44,999 [INFO] Target -->  Chicago
+2023-07-19 22:21:45,001 [INFO] Rational positions --> tensor([[ 0,  6, 41, 45,  5]], device='cuda:0')
+2023-07-19 22:21:45,002 [INFO] Rational words -->
+2023-07-19 22:21:45,005 [INFO] ['As', ' Illinois', ' in', ',', ' in']
+2023-07-19 22:21:45,011 [INFO] 61.json done.
+2023-07-19 22:21:45,011 [INFO] 
+2023-07-19 22:21:45,011 [INFO] ========================
+2023-07-19 22:21:45,011 [INFO] 
+2023-07-19 22:21:45,012 [INFO] Rationalizing 62.json ...
+2023-07-19 22:21:45,022 [INFO] Rationalization done in 0.010638713836669922
+2023-07-19 22:21:45,022 [INFO] 
+2023-07-19 22:21:45,022 [INFO] 
+2023-07-19 22:21:45,024 [INFO] Input --> As soon as I arrived in Arizona, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,025 [INFO] Target -->  Phoenix
+2023-07-19 22:21:45,028 [INFO] Rational positions --> tensor([[ 0,  6, 45, 41,  5]], device='cuda:0')
+2023-07-19 22:21:45,028 [INFO] Rational words -->
+2023-07-19 22:21:45,031 [INFO] ['As', ' Arizona', ',', ' in', ' in']
+2023-07-19 22:21:45,037 [INFO] 62.json done.
+2023-07-19 22:21:45,037 [INFO] 
+2023-07-19 22:21:45,037 [INFO] ========================
+2023-07-19 22:21:45,037 [INFO] 
+2023-07-19 22:21:45,037 [INFO] Rationalizing 63.json ...
+2023-07-19 22:21:45,048 [INFO] Rationalization done in 0.010695934295654297
+2023-07-19 22:21:45,048 [INFO] 
+2023-07-19 22:21:45,048 [INFO] 
+2023-07-19 22:21:45,049 [INFO] Input --> As soon as I arrived in Texas, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,051 [INFO] Target -->  Austin
+2023-07-19 22:21:45,054 [INFO] Rational positions --> tensor([[ 0,  6, 41, 45,  5]], device='cuda:0')
+2023-07-19 22:21:45,055 [INFO] Rational words -->
+2023-07-19 22:21:45,058 [INFO] ['As', ' Texas', ' in', ',', ' in']
+2023-07-19 22:21:45,063 [INFO] 63.json done.
+2023-07-19 22:21:45,063 [INFO] 
+2023-07-19 22:21:45,063 [INFO] ========================
+2023-07-19 22:21:45,063 [INFO] 
+2023-07-19 22:21:45,063 [INFO] Rationalizing 64.json ...
+2023-07-19 22:21:45,074 [INFO] Rationalization done in 0.010755777359008789
+2023-07-19 22:21:45,074 [INFO] 
+2023-07-19 22:21:45,074 [INFO] 
+2023-07-19 22:21:45,075 [INFO] Input --> As soon as I arrived in Massachusetts, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,075 [INFO] Target -->  Boston
+2023-07-19 22:21:45,075 [INFO] Rational positions --> tensor([[ 0,  6, 41, 45,  5]], device='cuda:0')
+2023-07-19 22:21:45,075 [INFO] Rational words -->
+2023-07-19 22:21:45,076 [INFO] ['As', ' Massachusetts', ' in', ',', ' in']
+2023-07-19 22:21:45,077 [INFO] 64.json done.
+2023-07-19 22:21:45,077 [INFO] 
+2023-07-19 22:21:45,077 [INFO] ========================
+2023-07-19 22:21:45,077 [INFO] 
+2023-07-19 22:21:45,077 [INFO] Rationalizing 65.json ...
+2023-07-19 22:21:45,088 [INFO] Rationalization done in 0.010502099990844727
+2023-07-19 22:21:45,088 [INFO] 
+2023-07-19 22:21:45,088 [INFO] 
+2023-07-19 22:21:45,089 [INFO] Input --> As soon as I arrived in Colorado, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,091 [INFO] Target -->  Denver
+2023-07-19 22:21:45,094 [INFO] Rational positions --> tensor([[ 0,  6, 41, 45, 10]], device='cuda:0')
+2023-07-19 22:21:45,095 [INFO] Rational words -->
+2023-07-19 22:21:45,097 [INFO] ['As', ' Colorado', ' in', ',', ' into']
+2023-07-19 22:21:45,103 [INFO] 65.json done.
+2023-07-19 22:21:45,103 [INFO] 
+2023-07-19 22:21:45,103 [INFO] ========================
+2023-07-19 22:21:45,103 [INFO] 
+2023-07-19 22:21:45,103 [INFO] Rationalizing 66.json ...
+2023-07-19 22:21:45,114 [INFO] Rationalization done in 0.010561227798461914
+2023-07-19 22:21:45,114 [INFO] 
+2023-07-19 22:21:45,114 [INFO] 
+2023-07-19 22:21:45,115 [INFO] Input --> As soon as I arrived in Tennessee, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,115 [INFO] Target -->  Nashville
+2023-07-19 22:21:45,115 [INFO] Rational positions --> tensor([[ 0,  6, 41, 45, 10]], device='cuda:0')
+2023-07-19 22:21:45,115 [INFO] Rational words -->
+2023-07-19 22:21:45,115 [INFO] ['As', ' Tennessee', ' in', ',', ' into']
+2023-07-19 22:21:45,117 [INFO] 66.json done.
+2023-07-19 22:21:45,117 [INFO] 
+2023-07-19 22:21:45,117 [INFO] ========================
+2023-07-19 22:21:45,117 [INFO] 
+2023-07-19 22:21:45,117 [INFO] Rationalizing 67.json ...
+2023-07-19 22:21:45,127 [INFO] Rationalization done in 0.010098457336425781
+2023-07-19 22:21:45,127 [INFO] 
+2023-07-19 22:21:45,127 [INFO] 
+2023-07-19 22:21:45,128 [INFO] Input --> As soon as I arrived in Oregon, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,128 [INFO] Target -->  Portland
+2023-07-19 22:21:45,128 [INFO] Rational positions --> tensor([[ 0,  6, 41, 45,  5]], device='cuda:0')
+2023-07-19 22:21:45,128 [INFO] Rational words -->
+2023-07-19 22:21:45,129 [INFO] ['As', ' Oregon', ' in', ',', ' in']
+2023-07-19 22:21:45,130 [INFO] 67.json done.
+2023-07-19 22:21:45,130 [INFO] 
+2023-07-19 22:21:45,130 [INFO] ========================
+2023-07-19 22:21:45,130 [INFO] 
+2023-07-19 22:21:45,131 [INFO] Rationalizing 68.json ...
+2023-07-19 22:21:45,141 [INFO] Rationalization done in 0.010302066802978516
+2023-07-19 22:21:45,141 [INFO] 
+2023-07-19 22:21:45,141 [INFO] 
+2023-07-19 22:21:45,142 [INFO] Input --> As soon as I arrived in Georgia, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,142 [INFO] Target -->  Atlanta
+2023-07-19 22:21:45,142 [INFO] Rational positions --> tensor([[ 0,  6, 41, 45,  5]], device='cuda:0')
+2023-07-19 22:21:45,142 [INFO] Rational words -->
+2023-07-19 22:21:45,142 [INFO] ['As', ' Georgia', ' in', ',', ' in']
+2023-07-19 22:21:45,144 [INFO] 68.json done.
+2023-07-19 22:21:45,144 [INFO] 
+2023-07-19 22:21:45,144 [INFO] ========================
+2023-07-19 22:21:45,144 [INFO] 
+2023-07-19 22:21:45,144 [INFO] Rationalizing 69.json ...
+2023-07-19 22:21:45,155 [INFO] Rationalization done in 0.010190486907958984
+2023-07-19 22:21:45,155 [INFO] 
+2023-07-19 22:21:45,155 [INFO] 
+2023-07-19 22:21:45,156 [INFO] Input --> As soon as I arrived in Nebraska, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,156 [INFO] Target -->  Omaha
+2023-07-19 22:21:45,156 [INFO] Rational positions --> tensor([[ 0,  6, 45, 41,  5]], device='cuda:0')
+2023-07-19 22:21:45,156 [INFO] Rational words -->
+2023-07-19 22:21:45,156 [INFO] ['As', ' Nebraska', ',', ' in', ' in']
+2023-07-19 22:21:45,158 [INFO] 69.json done.
+2023-07-19 22:21:45,159 [INFO] 
+2023-07-19 22:21:45,159 [INFO] ========================
+2023-07-19 22:21:45,159 [INFO] 
+2023-07-19 22:21:45,159 [INFO] Rationalizing 70.json ...
+2023-07-19 22:21:45,171 [INFO] Rationalization done in 0.01214599609375
+2023-07-19 22:21:45,171 [INFO] 
+2023-07-19 22:21:45,171 [INFO] 
+2023-07-19 22:21:45,172 [INFO] Input --> As soon as I arrived in Florida, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,172 [INFO] Target -->  Miami
+2023-07-19 22:21:45,172 [INFO] Rational positions --> tensor([[ 0,  6, 41, 45,  5]], device='cuda:0')
+2023-07-19 22:21:45,172 [INFO] Rational words -->
+2023-07-19 22:21:45,173 [INFO] ['As', ' Florida', ' in', ',', ' in']
+2023-07-19 22:21:45,175 [INFO] 70.json done.
+2023-07-19 22:21:45,175 [INFO] 
+2023-07-19 22:21:45,175 [INFO] ========================
+2023-07-19 22:21:45,175 [INFO] 
+2023-07-19 22:21:45,175 [INFO] Rationalizing 71.json ...
+2023-07-19 22:21:45,187 [INFO] Rationalization done in 0.011325597763061523
+2023-07-19 22:21:45,187 [INFO] 
+2023-07-19 22:21:45,187 [INFO] 
+2023-07-19 22:21:45,188 [INFO] Input --> As soon as I arrived in Hawaii, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,188 [INFO] Target -->  Honolulu
+2023-07-19 22:21:45,188 [INFO] Rational positions --> tensor([[ 0,  6, 45, 41, 10]], device='cuda:0')
+2023-07-19 22:21:45,188 [INFO] Rational words -->
+2023-07-19 22:21:45,188 [INFO] ['As', ' Hawaii', ',', ' in', ' into']
+2023-07-19 22:21:45,190 [INFO] 71.json done.
+2023-07-19 22:21:45,190 [INFO] 
+2023-07-19 22:21:45,190 [INFO] ========================
+2023-07-19 22:21:45,190 [INFO] 
+2023-07-19 22:21:45,191 [INFO] Rationalizing 72.json ...
+2023-07-19 22:21:45,201 [INFO] Rationalization done in 0.010308980941772461
+2023-07-19 22:21:45,201 [INFO] 
+2023-07-19 22:21:45,201 [INFO] 
+2023-07-19 22:21:45,202 [INFO] Input --> As soon as I arrived in Alaska, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,202 [INFO] Target -->  Anchorage
+2023-07-19 22:21:45,202 [INFO] Rational positions --> tensor([[ 0,  6, 45, 41, 10]], device='cuda:0')
+2023-07-19 22:21:45,202 [INFO] Rational words -->
+2023-07-19 22:21:45,202 [INFO] ['As', ' Alaska', ',', ' in', ' into']
+2023-07-19 22:21:45,204 [INFO] 72.json done.
+2023-07-19 22:21:45,204 [INFO] 
+2023-07-19 22:21:45,204 [INFO] ========================
+2023-07-19 22:21:45,204 [INFO] 
+2023-07-19 22:21:45,204 [INFO] Rationalizing 73.json ...
+2023-07-19 22:21:45,215 [INFO] Rationalization done in 0.01045083999633789
+2023-07-19 22:21:45,215 [INFO] 
+2023-07-19 22:21:45,215 [INFO] 
+2023-07-19 22:21:45,216 [INFO] Input --> As soon as I arrived in Wisconsin, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,216 [INFO] Target -->  Madison
+2023-07-19 22:21:45,216 [INFO] Rational positions --> tensor([[ 0,  6, 45, 41,  5]], device='cuda:0')
+2023-07-19 22:21:45,216 [INFO] Rational words -->
+2023-07-19 22:21:45,216 [INFO] ['As', ' Wisconsin', ',', ' in', ' in']
+2023-07-19 22:21:45,218 [INFO] 73.json done.
+2023-07-19 22:21:45,218 [INFO] 
+2023-07-19 22:21:45,218 [INFO] ========================
+2023-07-19 22:21:45,218 [INFO] 
+2023-07-19 22:21:45,218 [INFO] Rationalizing 74.json ...
+2023-07-19 22:21:45,228 [INFO] Rationalization done in 0.010010242462158203
+2023-07-19 22:21:45,228 [INFO] 
+2023-07-19 22:21:45,228 [INFO] 
+2023-07-19 22:21:45,229 [INFO] Input --> As soon as I arrived in Nevada, I checked into my hotel and watched a movie before falling asleep. (I had a great call with my husband, although I wish it were longer). I was staying in my favorite city,
+2023-07-19 22:21:45,229 [INFO] Target -->  Reno
+2023-07-19 22:21:45,229 [INFO] Rational positions --> tensor([[ 0,  6, 45, 41, 10]], device='cuda:0')
+2023-07-19 22:21:45,230 [INFO] Rational words -->
+2023-07-19 22:21:45,230 [INFO] ['As', ' Nevada', ',', ' in', ' into']
+2023-07-19 22:21:45,232 [INFO] 74.json done.
+2023-07-19 22:21:45,232 [INFO] 
+2023-07-19 22:21:45,232 [INFO] ========================
+2023-07-19 22:21:45,232 [INFO] 
+2023-07-19 22:21:45,232 [INFO] Rationalizing 75.json ...
+2023-07-19 22:21:45,242 [INFO] Rationalization done in 0.010390043258666992
+2023-07-19 22:21:45,242 [INFO] 
+2023-07-19 22:21:45,242 [INFO] 
+2023-07-19 22:21:45,243 [INFO] Input --> I initially invited my brother, who gladly accepted my invitation. (My favorite song just came on, so I was able to relax). When I learned that women were allowed, I went ahead and also invited my
+2023-07-19 22:21:45,243 [INFO] Target -->  sister
+2023-07-19 22:21:45,243 [INFO] Rational positions --> tensor([[ 0, 40,  4, 31,  5]], device='cuda:0')
+2023-07-19 22:21:45,244 [INFO] Rational words -->
+2023-07-19 22:21:45,244 [INFO] ['I', ' invited', ' brother', ' women', ',']
+2023-07-19 22:21:45,246 [INFO] 75.json done.
+2023-07-19 22:21:45,246 [INFO] 
+2023-07-19 22:21:45,246 [INFO] ========================
+2023-07-19 22:21:45,246 [INFO] 
+2023-07-19 22:21:45,246 [INFO] Rationalizing 76.json ...
+2023-07-19 22:21:45,256 [INFO] Rationalization done in 0.01004338264465332
+2023-07-19 22:21:45,256 [INFO] 
+2023-07-19 22:21:45,256 [INFO] 
+2023-07-19 22:21:45,257 [INFO] Input --> I initially invited my brothers, who gladly accepted my invitation. (My favorite song just came on, so I was able to relax). When I learned that women were allowed, I went ahead and also invited my
+2023-07-19 22:21:45,257 [INFO] Target -->  sisters
+2023-07-19 22:21:45,258 [INFO] Rational positions --> tensor([[ 0, 40,  4, 31,  3]], device='cuda:0')
+2023-07-19 22:21:45,258 [INFO] Rational words -->
+2023-07-19 22:21:45,258 [INFO] ['I', ' invited', ' brothers', ' women', ' my']
+2023-07-19 22:21:45,259 [INFO] 76.json done.
+2023-07-19 22:21:45,259 [INFO] 
+2023-07-19 22:21:45,260 [INFO] ========================
+2023-07-19 22:21:45,260 [INFO] 
+2023-07-19 22:21:45,260 [INFO] Rationalizing 77.json ...
+2023-07-19 22:21:45,270 [INFO] Rationalization done in 0.010129451751708984
+2023-07-19 22:21:45,270 [INFO] 
+2023-07-19 22:21:45,270 [INFO] 
+2023-07-19 22:21:45,271 [INFO] Input --> I initially invited my dad, who gladly accepted my invitation. (My favorite song just came on, so I was able to relax). When I learned that women were allowed, I went ahead and also invited my
+2023-07-19 22:21:45,271 [INFO] Target -->  mom
+2023-07-19 22:21:45,271 [INFO] Rational positions --> tensor([[ 0, 40, 41,  3, 31]], device='cuda:0')
+2023-07-19 22:21:45,271 [INFO] Rational words -->
+2023-07-19 22:21:45,271 [INFO] ['I', ' invited', ' my', ' my', ' women']
+2023-07-19 22:21:45,273 [INFO] 77.json done.
+2023-07-19 22:21:45,273 [INFO] 
+2023-07-19 22:21:45,273 [INFO] ========================
+2023-07-19 22:21:45,273 [INFO] 
+2023-07-19 22:21:45,274 [INFO] Rationalizing 78.json ...
+2023-07-19 22:21:45,284 [INFO] Rationalization done in 0.010228633880615234
+2023-07-19 22:21:45,284 [INFO] 
+2023-07-19 22:21:45,284 [INFO] 
+2023-07-19 22:21:45,285 [INFO] Input --> I initially invited my father, who gladly accepted my invitation. (My favorite song just came on, so I was able to relax). When I learned that women were allowed, I went ahead and also invited my
+2023-07-19 22:21:45,285 [INFO] Target -->  mother
+2023-07-19 22:21:45,285 [INFO] Rational positions --> tensor([[ 0, 40, 41,  5,  3]], device='cuda:0')
+2023-07-19 22:21:45,285 [INFO] Rational words -->
+2023-07-19 22:21:45,285 [INFO] ['I', ' invited', ' my', ',', ' my']
+2023-07-19 22:21:45,287 [INFO] 78.json done.
+2023-07-19 22:21:45,287 [INFO] 
+2023-07-19 22:21:45,287 [INFO] ========================
+2023-07-19 22:21:45,287 [INFO] 
+2023-07-19 22:21:45,287 [INFO] Rationalizing 79.json ...
+2023-07-19 22:21:45,298 [INFO] Rationalization done in 0.010470151901245117
+2023-07-19 22:21:45,298 [INFO] 
+2023-07-19 22:21:45,298 [INFO] 
+2023-07-19 22:21:45,299 [INFO] Input --> I initially invited my son, who gladly accepted my invitation. (My favorite song just came on, so I was able to relax). When I learned that women were allowed, I went ahead and also invited my
+2023-07-19 22:21:45,299 [INFO] Target -->  daughter
+2023-07-19 22:21:45,299 [INFO] Rational positions --> tensor([[ 0, 40, 41,  3,  4]], device='cuda:0')
+2023-07-19 22:21:45,299 [INFO] Rational words -->
+2023-07-19 22:21:45,299 [INFO] ['I', ' invited', ' my', ' my', ' son']
+2023-07-19 22:21:45,301 [INFO] 79.json done.
+2023-07-19 22:21:45,301 [INFO] 
+2023-07-19 22:21:45,301 [INFO] ========================
+2023-07-19 22:21:45,301 [INFO] 
+2023-07-19 22:21:45,301 [INFO] Rationalizing 80.json ...
+2023-07-19 22:21:45,311 [INFO] Rationalization done in 0.010019063949584961
+2023-07-19 22:21:45,311 [INFO] 
+2023-07-19 22:21:45,311 [INFO] 
+2023-07-19 22:21:45,313 [INFO] Input --> I initially invited my sons, who gladly accepted my invitation. (My favorite song just came on, so I was able to relax). When I learned that women were allowed, I went ahead and also invited my
+2023-07-19 22:21:45,314 [INFO] Target -->  daughters
+2023-07-19 22:21:45,317 [INFO] Rational positions --> tensor([[ 0, 40, 41, 31,  3]], device='cuda:0')
+2023-07-19 22:21:45,318 [INFO] Rational words -->
+2023-07-19 22:21:45,321 [INFO] ['I', ' invited', ' my', ' women', ' my']
+2023-07-19 22:21:45,326 [INFO] 80.json done.
+2023-07-19 22:21:45,326 [INFO] 
+2023-07-19 22:21:45,326 [INFO] ========================
+2023-07-19 22:21:45,326 [INFO] 
+2023-07-19 22:21:45,326 [INFO] Rationalizing 81.json ...
+2023-07-19 22:21:45,337 [INFO] Rationalization done in 0.010342597961425781
+2023-07-19 22:21:45,337 [INFO] 
+2023-07-19 22:21:45,337 [INFO] 
+2023-07-19 22:21:45,338 [INFO] Input --> I knew it was bad, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,340 [INFO] Target -->  worse
+2023-07-19 22:21:45,343 [INFO] Rational positions --> tensor([[ 0, 47, 46,  4, 48]], device='cuda:0')
+2023-07-19 22:21:45,343 [INFO] Rational words -->
+2023-07-19 22:21:45,346 [INFO] ['I', ' was', ' it', ' bad', ' even']
+2023-07-19 22:21:45,352 [INFO] 81.json done.
+2023-07-19 22:21:45,352 [INFO] 
+2023-07-19 22:21:45,352 [INFO] ========================
+2023-07-19 22:21:45,353 [INFO] 
+2023-07-19 22:21:45,353 [INFO] Rationalizing 82.json ...
+2023-07-19 22:21:45,363 [INFO] Rationalization done in 0.01072549819946289
+2023-07-19 22:21:45,364 [INFO] 
+2023-07-19 22:21:45,364 [INFO] 
+2023-07-19 22:21:45,365 [INFO] Input --> I knew it was big, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,366 [INFO] Target -->  bigger
+2023-07-19 22:21:45,369 [INFO] Rational positions --> tensor([[ 0, 47, 46, 15, 48]], device='cuda:0')
+2023-07-19 22:21:45,370 [INFO] Rational words -->
+2023-07-19 22:21:45,373 [INFO] ['I', ' was', ' it', '.', ' even']
+2023-07-19 22:21:45,378 [INFO] 82.json done.
+2023-07-19 22:21:45,378 [INFO] 
+2023-07-19 22:21:45,378 [INFO] ========================
+2023-07-19 22:21:45,378 [INFO] 
+2023-07-19 22:21:45,379 [INFO] Rationalizing 83.json ...
+2023-07-19 22:21:45,389 [INFO] Rationalization done in 0.010625362396240234
+2023-07-19 22:21:45,389 [INFO] 
+2023-07-19 22:21:45,389 [INFO] 
+2023-07-19 22:21:45,391 [INFO] Input --> I knew it was cold, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,392 [INFO] Target -->  colder
+2023-07-19 22:21:45,395 [INFO] Rational positions --> tensor([[ 0, 47,  4, 46, 48]], device='cuda:0')
+2023-07-19 22:21:45,396 [INFO] Rational words -->
+2023-07-19 22:21:45,399 [INFO] ['I', ' was', ' cold', ' it', ' even']
+2023-07-19 22:21:45,405 [INFO] 83.json done.
+2023-07-19 22:21:45,405 [INFO] 
+2023-07-19 22:21:45,405 [INFO] ========================
+2023-07-19 22:21:45,405 [INFO] 
+2023-07-19 22:21:45,405 [INFO] Rationalizing 84.json ...
+2023-07-19 22:21:45,416 [INFO] Rationalization done in 0.010587215423583984
+2023-07-19 22:21:45,416 [INFO] 
+2023-07-19 22:21:45,416 [INFO] 
+2023-07-19 22:21:45,416 [INFO] Input --> I knew it was fast, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,416 [INFO] Target -->  faster
+2023-07-19 22:21:45,417 [INFO] Rational positions --> tensor([[ 0, 47, 46,  4, 48]], device='cuda:0')
+2023-07-19 22:21:45,417 [INFO] Rational words -->
+2023-07-19 22:21:45,417 [INFO] ['I', ' was', ' it', ' fast', ' even']
+2023-07-19 22:21:45,419 [INFO] 84.json done.
+2023-07-19 22:21:45,419 [INFO] 
+2023-07-19 22:21:45,419 [INFO] ========================
+2023-07-19 22:21:45,419 [INFO] 
+2023-07-19 22:21:45,419 [INFO] Rationalizing 85.json ...
+2023-07-19 22:21:45,430 [INFO] Rationalization done in 0.010782241821289062
+2023-07-19 22:21:45,430 [INFO] 
+2023-07-19 22:21:45,430 [INFO] 
+2023-07-19 22:21:45,431 [INFO] Input --> I knew it was good, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,433 [INFO] Target -->  better
+2023-07-19 22:21:45,436 [INFO] Rational positions --> tensor([[ 0, 47, 46,  4, 48]], device='cuda:0')
+2023-07-19 22:21:45,437 [INFO] Rational words -->
+2023-07-19 22:21:45,440 [INFO] ['I', ' was', ' it', ' good', ' even']
+2023-07-19 22:21:45,446 [INFO] 85.json done.
+2023-07-19 22:21:45,446 [INFO] 
+2023-07-19 22:21:45,446 [INFO] ========================
+2023-07-19 22:21:45,446 [INFO] 
+2023-07-19 22:21:45,446 [INFO] Rationalizing 86.json ...
+2023-07-19 22:21:45,457 [INFO] Rationalization done in 0.01088571548461914
+2023-07-19 22:21:45,457 [INFO] 
+2023-07-19 22:21:45,457 [INFO] 
+2023-07-19 22:21:45,459 [INFO] Input --> I knew it was heavy, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,460 [INFO] Target -->  heavier
+2023-07-19 22:21:45,464 [INFO] Rational positions --> tensor([[ 0, 47,  4, 46, 15]], device='cuda:0')
+2023-07-19 22:21:45,464 [INFO] Rational words -->
+2023-07-19 22:21:45,467 [INFO] ['I', ' was', ' heavy', ' it', '.']
+2023-07-19 22:21:45,472 [INFO] 86.json done.
+2023-07-19 22:21:45,472 [INFO] 
+2023-07-19 22:21:45,472 [INFO] ========================
+2023-07-19 22:21:45,472 [INFO] 
+2023-07-19 22:21:45,472 [INFO] Rationalizing 87.json ...
+2023-07-19 22:21:45,483 [INFO] Rationalization done in 0.010905265808105469
+2023-07-19 22:21:45,483 [INFO] 
+2023-07-19 22:21:45,483 [INFO] 
+2023-07-19 22:21:45,485 [INFO] Input --> I knew it was hot, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,486 [INFO] Target -->  hotter
+2023-07-19 22:21:45,488 [INFO] Rational positions --> tensor([[ 0, 47,  4, 46, 48]], device='cuda:0')
+2023-07-19 22:21:45,489 [INFO] Rational words -->
+2023-07-19 22:21:45,492 [INFO] ['I', ' was', ' hot', ' it', ' even']
+2023-07-19 22:21:45,498 [INFO] 87.json done.
+2023-07-19 22:21:45,498 [INFO] 
+2023-07-19 22:21:45,498 [INFO] ========================
+2023-07-19 22:21:45,498 [INFO] 
+2023-07-19 22:21:45,498 [INFO] Rationalizing 88.json ...
+2023-07-19 22:21:45,509 [INFO] Rationalization done in 0.010838508605957031
+2023-07-19 22:21:45,509 [INFO] 
+2023-07-19 22:21:45,509 [INFO] 
+2023-07-19 22:21:45,510 [INFO] Input --> I knew it was long, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,512 [INFO] Target -->  longer
+2023-07-19 22:21:45,514 [INFO] Rational positions --> tensor([[ 0, 47, 46, 15, 48]], device='cuda:0')
+2023-07-19 22:21:45,515 [INFO] Rational words -->
+2023-07-19 22:21:45,518 [INFO] ['I', ' was', ' it', '.', ' even']
+2023-07-19 22:21:45,524 [INFO] 88.json done.
+2023-07-19 22:21:45,524 [INFO] 
+2023-07-19 22:21:45,524 [INFO] ========================
+2023-07-19 22:21:45,524 [INFO] 
+2023-07-19 22:21:45,524 [INFO] Rationalizing 89.json ...
+2023-07-19 22:21:45,535 [INFO] Rationalization done in 0.01107335090637207
+2023-07-19 22:21:45,535 [INFO] 
+2023-07-19 22:21:45,535 [INFO] 
+2023-07-19 22:21:45,537 [INFO] Input --> I knew it was loud, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,538 [INFO] Target -->  louder
+2023-07-19 22:21:45,541 [INFO] Rational positions --> tensor([[ 0, 47,  4, 46, 48]], device='cuda:0')
+2023-07-19 22:21:45,541 [INFO] Rational words -->
+2023-07-19 22:21:45,545 [INFO] ['I', ' was', ' loud', ' it', ' even']
+2023-07-19 22:21:45,552 [INFO] 89.json done.
+2023-07-19 22:21:45,552 [INFO] 
+2023-07-19 22:21:45,552 [INFO] ========================
+2023-07-19 22:21:45,552 [INFO] 
+2023-07-19 22:21:45,552 [INFO] Rationalizing 90.json ...
+2023-07-19 22:21:45,563 [INFO] Rationalization done in 0.01113271713256836
+2023-07-19 22:21:45,563 [INFO] 
+2023-07-19 22:21:45,563 [INFO] 
+2023-07-19 22:21:45,564 [INFO] Input --> I knew it was sharp, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,564 [INFO] Target -->  sharper
+2023-07-19 22:21:45,564 [INFO] Rational positions --> tensor([[ 0, 47,  4, 46,  5]], device='cuda:0')
+2023-07-19 22:21:45,564 [INFO] Rational words -->
+2023-07-19 22:21:45,564 [INFO] ['I', ' was', ' sharp', ' it', ',']
+2023-07-19 22:21:45,566 [INFO] 90.json done.
+2023-07-19 22:21:45,566 [INFO] 
+2023-07-19 22:21:45,566 [INFO] ========================
+2023-07-19 22:21:45,566 [INFO] 
+2023-07-19 22:21:45,566 [INFO] Rationalizing 91.json ...
+2023-07-19 22:21:45,577 [INFO] Rationalization done in 0.010412931442260742
+2023-07-19 22:21:45,577 [INFO] 
+2023-07-19 22:21:45,577 [INFO] 
+2023-07-19 22:21:45,578 [INFO] Input --> I knew it was short, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,580 [INFO] Target -->  shorter
+2023-07-19 22:21:45,583 [INFO] Rational positions --> tensor([[ 0, 47, 46, 15, 48]], device='cuda:0')
+2023-07-19 22:21:45,583 [INFO] Rational words -->
+2023-07-19 22:21:45,586 [INFO] ['I', ' was', ' it', '.', ' even']
+2023-07-19 22:21:45,593 [INFO] 91.json done.
+2023-07-19 22:21:45,593 [INFO] 
+2023-07-19 22:21:45,593 [INFO] ========================
+2023-07-19 22:21:45,593 [INFO] 
+2023-07-19 22:21:45,594 [INFO] Rationalizing 92.json ...
+2023-07-19 22:21:45,605 [INFO] Rationalization done in 0.010868310928344727
+2023-07-19 22:21:45,605 [INFO] 
+2023-07-19 22:21:45,605 [INFO] 
+2023-07-19 22:21:45,605 [INFO] Input --> I knew it was slow, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,605 [INFO] Target -->  slower
+2023-07-19 22:21:45,606 [INFO] Rational positions --> tensor([[ 0, 47,  4, 46, 15]], device='cuda:0')
+2023-07-19 22:21:45,606 [INFO] Rational words -->
+2023-07-19 22:21:45,606 [INFO] ['I', ' was', ' slow', ' it', '.']
+2023-07-19 22:21:45,608 [INFO] 92.json done.
+2023-07-19 22:21:45,608 [INFO] 
+2023-07-19 22:21:45,608 [INFO] ========================
+2023-07-19 22:21:45,608 [INFO] 
+2023-07-19 22:21:45,608 [INFO] Rationalizing 93.json ...
+2023-07-19 22:21:45,619 [INFO] Rationalization done in 0.010557413101196289
+2023-07-19 22:21:45,619 [INFO] 
+2023-07-19 22:21:45,619 [INFO] 
+2023-07-19 22:21:45,620 [INFO] Input --> I knew it was small, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,622 [INFO] Target -->  smaller
+2023-07-19 22:21:45,624 [INFO] Rational positions --> tensor([[ 0, 47, 46, 48, 15]], device='cuda:0')
+2023-07-19 22:21:45,625 [INFO] Rational words -->
+2023-07-19 22:21:45,628 [INFO] ['I', ' was', ' it', ' even', '.']
+2023-07-19 22:21:45,635 [INFO] 93.json done.
+2023-07-19 22:21:45,635 [INFO] 
+2023-07-19 22:21:45,635 [INFO] ========================
+2023-07-19 22:21:45,635 [INFO] 
+2023-07-19 22:21:45,635 [INFO] Rationalizing 94.json ...
+2023-07-19 22:21:45,646 [INFO] Rationalization done in 0.010908365249633789
+2023-07-19 22:21:45,646 [INFO] 
+2023-07-19 22:21:45,646 [INFO] 
+2023-07-19 22:21:45,648 [INFO] Input --> I knew it was strong, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,649 [INFO] Target -->  stronger
+2023-07-19 22:21:45,652 [INFO] Rational positions --> tensor([[ 0, 47,  4, 46, 15]], device='cuda:0')
+2023-07-19 22:21:45,653 [INFO] Rational words -->
+2023-07-19 22:21:45,655 [INFO] ['I', ' was', ' strong', ' it', '.']
+2023-07-19 22:21:45,661 [INFO] 94.json done.
+2023-07-19 22:21:45,661 [INFO] 
+2023-07-19 22:21:45,661 [INFO] ========================
+2023-07-19 22:21:45,661 [INFO] 
+2023-07-19 22:21:45,661 [INFO] Rationalizing 95.json ...
+2023-07-19 22:21:45,672 [INFO] Rationalization done in 0.010645151138305664
+2023-07-19 22:21:45,672 [INFO] 
+2023-07-19 22:21:45,672 [INFO] 
+2023-07-19 22:21:45,674 [INFO] Input --> I knew it was tall, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,675 [INFO] Target -->  taller
+2023-07-19 22:21:45,678 [INFO] Rational positions --> tensor([[ 0, 47,  4, 48,  5]], device='cuda:0')
+2023-07-19 22:21:45,678 [INFO] Rational words -->
+2023-07-19 22:21:45,681 [INFO] ['I', ' was', ' tall', ' even', ',']
+2023-07-19 22:21:45,687 [INFO] 95.json done.
+2023-07-19 22:21:45,687 [INFO] 
+2023-07-19 22:21:45,687 [INFO] ========================
+2023-07-19 22:21:45,687 [INFO] 
+2023-07-19 22:21:45,688 [INFO] Rationalizing 96.json ...
+2023-07-19 22:21:45,698 [INFO] Rationalization done in 0.010767459869384766
+2023-07-19 22:21:45,699 [INFO] 
+2023-07-19 22:21:45,699 [INFO] 
+2023-07-19 22:21:45,699 [INFO] Input --> I knew it was tight, but that's before I saw it in person. (Just then I thought about my ex-wife, but I had to stop thinking about her). When I did end up seeing it in person, it was even
+2023-07-19 22:21:45,699 [INFO] Target -->  tighter
+2023-07-19 22:21:45,700 [INFO] Rational positions --> tensor([[ 0, 47,  4, 46, 15]], device='cuda:0')
+2023-07-19 22:21:45,700 [INFO] Rational words -->
+2023-07-19 22:21:45,700 [INFO] ['I', ' was', ' tight', ' it', '.']
+2023-07-19 22:21:45,702 [INFO] 96.json done.
+2023-07-19 22:21:45,702 [INFO] 
+2023-07-19 22:21:45,702 [INFO] ========================
+2023-07-19 22:21:45,702 [INFO] 
+2023-07-19 22:21:45,702 [INFO] Rationalizing 97.json ...
+2023-07-19 22:21:45,712 [INFO] Rationalization done in 0.010478496551513672
+2023-07-19 22:21:45,713 [INFO] 
+2023-07-19 22:21:45,713 [INFO] 
+2023-07-19 22:21:45,714 [INFO] Input --> I thought it would be the worst thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,715 [INFO] Target -->  bad
+2023-07-19 22:21:45,718 [INFO] Rational positions --> tensor([[ 0, 40,  6, 41, 32]], device='cuda:0')
+2023-07-19 22:21:45,719 [INFO] Rational words -->
+2023-07-19 22:21:45,722 [INFO] ['I', "'t", ' worst', ' so', ' encountering']
+2023-07-19 22:21:45,728 [INFO] 97.json done.
+2023-07-19 22:21:45,728 [INFO] 
+2023-07-19 22:21:45,728 [INFO] ========================
+2023-07-19 22:21:45,728 [INFO] 
+2023-07-19 22:21:45,728 [INFO] Rationalizing 98.json ...
+2023-07-19 22:21:45,740 [INFO] Rationalization done in 0.01110529899597168
+2023-07-19 22:21:45,740 [INFO] 
+2023-07-19 22:21:45,740 [INFO] 
+2023-07-19 22:21:45,741 [INFO] Input --> I thought it would be the brightest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,742 [INFO] Target -->  bright
+2023-07-19 22:21:45,745 [INFO] Rational positions --> tensor([[ 0, 40,  6, 12, 32]], device='cuda:0')
+2023-07-19 22:21:45,746 [INFO] Rational words -->
+2023-07-19 22:21:45,749 [INFO] ['I', "'t", ' brightest', '.', ' encountering']
+2023-07-19 22:21:45,754 [INFO] 98.json done.
+2023-07-19 22:21:45,754 [INFO] 
+2023-07-19 22:21:45,754 [INFO] ========================
+2023-07-19 22:21:45,754 [INFO] 
+2023-07-19 22:21:45,754 [INFO] Rationalizing 99.json ...
+2023-07-19 22:21:45,765 [INFO] Rationalization done in 0.010994911193847656
+2023-07-19 22:21:45,766 [INFO] 
+2023-07-19 22:21:45,766 [INFO] 
+2023-07-19 22:21:45,767 [INFO] Input --> I thought it would be the coolest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,768 [INFO] Target -->  cool
+2023-07-19 22:21:45,771 [INFO] Rational positions --> tensor([[ 0, 40,  6, 32, 12]], device='cuda:0')
+2023-07-19 22:21:45,772 [INFO] Rational words -->
+2023-07-19 22:21:45,774 [INFO] ['I', "'t", ' coolest', ' encountering', '.']
+2023-07-19 22:21:45,780 [INFO] 99.json done.
+2023-07-19 22:21:45,780 [INFO] 
+2023-07-19 22:21:45,780 [INFO] ========================
+2023-07-19 22:21:45,780 [INFO] 
+2023-07-19 22:21:45,780 [INFO] Rationalizing 100.json ...
+2023-07-19 22:21:45,797 [INFO] Rationalization done in 0.01597142219543457
+2023-07-19 22:21:45,797 [INFO] 
+2023-07-19 22:21:45,797 [INFO] 
+2023-07-19 22:21:45,797 [INFO] Input --> I thought it would be the darkest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,797 [INFO] Target -->  dark
+2023-07-19 22:21:45,797 [INFO] Rational positions --> tensor([[ 0, 40,  6, 12, 32]], device='cuda:0')
+2023-07-19 22:21:45,798 [INFO] Rational words -->
+2023-07-19 22:21:45,798 [INFO] ['I', "'t", ' darkest', '.', ' encountering']
+2023-07-19 22:21:45,800 [INFO] 100.json done.
+2023-07-19 22:21:45,800 [INFO] 
+2023-07-19 22:21:45,800 [INFO] ========================
+2023-07-19 22:21:45,800 [INFO] 
+2023-07-19 22:21:45,800 [INFO] Rationalizing 101.json ...
+2023-07-19 22:21:45,813 [INFO] Rationalization done in 0.012337446212768555
+2023-07-19 22:21:45,813 [INFO] 
+2023-07-19 22:21:45,813 [INFO] 
+2023-07-19 22:21:45,813 [INFO] Input --> I thought it would be the easiest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,813 [INFO] Target -->  easy
+2023-07-19 22:21:45,814 [INFO] Rational positions --> tensor([[ 0, 40,  6, 41, 32]], device='cuda:0')
+2023-07-19 22:21:45,814 [INFO] Rational words -->
+2023-07-19 22:21:45,814 [INFO] ['I', "'t", ' easiest', ' so', ' encountering']
+2023-07-19 22:21:45,816 [INFO] 101.json done.
+2023-07-19 22:21:45,816 [INFO] 
+2023-07-19 22:21:45,816 [INFO] ========================
+2023-07-19 22:21:45,816 [INFO] 
+2023-07-19 22:21:45,816 [INFO] Rationalizing 102.json ...
+2023-07-19 22:21:45,827 [INFO] Rationalization done in 0.010588884353637695
+2023-07-19 22:21:45,827 [INFO] 
+2023-07-19 22:21:45,827 [INFO] 
+2023-07-19 22:21:45,828 [INFO] Input --> I thought it would be the fastest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,829 [INFO] Target -->  fast
+2023-07-19 22:21:45,832 [INFO] Rational positions --> tensor([[ 0, 40,  6, 36, 32]], device='cuda:0')
+2023-07-19 22:21:45,833 [INFO] Rational words -->
+2023-07-19 22:21:45,835 [INFO] ['I', "'t", ' fastest', ' turned', ' encountering']
+2023-07-19 22:21:45,843 [INFO] 102.json done.
+2023-07-19 22:21:45,843 [INFO] 
+2023-07-19 22:21:45,843 [INFO] ========================
+2023-07-19 22:21:45,843 [INFO] 
+2023-07-19 22:21:45,843 [INFO] Rationalizing 103.json ...
+2023-07-19 22:21:45,853 [INFO] Rationalization done in 0.010077953338623047
+2023-07-19 22:21:45,853 [INFO] 
+2023-07-19 22:21:45,853 [INFO] 
+2023-07-19 22:21:45,854 [INFO] Input --> I thought it would be the greatest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,854 [INFO] Target -->  great
+2023-07-19 22:21:45,854 [INFO] Rational positions --> tensor([[ 0, 40,  6, 41, 32]], device='cuda:0')
+2023-07-19 22:21:45,854 [INFO] Rational words -->
+2023-07-19 22:21:45,854 [INFO] ['I', "'t", ' greatest', ' so', ' encountering']
+2023-07-19 22:21:45,856 [INFO] 103.json done.
+2023-07-19 22:21:45,856 [INFO] 
+2023-07-19 22:21:45,856 [INFO] ========================
+2023-07-19 22:21:45,856 [INFO] 
+2023-07-19 22:21:45,856 [INFO] Rationalizing 104.json ...
+2023-07-19 22:21:45,867 [INFO] Rationalization done in 0.010331869125366211
+2023-07-19 22:21:45,867 [INFO] 
+2023-07-19 22:21:45,867 [INFO] 
+2023-07-19 22:21:45,868 [INFO] Input --> I thought it would be the highest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,869 [INFO] Target -->  high
+2023-07-19 22:21:45,872 [INFO] Rational positions --> tensor([[ 0, 40, 41,  6, 32]], device='cuda:0')
+2023-07-19 22:21:45,873 [INFO] Rational words -->
+2023-07-19 22:21:45,876 [INFO] ['I', "'t", ' so', ' highest', ' encountering']
+2023-07-19 22:21:45,882 [INFO] 104.json done.
+2023-07-19 22:21:45,882 [INFO] 
+2023-07-19 22:21:45,882 [INFO] ========================
+2023-07-19 22:21:45,883 [INFO] 
+2023-07-19 22:21:45,883 [INFO] Rationalizing 105.json ...
+2023-07-19 22:21:45,893 [INFO] Rationalization done in 0.010628461837768555
+2023-07-19 22:21:45,894 [INFO] 
+2023-07-19 22:21:45,894 [INFO] 
+2023-07-19 22:21:45,895 [INFO] Input --> I thought it would be the hottest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,896 [INFO] Target -->  hot
+2023-07-19 22:21:45,899 [INFO] Rational positions --> tensor([[ 0, 40,  6, 32, 11]], device='cuda:0')
+2023-07-19 22:21:45,900 [INFO] Rational words -->
+2023-07-19 22:21:45,902 [INFO] ['I', "'t", ' hottest', ' encountering', ' encounter']
+2023-07-19 22:21:45,908 [INFO] 105.json done.
+2023-07-19 22:21:45,909 [INFO] 
+2023-07-19 22:21:45,909 [INFO] ========================
+2023-07-19 22:21:45,909 [INFO] 
+2023-07-19 22:21:45,909 [INFO] Rationalizing 106.json ...
+2023-07-19 22:21:45,920 [INFO] Rationalization done in 0.010725021362304688
+2023-07-19 22:21:45,920 [INFO] 
+2023-07-19 22:21:45,920 [INFO] 
+2023-07-19 22:21:45,920 [INFO] Input --> I thought it would be the lowest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,920 [INFO] Target -->  low
+2023-07-19 22:21:45,921 [INFO] Rational positions --> tensor([[ 0, 40, 41,  6, 36]], device='cuda:0')
+2023-07-19 22:21:45,921 [INFO] Rational words -->
+2023-07-19 22:21:45,921 [INFO] ['I', "'t", ' so', ' lowest', ' turned']
+2023-07-19 22:21:45,923 [INFO] 106.json done.
+2023-07-19 22:21:45,923 [INFO] 
+2023-07-19 22:21:45,923 [INFO] ========================
+2023-07-19 22:21:45,923 [INFO] 
+2023-07-19 22:21:45,923 [INFO] Rationalizing 107.json ...
+2023-07-19 22:21:45,933 [INFO] Rationalization done in 0.010250329971313477
+2023-07-19 22:21:45,933 [INFO] 
+2023-07-19 22:21:45,933 [INFO] 
+2023-07-19 22:21:45,935 [INFO] Input --> I thought it would be the oldest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,936 [INFO] Target -->  old
+2023-07-19 22:21:45,938 [INFO] Rational positions --> tensor([[ 0, 40,  6, 32, 11]], device='cuda:0')
+2023-07-19 22:21:45,939 [INFO] Rational words -->
+2023-07-19 22:21:45,942 [INFO] ['I', "'t", ' oldest', ' encountering', ' encounter']
+2023-07-19 22:21:45,948 [INFO] 107.json done.
+2023-07-19 22:21:45,948 [INFO] 
+2023-07-19 22:21:45,948 [INFO] ========================
+2023-07-19 22:21:45,948 [INFO] 
+2023-07-19 22:21:45,948 [INFO] Rationalizing 108.json ...
+2023-07-19 22:21:45,959 [INFO] Rationalization done in 0.010445117950439453
+2023-07-19 22:21:45,959 [INFO] 
+2023-07-19 22:21:45,959 [INFO] 
+2023-07-19 22:21:45,960 [INFO] Input --> I thought it would be the simplest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,962 [INFO] Target -->  simple
+2023-07-19 22:21:45,965 [INFO] Rational positions --> tensor([[ 0, 40,  6, 12, 41]], device='cuda:0')
+2023-07-19 22:21:45,965 [INFO] Rational words -->
+2023-07-19 22:21:45,968 [INFO] ['I', "'t", ' simplest', '.', ' so']
+2023-07-19 22:21:45,974 [INFO] 108.json done.
+2023-07-19 22:21:45,975 [INFO] 
+2023-07-19 22:21:45,975 [INFO] ========================
+2023-07-19 22:21:45,975 [INFO] 
+2023-07-19 22:21:45,975 [INFO] Rationalizing 109.json ...
+2023-07-19 22:21:45,985 [INFO] Rationalization done in 0.010362625122070312
+2023-07-19 22:21:45,985 [INFO] 
+2023-07-19 22:21:45,985 [INFO] 
+2023-07-19 22:21:45,987 [INFO] Input --> I thought it would be the shortest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:45,988 [INFO] Target -->  short
+2023-07-19 22:21:45,990 [INFO] Rational positions --> tensor([[ 0, 40,  6, 12, 32]], device='cuda:0')
+2023-07-19 22:21:45,991 [INFO] Rational words -->
+2023-07-19 22:21:45,994 [INFO] ['I', "'t", ' shortest', '.', ' encountering']
+2023-07-19 22:21:46,000 [INFO] 109.json done.
+2023-07-19 22:21:46,000 [INFO] 
+2023-07-19 22:21:46,000 [INFO] ========================
+2023-07-19 22:21:46,000 [INFO] 
+2023-07-19 22:21:46,000 [INFO] Rationalizing 110.json ...
+2023-07-19 22:21:46,011 [INFO] Rationalization done in 0.010329246520996094
+2023-07-19 22:21:46,011 [INFO] 
+2023-07-19 22:21:46,011 [INFO] 
+2023-07-19 22:21:46,012 [INFO] Input --> I thought it would be the smallest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:46,014 [INFO] Target -->  small
+2023-07-19 22:21:46,016 [INFO] Rational positions --> tensor([[ 0, 40,  6, 32, 41]], device='cuda:0')
+2023-07-19 22:21:46,017 [INFO] Rational words -->
+2023-07-19 22:21:46,020 [INFO] ['I', "'t", ' smallest', ' encountering', ' so']
+2023-07-19 22:21:46,026 [INFO] 110.json done.
+2023-07-19 22:21:46,026 [INFO] 
+2023-07-19 22:21:46,026 [INFO] ========================
+2023-07-19 22:21:46,026 [INFO] 
+2023-07-19 22:21:46,026 [INFO] Rationalizing 111.json ...
+2023-07-19 22:21:46,037 [INFO] Rationalization done in 0.010235071182250977
+2023-07-19 22:21:46,037 [INFO] 
+2023-07-19 22:21:46,037 [INFO] 
+2023-07-19 22:21:46,038 [INFO] Input --> I thought it would be the smartest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:46,040 [INFO] Target -->  smart
+2023-07-19 22:21:46,043 [INFO] Rational positions --> tensor([[ 0, 40,  6, 32, 41]], device='cuda:0')
+2023-07-19 22:21:46,044 [INFO] Rational words -->
+2023-07-19 22:21:46,047 [INFO] ['I', "'t", ' smartest', ' encountering', ' so']
+2023-07-19 22:21:46,052 [INFO] 111.json done.
+2023-07-19 22:21:46,052 [INFO] 
+2023-07-19 22:21:46,052 [INFO] ========================
+2023-07-19 22:21:46,052 [INFO] 
+2023-07-19 22:21:46,053 [INFO] Rationalizing 112.json ...
+2023-07-19 22:21:46,063 [INFO] Rationalization done in 0.010342597961425781
+2023-07-19 22:21:46,063 [INFO] 
+2023-07-19 22:21:46,063 [INFO] 
+2023-07-19 22:21:46,064 [INFO] Input --> I thought it would be the strongest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:46,064 [INFO] Target -->  strong
+2023-07-19 22:21:46,064 [INFO] Rational positions --> tensor([[ 0, 40,  6, 32, 41]], device='cuda:0')
+2023-07-19 22:21:46,064 [INFO] Rational words -->
+2023-07-19 22:21:46,065 [INFO] ['I', "'t", ' strongest', ' encountering', ' so']
+2023-07-19 22:21:46,066 [INFO] 112.json done.
+2023-07-19 22:21:46,067 [INFO] 
+2023-07-19 22:21:46,067 [INFO] ========================
+2023-07-19 22:21:46,067 [INFO] 
+2023-07-19 22:21:46,067 [INFO] Rationalizing 113.json ...
+2023-07-19 22:21:46,077 [INFO] Rationalization done in 0.010489463806152344
+2023-07-19 22:21:46,077 [INFO] 
+2023-07-19 22:21:46,077 [INFO] 
+2023-07-19 22:21:46,079 [INFO] Input --> I thought it would be the tallest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:46,080 [INFO] Target -->  tall
+2023-07-19 22:21:46,083 [INFO] Rational positions --> tensor([[ 0, 40,  6,  7, 11]], device='cuda:0')
+2023-07-19 22:21:46,084 [INFO] Rational words -->
+2023-07-19 22:21:46,087 [INFO] ['I', "'t", ' tallest', ' thing', ' encounter']
+2023-07-19 22:21:46,094 [INFO] 113.json done.
+2023-07-19 22:21:46,094 [INFO] 
+2023-07-19 22:21:46,094 [INFO] ========================
+2023-07-19 22:21:46,094 [INFO] 
+2023-07-19 22:21:46,094 [INFO] Rationalizing 114.json ...
+2023-07-19 22:21:46,104 [INFO] Rationalization done in 0.010088682174682617
+2023-07-19 22:21:46,104 [INFO] 
+2023-07-19 22:21:46,104 [INFO] 
+2023-07-19 22:21:46,106 [INFO] Input --> I thought it would be the widest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:46,107 [INFO] Target -->  wide
+2023-07-19 22:21:46,110 [INFO] Rational positions --> tensor([[ 0, 40,  6, 32, 41]], device='cuda:0')
+2023-07-19 22:21:46,111 [INFO] Rational words -->
+2023-07-19 22:21:46,114 [INFO] ['I', "'t", ' widest', ' encountering', ' so']
+2023-07-19 22:21:46,120 [INFO] 114.json done.
+2023-07-19 22:21:46,120 [INFO] 
+2023-07-19 22:21:46,120 [INFO] ========================
+2023-07-19 22:21:46,120 [INFO] 
+2023-07-19 22:21:46,120 [INFO] Rationalizing 115.json ...
+2023-07-19 22:21:46,131 [INFO] Rationalization done in 0.010537385940551758
+2023-07-19 22:21:46,131 [INFO] 
+2023-07-19 22:21:46,131 [INFO] 
+2023-07-19 22:21:46,132 [INFO] Input --> I thought it would be the youngest thing I'd ever encounter. (I tried to ignore my phone vibrating in my pocket). But when I did end up encountering it, it turned out it wasn't so
+2023-07-19 22:21:46,133 [INFO] Target -->  young
+2023-07-19 22:21:46,136 [INFO] Rational positions --> tensor([[ 0, 40,  6, 32, 41]], device='cuda:0')
+2023-07-19 22:21:46,137 [INFO] Rational words -->
+2023-07-19 22:21:46,140 [INFO] ['I', "'t", ' youngest', ' encountering', ' so']
+2023-07-19 22:21:46,146 [INFO] 115.json done.
+2023-07-19 22:21:46,146 [INFO] 
+2023-07-19 22:21:46,146 [INFO] ========================
+2023-07-19 22:21:46,146 [INFO] 
+2023-07-19 22:21:46,146 [INFO] Rationalizing 116.json ...
+2023-07-19 22:21:46,156 [INFO] Rationalization done in 0.010392189025878906
+2023-07-19 22:21:46,156 [INFO] 
+2023-07-19 22:21:46,156 [INFO] 
+2023-07-19 22:21:46,158 [INFO] Input --> I had never been friends with any Australian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,159 [INFO] Target -->  Australia
+2023-07-19 22:21:46,162 [INFO] Rational positions --> tensor([[ 0, 40, 32,  7, 10]], device='cuda:0')
+2023-07-19 22:21:46,163 [INFO] Rational words -->
+2023-07-19 22:21:46,166 [INFO] ['I', ' to', ' In', ' Australian', '.']
+2023-07-19 22:21:46,172 [INFO] 116.json done.
+2023-07-19 22:21:46,172 [INFO] 
+2023-07-19 22:21:46,172 [INFO] ========================
+2023-07-19 22:21:46,172 [INFO] 
+2023-07-19 22:21:46,172 [INFO] Rationalizing 117.json ...
+2023-07-19 22:21:46,182 [INFO] Rationalization done in 0.010291099548339844
+2023-07-19 22:21:46,182 [INFO] 
+2023-07-19 22:21:46,183 [INFO] 
+2023-07-19 22:21:46,184 [INFO] Input --> I had never been friends with any Austrian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,185 [INFO] Target -->  Austria
+2023-07-19 22:21:46,188 [INFO] Rational positions --> tensor([[ 0,  7, 40, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,189 [INFO] Rational words -->
+2023-07-19 22:21:46,193 [INFO] ['I', ' Austrian', ' to', ' In', '.']
+2023-07-19 22:21:46,198 [INFO] 117.json done.
+2023-07-19 22:21:46,198 [INFO] 
+2023-07-19 22:21:46,198 [INFO] ========================
+2023-07-19 22:21:46,198 [INFO] 
+2023-07-19 22:21:46,198 [INFO] Rationalizing 118.json ...
+2023-07-19 22:21:46,208 [INFO] Rationalization done in 0.010395288467407227
+2023-07-19 22:21:46,209 [INFO] 
+2023-07-19 22:21:46,209 [INFO] 
+2023-07-19 22:21:46,210 [INFO] Input --> I had never been friends with any Brazilian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,211 [INFO] Target -->  Brazil
+2023-07-19 22:21:46,214 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,214 [INFO] Rational words -->
+2023-07-19 22:21:46,217 [INFO] ['I', ' to', ' Brazilian', ' In', '.']
+2023-07-19 22:21:46,223 [INFO] 118.json done.
+2023-07-19 22:21:46,223 [INFO] 
+2023-07-19 22:21:46,223 [INFO] ========================
+2023-07-19 22:21:46,223 [INFO] 
+2023-07-19 22:21:46,223 [INFO] Rationalizing 119.json ...
+2023-07-19 22:21:46,234 [INFO] Rationalization done in 0.010613203048706055
+2023-07-19 22:21:46,234 [INFO] 
+2023-07-19 22:21:46,234 [INFO] 
+2023-07-19 22:21:46,235 [INFO] Input --> I had never been friends with any Bulgarian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,235 [INFO] Target -->  Bulgaria
+2023-07-19 22:21:46,235 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,235 [INFO] Rational words -->
+2023-07-19 22:21:46,236 [INFO] ['I', ' to', ' Bulgarian', ' In', '.']
+2023-07-19 22:21:46,237 [INFO] 119.json done.
+2023-07-19 22:21:46,237 [INFO] 
+2023-07-19 22:21:46,237 [INFO] ========================
+2023-07-19 22:21:46,237 [INFO] 
+2023-07-19 22:21:46,237 [INFO] Rationalizing 120.json ...
+2023-07-19 22:21:46,248 [INFO] Rationalization done in 0.010466575622558594
+2023-07-19 22:21:46,248 [INFO] 
+2023-07-19 22:21:46,248 [INFO] 
+2023-07-19 22:21:46,249 [INFO] Input --> I had never been friends with any Chilean people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,250 [INFO] Target -->  Chile
+2023-07-19 22:21:46,253 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,254 [INFO] Rational words -->
+2023-07-19 22:21:46,257 [INFO] ['I', ' to', ' Chilean', ' In', '.']
+2023-07-19 22:21:46,263 [INFO] 120.json done.
+2023-07-19 22:21:46,263 [INFO] 
+2023-07-19 22:21:46,263 [INFO] ========================
+2023-07-19 22:21:46,263 [INFO] 
+2023-07-19 22:21:46,264 [INFO] Rationalizing 121.json ...
+2023-07-19 22:21:46,274 [INFO] Rationalization done in 0.010175943374633789
+2023-07-19 22:21:46,274 [INFO] 
+2023-07-19 22:21:46,274 [INFO] 
+2023-07-19 22:21:46,275 [INFO] Input --> I had never been friends with any Chinese people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,276 [INFO] Target -->  China
+2023-07-19 22:21:46,279 [INFO] Rational positions --> tensor([[ 0, 40, 32,  7, 10]], device='cuda:0')
+2023-07-19 22:21:46,280 [INFO] Rational words -->
+2023-07-19 22:21:46,282 [INFO] ['I', ' to', ' In', ' Chinese', '.']
+2023-07-19 22:21:46,290 [INFO] 121.json done.
+2023-07-19 22:21:46,290 [INFO] 
+2023-07-19 22:21:46,290 [INFO] ========================
+2023-07-19 22:21:46,290 [INFO] 
+2023-07-19 22:21:46,290 [INFO] Rationalizing 122.json ...
+2023-07-19 22:21:46,300 [INFO] Rationalization done in 0.010266542434692383
+2023-07-19 22:21:46,300 [INFO] 
+2023-07-19 22:21:46,300 [INFO] 
+2023-07-19 22:21:46,302 [INFO] Input --> I had never been friends with any Colombian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,303 [INFO] Target -->  Colombia
+2023-07-19 22:21:46,306 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,306 [INFO] Rational words -->
+2023-07-19 22:21:46,309 [INFO] ['I', ' to', ' Colombian', ' In', '.']
+2023-07-19 22:21:46,315 [INFO] 122.json done.
+2023-07-19 22:21:46,315 [INFO] 
+2023-07-19 22:21:46,315 [INFO] ========================
+2023-07-19 22:21:46,315 [INFO] 
+2023-07-19 22:21:46,315 [INFO] Rationalizing 123.json ...
+2023-07-19 22:21:46,326 [INFO] Rationalization done in 0.010559558868408203
+2023-07-19 22:21:46,326 [INFO] 
+2023-07-19 22:21:46,326 [INFO] 
+2023-07-19 22:21:46,328 [INFO] Input --> I had never been friends with any Croatian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,329 [INFO] Target -->  Croatia
+2023-07-19 22:21:46,332 [INFO] Rational positions --> tensor([[ 0,  7, 40, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,333 [INFO] Rational words -->
+2023-07-19 22:21:46,337 [INFO] ['I', ' Croatian', ' to', ' In', '.']
+2023-07-19 22:21:46,341 [INFO] 123.json done.
+2023-07-19 22:21:46,342 [INFO] 
+2023-07-19 22:21:46,342 [INFO] ========================
+2023-07-19 22:21:46,342 [INFO] 
+2023-07-19 22:21:46,342 [INFO] Rationalizing 124.json ...
+2023-07-19 22:21:46,352 [INFO] Rationalization done in 0.010332584381103516
+2023-07-19 22:21:46,352 [INFO] 
+2023-07-19 22:21:46,352 [INFO] 
+2023-07-19 22:21:46,353 [INFO] Input --> I had never been friends with any Danish people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,353 [INFO] Target -->  Denmark
+2023-07-19 22:21:46,354 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,354 [INFO] Rational words -->
+2023-07-19 22:21:46,354 [INFO] ['I', ' to', ' Danish', ' In', '.']
+2023-07-19 22:21:46,356 [INFO] 124.json done.
+2023-07-19 22:21:46,356 [INFO] 
+2023-07-19 22:21:46,356 [INFO] ========================
+2023-07-19 22:21:46,356 [INFO] 
+2023-07-19 22:21:46,356 [INFO] Rationalizing 125.json ...
+2023-07-19 22:21:46,366 [INFO] Rationalization done in 0.010237932205200195
+2023-07-19 22:21:46,366 [INFO] 
+2023-07-19 22:21:46,366 [INFO] 
+2023-07-19 22:21:46,367 [INFO] Input --> I had never been friends with any Egyptian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,367 [INFO] Target -->  Egypt
+2023-07-19 22:21:46,367 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,368 [INFO] Rational words -->
+2023-07-19 22:21:46,368 [INFO] ['I', ' to', ' Egyptian', ' In', '.']
+2023-07-19 22:21:46,369 [INFO] 125.json done.
+2023-07-19 22:21:46,369 [INFO] 
+2023-07-19 22:21:46,369 [INFO] ========================
+2023-07-19 22:21:46,369 [INFO] 
+2023-07-19 22:21:46,370 [INFO] Rationalizing 126.json ...
+2023-07-19 22:21:46,380 [INFO] Rationalization done in 0.010363101959228516
+2023-07-19 22:21:46,380 [INFO] 
+2023-07-19 22:21:46,380 [INFO] 
+2023-07-19 22:21:46,381 [INFO] Input --> I had never been friends with any English people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,381 [INFO] Target -->  England
+2023-07-19 22:21:46,381 [INFO] Rational positions --> tensor([[ 0, 40, 32, 10, 31]], device='cuda:0')
+2023-07-19 22:21:46,381 [INFO] Rational words -->
+2023-07-19 22:21:46,382 [INFO] ['I', ' to', ' In', '.', ').']
+2023-07-19 22:21:46,383 [INFO] 126.json done.
+2023-07-19 22:21:46,383 [INFO] 
+2023-07-19 22:21:46,383 [INFO] ========================
+2023-07-19 22:21:46,383 [INFO] 
+2023-07-19 22:21:46,383 [INFO] Rationalizing 127.json ...
+2023-07-19 22:21:46,394 [INFO] Rationalization done in 0.010191202163696289
+2023-07-19 22:21:46,394 [INFO] 
+2023-07-19 22:21:46,394 [INFO] 
+2023-07-19 22:21:46,395 [INFO] Input --> I had never been friends with any French people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,395 [INFO] Target -->  France
+2023-07-19 22:21:46,395 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,395 [INFO] Rational words -->
+2023-07-19 22:21:46,395 [INFO] ['I', ' to', ' French', ' In', '.']
+2023-07-19 22:21:46,397 [INFO] 127.json done.
+2023-07-19 22:21:46,397 [INFO] 
+2023-07-19 22:21:46,397 [INFO] ========================
+2023-07-19 22:21:46,397 [INFO] 
+2023-07-19 22:21:46,397 [INFO] Rationalizing 128.json ...
+2023-07-19 22:21:46,407 [INFO] Rationalization done in 0.009995222091674805
+2023-07-19 22:21:46,407 [INFO] 
+2023-07-19 22:21:46,407 [INFO] 
+2023-07-19 22:21:46,408 [INFO] Input --> I had never been friends with any German people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,409 [INFO] Target -->  Germany
+2023-07-19 22:21:46,409 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,409 [INFO] Rational words -->
+2023-07-19 22:21:46,409 [INFO] ['I', ' to', ' German', ' In', '.']
+2023-07-19 22:21:46,411 [INFO] 128.json done.
+2023-07-19 22:21:46,411 [INFO] 
+2023-07-19 22:21:46,411 [INFO] ========================
+2023-07-19 22:21:46,411 [INFO] 
+2023-07-19 22:21:46,411 [INFO] Rationalizing 129.json ...
+2023-07-19 22:21:46,421 [INFO] Rationalization done in 0.010195493698120117
+2023-07-19 22:21:46,421 [INFO] 
+2023-07-19 22:21:46,421 [INFO] 
+2023-07-19 22:21:46,422 [INFO] Input --> I had never been friends with any Greek people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,422 [INFO] Target -->  Greece
+2023-07-19 22:21:46,422 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,422 [INFO] Rational words -->
+2023-07-19 22:21:46,423 [INFO] ['I', ' to', ' Greek', ' In', '.']
+2023-07-19 22:21:46,424 [INFO] 129.json done.
+2023-07-19 22:21:46,424 [INFO] 
+2023-07-19 22:21:46,425 [INFO] ========================
+2023-07-19 22:21:46,425 [INFO] 
+2023-07-19 22:21:46,425 [INFO] Rationalizing 130.json ...
+2023-07-19 22:21:46,435 [INFO] Rationalization done in 0.010142803192138672
+2023-07-19 22:21:46,435 [INFO] 
+2023-07-19 22:21:46,435 [INFO] 
+2023-07-19 22:21:46,436 [INFO] Input --> I had never been friends with any Icelandic people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,436 [INFO] Target -->  Iceland
+2023-07-19 22:21:46,436 [INFO] Rational positions --> tensor([[ 0,  7, 40, 10, 32]], device='cuda:0')
+2023-07-19 22:21:46,436 [INFO] Rational words -->
+2023-07-19 22:21:46,436 [INFO] ['I', ' Icelandic', ' to', '.', ' In']
+2023-07-19 22:21:46,438 [INFO] 130.json done.
+2023-07-19 22:21:46,438 [INFO] 
+2023-07-19 22:21:46,438 [INFO] ========================
+2023-07-19 22:21:46,438 [INFO] 
+2023-07-19 22:21:46,438 [INFO] Rationalizing 131.json ...
+2023-07-19 22:21:46,449 [INFO] Rationalization done in 0.010245084762573242
+2023-07-19 22:21:46,449 [INFO] 
+2023-07-19 22:21:46,449 [INFO] 
+2023-07-19 22:21:46,449 [INFO] Input --> I had never been friends with any Indian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,449 [INFO] Target -->  India
+2023-07-19 22:21:46,450 [INFO] Rational positions --> tensor([[ 0, 40, 32, 10,  7]], device='cuda:0')
+2023-07-19 22:21:46,450 [INFO] Rational words -->
+2023-07-19 22:21:46,450 [INFO] ['I', ' to', ' In', '.', ' Indian']
+2023-07-19 22:21:46,452 [INFO] 131.json done.
+2023-07-19 22:21:46,452 [INFO] 
+2023-07-19 22:21:46,452 [INFO] ========================
+2023-07-19 22:21:46,452 [INFO] 
+2023-07-19 22:21:46,452 [INFO] Rationalizing 132.json ...
+2023-07-19 22:21:46,462 [INFO] Rationalization done in 0.010190010070800781
+2023-07-19 22:21:46,462 [INFO] 
+2023-07-19 22:21:46,462 [INFO] 
+2023-07-19 22:21:46,463 [INFO] Input --> I had never been friends with any Irish people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,463 [INFO] Target -->  Ireland
+2023-07-19 22:21:46,463 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,464 [INFO] Rational words -->
+2023-07-19 22:21:46,464 [INFO] ['I', ' to', ' Irish', ' In', '.']
+2023-07-19 22:21:46,466 [INFO] 132.json done.
+2023-07-19 22:21:46,466 [INFO] 
+2023-07-19 22:21:46,466 [INFO] ========================
+2023-07-19 22:21:46,466 [INFO] 
+2023-07-19 22:21:46,466 [INFO] Rationalizing 133.json ...
+2023-07-19 22:21:46,476 [INFO] Rationalization done in 0.010312795639038086
+2023-07-19 22:21:46,476 [INFO] 
+2023-07-19 22:21:46,476 [INFO] 
+2023-07-19 22:21:46,478 [INFO] Input --> I had never been friends with any Israeli people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,479 [INFO] Target -->  Israel
+2023-07-19 22:21:46,482 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,483 [INFO] Rational words -->
+2023-07-19 22:21:46,486 [INFO] ['I', ' to', ' Israeli', ' In', '.']
+2023-07-19 22:21:46,492 [INFO] 133.json done.
+2023-07-19 22:21:46,492 [INFO] 
+2023-07-19 22:21:46,492 [INFO] ========================
+2023-07-19 22:21:46,492 [INFO] 
+2023-07-19 22:21:46,492 [INFO] Rationalizing 134.json ...
+2023-07-19 22:21:46,503 [INFO] Rationalization done in 0.01055145263671875
+2023-07-19 22:21:46,503 [INFO] 
+2023-07-19 22:21:46,503 [INFO] 
+2023-07-19 22:21:46,504 [INFO] Input --> I had never been friends with any Italian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,504 [INFO] Target -->  Italy
+2023-07-19 22:21:46,504 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,504 [INFO] Rational words -->
+2023-07-19 22:21:46,504 [INFO] ['I', ' to', ' Italian', ' In', '.']
+2023-07-19 22:21:46,506 [INFO] 134.json done.
+2023-07-19 22:21:46,506 [INFO] 
+2023-07-19 22:21:46,506 [INFO] ========================
+2023-07-19 22:21:46,506 [INFO] 
+2023-07-19 22:21:46,506 [INFO] Rationalizing 135.json ...
+2023-07-19 22:21:46,517 [INFO] Rationalization done in 0.010192394256591797
+2023-07-19 22:21:46,517 [INFO] 
+2023-07-19 22:21:46,517 [INFO] 
+2023-07-19 22:21:46,518 [INFO] Input --> I had never been friends with any Japanese people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,520 [INFO] Target -->  Japan
+2023-07-19 22:21:46,523 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,524 [INFO] Rational words -->
+2023-07-19 22:21:46,526 [INFO] ['I', ' to', ' Japanese', ' In', '.']
+2023-07-19 22:21:46,531 [INFO] 135.json done.
+2023-07-19 22:21:46,531 [INFO] 
+2023-07-19 22:21:46,532 [INFO] ========================
+2023-07-19 22:21:46,532 [INFO] 
+2023-07-19 22:21:46,532 [INFO] Rationalizing 136.json ...
+2023-07-19 22:21:46,542 [INFO] Rationalization done in 0.01059103012084961
+2023-07-19 22:21:46,542 [INFO] 
+2023-07-19 22:21:46,542 [INFO] 
+2023-07-19 22:21:46,544 [INFO] Input --> I had never been friends with any Korean people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,545 [INFO] Target -->  Korea
+2023-07-19 22:21:46,548 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,549 [INFO] Rational words -->
+2023-07-19 22:21:46,551 [INFO] ['I', ' to', ' Korean', ' In', '.']
+2023-07-19 22:21:46,557 [INFO] 136.json done.
+2023-07-19 22:21:46,557 [INFO] 
+2023-07-19 22:21:46,557 [INFO] ========================
+2023-07-19 22:21:46,557 [INFO] 
+2023-07-19 22:21:46,558 [INFO] Rationalizing 137.json ...
+2023-07-19 22:21:46,568 [INFO] Rationalization done in 0.010475397109985352
+2023-07-19 22:21:46,568 [INFO] 
+2023-07-19 22:21:46,568 [INFO] 
+2023-07-19 22:21:46,570 [INFO] Input --> I had never been friends with any Mexican people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,571 [INFO] Target -->  Mexico
+2023-07-19 22:21:46,574 [INFO] Rational positions --> tensor([[ 0, 40,  7, 10, 32]], device='cuda:0')
+2023-07-19 22:21:46,574 [INFO] Rational words -->
+2023-07-19 22:21:46,577 [INFO] ['I', ' to', ' Mexican', '.', ' In']
+2023-07-19 22:21:46,584 [INFO] 137.json done.
+2023-07-19 22:21:46,584 [INFO] 
+2023-07-19 22:21:46,584 [INFO] ========================
+2023-07-19 22:21:46,584 [INFO] 
+2023-07-19 22:21:46,584 [INFO] Rationalizing 138.json ...
+2023-07-19 22:21:46,595 [INFO] Rationalization done in 0.011070013046264648
+2023-07-19 22:21:46,595 [INFO] 
+2023-07-19 22:21:46,595 [INFO] 
+2023-07-19 22:21:46,596 [INFO] Input --> I had never been friends with any Norwegian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,596 [INFO] Target -->  Norway
+2023-07-19 22:21:46,596 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,596 [INFO] Rational words -->
+2023-07-19 22:21:46,597 [INFO] ['I', ' to', ' Norwegian', ' In', '.']
+2023-07-19 22:21:46,598 [INFO] 138.json done.
+2023-07-19 22:21:46,598 [INFO] 
+2023-07-19 22:21:46,598 [INFO] ========================
+2023-07-19 22:21:46,598 [INFO] 
+2023-07-19 22:21:46,598 [INFO] Rationalizing 139.json ...
+2023-07-19 22:21:46,609 [INFO] Rationalization done in 0.010370492935180664
+2023-07-19 22:21:46,609 [INFO] 
+2023-07-19 22:21:46,609 [INFO] 
+2023-07-19 22:21:46,610 [INFO] Input --> I had never been friends with any Polish people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,612 [INFO] Target -->  Poland
+2023-07-19 22:21:46,615 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,615 [INFO] Rational words -->
+2023-07-19 22:21:46,618 [INFO] ['I', ' to', ' Polish', ' In', '.']
+2023-07-19 22:21:46,625 [INFO] 139.json done.
+2023-07-19 22:21:46,625 [INFO] 
+2023-07-19 22:21:46,625 [INFO] ========================
+2023-07-19 22:21:46,625 [INFO] 
+2023-07-19 22:21:46,625 [INFO] Rationalizing 140.json ...
+2023-07-19 22:21:46,636 [INFO] Rationalization done in 0.010551214218139648
+2023-07-19 22:21:46,636 [INFO] 
+2023-07-19 22:21:46,636 [INFO] 
+2023-07-19 22:21:46,637 [INFO] Input --> I had never been friends with any Portuguese people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,637 [INFO] Target -->  Portugal
+2023-07-19 22:21:46,637 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,637 [INFO] Rational words -->
+2023-07-19 22:21:46,637 [INFO] ['I', ' to', ' Portuguese', ' In', '.']
+2023-07-19 22:21:46,641 [INFO] 140.json done.
+2023-07-19 22:21:46,641 [INFO] 
+2023-07-19 22:21:46,641 [INFO] ========================
+2023-07-19 22:21:46,641 [INFO] 
+2023-07-19 22:21:46,641 [INFO] Rationalizing 141.json ...
+2023-07-19 22:21:46,655 [INFO] Rationalization done in 0.013546943664550781
+2023-07-19 22:21:46,655 [INFO] 
+2023-07-19 22:21:46,655 [INFO] 
+2023-07-19 22:21:46,655 [INFO] Input --> I had never been friends with any Russian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,656 [INFO] Target -->  Russia
+2023-07-19 22:21:46,656 [INFO] Rational positions --> tensor([[ 0, 40, 32,  7, 10]], device='cuda:0')
+2023-07-19 22:21:46,656 [INFO] Rational words -->
+2023-07-19 22:21:46,656 [INFO] ['I', ' to', ' In', ' Russian', '.']
+2023-07-19 22:21:46,658 [INFO] 141.json done.
+2023-07-19 22:21:46,658 [INFO] 
+2023-07-19 22:21:46,658 [INFO] ========================
+2023-07-19 22:21:46,658 [INFO] 
+2023-07-19 22:21:46,658 [INFO] Rationalizing 142.json ...
+2023-07-19 22:21:46,669 [INFO] Rationalization done in 0.010618209838867188
+2023-07-19 22:21:46,669 [INFO] 
+2023-07-19 22:21:46,669 [INFO] 
+2023-07-19 22:21:46,670 [INFO] Input --> I had never been friends with any Spanish people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,670 [INFO] Target -->  Spain
+2023-07-19 22:21:46,670 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,670 [INFO] Rational words -->
+2023-07-19 22:21:46,671 [INFO] ['I', ' to', ' Spanish', ' In', '.']
+2023-07-19 22:21:46,672 [INFO] 142.json done.
+2023-07-19 22:21:46,672 [INFO] 
+2023-07-19 22:21:46,672 [INFO] ========================
+2023-07-19 22:21:46,672 [INFO] 
+2023-07-19 22:21:46,673 [INFO] Rationalizing 143.json ...
+2023-07-19 22:21:46,683 [INFO] Rationalization done in 0.010473966598510742
+2023-07-19 22:21:46,683 [INFO] 
+2023-07-19 22:21:46,683 [INFO] 
+2023-07-19 22:21:46,684 [INFO] Input --> I had never been friends with any Swedish people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,684 [INFO] Target -->  Sweden
+2023-07-19 22:21:46,684 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,684 [INFO] Rational words -->
+2023-07-19 22:21:46,685 [INFO] ['I', ' to', ' Swedish', ' In', '.']
+2023-07-19 22:21:46,686 [INFO] 143.json done.
+2023-07-19 22:21:46,686 [INFO] 
+2023-07-19 22:21:46,686 [INFO] ========================
+2023-07-19 22:21:46,686 [INFO] 
+2023-07-19 22:21:46,686 [INFO] Rationalizing 144.json ...
+2023-07-19 22:21:46,697 [INFO] Rationalization done in 0.010571718215942383
+2023-07-19 22:21:46,697 [INFO] 
+2023-07-19 22:21:46,697 [INFO] 
+2023-07-19 22:21:46,698 [INFO] Input --> I had never been friends with any Swiss people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,698 [INFO] Target -->  Switzerland
+2023-07-19 22:21:46,698 [INFO] Rational positions --> tensor([[ 0,  7, 40, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,698 [INFO] Rational words -->
+2023-07-19 22:21:46,699 [INFO] ['I', ' Swiss', ' to', ' In', '.']
+2023-07-19 22:21:46,700 [INFO] 144.json done.
+2023-07-19 22:21:46,700 [INFO] 
+2023-07-19 22:21:46,700 [INFO] ========================
+2023-07-19 22:21:46,700 [INFO] 
+2023-07-19 22:21:46,701 [INFO] Rationalizing 145.json ...
+2023-07-19 22:21:46,711 [INFO] Rationalization done in 0.01006460189819336
+2023-07-19 22:21:46,711 [INFO] 
+2023-07-19 22:21:46,711 [INFO] 
+2023-07-19 22:21:46,712 [INFO] Input --> I had never been friends with any Thai people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,712 [INFO] Target -->  Thailand
+2023-07-19 22:21:46,712 [INFO] Rational positions --> tensor([[ 0, 40,  7, 10, 32]], device='cuda:0')
+2023-07-19 22:21:46,712 [INFO] Rational words -->
+2023-07-19 22:21:46,712 [INFO] ['I', ' to', ' Thai', '.', ' In']
+2023-07-19 22:21:46,714 [INFO] 145.json done.
+2023-07-19 22:21:46,714 [INFO] 
+2023-07-19 22:21:46,714 [INFO] ========================
+2023-07-19 22:21:46,714 [INFO] 
+2023-07-19 22:21:46,714 [INFO] Rationalizing 146.json ...
+2023-07-19 22:21:46,724 [INFO] Rationalization done in 0.010108232498168945
+2023-07-19 22:21:46,724 [INFO] 
+2023-07-19 22:21:46,724 [INFO] 
+2023-07-19 22:21:46,725 [INFO] Input --> I had never been friends with any Ukrainian people before. (The funniest thing happened to me the other day, but that's a story for another time). In fact, I had never even been to
+2023-07-19 22:21:46,725 [INFO] Target -->  Ukraine
+2023-07-19 22:21:46,726 [INFO] Rational positions --> tensor([[ 0, 40,  7, 32, 10]], device='cuda:0')
+2023-07-19 22:21:46,726 [INFO] Rational words -->
+2023-07-19 22:21:46,726 [INFO] ['I', ' to', ' Ukrainian', ' In', '.']
+2023-07-19 22:21:46,727 [INFO] 146.json done.
+2023-07-19 22:21:46,727 [INFO] 
+2023-07-19 22:21:46,727 [INFO] ========================
+2023-07-19 22:21:46,727 [INFO] 
+2023-07-19 22:21:46,727 [INFO] Rationalizing 147.json ...
+2023-07-19 22:21:46,738 [INFO] Rationalization done in 0.010140419006347656
+2023-07-19 22:21:46,738 [INFO] 
+2023-07-19 22:21:46,738 [INFO] 
+2023-07-19 22:21:46,739 [INFO] Input --> Although I danced yesterday, I had a million things to do today. (I suddenly felt a pinched nerve, so I made a mental note to get that checked out). So today I wouldn't have time to do any more
+2023-07-19 22:21:46,739 [INFO] Target -->  dancing
+2023-07-19 22:21:46,739 [INFO] Rational positions --> tensor([[ 0,  2, 43, 45, 44]], device='cuda:0')
+2023-07-19 22:21:46,739 [INFO] Rational words -->
+2023-07-19 22:21:46,739 [INFO] ['Although', ' danced', ' do', ' more', ' any']
+2023-07-19 22:21:46,741 [INFO] 147.json done.
+2023-07-19 22:21:46,741 [INFO] 
+2023-07-19 22:21:46,741 [INFO] ========================
+2023-07-19 22:21:46,741 [INFO] 
+2023-07-19 22:21:46,741 [INFO] Rationalizing 148.json ...
+2023-07-19 22:21:46,752 [INFO] Rationalization done in 0.010230064392089844
+2023-07-19 22:21:46,752 [INFO] 
+2023-07-19 22:21:46,752 [INFO] 
+2023-07-19 22:21:46,752 [INFO] Input --> Although I sang yesterday, I had a million things to do today. (I suddenly felt a pinched nerve, so I made a mental note to get that checked out). So today I wouldn't have time to do any more
+2023-07-19 22:21:46,752 [INFO] Target -->  singing
+2023-07-19 22:21:46,753 [INFO] Rational positions --> tensor([[ 0,  2, 43, 44,  3]], device='cuda:0')
+2023-07-19 22:21:46,753 [INFO] Rational words -->
+2023-07-19 22:21:46,753 [INFO] ['Although', ' sang', ' do', ' any', ' yesterday']
+2023-07-19 22:21:46,755 [INFO] 148.json done.
+2023-07-19 22:21:46,755 [INFO] 
+2023-07-19 22:21:46,755 [INFO] ========================
+2023-07-19 22:21:46,755 [INFO] 
+2023-07-19 22:21:46,755 [INFO] Rationalizing 149.json ...
+2023-07-19 22:21:46,765 [INFO] Rationalization done in 0.010422468185424805
+2023-07-19 22:21:46,765 [INFO] 
+2023-07-19 22:21:46,765 [INFO] 
+2023-07-19 22:21:46,766 [INFO] Input --> I really wanted to buy the banana, more than I ever wanted to buy anything before. (I was also behind on my homework, but that's another story). So I went to the store and asked if they had any
+2023-07-19 22:21:46,766 [INFO] Target -->  bananas
+2023-07-19 22:21:46,766 [INFO] Rational positions --> tensor([[ 0,  6, 43, 44,  4]], device='cuda:0')
+2023-07-19 22:21:46,766 [INFO] Rational words -->
+2023-07-19 22:21:46,767 [INFO] ['I', ' banana', ' had', ' any', ' buy']
+2023-07-19 22:21:46,768 [INFO] 149.json done.
+2023-07-19 22:21:46,768 [INFO] 
+2023-07-19 22:21:46,768 [INFO] ========================
+2023-07-19 22:21:46,768 [INFO] 
+2023-07-19 22:21:46,768 [INFO] Rationalizing 150.json ...
+2023-07-19 22:21:46,779 [INFO] Rationalization done in 0.010387182235717773
+2023-07-19 22:21:46,779 [INFO] 
+2023-07-19 22:21:46,779 [INFO] 
+2023-07-19 22:21:46,780 [INFO] Input --> I really wanted to buy the cat, more than I ever wanted to buy anything before. (I was also behind on my homework, but that's another story). So I went to the store and asked if they had any
+2023-07-19 22:21:46,780 [INFO] Target -->  cats
+2023-07-19 22:21:46,780 [INFO] Rational positions --> tensor([[ 0, 43,  6, 44,  5]], device='cuda:0')
+2023-07-19 22:21:46,780 [INFO] Rational words -->
+2023-07-19 22:21:46,780 [INFO] ['I', ' had', ' cat', ' any', ' the']
+2023-07-19 22:21:46,782 [INFO] 150.json done.
+2023-07-19 22:21:46,782 [INFO] 
+2023-07-19 22:21:46,782 [INFO] ========================
+2023-07-19 22:21:46,782 [INFO] 
+2023-07-19 22:21:46,782 [INFO] Rationalizing 151.json ...
+2023-07-19 22:21:46,793 [INFO] Rationalization done in 0.010325193405151367
+2023-07-19 22:21:46,793 [INFO] 
+2023-07-19 22:21:46,793 [INFO] 
+2023-07-19 22:21:46,794 [INFO] Input --> I really wanted to buy the computer, more than I ever wanted to buy anything before. (I was also behind on my homework, but that's another story). So I went to the store and asked if they had any
+2023-07-19 22:21:46,795 [INFO] Target -->  computers
+2023-07-19 22:21:46,798 [INFO] Rational positions --> tensor([[ 0, 43,  6,  4,  5]], device='cuda:0')
+2023-07-19 22:21:46,798 [INFO] Rational words -->
+2023-07-19 22:21:46,801 [INFO] ['I', ' had', ' computer', ' buy', ' the']
+2023-07-19 22:21:46,808 [INFO] 151.json done.
+2023-07-19 22:21:46,808 [INFO] 
+2023-07-19 22:21:46,808 [INFO] ========================
+2023-07-19 22:21:46,809 [INFO] 
+2023-07-19 22:21:46,809 [INFO] Rationalizing 152.json ...
+2023-07-19 22:21:46,819 [INFO] Rationalization done in 0.010315656661987305
+2023-07-19 22:21:46,819 [INFO] 
+2023-07-19 22:21:46,819 [INFO] 
+2023-07-19 22:21:46,820 [INFO] Input --> I really wanted to buy the dog, more than I ever wanted to buy anything before. (I was also behind on my homework, but that's another story). So I went to the store and asked if they had any
+2023-07-19 22:21:46,820 [INFO] Target -->  dogs
+2023-07-19 22:21:46,820 [INFO] Rational positions --> tensor([[ 0, 43,  6, 44,  4]], device='cuda:0')
+2023-07-19 22:21:46,820 [INFO] Rational words -->
+2023-07-19 22:21:46,820 [INFO] ['I', ' had', ' dog', ' any', ' buy']
+2023-07-19 22:21:46,822 [INFO] 152.json done.
+2023-07-19 22:21:46,822 [INFO] 
+2023-07-19 22:21:46,822 [INFO] ========================
+2023-07-19 22:21:46,822 [INFO] 
+2023-07-19 22:21:46,822 [INFO] Rationalizing 153.json ...
+2023-07-19 22:21:46,833 [INFO] Rationalization done in 0.010230302810668945
+2023-07-19 22:21:46,833 [INFO] 
+2023-07-19 22:21:46,833 [INFO] 
+2023-07-19 22:21:46,833 [INFO] Input --> I really wanted to buy the horse, more than I ever wanted to buy anything before. (I was also behind on my homework, but that's another story). So I went to the store and asked if they had any
+2023-07-19 22:21:46,834 [INFO] Target -->  horses
+2023-07-19 22:21:46,834 [INFO] Rational positions --> tensor([[ 0,  6, 43, 44,  5]], device='cuda:0')
+2023-07-19 22:21:46,834 [INFO] Rational words -->
+2023-07-19 22:21:46,834 [INFO] ['I', ' horse', ' had', ' any', ' the']
+2023-07-19 22:21:46,836 [INFO] 153.json done.
+2023-07-19 22:21:46,836 [INFO] 
+2023-07-19 22:21:46,836 [INFO] ========================
+2023-07-19 22:21:46,836 [INFO] 
+2023-07-19 22:21:46,836 [INFO] Rationalizing 154.json ...
+2023-07-19 22:21:46,846 [INFO] Rationalization done in 0.010171651840209961
+2023-07-19 22:21:46,846 [INFO] 
+2023-07-19 22:21:46,846 [INFO] 
+2023-07-19 22:21:46,847 [INFO] Input --> I really wanted to buy the machine, more than I ever wanted to buy anything before. (I was also behind on my homework, but that's another story). So I went to the store and asked if they had any
+2023-07-19 22:21:46,847 [INFO] Target -->  machines
+2023-07-19 22:21:46,847 [INFO] Rational positions --> tensor([[ 0,  6, 43,  5,  4]], device='cuda:0')
+2023-07-19 22:21:46,847 [INFO] Rational words -->
+2023-07-19 22:21:46,847 [INFO] ['I', ' machine', ' had', ' the', ' buy']
+2023-07-19 22:21:46,850 [INFO] 154.json done.
+2023-07-19 22:21:46,850 [INFO] 
+2023-07-19 22:21:46,850 [INFO] ========================
+2023-07-19 22:21:46,850 [INFO] 
+2023-07-19 22:21:46,850 [INFO] Rationalizing 155.json ...
+2023-07-19 22:21:46,860 [INFO] Rationalization done in 0.010063886642456055
+2023-07-19 22:21:46,860 [INFO] 
+2023-07-19 22:21:46,860 [INFO] 
+2023-07-19 22:21:46,861 [INFO] Input --> I really wanted to buy the snake, more than I ever wanted to buy anything before. (I was also behind on my homework, but that's another story). So I went to the store and asked if they had any
+2023-07-19 22:21:46,861 [INFO] Target -->  snakes
+2023-07-19 22:21:46,861 [INFO] Rational positions --> tensor([[ 0,  6, 43, 44,  5]], device='cuda:0')
+2023-07-19 22:21:46,861 [INFO] Rational words -->
+2023-07-19 22:21:46,862 [INFO] ['I', ' snake', ' had', ' any', ' the']
+2023-07-19 22:21:46,863 [INFO] 155.json done.
+2023-07-19 22:21:46,863 [INFO] 
+2023-07-19 22:21:46,863 [INFO] ========================
+2023-07-19 22:21:46,863 [INFO] 
+2023-07-19 22:21:46,864 [INFO] Rationalizing 156.json ...
+2023-07-19 22:21:46,873 [INFO] Rationalization done in 0.009485006332397461
+2023-07-19 22:21:46,873 [INFO] 
+2023-07-19 22:21:46,873 [INFO] 
+2023-07-19 22:21:46,874 [INFO] Input --> I can usually sing by myself. (I was so behind on work but I tried to distract myself). Although it's so much better when someone else also
+2023-07-19 22:21:46,874 [INFO] Target -->  sings
+2023-07-19 22:21:46,874 [INFO] Rational positions --> tensor([[ 0, 28, 29,  3,  5]], device='cuda:0')
+2023-07-19 22:21:46,874 [INFO] Rational words -->
+2023-07-19 22:21:46,874 [INFO] ['I', ' someone', ' else', ' sing', ' myself']
+2023-07-19 22:21:46,875 [INFO] 156.json done.
+2023-07-19 22:21:46,875 [INFO] 
+2023-07-19 22:21:46,876 [INFO] ========================
+2023-07-19 22:21:46,876 [INFO] 
