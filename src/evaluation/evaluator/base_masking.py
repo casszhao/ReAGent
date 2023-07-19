@@ -29,12 +29,12 @@ class BaseMaskingEvaluator(BaseEvaluator):
         """
         raise NotImplementedError()
 
-    def get_metric(self, prob_target_original: torch.Tensor, prob_target_masked: torch.Tensor) -> torch.Tensor:
+    def get_metric(self, prob_original: torch.Tensor, prob_masked: torch.Tensor) -> torch.Tensor:
         """ Get metric score
 
         Args:
-            prob_target_original: prob_target_original [batch]
-            prob_target_masked: prob_target_masked [batch]
+            prob_original: prob_original [batch]
+            prob_masked: prob_masked [batch]
 
         Return:
             score [batch]
@@ -44,15 +44,15 @@ class BaseMaskingEvaluator(BaseEvaluator):
     
     @override
     @torch.no_grad()
-    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_scores: torch.Tensor, input_wte: torch.Tensor = None, prob_target_original: torch.Tensor = None) -> torch.Tensor:
+    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_scores: torch.Tensor, input_wte: torch.Tensor = None, prob_original: torch.Tensor = None) -> torch.Tensor:
         """ Evaluate Comprehensiveness
 
         Args:
             input_ids: input token ids [batch, sequence]
-            target_id: target token id [batch]
+            target_id: target token id [batch] (Deprecated)
             importance_scores: importance_scores of input tokens [batch, sequence]
             input_wte: input word token embedding (Optional)
-            prob_target_original: probability of target token of original input (Optional)
+            prob_original: probabilitise of original input (Optional)
 
         Return:
             score [batch]
@@ -74,11 +74,9 @@ class BaseMaskingEvaluator(BaseEvaluator):
 
         logits_masked = self.model(inputs_embeds=input_wte_masked)["logits"]
         prob_masked = torch.softmax(logits_masked[:, input_ids.shape[1] - 1, :], -1) 
-        # prob_target_masked = prob_masked[torch.arange(prob_masked.shape[0]), target_id] by cass
 
         # metric
         metric = self.get_metric(prob_original, prob_masked)
-        # metric = self.get_metric(prob_target_original, prob_target_masked) by cass
 
         return metric
 

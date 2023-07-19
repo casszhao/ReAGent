@@ -24,15 +24,15 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
         self.soft_sufficiency_evaluator = SoftSufficiencyEvaluator(model)
 
     @torch.no_grad()
-    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_scores: torch.Tensor, input_wte: torch.Tensor = None, prob_target_original: torch.Tensor = None) -> torch.Tensor:
+    def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_scores: torch.Tensor, input_wte: torch.Tensor = None, prob_original: torch.Tensor = None) -> torch.Tensor:
         """ Evaluate Comprehensiveness
 
         Args:
             input_ids: input token ids [batch, sequence]
-            target_id: target token id [batch]
+            target_id: target token id [batch] (Deprecated)
             importance_scores: importance_scores of input tokens [batch, sequence]
             input_wte: input word token embedding (Optional)
-            prob_target_original: probability of target token of original input (Optional)
+            prob_original: probabilities of original input (Optional)
 
         Return:
             score [batch]
@@ -43,14 +43,13 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
             input_wte = self.model.transformer.wte.weight[input_ids,:]
 
         # original prob
-        if prob_target_original == None:
+        if prob_original == None:
             logits_original = self.model(inputs_embeds=input_wte)["logits"]
             prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
-            #prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
         
 
-        soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_original)
-        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_original)
+        soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
+        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         soft_norm_sufficiency = np.clip((soft_sufficiency.cpu() - sufficiency_0.cpu()), a_min = 0, a_max = 10) / (1 - sufficiency_0.cpu())
         
         return soft_norm_sufficiency

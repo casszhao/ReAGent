@@ -29,20 +29,20 @@ class SoftComprehensivenessEvaluator(BaseMaskingEvaluator):
         return 1 - importance_scores
 
     @override
-    def get_metric(self, prob_target_original: torch.Tensor, prob_target_masked: torch.Tensor) -> torch.Tensor:
+    def get_metric(self, prob_original: torch.Tensor, prob_masked: torch.Tensor) -> torch.Tensor:
         """ Get metric score
 
         Args:
-            prob_target_original: prob_target_original [batch]
-            prob_target_masked: prob_target_masked [batch]
+            prob_original: prob_original [batch]
+            prob_masked: prob_masked [batch]
 
         Return:
             score [batch]
 
         """
         # by cass not by batch --> squeezed
-        p = prob_target_masked.squeeze()
-        q = prob_target_original.squeeze()
+        p = prob_masked.squeeze()
+        q = prob_original.squeeze()
         entropy = torch.nn.functional.kl_div(torch.log(q), p, reduction='sum')
         normalized_cross_entropy = entropy / torch.log(torch.tensor(q.size()[0], dtype=torch.float32)) # to normalise to make sure the range of entropy between 0 -1        
         comprehensiveness = max(0, normalized_cross_entropy)
