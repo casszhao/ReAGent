@@ -39,5 +39,13 @@ class SoftSufficiencyEvaluator(BaseMaskingEvaluator):
             score [batch]
 
         """
-        sufficiency = 1 - torch.max(torch.tensor(0, device=prob_target_original.device), prob_target_original - prob_target_masked)
+        
+        # by cass not by batch --> squeezed
+        p = prob_target_masked.squeeze()
+        q = prob_target_original.squeeze()
+        entropy = torch.nn.functional.kl_div(torch.log(q), p, reduction='sum')
+        normalized_cross_entropy = entropy / torch.log(torch.tensor(q.size()[0], dtype=torch.float32)) # to normalise to make sure the range of entropy between 0 -1
+        sufficiency = 1 - max(0, normalized_cross_entropy)
+        print(f"==>> soft sufficiency: {sufficiency}")
+
         return sufficiency

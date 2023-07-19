@@ -63,21 +63,22 @@ class BaseMaskingEvaluator(BaseEvaluator):
             input_wte = self.model.transformer.wte.weight[input_ids,:]
 
         # original prob
-        if prob_target_original == None:
-            logits_original = self.model(inputs_embeds=input_wte)["logits"]
-            prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
-            prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
+        #if prob_target_original == None:
+        logits_original = self.model(inputs_embeds=input_wte)["logits"]
+        prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1) 
+            # prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id] by cass
         
         # masked prob
         feature_masking_ratio = self.get_feature_masking_ratio(importance_scores)
         input_wte_masked = BaseMaskingEvaluator.mask_zero_embedding(input_wte, feature_masking_ratio)
 
         logits_masked = self.model(inputs_embeds=input_wte_masked)["logits"]
-        prob_masked = torch.softmax(logits_masked[:, input_ids.shape[1] - 1, :], -1)
-        prob_target_masked = prob_masked[torch.arange(prob_masked.shape[0]), target_id]
+        prob_masked = torch.softmax(logits_masked[:, input_ids.shape[1] - 1, :], -1) 
+        # prob_target_masked = prob_masked[torch.arange(prob_masked.shape[0]), target_id] by cass
 
         # metric
-        metric = self.get_metric(prob_target_original, prob_target_masked)
+        metric = self.get_metric(prob_original, prob_masked)
+        # metric = self.get_metric(prob_target_original, prob_target_masked) by cass
 
         return metric
 

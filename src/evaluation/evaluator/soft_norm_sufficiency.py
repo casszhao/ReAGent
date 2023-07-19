@@ -6,7 +6,7 @@ from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
 from .soft_sufficiency import SoftSufficiencyEvaluator
 from .soft_comprehensiveness import SoftComprehensivenessEvaluator
-
+import numpy as np
 class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
 
     @override
@@ -46,11 +46,11 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
         if prob_target_original == None:
             logits_original = self.model(inputs_embeds=input_wte)["logits"]
             prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
-            prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
+            #prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
         
 
-        soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
-        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
-        soft_norm_sufficiency = (soft_sufficiency - sufficiency_0) / (1 - sufficiency_0)
+        soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_original)
+        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_original)
+        soft_norm_sufficiency = np.clip((soft_sufficiency.cpu() - sufficiency_0.cpu()), a_min = 0, a_max = 10) / (1 - sufficiency_0.cpu())
         
         return soft_norm_sufficiency

@@ -46,11 +46,11 @@ class SoftNormalizedComprehensivenessEvaluator(BaseEvaluator):
         if prob_target_original == None:
             logits_original = self.model(inputs_embeds=input_wte)["logits"]
             prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
-            prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
+            #prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
         
 
-        soft_comprehensiveness = self.soft_comprehensiveness_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
-        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
+        soft_comprehensiveness = self.soft_comprehensiveness_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_original)
+        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_original)
         soft_norm_comprehensiveness = soft_comprehensiveness / (1 - sufficiency_0)
         
         return soft_norm_comprehensiveness

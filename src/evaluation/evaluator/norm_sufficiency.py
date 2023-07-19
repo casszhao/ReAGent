@@ -4,6 +4,7 @@ from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
 from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
+import numpy as np
 
 class NormalizedSufficiencyEvaluator(BaseEvaluator):
 
@@ -44,12 +45,12 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         if prob_target_original == None:
             logits_original = self.model(inputs_embeds=input_wte)["logits"]
             prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1)
-            prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
+            #prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id]
         
 
-        sufficiency = self.sufficiency_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
-        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_target_original)
-        norm_sufficiency = (sufficiency - sufficiency_0) / (1 - sufficiency_0)
+        sufficiency = self.sufficiency_evaluator.evaluate(input_ids, target_id, importance_scores, input_wte, prob_original)
+        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, target_id, importance_scores, input_wte, prob_original)
+        norm_sufficiency = np.clip((sufficiency.cpu() - sufficiency_0.cpu()), a_min = 0, a_max = 10) / (1 - sufficiency_0.cpu())
         
         return norm_sufficiency
 
