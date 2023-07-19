@@ -63,10 +63,9 @@ class BaseMaskingEvaluator(BaseEvaluator):
             input_wte = self.model.transformer.wte.weight[input_ids,:]
 
         # original prob
-        #if prob_target_original == None:
-        logits_original = self.model(inputs_embeds=input_wte)["logits"]
-        prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1) 
-            # prob_target_original = prob_original[torch.arange(prob_original.shape[0]), target_id] by cass
+        if prob_original == None:
+            logits_original = self.model(inputs_embeds=input_wte)["logits"]
+            prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1) 
         
         # masked prob
         feature_masking_ratio = self.get_feature_masking_ratio(importance_scores)

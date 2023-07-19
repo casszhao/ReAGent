@@ -6,7 +6,7 @@ from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
 from .soft_sufficiency import SoftSufficiencyEvaluator
 from .soft_comprehensiveness import SoftComprehensivenessEvaluator
-import numpy as np
+
 class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
 
     @override
@@ -50,6 +50,6 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
 
         soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        soft_norm_sufficiency = np.clip((soft_sufficiency.cpu() - sufficiency_0.cpu()), a_min = 0, a_max = 10) / (1 - sufficiency_0.cpu())
+        soft_norm_sufficiency = torch.clamp((soft_sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
         
         return soft_norm_sufficiency

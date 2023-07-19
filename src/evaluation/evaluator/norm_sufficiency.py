@@ -4,7 +4,6 @@ from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
 from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
-import numpy as np
 
 class NormalizedSufficiencyEvaluator(BaseEvaluator):
 
@@ -49,7 +48,7 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
 
         sufficiency = self.sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        norm_sufficiency = np.clip((sufficiency.cpu() - sufficiency_0.cpu()), a_min = 0, a_max = 10) / (1 - sufficiency_0.cpu())
+        norm_sufficiency = torch.clamp((sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
         
         return norm_sufficiency
 
