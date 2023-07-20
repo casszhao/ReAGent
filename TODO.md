@@ -8,9 +8,11 @@
 
 
  =====> CASS: 
- 
+- Code
+- [ ] rationale length set: [0.1, 0.2, 0.3]
 - [ ] need to be able define the token number for evaluate sufficiency and comprehensiveness, at the moment, we define a ratio
-
+- [ ] for hard rationales only: paper rationales for sequential predictions, table 1, metrics, [Ratio, Ante and No D]
+- [ ] greedy search
 
 We will test on other model and feature attribution too. Do feature attribution first
 
@@ -40,7 +42,7 @@ I know we have done attention, but compare to previous paper, we need at least a
 
 
 
-- [ ] model: KoboldAI/OPT-6.7B-Erebus (too big to load locally)
+- [ ] model: KoboldAI/OPT-6.7B-Erebus (too big to load locally, can r)
 - [ ] model: openlm-research/open_llama_7b_v2 (downloading killed)
 - [ ] model: bigscience/bloom (half hour downloading, only done 10%)
 
