@@ -7,7 +7,7 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate eva      # via conda
 # source .venv/bin/activate           # via venv
 
-# this script is for the 3 attention
+
 
 model_name="gpt2-medium"
 FA_name="ours" # select from all_attention rollout_attention last_attention

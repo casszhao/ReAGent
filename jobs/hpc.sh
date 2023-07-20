@@ -18,43 +18,34 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate seq      # via conda
 # source .venv/bin/activate           # via venv
 
-# Generate evaluation data set (Only need to be done once)
-# mkdir -p data/analogies
-# python src/data/prepare_evaluation_analogy.py \
-#     --analogies-file data/analogies.txt \
-#     --output-dir data/analogies \
-#     --compact-output True \
-#     --schema-uri ../../docs/analogy.schema.json \
-#     --device cuda
+model_name="gpt2-medium"
+FA_name="ours" # select from all_attention rollout_attention last_attention
+
     
+importance_results="rationalization_results/analogies/"$model_name"_ours"
+
+
 
 # Run rationalization task
-mkdir -p rationalization_results/analogies/gpt2_medium_attention
-mkdir -p logs/analogies/gpt2_medium_attention
-python src/rationalization/random_replacing/run_analogies.py \
-    --rationalization-config config/cass.json \
-    --model gpt2-medium \
-    --tokenizer gpt2-medium \
+mkdir -p $importance_results
+mkdir -p $logpath
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
+    --model $model_name \
+    --tokenizer $model_name \
     --data-dir data/analogies \
-    --output-dir rationalization_results/analogies/gpt2-medium.sampling.uniform \
+    --importance_results_dir $importance_results \
     --device cuda \
-    --logfile logs/analogies/gpt2-medium.sampling.uniform/test.log \
-    --input_data_size 1 \
+    --logfile "logs/analogies/"$model_name"_ours_extracting.log" \
+    --input_data_size 160
 
-# Migrate baseline results (Only need to be done once for each approach)
-# mkdir -p rationalization_results/analogies/gpt2-medium.last_attention
-# python src/rationalization/random_replacing/migrate_results_analogies.py \
-#     --data-dir data/analogies \
-#     --input-dir rationalization_results/analogies-old/last_attention \
-#     --output-dir rationalization_results/analogies/gpt2-medium.last_attention \
-#     --tokenizer gpt2-medium 
 
-# # Evaluate results. This can be done on a local machine
-# mkdir -p evaluation_results/analogies/
-# python src/rationalization/random_replacing/evaluate_analogies.py \
-#     --data-dir data/analogies \
-#     --target-dir rationalization_results/analogies/gpt2-medium.sampling.uniform \
-#     --baseline-dir rationalization_results/analogies/gpt2-medium.last_attention \
-#     --output-path evaluation_results/analogies/gpt2-medium.sampling.uniform.csv \
-#     --tokenizer gpt2-medium 
-
+# Evaluate results. This can be done on a local machine
+eva_output_dir="evaluation_results/analogies/ours/"
+mkdir -p $eva_output_dir
+python src/evaluation/evaluate_analogies.py \
+    --importance_results_dir $importance_results \
+    --eva_output_dir $eva_output_dir \
+    --model $model_name \
+    --tokenizer $model_name \
+    --logfile "logs/analogies/"$model_name"_ours_eva.log" \

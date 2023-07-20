@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --comment=seq_rationales_test-1
+#SBATCH --comment=last_atten_extract
 #SBATCH --nodes=1
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --mem=16G
-#SBATCH --output=jobs.out/%j.log
+#SBATCH --output=jobs.out/gpt2_attention.log
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
@@ -18,10 +18,6 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate seq      # via conda
 # source .venv/bin/activate           # via venv
 
-# just to make sure
-pip install -r requirements.txt
-python setup_nltk.py
-
 # Generate evaluation data set (Only need to be done once)
 # mkdir -p data/analogies
 # python src/data/prepare_evaluation_analogy.py \
@@ -30,18 +26,20 @@ python setup_nltk.py
 #     --compact-output True \
 #     --schema-uri ../../docs/analogy.schema.json \
 #     --device cuda
+    
 
 # Run rationalization task
-mkdir -p rationalization_results/analogies/gpt2-medium.sampling.uniform
-mkdir -p logs/analogies/gpt2-medium.sampling.uniform
+mkdir -p rationalization_results/analogies/gpt2_last_attention
+mkdir -p logs/analogies/gpt2_last_attention
 python src/rationalization/random_replacing/run_analogies.py \
-    --rationalization-config config/test.json \
+    --rationalization-config config/gpt2_last_attention.json \
     --model gpt2-medium \
     --tokenizer gpt2-medium \
     --data-dir data/analogies \
-    --output-dir rationalization_results/analogies/gpt2-medium.sampling.uniform \
+    --output-dir rationalization_results/analogies/gpt2_last_attention \
     --device cuda \
-    --logfile logs/analogies/gpt2-medium.sampling.uniform/test.log \
+    --logfile logs/analogies/gpt2_last_attention/test.log \
+    --input_data_size 160
 
 # Migrate baseline results (Only need to be done once for each approach)
 # mkdir -p rationalization_results/analogies/gpt2-medium.last_attention
@@ -51,12 +49,12 @@ python src/rationalization/random_replacing/run_analogies.py \
 #     --output-dir rationalization_results/analogies/gpt2-medium.last_attention \
 #     --tokenizer gpt2-medium 
 
-# Evaluate results. This can be done on a local machine
-mkdir -p evaluation_results/analogies/
-python src/rationalization/random_replacing/evaluate_analogies.py \
-    --data-dir data/analogies \
-    --target-dir rationalization_results/analogies/gpt2-medium.sampling.uniform \
-    --baseline-dir rationalization_results/analogies/gpt2-medium.last_attention \
-    --output-path evaluation_results/analogies/gpt2-medium.sampling.uniform.csv \
-    --tokenizer gpt2-medium 
+# # Evaluate results. This can be done on a local machine
+# mkdir -p evaluation_results/analogies/
+# python src/rationalization/random_replacing/evaluate_analogies.py \
+#     --data-dir data/analogies \
+#     --target-dir rationalization_results/analogies/gpt2-medium.sampling.uniform \
+#     --baseline-dir rationalization_results/analogies/gpt2-medium.last_attention \
+#     --output-path evaluation_results/analogies/gpt2-medium.sampling.uniform.csv \
+#     --tokenizer gpt2-medium 
 
