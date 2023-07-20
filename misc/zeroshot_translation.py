@@ -26,10 +26,10 @@ for i in range(len(dataset)):
     lang_to_translate = [dataset[i]['translation']['de']]
     translated = [dataset[i]['translation']['en']]
     scores = metric.compute(predictions=lang_to_translate, references=translated)
-    print("".center(50, "-"))
-    print(f"==>> scores: {scores}")
+    # print("".center(50, "-"))
+    # print(f"==>> scores: {scores}")
     blue_scores = scores['score']
-    print(f"==>> blue_scores: {blue_scores}")
+    # print(f"==>> blue_scores: {blue_scores}")
     avg_blue += blue_scores
 
 avg_blue = avg_blue/len(dataset)

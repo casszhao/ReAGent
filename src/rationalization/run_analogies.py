@@ -30,6 +30,10 @@ if __name__ == "__main__":
                         type=str,
                         default="gpt2-medium", # gpt2-medium gpt2-large
                         help="") # TODO
+    parser.add_argument("--cache_dir", 
+                        type=str,
+                        default=None,
+                        help="store models")
     parser.add_argument("--tokenizer", 
                         type=str,
                         default="gpt2-medium",
@@ -52,7 +56,7 @@ if __name__ == "__main__":
                         default="config/test.json",
                         help="") # TODO
 
-    parser.add_argument("--input_data_size", 
+    parser.add_argument("--input_num_ratio", 
                         type=float,
                         default=1,
                         help="") # TODO
@@ -74,6 +78,10 @@ if __name__ == "__main__":
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
     if args.logfile:
+        # from pathlib import Path
+        
+        # Path(args.logfile).mkdir(parents=True, exist_ok=True)
+        
         file_handler = logging.FileHandler(args.logfile)
         file_handler.setLevel(loglevel)
         file_handler.setFormatter(formatter)
@@ -88,8 +96,8 @@ if __name__ == "__main__":
     output_dir = args.importance_results_dir
     device = args.device
     
-    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
-    model = AutoModelForCausalLM.from_pretrained(args.model).to(device)
+    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer, cache_dir=args.cache_dir)
+    model = AutoModelForCausalLM.from_pretrained(args.model, cache_dir=args.cache_dir).to(device)
 
     with open(args.rationalization_config) as f_config:
         rationalization_config = json.load(f_config)
@@ -187,8 +195,10 @@ if __name__ == "__main__":
 
     total_file_num = len(filenames)
 
-    if args.input_data_size != 1:
-        input_num = int(total_file_num * args.input_data_size)
+    if args.input_num_ratio >= 1:
+        pass
+    else:
+        input_num = int(total_file_num * args.input_num_ratio)
         if input_num < 1: input_num = 1
         filenames = filenames[:input_num]
     

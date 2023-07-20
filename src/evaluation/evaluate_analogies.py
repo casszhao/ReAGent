@@ -50,6 +50,10 @@ def main():
                         type=int,
                         default=20,
                         help="Debug level from [CRITICAL = 50, ERROR = 40, WARNING = 30, INFO = 20, DEBUG = 10, NOTSET = 0]")
+    parser.add_argument("--cache_dir", 
+                        type=str,
+                        default=None,
+                        help="store models")
     args = parser.parse_args()
 
     loglevel = args.loglevel
@@ -59,6 +63,8 @@ def main():
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
     if args.logfile:
+        from pathlib import Path
+        Path(args.logfile).mkdir(parents=True, exist_ok=True)
         file_handler = logging.FileHandler(args.logfile)
         file_handler.setLevel(loglevel)
         file_handler.setFormatter(formatter)
@@ -77,7 +83,7 @@ def main():
     torch.set_default_dtype(torch.float64)
 
     logging.info(f"Loading model...")
-    model = AutoModelForCausalLM.from_pretrained(args.model).to(device)
+    model = AutoModelForCausalLM.from_pretrained(args.model, cache_dir=args.cache_dir).to(device)
     logging.info(f"Model loaded")
     
 

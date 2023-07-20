@@ -8,19 +8,16 @@ from data_utils import create_analogy_templates, preprocess_analogies
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--analogies-file", type=str, default="data/analogies.txt", help=""
-)  # TODO
+parser.add_argument( "--analogies-file", type=str, default="data/analogies.txt", help="")  # TODO
 parser.add_argument("--output-dir", type=str, default="data/analogies", help="")  # TODO
 parser.add_argument("--compact-output", type=bool, default=True, help="")  # TODO
-parser.add_argument(
-    "--schema-uri", type=str, default="../../docs/analogy.schema.json", help=""
-)  # TODO
-parser.add_argument(
-    "--device", type=str, default="cuda", help=""
-)  # TODO
+parser.add_argument("--schema-uri", type=str, default="../../docs/analogy.schema.json", help="")  # TODO
+parser.add_argument("--device", type=str, default="cuda", help="")  # TODO
 
+parser.add_argument("--model", type=str, default="gpt2-medium", help="") # TODO # gpt2-medium gpt2-large 
+parser.add_argument("--cache_dir", type=str, default=None, help="store models")
 args = parser.parse_args()
+
 analogies_file = args.analogies_file
 output_dir = args.output_dir
 compact_output = args.compact_output
@@ -35,8 +32,8 @@ analogies = [line.rstrip("\n") for line in analogies]
 
 # Load model
 
-tokenizer = AutoTokenizer.from_pretrained("gpt2-medium")
-model = AutoModelForCausalLM.from_pretrained("gpt2-medium")
+tokenizer = AutoTokenizer.from_pretrained(args.model, cache_dir=args.cache_dir)
+model = AutoModelForCausalLM.from_pretrained(args.model, cache_dir=args.cache_dir)
 model.to(device)
 
 with torch.no_grad():

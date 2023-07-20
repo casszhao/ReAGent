@@ -49,8 +49,6 @@ class POSTagTokenSampler(TokenSampler):
         # build mapping from token_id to tag_id
         self.mapping_token_id_to_tag_id = torch.zeros([tokenizer.vocab_size], dtype=torch.long, device=device)
         for tag_id, group_token_id in enumerate(list_group_token_id):
-            print("".center(50, "-"))
-            print(group_token_id)
             self.mapping_token_id_to_tag_id[group_token_id] = tag_id
 
         # build mapping from tag_id to token_id

@@ -59,6 +59,12 @@ if __name__ == "__main__":
                         type=float,
                         default=1,
                         help="how many data we want to feed to model (percentage)")
+    
+    parser.add_argument("--cache_dir", 
+                        type=str,
+                        default=None,
+                        help="store models")
+    
     args = parser.parse_args()
 
     # setup logging system
@@ -81,8 +87,8 @@ if __name__ == "__main__":
     output_dir = args.output_dir
     device = args.device
     
-    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
-    model = AutoModelForCausalLM.from_pretrained(args.model)
+    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer, cache_dir=args.cache_dir)
+    model = AutoModelForCausalLM.from_pretrained(args.model, cache_dir=args.cache_dir)
 
     with open(args.rationalization_config) as f_config:
         rationalization_config = json.load(f_config)
