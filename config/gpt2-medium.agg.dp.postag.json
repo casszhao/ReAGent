@@ -45,7 +45,7 @@
     "stopping_condition": {
         "type": "top_k",
         "top_k": {
-            "tolerance": 10
+            "tolerance": 6
         }
     }
 }
