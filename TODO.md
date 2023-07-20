@@ -52,3 +52,12 @@ I know we have done attention, but compare to previous paper, we need at least a
 0719
 1. have done extracting importance scores and evaluation for the 3 attention FA, using local_attention.sh (3 different config). runnable. 
 2. accidently delete our methods extracted importance scores. SORRY!
+
+
+0720
+
+please noted, i have changed the folder for store data for different models, different models will predict differently and have different data analogies.
+
+Q: 
+
+  - [ ] aggregate_rationalizer.py is a testing file? or we use it in the real process?
