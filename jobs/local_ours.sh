@@ -18,8 +18,8 @@ cache_dir="/home/cass/projects/cache/"
 
 
 # Run rationalization task
-mkdir -p $importance_results
-mkdir -p $logpath
+mkdir -p "$importance_results"
+mkdir -p "$logpath"
 python src/rationalization/run_analogies.py \
     --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
     --model $model_name \
@@ -34,7 +34,7 @@ python src/rationalization/run_analogies.py \
 
 # # Evaluate results. This can be done on a local machine
 # eva_output_dir="evaluation_results/analogies/ours/"
-# mkdir -p $eva_output_dir
+# mkdir -p "$eva_output_dir"
 # python src/evaluation/evaluate_analogies.py \
 #     --importance_results_dir $importance_results \
 #     --eva_output_dir $eva_output_dir \

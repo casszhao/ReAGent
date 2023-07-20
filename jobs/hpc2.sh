@@ -18,7 +18,7 @@ module load Anaconda3/2022.10
 module load cuDNN/8.0.4.30-CUDA-11.1.1
 
 # Activate env
-source activate cass-seq      # via conda
+source activate seq      # via conda
 # source .venv/bin/activate           # via venv
 
 export TORCH_HUB=/mnt/parscratch/users/cass/conda_folder/

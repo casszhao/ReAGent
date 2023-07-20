@@ -87,7 +87,11 @@ if __name__ == "__main__":
     output_dir = args.output_dir
     device = args.device
     
-    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer, cache_dir=args.cache_dir)
+    if 'llama' in str(args.tokenizer):
+        from transformers import LlamaTokenizer
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer, cache_dir=args.cache_dir)
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer, cache_dir=args.cache_dir)
     model = AutoModelForCausalLM.from_pretrained(args.model, cache_dir=args.cache_dir)
 
     with open(args.rationalization_config) as f_config:
