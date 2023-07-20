@@ -1,0 +1,33 @@
+{
+    "$schema": "../docs/config.schema.json",
+    "rational": {
+        "size": 5,
+        "size_ratio": null
+    },
+    "rationalizer": {
+        "type": "sampling",
+        "sampling": { }
+    },
+    "importance_score_evaluator": {
+        "type": "replacing",
+        "replacing": {
+            "optimization": {
+                "type": "delta_probability",
+                "delta_probability": {
+                    "replacing_ratio": 0.3,
+                    "max_steps": 5000
+                }
+            },
+            "replacing": {
+                "type": "uniform",
+                "uniform": { }
+            },
+            "stopping_condition": {
+                "type": "top_k",
+                "top_k": {
+                    "tolerance": 5
+                }
+            }
+        }
+    }
+}
