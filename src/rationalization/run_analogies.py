@@ -113,7 +113,7 @@ if __name__ == "__main__":
             stopping_condition_evaluator = TopKStoppingConditionEvaluator(
                 model=model, 
                 token_sampler=token_sampler, 
-                top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["stopping_condition"]["top_k"]["tolerance"], 
+                top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["top_k"]["tolerance"], 
                 top_n=rationalization_config["rational"]["size"], 
                 top_n_ratio=rationalization_config["rational"]["size_ratio"], 
                 tokenizer=tokenizer
