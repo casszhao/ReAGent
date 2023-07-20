@@ -76,6 +76,9 @@ if __name__ == "__main__":
     # generate prediction 
     input_ids = tokenizer(input_string, return_tensors='pt')['input_ids'].to(model.device)
     generated_input = model.generate(input_ids=input_ids, do_sample=False) 
+    generated_logits = model(input_ids=input_ids)['logits']
+    print(f"==>> generated_logits: {generated_logits}")
+    #predicted_token_logits = 
     print(' generated input -->', [ [ tokenizer.decode(token) for token in seq] for seq in generated_input ])
 
     # extract target from prediction

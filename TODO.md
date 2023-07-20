@@ -18,9 +18,10 @@ We will test on other model and feature attribution too. Do feature attribution 
 
 I know we have done attention, but compare to previous paper, we need at least another 3. I have some suggestion, but due to the time limit, please do the ones which are fast. package inseq
 
+
 - Code
   - [ ] FAs: integrated grads, 
-  - [ ] FAs: gradients, 
+  - [ ] FAs: Grad norms 
   - [ ] FAs: gradients * embeddings, 
   - [x] FAs: attention rollout (config.json - importance_score_evaluator.attention.type = rollout)
   - [x] FAs: last attention (config.json - importance_score_evaluator.attention.type = last)
