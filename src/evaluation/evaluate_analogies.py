@@ -37,6 +37,10 @@ def main():
                         type=str,
                         default=0.3,
                         help="") # when using bash, it has error by cass
+    parser.add_argument("--rational_size_file", 
+                        type=str,
+                        default=None,
+                        help="A file that containing a json obj that maps sample-name to rational-size; rational_size_ratio will be ignored")
     parser.add_argument("--device", 
                         type=str,
                         default="cuda",
@@ -78,7 +82,12 @@ def main():
     target_dir = args.importance_results_dir
     output_dir = args.eva_output_dir
     rational_size_ratio = args.rational_size_ratio
+    rational_size_file = args.rational_size_file
     device = args.device
+
+    if rational_size_file != None:
+        with open(rational_size_file) as f:
+            rational_size_dict = json.load(f)
 
     torch.set_default_dtype(torch.float64)
 
@@ -101,6 +110,10 @@ def main():
         csv_details_f.flush()
 
         for filename in filenames:
+            rational_size = -1
+            if rational_size_dict != None:
+                rational_size = rational_size_dict[filename]
+
             path_target = os.path.join(dirpath, filename)
             with open(path_target) as f:
                 rationalization_result = json.load(f)
@@ -112,12 +125,12 @@ def main():
             random_importance_scores = normalise_random(torch.rand(importance_scores.size(), device=device))
 
             from evaluator.norm_sufficiency import NormalizedSufficiencyEvaluator
-            norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, rational_size_ratio)
+            norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, rational_size, rational_size_ratio)
             norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
             random_norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
             from evaluator.norm_comprehensiveness import NormalizedComprehensivenessEvaluator
-            norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, rational_size_ratio)
+            norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, rational_size, rational_size_ratio)
             norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
             random_norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
