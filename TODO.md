@@ -82,4 +82,5 @@ please noted, i have changed the folder for store data for different models, dif
 
 Q: 
 
-  - [ ] aggregate_rationalizer.py is a testing file? or we use it in the real process?
+  - [x] aggregate_rationalizer.py is a testing file? or we use it in the real process?
+    - A: It provides class `AggregateRationalizer` for `run_analogies.py`
