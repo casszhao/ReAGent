@@ -20,7 +20,7 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, 0)
+        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rational_ratio=0)
         self.soft_sufficiency_evaluator = SoftSufficiencyEvaluator(model)
 
     @torch.no_grad()

@@ -5,15 +5,17 @@ from .base_masking import BaseMaskingEvaluator
 
 class SufficiencyEvaluator(BaseMaskingEvaluator):    
     @override
-    def __init__(self, model: AutoModelForCausalLM, rational_ratio: float) -> None:
+    def __init__(self, model: AutoModelForCausalLM, rational_size: int = 0, rational_ratio: float = 0) -> None:
         """ Constructor
 
         Args:
             model: AutoModelForCausalLM
+            rational_size: number of rational tokens, rational_ratio will be ignored
             rational_ratio: ratio of rational tokens
 
         """
         super().__init__(model)
+        self.rational_size = rational_size
         self.rational_ratio = rational_ratio
 
     @override
@@ -27,7 +29,10 @@ class SufficiencyEvaluator(BaseMaskingEvaluator):
             feature_masking_ratio [batch, sequence]
 
         """
-        top_k = int(self.rational_ratio * importance_scores.shape[1])
+        top_k = self.rational_size
+        if top_k <= 0:
+            top_k = int(self.rational_ratio * importance_scores.shape[1])
+
         binary_rational_mask = BaseMaskingEvaluator.create_binary_rational_mask(importance_scores, top_k)
         return binary_rational_mask
 
