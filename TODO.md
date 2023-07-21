@@ -9,10 +9,32 @@
 
  =====> CASS: 
 - Code
-- [ ] rationale length set: [0.1, 0.2, 0.3]
-- [ ] need to be able define the token number for evaluate sufficiency and comprehensiveness, at the moment, we define a ratio
-- [ ] for hard rationales only: paper rationales for sequential predictions, table 1, metrics, [Ratio, Ante and No D]
+- [x] rationale length set: [0.1, 0.2, 0.3]
+  - can be done in bash/job script
+  - ```sh
+    #!/bin/bash
+
+    rationalRatioSet=(
+        0.1
+        0.2
+        0.3
+    )
+
+    for rationalRatio in "${rationalRatioSet[@]}"; do
+        echo "Run with rationalRatio: $rationalRatio"
+        # run the program
+        python evaluate_analogies.py --rational_size_ratio $rationalRatio --eva_output_dir "<specify dir>"
+    done
+
+    ```
+  - [ ] Alternaive: Once batch is working, we can implement a more efficient version
+- [ ] need to be able define the token number of each sample for evaluate sufficiency and comprehensiveness, at the moment, we define a ratio
+- [x] for hard rationales only: paper rationales for sequential predictions, table 1, metrics, [Ratio, Ante and No D]
+  - src/evaluation/evaluate_analogies-old.py
 - [ ] greedy search
+  - [x] migration code has been restored
+    - src/rationalization/migrate_results_analogies.py
+  - [ ] TODO: importance score will missing, consider to generate a pseudo importance score
 
 We will test on other model and feature attribution too. Do feature attribution first
 
