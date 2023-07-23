@@ -21,6 +21,7 @@ from rationalizer.utils.serializing import serialize_rational
 from rationalizer.importance_score_evaluator.attention import AttentionImportanceScoreEvaluator
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from natsort import natsorted
+import pathlib
 
 if __name__ == "__main__":
     
@@ -32,7 +33,7 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--cache_dir", 
                         type=str,
-                        default='cache',
+                        default='cache/',
                         help="store models")
     parser.add_argument("--tokenizer", 
                         type=str,
@@ -61,7 +62,7 @@ if __name__ == "__main__":
                         default=1,
                         help="") # TODO
     
-    parser.add_argument("--logfile", 
+    parser.add_argument("--logfolder", 
                         type=str,
                         default=None,
                         help="Logfile location to output")
@@ -77,12 +78,12 @@ if __name__ == "__main__":
     logger.setLevel(loglevel)
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
-    if args.logfile:
-        # from pathlib import Path
-        
-        # Path(args.logfile).mkdir(parents=True, exist_ok=True)
-        
-        file_handler = logging.FileHandler(args.logfile)
+    if args.logfolder:
+        if not os.path.exists(args.logfolder): 
+            print(' no such parent folder, create one: ', args.logfolder)
+            os.makedirs(args.logfolder) 
+
+        file_handler = logging.FileHandler(args.logfolder + 'run.log')
         file_handler.setLevel(loglevel)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
@@ -249,7 +250,6 @@ if __name__ == "__main__":
 
         # output
         if not os.path.exists(output_dir):
-            # If it doesn't exist, create it
             os.makedirs(output_dir)
         output_filename = os.path.join(output_dir, filename)
         print(f"==>> output_filename (importance scroes saved to): {output_filename}")

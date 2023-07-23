@@ -5,7 +5,7 @@ import json
 import logging
 import os
 import sys
-
+import pathlib
 import torch
 
 from transformers import AutoModelForCausalLM
@@ -42,7 +42,7 @@ def main():
                         default="cuda",
                         help="") # TODO
     
-    parser.add_argument("--logfile", 
+    parser.add_argument("--logfolder", 
                         type=str,
                         default=None,
                         help="Logfile location to output")
@@ -64,10 +64,12 @@ def main():
     logger.setLevel(loglevel)
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
-    if args.logfile:
-        # from pathlib import Path
-        # Path(args.logfile).mkdir(parents=True, exist_ok=True)
-        file_handler = logging.FileHandler(args.logfile)
+    if args.logfolder:
+        if not os.path.exists(args.logfolder): 
+            print(' no such parent folder, create one: ', args.logfolder)
+            os.makedirs(args.logfolder) 
+
+        file_handler = logging.FileHandler(args.logfolder + 'eva.log')
         file_handler.setLevel(loglevel)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)

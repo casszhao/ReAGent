@@ -29,44 +29,11 @@ cache_dir="cache/"
 
 
 
-# FA_name="rollout_attention" # select from all_attention rollout_attention last_attention
-# importance_results="rationalization_results/analogies/"$model_name"_"$FA_name
-
-# # Run rationalization task
-# mkdir -p $importance_results
-# mkdir -p $logpath
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/"$model_name"_"$FA_name".json \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name/ \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfile "logs/analogies/"$model_name"_"$FA_name"_extracting.log" 
-
-
-# # Evaluate results. This can be done on a local machine
-# eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name
-# mkdir -p $eva_output_dir
-# for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
-# do
-# echo "  for rationale "
-# echo $rationale_ratio_for_eva
-# python src/evaluation/evaluate_analogies.py \
-#     --importance_results_dir $importance_results \
-#     --eva_output_dir $eva_output_dir \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --logfile "logs/analogies/"$model_name"_"$FA_name"_eva.log" \
-#     --rational_size_ratio $rationale_ratio_for_eva
-# done
-
-
 
 
 
 FA_name="all_attention" # select from all_attention rollout_attention last_attention
-importance_results="rationalization_results/analogies/"$model_name"_"$FA_name
+importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
 # Run rationalization task
 mkdir -p $importance_results
 mkdir -p $logpath
@@ -77,7 +44,9 @@ python src/rationalization/run_analogies.py \
     --data-dir data/analogies/$model_short_name/ \
     --importance_results_dir $importance_results \
     --device cuda \
-    --logfile "logs/analogies/"$model_name"_"$FA_name"_extracting.log" 
+    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+    --cache_dir $cache_dir 
+
 
 # Evaluate results. This can be done on a local machine
 eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name
@@ -91,41 +60,10 @@ python src/evaluation/evaluate_analogies.py \
     --eva_output_dir $eva_output_dir \
     --model $model_name \
     --tokenizer $model_name \
-    --logfile "logs/analogies/"$model_name"_"$FA_name"_eva.log" \
-    --rational_size_ratio $rationale_ratio_for_eva
+    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+    --rational_size_ratio $rationale_ratio_for_eva \
+    --cache_dir $cache_dir 
+
 done
 
 
-
-
-
-# FA_name="last_attention" # select from all_attention rollout_attention last_attention
-# importance_results="rationalization_results/analogies/"$model_name"_"$FA_name
-# # Run rationalization task
-# mkdir -p $importance_results
-# mkdir -p $logpath
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/"$model_name"_"$FA_name".json \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name/ \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfile "logs/analogies/"$model_name"_"$FA_name"_extracting.log" 
-
-
-# Evaluate results. This can be done on a local machine
-# eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name
-# mkdir -p $eva_output_dir
-# for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
-# do
-# echo "  for rationale "
-# echo $rationale_ratio_for_eva
-# python src/evaluation/evaluate_analogies.py \
-#     --importance_results_dir $importance_results \
-#     --eva_output_dir $eva_output_dir \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --logfile "logs/analogies/"$model_name"_"$FA_name"_eva.log" \
-#     --rational_size_ratio $rationale_ratio_for_eva
-# done

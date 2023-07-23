@@ -44,19 +44,19 @@ cache_dir="cache/"
 #     --cache_dir $cache_dir 
 
 
-# # Run rationalization task
-# mkdir -p "$importance_results"
-# mkdir -p "$logpath"
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name/ \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfile "logs/analogies/"$model_short_name"_"$FA_name"_extracting.log" \
-#     --input_num_ratio 1 \
-#     --cache_dir $cache_dir
+# Run rationalization task
+mkdir -p "$importance_results"
+mkdir -p "$logpath"
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
+    --model $model_name \
+    --tokenizer $model_name \
+    --data-dir data/analogies/$model_short_name/ \
+    --importance_results_dir $importance_results \
+    --device cuda \
+    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+    --input_num_ratio 1 \
+    --cache_dir $cache_dir
 
 
 
@@ -71,7 +71,7 @@ python src/evaluation/evaluate_analogies.py \
     --eva_output_dir $eva_output_dir \
     --model $model_name \
     --tokenizer $model_name \
-    --logfile "logs/analogies/"$model_name"_"$FA_name"_eva.log" \
+    --logfolder "logs/analogies/"$model_name"_"$FA_name \
     --rational_size_ratio $rationale_ratio_for_eva \
     --cache_dir $cache_dir
 done
