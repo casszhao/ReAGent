@@ -240,6 +240,7 @@ if __name__ == "__main__":
 
         # output
         output_filename = os.path.join(output_dir, filename)
+        print(f"==>> output_filename (importance scroes saved to): {output_filename}")
 
         # TODO: Save model for BO
         
