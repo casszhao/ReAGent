@@ -32,7 +32,7 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--cache_dir", 
                         type=str,
-                        default=None,
+                        default='cache',
                         help="store models")
     parser.add_argument("--tokenizer", 
                         type=str,
@@ -118,14 +118,19 @@ if __name__ == "__main__":
         
         stopping_condition_type = rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["type"]
         if stopping_condition_type == "top_k":
+            top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["top_k"]["tolerance"], 
+            top_n=rationalization_config["rational"]["size"], 
+            top_n_ratio=rationalization_config["rational"]["size_ratio"], 
             stopping_condition_evaluator = TopKStoppingConditionEvaluator(
                 model=model, 
                 token_sampler=token_sampler, 
-                top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["top_k"]["tolerance"], 
-                top_n=rationalization_config["rational"]["size"], 
-                top_n_ratio=rationalization_config["rational"]["size_ratio"], 
+                top_k=top_k, 
+                top_n=top_n, 
+                top_n_ratio=top_n_ratio, 
                 tokenizer=tokenizer
             )
+            output_dir = output_dir + f'/top{top_k}_' # by cass
+
         elif stopping_condition_type == "dummy":
             stopping_condition_evaluator = DummyStoppingConditionEvaluator()
         else:
@@ -133,15 +138,19 @@ if __name__ == "__main__":
 
         evaluator_type = rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["type"]
         if evaluator_type == 'delta_probability':
+            replacing_ratio=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["replacing_ratio"]
+            max_steps=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["max_steps"]
+            output_dir = output_dir + f'replace{replacing_ratio}_max{max_steps}' # by cass
+
             importance_score_evaluator = DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
                     token_sampler=token_sampler, 
-                    ratio=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["replacing_ratio"]
+                    ratio=replacing_ratio
                 ),
                 stopping_condition_evaluator=stopping_condition_evaluator,
-                max_steps=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["max_steps"]
+                max_steps=max_steps
             )
         elif evaluator_type == 'bayesian_optimization':
             importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
@@ -239,6 +248,9 @@ if __name__ == "__main__":
             logging.info(f"{text_rational}")
 
         # output
+        if not os.path.exists(output_dir):
+            # If it doesn't exist, create it
+            os.makedirs(output_dir)
         output_filename = os.path.join(output_dir, filename)
         print(f"==>> output_filename (importance scroes saved to): {output_filename}")
 
