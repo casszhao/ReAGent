@@ -8,18 +8,19 @@ from .comprehensiveness import ComprehensivenessEvaluator
 class NormalizedSufficiencyEvaluator(BaseEvaluator):
 
     @override
-    def __init__(self, model: AutoModelForCausalLM, rational_ratio: float) -> None:
+    def __init__(self, model: AutoModelForCausalLM, rational_size: int = 0, rational_ratio: float = 0) -> None:
         """ Constructor
 
         Args:
             model: AutoModelForCausalLM
+            rational_size: number of rational tokens, rational_ratio will be ignored
             rational_ratio: ratio of rational tokens
 
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, 0)
-        self.sufficiency_evaluator = SufficiencyEvaluator(model, rational_ratio)
+        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rational_ratio=0)
+        self.sufficiency_evaluator = SufficiencyEvaluator(model, rational_size, rational_ratio)
 
     @torch.no_grad()
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_scores: torch.Tensor, input_wte: torch.Tensor = None, prob_original: torch.Tensor = None) -> torch.Tensor:

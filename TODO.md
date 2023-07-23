@@ -9,10 +9,34 @@
 
  =====> CASS: 
 - Code
-- [ ] rationale length set: [0.1, 0.2, 0.3]
-- [ ] need to be able define the token number for evaluate sufficiency and comprehensiveness, at the moment, we define a ratio
-- [ ] for hard rationales only: paper rationales for sequential predictions, table 1, metrics, [Ratio, Ante and No D]
-- [ ] greedy search
+- [x] rationale length set: [0.1, 0.2, 0.3]
+  - can be done in bash/job script
+  - ```sh
+    #!/bin/bash
+
+    rationalRatioSet=(
+        0.1
+        0.2
+        0.3
+    )
+
+    for rationalRatio in "${rationalRatioSet[@]}"; do
+        echo "Run with rationalRatio: $rationalRatio"
+        # run the program
+        python evaluate_analogies.py --rational_size_ratio $rationalRatio --eva_output_dir "<specify dir>"
+    done
+
+    ```
+  - [ ] Alternaive: Once batch is working, we can implement a more efficient version
+- [x] need to be able define the token number of each sample for evaluate sufficiency and comprehensiveness, at the moment, we define a ratio
+  1. use `src/evaluation/gen_map_rational_size.py` to generate a rational length mapping file from greedy results
+  2. run `src/evaluation/evaluate_analogies.py` with parameter `--rational_size_file` to specify the mapping file
+- [x] for hard rationales only: paper rationales for sequential predictions, table 1, metrics, [Ratio, Ante and No D]
+  - src/evaluation/evaluate_analogies-old.py
+- [x] greedy search
+  - [x] migration code has been restored
+    - src/rationalization/migrate_results_analogies.py
+  - [x] TODO: importance score will missing, consider to generate a pseudo importance score
 
 We will test on other model and feature attribution too. Do feature attribution first
 
@@ -60,4 +84,5 @@ please noted, i have changed the folder for store data for different models, dif
 
 Q: 
 
-  - [ ] aggregate_rationalizer.py is a testing file? or we use it in the real process?
+  - [x] aggregate_rationalizer.py is a testing file? or we use it in the real process?
+    - A: It provides class `AggregateRationalizer` for `run_analogies.py`

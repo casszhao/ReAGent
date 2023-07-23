@@ -19,7 +19,7 @@ class SoftNormalizedComprehensivenessEvaluator(BaseEvaluator):
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, 0)
+        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rational_ratio=0)
         self.soft_comprehensiveness_evaluator = SoftComprehensivenessEvaluator(model)
 
     
