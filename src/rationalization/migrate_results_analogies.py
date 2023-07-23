@@ -8,6 +8,7 @@ import torch
 
 from rationalizer.utils.serializing import serialize_rational
 from transformers import AutoTokenizer
+from natsort import natsorted
 
 
 if __name__ == "__main__":
@@ -19,11 +20,11 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--input-dir", 
                         type=str,
-                        default="rationalization_results/analogies-old/last_attention",
+                        default="../sequential-rationales/huggingface/rationalization_results/analogies/greedy",
                         help="") # TODO
     parser.add_argument("--output-dir", 
                         type=str,
-                        default="rationalization_results/analogies/gpt2-medium.last_attention",
+                        default="rationalization_results/analogies/greedy",
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
@@ -37,7 +38,8 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
 
     dirpath, dirnames, filenames = next(os.walk(data_dir))
-    filenames.sort()
+    # filenames.sort()
+    filenames = natsorted(filenames)
 
     for filename in filenames:
 
@@ -56,6 +58,12 @@ if __name__ == "__main__":
             result_old = json.load(result_old_f)
 
         output_filename = os.path.join(output_dir, filename)
+
+        all_rationals = torch.tensor(result_old["all_rationales"][0])
+        seq_length = len(result_old["input_ids"])
+        importance_mask = torch.zeros([seq_length]).scatter(-1, all_rationals, 1)
+        importance_score = importance_mask / torch.sum(importance_mask)
+
         serialize_rational(
             output_filename,
             data["id"], 
@@ -63,11 +71,12 @@ if __name__ == "__main__":
             torch.tensor(result_old["input_ids"][-1]), 
             torch.tensor(result_old["all_rationales"][-1]), 
             tokenizer, 
-            None,
+            importance_score,
             compact=False,
             comments= {
                 "created-by": os.path.basename(__file__),
-                "args" : args.__dict__
+                "args" : args.__dict__,
+                "note": "pseudo importance score applied"
             },
             # trace_rationalizer=rationalizer # Enable trace logs
         )
