@@ -29,8 +29,9 @@
     ```
   - [ ] Alternaive: Once batch is working, we can implement a more efficient version
 - [x] need to be able define the token number of each sample for evaluate sufficiency and comprehensiveness, at the moment, we define a ratio
-  1. use `src/evaluation/gen_map_rational_size.py` to generate a rational length mapping file from greedy results
-  2. run `src/evaluation/evaluate_analogies.py` with parameter `--rational_size_file` to specify the mapping file
+  1. run rationalization_results from `https://github.com/keyonvafa/sequential-rationales#gpt-2`
+  2. use `src/evaluation/gen_map_rational_size.py` to generate a rational length mapping file from greedy results (specify by `--input-dir`)
+  3. run `src/evaluation/evaluate_analogies.py` with parameter `--rational_size_file` to specify the output mapping file
 - [x] for hard rationales only: paper rationales for sequential predictions, table 1, metrics, [Ratio, Ante and No D]
   - src/evaluation/evaluate_analogies-old.py
 - [x] greedy search
