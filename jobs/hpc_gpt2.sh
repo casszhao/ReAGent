@@ -44,27 +44,26 @@ cache_dir="cache/"
 #     --cache_dir $cache_dir 
 
 
-# Run rationalization task
-mkdir -p "$importance_results"
-mkdir -p "$logpath"
-python src/rationalization/run_analogies.py \
-    --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
-    --model $model_name \
-    --tokenizer $model_name \
-    --data-dir data/analogies/$model_short_name/ \
-    --importance_results_dir $importance_results \
-    --device cuda \
-    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
-    --input_num_ratio 1 \
-    --cache_dir $cache_dir
+# # Run rationalization task
+# mkdir -p "$importance_results"
+# mkdir -p "$logpath"
+# python src/rationalization/run_analogies.py \
+#     --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --data-dir data/analogies/$model_short_name/ \
+#     --importance_results_dir $importance_results \
+#     --device cuda \
+#     --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+#     --input_num_ratio 1 \
+#     --cache_dir $cache_dir
 
 
+#python src/rationalization/migrate_results_analogies.py
 
 eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name
 mkdir -p $eva_output_dir
-for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
-do
-echo "  for rationale "
+
 echo $rationale_ratio_for_eva
 python src/evaluation/evaluate_analogies.py \
     --importance_results_dir $importance_results \
@@ -72,6 +71,6 @@ python src/evaluation/evaluate_analogies.py \
     --model $model_name \
     --tokenizer $model_name \
     --logfolder "logs/analogies/"$model_name"_"$FA_name \
-    --rational_size_ratio $rationale_ratio_for_eva \
+    --rational_size_ratio 0 \
+    --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
     --cache_dir $cache_dir
-done

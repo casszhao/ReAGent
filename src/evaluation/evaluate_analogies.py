@@ -84,6 +84,7 @@ def main():
     logger.addHandler(stdout_handler)
 
     target_dir = args.importance_results_dir
+    print(' target_dir: ', target_dir)
     output_dir = args.eva_output_dir
     rational_size_ratio = args.rational_size_ratio
     rational_size_file = args.rational_size_file

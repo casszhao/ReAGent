@@ -16,15 +16,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", 
                         type=str,
-                        default="data/analogies",
+                        default="data/analogies/gpt2/",
                         help="") # TODO
     parser.add_argument("--input-dir", 
                         type=str,
-                        default="../sequential-rationales/huggingface/rationalization_results/analogies/greedy",
+                        default="../sequential-rationales/huggingface/rationalization_results/analogies/gpt2_greedy",
                         help="") # TODO
     parser.add_argument("--output-dir", 
                         type=str,
-                        default="rationalization_results/analogies/greedy",
+                        default="rationalization_results/analogies/gpt2_greedy",
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         output_filename = os.path.join(output_dir, filename)
 
         all_rationals = torch.tensor(result_old["all_rationales"][0])
-        seq_length = len(result_old["input_ids"])
+        seq_length = len(result_old["input_ids"]) - 1
         importance_mask = torch.zeros([seq_length]).scatter(-1, all_rationals, 1)
         importance_score = importance_mask / torch.sum(importance_mask)
 

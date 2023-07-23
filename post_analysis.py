@@ -2,7 +2,7 @@ import pandas as pd
 
 model_name="gpt2-medium"
 
-def get_one_line_for_one_FA(model_name, FA_name):
+def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
     eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}"
     print(f"==>> eva_output_dir: {eva_output_dir}")
 
@@ -18,7 +18,7 @@ def get_one_line_for_one_FA(model_name, FA_name):
     random_comp_mean = 0
 
 
-    ratio_list = [0.05, 0.1, 0.2, 0.3, 1.0]
+    
     diff_ratio_len = int(len(ratio_list)-1)
     for ratio in ratio_list:
         faithful_results = pd.read_csv(eva_output_dir+f'/mean_{ratio}.csv')
@@ -49,17 +49,19 @@ def get_one_line_for_one_FA(model_name, FA_name):
     return suff_list, comp_list, random_suff_list, random_comp_list
 
 
+ratio_list = [0.05, 0.1, 0.2, 0.3, 1.0]
+rollout_suff, rollout_comp, random_rollout_suff, random_rollout_comp = get_one_line_for_one_FA(model_name, "rollout_attention", ratio_list)
+last_suff, last_comp, random_last_suff, random_last_comp = get_one_line_for_one_FA(model_name, "last_attention", ratio_list)
+all_suff, all_comp, random_all_suff, random_all_comp = get_one_line_for_one_FA(model_name, "all_attention", ratio_list)
+ours_suff, ours_comp, ours_random_all_suff, ours_random_all_comp = get_one_line_for_one_FA(model_name, "ours", ratio_list)
 
-rollout_suff, rollout_comp, random_rollout_suff, random_rollout_comp = get_one_line_for_one_FA(model_name, "rollout_attention")
-last_suff, last_comp, random_last_suff, random_last_comp = get_one_line_for_one_FA(model_name, "last_attention")
-all_suff, all_comp, random_all_suff, random_all_comp = get_one_line_for_one_FA(model_name, "all_attention")
-ours_suff, ours_comp, ours_random_all_suff, ours_random_all_comp = get_one_line_for_one_FA(model_name, "ours")
+# suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'Soft Suff'])
+# comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'Soft Comp'])
+suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','fix len Suff'])
+comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','fix len Comp'])
 
-suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'Soft Suff'])
-comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'Soft Comp'])
-
-random_suff_df = pd.DataFrame([random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=['Method','5% Suff','10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'Soft Suff'])
-random_comp_df = pd.DataFrame([random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=['Method','5% Comp','10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'Soft Comp'])
+random_suff_df = pd.DataFrame([random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=['Method','Suff'])
+random_comp_df = pd.DataFrame([random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=['Method','Comp'])
 
 print(suff_df)
 print(' ')

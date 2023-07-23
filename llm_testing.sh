@@ -21,4 +21,4 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate seq      # via conda
 
 
-python llm_testing.sh
+python src/evaluation/gen_map_rational_size.py #llm_testing.sh
