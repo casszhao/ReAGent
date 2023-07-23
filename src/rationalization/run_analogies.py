@@ -261,6 +261,8 @@ if __name__ == "__main__":
         if rationalization_config["rationalizer"]["type"] == "aggregation" and rationalization_config["rationalizer"]["aggregation"]["save_separate_rational"]:
             pos_rationals, rationals = rationalizer.get_separate_rational(input_tokens, tokenizer)
             comments["separate_rational"] = rationals
+        
+        important_score_mean = torch.mean(rationalizer.importance_score_evaluator.important_score, dim=0)
 
         serialize_rational(
             output_filename,
@@ -269,7 +271,7 @@ if __name__ == "__main__":
             target_token[0], 
             pos_rational[0], 
             tokenizer, 
-            rationalizer.importance_score_evaluator.important_score[0],
+            important_score_mean,
             compact=False,
             comments=comments,
             # trace_rationalizer=rationalizer # Enable trace logs
