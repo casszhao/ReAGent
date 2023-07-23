@@ -1,5 +1,8 @@
 from typing_extensions import override
 import torch
+import torch.nn as nn
+soft_max = nn.Softmax(dim=1)
+
 from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
 
@@ -110,6 +113,7 @@ class BaseMaskingEvaluator(BaseEvaluator):
         """
 
         uniform_samples = torch.rand(embedding.shape, device=embedding.device)
+        #uniform_samples = soft_max(uniform_samples)
         feature_mask = uniform_samples < torch.unsqueeze(token_mask_ratio, 2)
         masked_embedding = embedding * feature_mask
 
