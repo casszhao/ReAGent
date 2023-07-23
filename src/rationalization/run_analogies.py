@@ -119,9 +119,9 @@ if __name__ == "__main__":
         
         stopping_condition_type = rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["type"]
         if stopping_condition_type == "top_k":
-            top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["top_k"]["tolerance"], 
-            top_n=rationalization_config["rational"]["size"], 
-            top_n_ratio=rationalization_config["rational"]["size_ratio"], 
+            top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["top_k"]["tolerance"]
+            top_n=rationalization_config["rational"]["size"]
+            top_n_ratio=rationalization_config["rational"]["size_ratio"]
             stopping_condition_evaluator = TopKStoppingConditionEvaluator(
                 model=model, 
                 token_sampler=token_sampler, 

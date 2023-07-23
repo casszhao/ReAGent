@@ -10,11 +10,12 @@ source activate eva      # via conda
 
 
 model_name="gpt2-medium"
+model_short_name="gpt2"
 FA_name="ours" # select from all_attention rollout_attention last_attention
 
     
 importance_results="rationalization_results/analogies/"$model_name"_"$ours
-cache_dir="/home/cass/projects/cache/"
+cache_dir="cache/"
 
 
 # Run rationalization task
@@ -27,7 +28,7 @@ python src/rationalization/run_analogies.py \
     --data-dir data/analogies/$model_name/ \
     --importance_results_dir $importance_results \
     --device cuda \
-    --logfile "logs/analogies/"$model_name"_"$FA_name"_extracting.log" \
+    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
     --input_num_ratio 1 \
     --cache_dir $cache_dir
 
