@@ -42,12 +42,12 @@ python src/rationalization/random_replacing/run_analogies.py \
     --input_data_size 160
 
 # Migrate baseline results (Only need to be done once for each approach)
-# mkdir -p rationalization_results/analogies/gpt2-medium.last_attention
-# python src/rationalization/random_replacing/migrate_results_analogies.py \
-#     --data-dir data/analogies \
-#     --input-dir rationalization_results/analogies-old/last_attention \
-#     --output-dir rationalization_results/analogies/gpt2-medium.last_attention \
-#     --tokenizer gpt2-medium 
+mkdir -p rationalization_results/analogies/gpt2-medium.last_attention
+python src/rationalization/random_replacing/migrate_results_analogies.py \
+    --data-dir data/analogies \
+    --input-dir rationalization_results/analogies-old/last_attention \
+    --output-dir rationalization_results/analogies/gpt2-medium.last_attention \
+    --tokenizer gpt2-medium 
 
 # # Evaluate results. This can be done on a local machine
 # mkdir -p evaluation_results/analogies/

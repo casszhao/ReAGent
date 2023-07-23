@@ -11,7 +11,7 @@
     "importance_score_evaluator": {
         "type": "attention",
         "attention": {
-            "type": "last"
+            "type": "all"
         }
     }
 }

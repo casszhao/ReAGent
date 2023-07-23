@@ -1,16 +1,16 @@
 #!/bin/bash
-#SBATCH --comment=opt
+#SBATCH --comment=bloom
 #SBATCH --nodes=1
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --mem=82G
+#SBATCH --mem=200G
 #SBATCH --cpus-per-task=12
 #SBATCH --output=jobs.out/%j.log
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#$ -N opt
+#$ -N bloom
 #$ -m abe
 
 
@@ -23,8 +23,8 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate seq      # via conda
 # source .venv/bin/activate           # via venv
 
-model_name="KoboldAI/OPT-6.7B-Erebus"
-model_short_name="OPT6B"
+model_name="bigscience/bloom"
+model_short_name="bloom"
 FA_name="ours" # select from all_attention rollout_attention last_attention    
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
 cache_dir="cache/"
@@ -40,7 +40,6 @@ python src/data/prepare_evaluation_analogy.py \
     --device cuda \
     --model $model_name \
     --cache_dir $cache_dir 
-
 
 
 # Run rationalization task
@@ -66,8 +65,4 @@ python src/evaluation/evaluate_analogies.py \
     --eva_output_dir $eva_output_dir \
     --model $model_name \
     --tokenizer $model_name \
-    --logfile "logs/analogies/"$model_short_name \
-    --cache_dir $cache_dir
-
-
-    
+    --logfile "logs/analogies/"$model_short_name"_ours_eva.log" 
