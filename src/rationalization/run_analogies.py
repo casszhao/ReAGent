@@ -262,7 +262,16 @@ if __name__ == "__main__":
             pos_rationals, rationals = rationalizer.get_separate_rational(input_tokens, tokenizer)
             comments["separate_rational"] = rationals
         
-        important_score_mean = torch.mean(rationalizer.importance_score_evaluator.important_score, dim=0)
+        if rationalizer_type == "aggregation" and evaluator_type == 'delta_probability':
+            # ignore runs that not hit the stopping contition from mean
+            delta_prob_evaluator : DeltaProbImportanceScoreEvaluator = importance_score_evaluator
+            stop_mask = delta_prob_evaluator.stop_mask
+            important_score = rationalizer.importance_score_evaluator.important_score
+
+            important_score_masked = important_score * torch.unsqueeze(stop_mask, -1)
+            important_score_mean = torch.sum(important_score_masked, dim=0) / torch.sum(stop_mask)
+        else:
+            important_score_mean = torch.mean(rationalizer.importance_score_evaluator.important_score, dim=0)
 
         serialize_rational(
             output_filename,
