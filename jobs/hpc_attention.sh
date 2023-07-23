@@ -4,7 +4,7 @@
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --mem=16G
+#SBATCH --mem=82G
 #SBATCH --cpus-per-task=12
 #SBATCH --output=jobs.out/%j.log
 #SBATCH --time=4-00:00:00
@@ -63,7 +63,6 @@ python src/evaluation/evaluate_analogies.py \
     --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
     --rational_size_ratio $rationale_ratio_for_eva \
     --cache_dir $cache_dir 
-
 done
 
 
