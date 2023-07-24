@@ -25,9 +25,13 @@ source activate seq      # via conda
 
 model_name="KoboldAI/OPT-6.7B-Erebus"
 model_short_name="OPT6B"
-FA_name="ours" # select from all_attention rollout_attention last_attention    
-importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
 cache_dir="cache/"
+
+FA_name="ours" # select from all_attention rollout_attention last_attention    
+hyper="/top5_replace0.3_max3000"
+importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
+
+
 
 
 # # Generate evaluation data set (Only need to be done once)
@@ -42,24 +46,36 @@ cache_dir="cache/"
 #     --cache_dir $cache_dir 
 
 
-# Run rationalization task
-mkdir -p "$importance_results"
-mkdir -p "$logpath"
-python src/rationalization/run_analogies.py \
-    --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
-    --model $model_name \
-    --tokenizer $model_name \
-    --data-dir data/analogies/$model_short_name/ \
-    --importance_results_dir $importance_results \
-    --device cuda \
-    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
-    --input_num_ratio 1 \
-    --cache_dir $cache_dir
+# # Run rationalization task
+# mkdir -p "$importance_results"
+# mkdir -p "$logpath"
+# python src/rationalization/run_analogies.py \
+#     --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --data-dir data/analogies/$model_short_name/ \
+#     --importance_results_dir $importance_results \
+#     --device cuda \
+#     --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+#     --input_num_ratio 1 \
+#     --cache_dir $cache_dir
 
 
 
 eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name
 mkdir -p $eva_output_dir
+
+python src/evaluation/evaluate_analogies.py \
+    --importance_results_dir $importance_results \
+    --eva_output_dir $eva_output_dir \
+    --model $model_name \
+    --tokenizer $model_name \
+    --logfolder "logs/analogies/"$model_name"_"$FA_name \
+    --rational_size_ratio 0 \
+    --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
+    --cache_dir $cache_dir
+
+
 for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
 do
 echo "  for rationale "
@@ -71,6 +87,7 @@ python src/evaluation/evaluate_analogies.py \
     --tokenizer $model_name \
     --logfolder "logs/analogies/"$model_name"_"$FA_name \
     --rational_size_ratio $rationale_ratio_for_eva \
+    --rational_size_file None \
     --cache_dir $cache_dir
 done
 

@@ -1,6 +1,7 @@
 import pandas as pd
 
 model_name="gpt2-medium"
+hyper="/top5_replace0.3_max3000"
 
 def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
     eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}"
@@ -23,7 +24,7 @@ def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
     for ratio in ratio_list:
         faithful_results = pd.read_csv(eva_output_dir+f'/mean_{ratio}.csv')
 
-        if ratio < 1:
+        if 0 < ratio < 1: # 0.05 - 0.3
             suff_list.append(faithful_results['suff'][0])
             comp_list.append(faithful_results['comp'][0])
             suff_mean += faithful_results['suff'][0]
@@ -34,34 +35,42 @@ def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
             random_suff_mean += faithful_results['random_suff'][0]
             random_comp_mean += faithful_results['random_comp'][0]
         
-        else:
+        elif ratio == 0: # mean and fix len
             suff_list.append(suff_mean/diff_ratio_len)
             suff_list.append(faithful_results['suff'][0])
+
             comp_list.append(comp_mean/diff_ratio_len)
             comp_list.append(faithful_results['comp'][0])
 
             random_suff_list.append(random_suff_mean/diff_ratio_len)
             random_suff_list.append(faithful_results['random_suff'][0])
+
             random_comp_list.append(random_comp_mean/diff_ratio_len)
+            random_comp_list.append(faithful_results['random_comp'][0])
+        
+        else: # soft
+            suff_list.append(faithful_results['suff'][0])
+            comp_list.append(faithful_results['comp'][0])
+            random_suff_list.append(faithful_results['random_suff'][0])
             random_comp_list.append(faithful_results['random_comp'][0])
 
 
     return suff_list, comp_list, random_suff_list, random_comp_list
 
 
-ratio_list = [0.05, 0.1, 0.2, 0.3, 1.0]
+ratio_list = [0.05, 0.1, 0.2, 0.3, 0.0, 1.0] # 0 here for flexible len from greedy search and 1 for soft
 rollout_suff, rollout_comp, random_rollout_suff, random_rollout_comp = get_one_line_for_one_FA(model_name, "rollout_attention", ratio_list)
 last_suff, last_comp, random_last_suff, random_last_comp = get_one_line_for_one_FA(model_name, "last_attention", ratio_list)
 all_suff, all_comp, random_all_suff, random_all_comp = get_one_line_for_one_FA(model_name, "all_attention", ratio_list)
-ours_suff, ours_comp, ours_random_all_suff, ours_random_all_comp = get_one_line_for_one_FA(model_name, "ours", ratio_list)
+ours_suff, ours_comp, ours_random_all_suff, ours_random_all_comp = get_one_line_for_one_FA(model_name+hyper, "ours", ratio_list)
 
-# suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'Soft Suff'])
-# comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'Soft Comp'])
-suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','fix len Suff'])
-comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','fix len Comp'])
+suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
+comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
+# suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','fix len Suff'])
+# comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','fix len Comp'])
 
-random_suff_df = pd.DataFrame([random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=['Method','Suff'])
-random_comp_df = pd.DataFrame([random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=['Method','Comp'])
+random_suff_df = pd.DataFrame([random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
+random_comp_df = pd.DataFrame([random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
 
 print(suff_df)
 print(' ')
@@ -83,11 +92,11 @@ def div_and_save(suff_df, random_suff_df, save_name):
                 final_suff_df.at[row, col] = suff_df.at[row, col] / random_suff_df.at[row, col]
 
     print(final_suff_df)
-    final_suff_df.to_csv(f'evaluation_results/summary/faith_summary_{save_name}.csv')
+    final_suff_df.to_csv(f'evaluation_results/summary/faith_summary_{model_name}_{save_name}.csv')
     return final_suff_df
     
 final_suff_df = div_and_save(suff_df, random_suff_df, 'suff')
 final_comp_df = div_and_save(comp_df, random_comp_df, 'comp')
 
 stacked_df = pd.concat([final_suff_df, final_comp_df])
-stacked_df.to_csv('evaluation_results/summary/faith_summary.csv')
+stacked_df.to_csv(f'evaluation_results/summary/faith_summary_{model_name}.csv')

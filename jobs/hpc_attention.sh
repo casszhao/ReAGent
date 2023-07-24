@@ -25,6 +25,7 @@ source activate seq      # via conda
 
 model_name="KoboldAI/OPT-6.7B-Erebus" # "gpt2-medium" 
 model_short_name="OPT6B" #"gpt2"   
+hyper="/top5_replace0.3_max3000"
 cache_dir="cache/"    
 
 
@@ -32,13 +33,14 @@ cache_dir="cache/"
 
 
 
-FA_name="all_attention" # select from all_attention rollout_attention last_attention
+FA_name="last_attention" # select from all_attention rollout_attention last_attention
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
+
 # Run rationalization task
 mkdir -p $importance_results
 mkdir -p $logpath
 python src/rationalization/run_analogies.py \
-    --rationalization-config config/"$model_name"_"$FA_name".json \
+    --rationalization-config config/eva_$FA_name.json \
     --model $model_name \
     --tokenizer $model_name \
     --data-dir data/analogies/$model_short_name/ \
@@ -48,8 +50,9 @@ python src/rationalization/run_analogies.py \
     --cache_dir $cache_dir 
 
 
+
 # Evaluate results. This can be done on a local machine
-eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name
+eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name
 mkdir -p $eva_output_dir
 for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
 do
