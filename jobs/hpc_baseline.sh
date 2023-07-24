@@ -10,7 +10,8 @@
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#$ -N basel_FA
+#SBATCH --job-name=basel_FA
+
 #$ -m abe
 
 
@@ -30,7 +31,7 @@ FA_name="integrated"
 # select from : all_attention rollout_attention last_attention
 # select from: integrated norm signed
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
-
+eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name
 
 
 
@@ -52,23 +53,19 @@ importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_n
 
 
 
-eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name
-mkdir -p $eva_output_dir
 
 
-
-
-# ### evaluate flexi length
-# echo $rationale_ratio_for_eva
-# python src/evaluation/evaluate_analogies.py \
-#     --importance_results_dir $importance_results \
-#     --eva_output_dir $eva_output_dir \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
-#     --rational_size_ratio 0 \
-#     --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
-#     --cache_dir $cache_dir
+### evaluate flexi length
+echo $rationale_ratio_for_eva
+python src/evaluation/evaluate_analogies.py \
+    --importance_results_dir $importance_results \
+    --eva_output_dir $eva_output_dir \
+    --model $model_name \
+    --tokenizer $model_name \
+    --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
+    --rational_size_ratio 0 \
+    --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
+    --cache_dir $cache_dir
 
 ## evvaluate different length and soft suff/comp
 for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1

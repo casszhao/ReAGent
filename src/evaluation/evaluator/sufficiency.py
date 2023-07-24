@@ -62,10 +62,15 @@ class SufficiencyEvaluator(BaseMaskingEvaluator):
 
         return sufficiency
 
+
+
+
+
+
+
 if __name__ == "__main__":
 
     from transformers import AutoModelWithLMHead, AutoTokenizer
-    
     model = AutoModelWithLMHead.from_pretrained("gpt2-medium")
     tokenizer = AutoTokenizer.from_pretrained("gpt2-medium")
 

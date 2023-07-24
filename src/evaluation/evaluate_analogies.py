@@ -19,11 +19,11 @@ def main():
 
     parser.add_argument("--importance_results_dir", 
                         type=str,
-                        default="rationalization_results/analogies/test",
+                        default="rationalization_results/analogies/gpt2_ours/top3_replace0.3_max3000",
                         help="path for storing the importance scores extracted") # TODO
     parser.add_argument("--eva_output_dir", 
                         type=str,
-                        default="evaluation_results/analogies/test",
+                        default="evaluation_results/analogies/gpt2_ours/test",
                         help="") # TODO
     parser.add_argument("--model", 
                         type=str,
@@ -35,7 +35,7 @@ def main():
                         help="") # TODO
     parser.add_argument("--rational_size_ratio", 
                         type=float,
-                        default=0.3,
+                        default=1,  # soft then using 1
                         help="") # when using bash, it has error by cass
     parser.add_argument("--rational_size_file", 
                         type=str,
