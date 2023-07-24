@@ -19,6 +19,7 @@ from rationalizer.token_replacement.token_sampler.postag import POSTagTokenSampl
 from rationalizer.token_replacement.token_sampler.uniform import UniformTokenSampler
 from rationalizer.utils.serializing import serialize_rational
 from rationalizer.importance_score_evaluator.attention import AttentionImportanceScoreEvaluator
+from rationalizer.importance_score_evaluator.grad import GradientImportanceScoreEvaluator
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from natsort import natsorted
 import pathlib
@@ -177,6 +178,12 @@ if __name__ == "__main__":
             tokenizer=tokenizer,
             attn_type=rationalization_config["importance_score_evaluator"]["attention"]["type"]
         )
+    elif importance_score_evaluator_type == "gradient":
+        importance_score_evaluator = GradientImportanceScoreEvaluator(
+            model=model,
+            tokenizer=tokenizer,
+            grad_type=rationalization_config["importance_score_evaluator"]["gradient"]["type"]
+        )
     else:
         raise ValueError(f"Invalid importance_score_evaluator_type {importance_score_evaluator_type}")
         
@@ -228,12 +235,12 @@ if __name__ == "__main__":
         # rationalizer.trace_start()
 
         # rationalization
-        with torch.no_grad():
-            time_start = time.time()
-            pos_rational = rationalizer.rationalize(input_tokens, target_token)
-            time_end = time.time()
-            time_elapsed = time_end - time_start
-            logging.info(f"Rationalization done in {time_elapsed}")
+        # with torch.no_grad():
+        time_start = time.time()
+        pos_rational = rationalizer.rationalize(input_tokens, target_token)
+        time_end = time.time()
+        time_elapsed = time_end - time_start
+        logging.info(f"Rationalization done in {time_elapsed}")
 
         # convert results
 
