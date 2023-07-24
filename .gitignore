@@ -37,6 +37,7 @@ jobs.out
 */cass/cache/*
 *bin
 *lock
+/logs/*
 
 # model caches
 cache
