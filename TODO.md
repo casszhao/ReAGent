@@ -47,13 +47,14 @@ I know we have done attention, but compare to previous paper, we need at least a
 
 
 - Code
-  - [ ] FAs: integrated grads, 
-  - [ ] FAs: Grad norms 
-  - [ ] FAs: gradients * embeddings, 
+  - [x] FAs: integrated grads, (config.json - importance_score_evaluator.gradient.type = integrated)
+  - [x] FAs: Grad norms (config.json - importance_score_evaluator.gradient.type = norm)
+  - [x] FAs: gradients * embeddings, (config.json - importance_score_evaluator.gradient.type = signed)
+  - [ ] Test/Analysis required
   - [x] FAs: attention rollout (config.json - importance_score_evaluator.attention.type = rollout)
   - [x] FAs: last attention (config.json - importance_score_evaluator.attention.type = last)
   - [x] FAs: attention all (config.json - importance_score_evaluator.attention.type = all)
-  - [ ] Alternative: intergrate module inseq
+  <!-- - [ ] Alternative: intergrate module inseq -->
 - Results
   - [ ] FAs: integrated grads, 
   - [ ] FAs: gradients, 
