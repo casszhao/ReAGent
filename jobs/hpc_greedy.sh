@@ -1,16 +1,16 @@
 #!/bin/bash
-#SBATCH --comment=opt
+#SBATCH --comment=gpt2
 #SBATCH --nodes=1
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --mem=82G
+#SBATCH --mem=16G
 #SBATCH --cpus-per-task=12
 #SBATCH --output=jobs.out/%j.log
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#$ -N opt
+#$ -N gpt2
 #$ -m abe
 
 
@@ -23,23 +23,24 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate seq      # via conda
 # source .venv/bin/activate           # via venv
 
-model_name="KoboldAI/OPT-6.7B-Erebus"
-model_short_name="OPT6B"
+model_name="gpt2-medium"
+model_short_name="gpt2"
 hyper="/top5_replace0.3_max3000"
 
-FA_name="ours" # select from all_attention rollout_attention last_attention    
+FA_name="ours" 
+# select from: all_attention rollout_attention last_attention   
+# select from: norm integrated signed
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
 cache_dir="cache/"
 
 echo "importance results (rationalization results is in --->)"
 echo $importance_results
 
-
 # # Generate evaluation data set (Only need to be done once)
 # mkdir -p "data/analogies/"$model_short_name
 # python src/data/prepare_evaluation_analogy.py \
 #     --analogies-file data/analogies.txt \
-#     --output-dir "data/analogies/"$model_short_name \
+#     --output-dir data/analogies/gpt2 \
 #     --compact-output True \
 #     --schema-uri ../../docs/analogy.schema.json \
 #     --device cuda \
@@ -63,8 +64,9 @@ echo $importance_results
 
 
 
-eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
+eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name$hyper
 mkdir -p $eva_output_dir
+
 
 echo $rationale_ratio_for_eva
 python src/evaluation/evaluate_analogies.py \
@@ -90,8 +92,6 @@ python src/evaluation/evaluate_analogies.py \
     --tokenizer $model_name \
     --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
     --rational_size_ratio $rationale_ratio_for_eva \
+    --rational_size_file None \
     --cache_dir $cache_dir
 done
-
-
-    

@@ -90,8 +90,8 @@ def main():
     rational_size_file = args.rational_size_file
     device = args.device
 
-    if rational_size_file != None:
-        with open(rational_size_file) as f:
+    if args.rational_size_file != None:
+        with open(args.rational_size_file) as f:
             rational_size_dict = json.load(f)
 
     torch.set_default_dtype(torch.float64)
@@ -116,8 +116,10 @@ def main():
 
         for filename in filenames:
             rational_size = -1
-            if rational_size_dict != None:
-                rational_size = rational_size_dict[filename]
+            # if args.rational_size_file != None:
+            #     rational_size = rational_size_dict[filename]
+            try: rational_size = rational_size_dict[filename]
+            except: pass
 
             path_target = os.path.join(dirpath, filename)
             with open(path_target) as f:
@@ -141,7 +143,7 @@ def main():
                 norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
                 random_norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
-            elif args.rational_size_ratio == 1:
+            elif args.rational_size_ratio == 1: # eva soft
 
                 from evaluator.soft_norm_sufficiency import SoftNormalizedSufficiencyEvaluator
                 soft_norm_suff_evaluator = SoftNormalizedSufficiencyEvaluator(model)
@@ -169,6 +171,7 @@ def main():
     logging.info(f"mean - {metrics_mean[0].item()}, {metrics_mean[1].item()}, {metrics_mean[2].item()}, {metrics_mean[3].item()}")
 
     with open(os.path.join(output_dir, f'mean_{args.rational_size_ratio}.csv'), "w", newline="") as csv_mean_f:
+        print(' saving mean value')
         writer = csv.writer(csv_mean_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
         writer.writerow([ "suff", "comp", "random_suff", "random_comp"])
         writer.writerow([ metrics_mean[0].item(), metrics_mean[1].item(), metrics_mean[2].item(), metrics_mean[3].item()])

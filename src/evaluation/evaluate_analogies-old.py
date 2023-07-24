@@ -7,7 +7,7 @@ import os
 
 import torch
 
-from transformers import AutoTokenizer
+#from transformers import AutoTokenizer
 from natsort import natsorted
 
 
@@ -22,7 +22,7 @@ if __name__ == "__main__":
                         type=str,
                         default="rationalization_results/analogies/test",
                         help="") # TODO
-    parser.add_argument("--baseline-dir", 
+    parser.add_argument("--baseline_dir", 
                         type=str,
                         default="rationalization_results/analogies/gpt2-medium.last_attention",
                         help="") # TODO
@@ -30,17 +30,17 @@ if __name__ == "__main__":
                         type=str,
                         default="evaluation_results/analogies/test.csv",
                         help="") # TODO
-    parser.add_argument("--tokenizer", 
-                        type=str,
-                        default="gpt2-medium",
-                        help="") # TODO
+    # parser.add_argument("--tokenizer", 
+    #                     type=str,
+    #                     default="gpt2-medium",
+    #                     help="") # TODO
     args = parser.parse_args()
 
     data_dir = args.data_dir
     target_dir = args.target_dir
     baseline_dir = args.baseline_dir
     output_path = args.output_path
-    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
+    # tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
 
     rational_sizes = []
     no_distractors = []

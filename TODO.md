@@ -46,8 +46,8 @@ We will test on other model and feature attribution too. Do feature attribution 
 
 I know we have done attention, but compare to previous paper, we need at least another 3. I have some suggestion, but due to the time limit, please do the ones which are fast. package inseq
 
-
 - Code
+  - [ ] get the importance distribution for any arbitrary token predicted. 1. give a input generate a output. 2. get the importance distribution for one specific predicted token in the output, users request which token they want to get the distribution by position or token.
   - [x] FAs: integrated grads, (config.json - importance_score_evaluator.gradient.type = integrated)
   - [x] FAs: Grad norms (config.json - importance_score_evaluator.gradient.type = norm)
   - [x] FAs: gradients * embeddings, (config.json - importance_score_evaluator.gradient.type = signed)
@@ -57,19 +57,13 @@ I know we have done attention, but compare to previous paper, we need at least a
   - [x] FAs: attention all (config.json - importance_score_evaluator.attention.type = all)
   <!-- - [ ] Alternative: intergrate module inseq -->
 - Results
-  - [ ] FAs: integrated grads, 
-  - [ ] FAs: gradients, 
-  - [ ] FAs: gradients * embeddings, 
-  - [ ] FAs: attention rollout
-  - [ ] FAs: last attention
-  - [ ] FAs: attention all
-  - [ ] Alternative: intergrate module inseq
+  - [x] FAs: Summarise results
 
 
 
 
 
-- [ ] model: KoboldAI/OPT-6.7B-Erebus (too big to load locally, can r)
+- [x] model: KoboldAI/OPT-6.7B-Erebus (too big to load locally, can r)
 - [ ] model: openlm-research/open_llama_7b_v2 (downloading killed)
 - [ ] model: bigscience/bloom (half hour downloading, only done 10%)
 

@@ -25,7 +25,6 @@ source activate seq      # via conda
 
 model_name="KoboldAI/OPT-6.7B-Erebus" # "gpt2-medium" 
 model_short_name="OPT6B" #"gpt2"   
-hyper="/top5_replace0.3_max3000"
 cache_dir="cache/"    
 
 

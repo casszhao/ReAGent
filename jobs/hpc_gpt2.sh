@@ -25,12 +25,16 @@ source activate seq      # via conda
 
 model_name="gpt2-medium"
 model_short_name="gpt2"
-FA_name="ours" # select from all_attention rollout_attention last_attention    
-importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
-echo "importance results (rationalization results is in --->)"
-echo importance_results
+hyper="/top5_replace0.3_max5000"
+
+FA_name="ours" 
+# select from: all_attention rollout_attention last_attention   
+# select from: norm integrated signed
+importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
 cache_dir="cache/"
 
+echo "importance results (rationalization results is in --->)"
+echo $importance_results
 
 # # Generate evaluation data set (Only need to be done once)
 # mkdir -p "data/analogies/"$model_short_name
@@ -61,16 +65,44 @@ cache_dir="cache/"
 
 #python src/rationalization/migrate_results_analogies.py
 
-eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name
+eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
 mkdir -p $eva_output_dir
 
+
+### evaluate ant and ratio
 echo $rationale_ratio_for_eva
-python src/evaluation/evaluate_analogies.py \
-    --importance_results_dir $importance_results \
-    --eva_output_dir $eva_output_dir \
-    --model $model_name \
-    --tokenizer $model_name \
-    --logfolder "logs/analogies/"$model_name"_"$FA_name \
-    --rational_size_ratio 0 \
-    --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
-    --cache_dir $cache_dir
+python src/evaluation/evaluate_analogies-old.py \
+    --data-dir "data/analogies/"$model_short_name \
+    --target-dir $importance_results \
+    --output-path $eva_output_dir \
+    --baseline_dir $importance_results
+
+
+
+
+# echo $rationale_ratio_for_eva
+# python src/evaluation/evaluate_analogies.py \
+#     --importance_results_dir $importance_results \
+#     --eva_output_dir $eva_output_dir \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
+#     --rational_size_ratio 0 \
+#     --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
+#     --cache_dir $cache_dir
+
+
+
+# for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
+# do
+# echo "  for rationale "
+# echo $rationale_ratio_for_eva
+# python src/evaluation/evaluate_analogies.py \
+#     --importance_results_dir $importance_results \
+#     --eva_output_dir $eva_output_dir \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
+#     --rational_size_ratio $rationale_ratio_for_eva \
+#     --cache_dir $cache_dir
+# done

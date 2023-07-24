@@ -1,6 +1,6 @@
 import pandas as pd
 
-model_name="gpt2-medium"
+model_name="gpt2"
 hyper="/top5_replace0.3_max3000"
 
 def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
@@ -62,15 +62,19 @@ ratio_list = [0.05, 0.1, 0.2, 0.3, 0.0, 1.0] # 0 here for flexible len from gree
 rollout_suff, rollout_comp, random_rollout_suff, random_rollout_comp = get_one_line_for_one_FA(model_name, "rollout_attention", ratio_list)
 last_suff, last_comp, random_last_suff, random_last_comp = get_one_line_for_one_FA(model_name, "last_attention", ratio_list)
 all_suff, all_comp, random_all_suff, random_all_comp = get_one_line_for_one_FA(model_name, "all_attention", ratio_list)
+
+norms_suff, norms_comp, random_norms_suff, random_norms_comp = get_one_line_for_one_FA(model_name, "norm", ratio_list)
+signed_suff, signed_comp, random_signed_suff, random_signed_comp = get_one_line_for_one_FA(model_name, "signed", ratio_list)
+integrated_suff, integrated_comp, random_integrated_suff, random_integrated_comp = get_one_line_for_one_FA(model_name, "integrated", ratio_list)
 ours_suff, ours_comp, ours_random_all_suff, ours_random_all_comp = get_one_line_for_one_FA(model_name+hyper, "ours", ratio_list)
 
-suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
-comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
+suff_df = pd.DataFrame([norms_suff, signed_suff, integrated_suff, rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
+comp_df = pd.DataFrame([norms_comp, signed_comp, integrated_comp, rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
 # suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','fix len Suff'])
 # comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','fix len Comp'])
 
-random_suff_df = pd.DataFrame([random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
-random_comp_df = pd.DataFrame([random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
+random_suff_df = pd.DataFrame([random_norms_suff, random_signed_suff, random_integrated_suff, random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
+random_comp_df = pd.DataFrame([random_norms_comp, random_signed_comp, random_integrated_comp, random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
 
 print(suff_df)
 print(' ')
