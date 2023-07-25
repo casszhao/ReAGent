@@ -5,7 +5,7 @@ import json
 import logging
 import os
 import sys
-
+import pathlib
 import torch
 
 from transformers import AutoModelForCausalLM
@@ -19,11 +19,11 @@ def main():
 
     parser.add_argument("--importance_results_dir", 
                         type=str,
-                        default="rationalization_results/analogies/test",
+                        default="rationalization_results/analogies/gpt2_ours/top3_replace0.3_max3000",
                         help="path for storing the importance scores extracted") # TODO
     parser.add_argument("--eva_output_dir", 
                         type=str,
-                        default="evaluation_results/analogies/test",
+                        default="evaluation_results/analogies/gpt2_ours/test",
                         help="") # TODO
     parser.add_argument("--model", 
                         type=str,
@@ -34,8 +34,8 @@ def main():
                         default="gpt2-medium",  
                         help="") # TODO
     parser.add_argument("--rational_size_ratio", 
-                        type=str,
-                        default=0.3,
+                        type=float,
+                        default=1,  # soft then using 1
                         help="") # when using bash, it has error by cass
     parser.add_argument("--rational_size_file", 
                         type=str,
@@ -46,7 +46,7 @@ def main():
                         default="cuda",
                         help="") # TODO
     
-    parser.add_argument("--logfile", 
+    parser.add_argument("--logfolder", 
                         type=str,
                         default=None,
                         help="Logfile location to output")
@@ -60,16 +60,20 @@ def main():
                         help="store models")
     args = parser.parse_args()
 
+    print(' RATIONALE RATIO ==> ', args.rational_size_ratio)
+
     loglevel = args.loglevel
     # setup logging system
     logger = logging.getLogger()
     logger.setLevel(loglevel)
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
-    if args.logfile:
-        from pathlib import Path
-        Path(args.logfile).mkdir(parents=True, exist_ok=True)
-        file_handler = logging.FileHandler(args.logfile)
+    if args.logfolder:
+        if not os.path.exists(args.logfolder): 
+            print(' no such parent folder, create one: ', args.logfolder)
+            os.makedirs(args.logfolder) 
+
+        file_handler = logging.FileHandler(args.logfolder + 'eva.log')
         file_handler.setLevel(loglevel)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
@@ -80,13 +84,14 @@ def main():
     logger.addHandler(stdout_handler)
 
     target_dir = args.importance_results_dir
+    print(' target_dir: ', target_dir)
     output_dir = args.eva_output_dir
     rational_size_ratio = args.rational_size_ratio
     rational_size_file = args.rational_size_file
     device = args.device
 
-    if rational_size_file != None:
-        with open(rational_size_file) as f:
+    if args.rational_size_file != None:
+        with open(args.rational_size_file) as f:
             rational_size_dict = json.load(f)
 
     torch.set_default_dtype(torch.float64)
@@ -104,15 +109,17 @@ def main():
 
     metrics = []
 
-    with open(os.path.join(output_dir, 'details.csv'), "w", newline="") as csv_details_f:
+    with open(os.path.join(output_dir, f'details_{args.rational_size_ratio}.csv'), "w", newline="") as csv_details_f:
         details_writer = csv.writer(csv_details_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
-        details_writer.writerow(['id', "suff", "soft_suff", "comp", "soft_comp","random_suff", "random_soft_suff", "random_comp", "random_soft_comp"])
+        details_writer.writerow(['id', "suff", "comp","random_suff", "random_comp"])
         csv_details_f.flush()
 
         for filename in filenames:
             rational_size = -1
-            if rational_size_dict != None:
-                rational_size = rational_size_dict[filename]
+            # if args.rational_size_file != None:
+            #     rational_size = rational_size_dict[filename]
+            try: rational_size = rational_size_dict[filename]
+            except: pass
 
             path_target = os.path.join(dirpath, filename)
             with open(path_target) as f:
@@ -124,30 +131,34 @@ def main():
             importance_scores = torch.tensor([rationalization_result["importance-scores"]], device=device)
             random_importance_scores = normalise_random(torch.rand(importance_scores.size(), device=device))
 
-            from evaluator.norm_sufficiency import NormalizedSufficiencyEvaluator
-            norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, rational_size, rational_size_ratio)
-            norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
-            random_norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+            if args.rational_size_ratio < 1:
 
-            from evaluator.norm_comprehensiveness import NormalizedComprehensivenessEvaluator
-            norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, rational_size, rational_size_ratio)
-            norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
-            random_norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+                from evaluator.norm_sufficiency import NormalizedSufficiencyEvaluator
+                norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, rational_size, rational_size_ratio)
+                norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
+                random_norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
-            from evaluator.soft_norm_sufficiency import SoftNormalizedSufficiencyEvaluator
-            soft_norm_suff_evaluator = SoftNormalizedSufficiencyEvaluator(model)
-            soft_norm_suff = soft_norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
-            random_soft_norm_suff = soft_norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+                from evaluator.norm_comprehensiveness import NormalizedComprehensivenessEvaluator
+                norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, rational_size, rational_size_ratio)
+                norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
+                random_norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+
+            elif args.rational_size_ratio == 1: # eva soft
+
+                from evaluator.soft_norm_sufficiency import SoftNormalizedSufficiencyEvaluator
+                soft_norm_suff_evaluator = SoftNormalizedSufficiencyEvaluator(model)
+                norm_suff = soft_norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
+                random_norm_suff = soft_norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+                
+                from evaluator.soft_norm_comprehensiveness import SoftNormalizedComprehensivenessEvaluator
+                soft_norm_comp_evaluator = SoftNormalizedComprehensivenessEvaluator(model)
+                norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
+                random_norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
             
-            from evaluator.soft_norm_comprehensiveness import SoftNormalizedComprehensivenessEvaluator
-            soft_norm_comp_evaluator = SoftNormalizedComprehensivenessEvaluator(model)
-            soft_norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
-            random_soft_norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+            else: print(' args.rational_size_ratio need to be re defined between 0 to 1. 1 for soft')
 
-            logging.info(f"{filename} - {norm_suff.item()}, {soft_norm_suff.item()}, {norm_comp.item()}, {soft_norm_comp.item()}, {random_norm_suff.item()}, {random_soft_norm_suff.item()}, {random_norm_comp.item()}, {random_soft_norm_comp.item()}")
-            metric = [identifier,
-                      norm_suff.item(), soft_norm_suff.item(), norm_comp.item(), soft_norm_comp.item(),
-                      random_norm_suff.item(), random_soft_norm_suff.item(), random_norm_comp.item(), random_soft_norm_comp.item()]
+            logging.info(f"{filename} - {norm_suff.item()}, {norm_comp.item()}, {random_norm_suff.item()}, {random_norm_comp.item()}")
+            metric = [identifier, norm_suff.item(), norm_comp.item(), random_norm_suff.item(), random_norm_comp.item()]
             metrics.append(metric)
 
             details_writer.writerow(metric)
@@ -157,12 +168,13 @@ def main():
     metrics_t = torch.tensor(metrics_rm_id)
     metrics_mean = torch.mean(metrics_t, dim=0)
 
-    logging.info(f"mean - {metrics_mean[0].item()}, {metrics_mean[1].item()}, {metrics_mean[2].item()}, {metrics_mean[3].item()}, {metrics_mean[4].item()}, {metrics_mean[5].item()}, {metrics_mean[6].item()}, {metrics_mean[7].item()}")
+    logging.info(f"mean - {metrics_mean[0].item()}, {metrics_mean[1].item()}, {metrics_mean[2].item()}, {metrics_mean[3].item()}")
 
-    with open(os.path.join(output_dir, 'mean.csv'), "w", newline="") as csv_mean_f:
+    with open(os.path.join(output_dir, f'mean_{args.rational_size_ratio}.csv'), "w", newline="") as csv_mean_f:
+        print(' saving mean value')
         writer = csv.writer(csv_mean_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
-        writer.writerow([ "suff", "soft_suff", "comp", "soft_comp","random_suff", "random_soft_suff", "random_comp", "random_soft_comp" ])
-        writer.writerow([ metrics_mean[0].item(), metrics_mean[1].item(), metrics_mean[2].item(), metrics_mean[3].item(), metrics_mean[4].item(), metrics_mean[5].item(), metrics_mean[6].item(), metrics_mean[7].item() ])
+        writer.writerow([ "suff", "comp", "random_suff", "random_comp"])
+        writer.writerow([ metrics_mean[0].item(), metrics_mean[1].item(), metrics_mean[2].item(), metrics_mean[3].item()])
 
 if __name__ == "__main__":
     main()

@@ -15,7 +15,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", 
                         type=str,
-                        default="data/analogies",
+                        default="data/analogies/gpt2/",
                         help="") # TODO
     parser.add_argument("--input-dir", 
                         type=str,
@@ -25,16 +25,11 @@ if __name__ == "__main__":
                         type=str,
                         default="rationalization_results/analogies-greedy-lengths.json",
                         help="") # TODO
-    parser.add_argument("--tokenizer", 
-                        type=str,
-                        default="gpt2-medium",
-                        help="") # TODO
     args = parser.parse_args()
 
     data_dir = args.data_dir
     input_dir = args.input_dir
     output_path = args.output_path
-    tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
 
     dirpath, dirnames, filenames = next(os.walk(data_dir))
     # filenames.sort()

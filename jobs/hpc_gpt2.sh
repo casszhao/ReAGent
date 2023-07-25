@@ -4,11 +4,14 @@
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --mem=16G
+#SBATCH --mem=222G
 #SBATCH --cpus-per-task=12
 #SBATCH --output=jobs.out/%j.log
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
+
+#$ -N gpt2
+#$ -m abe
 
 
 # Load modules & activate env
@@ -20,17 +23,38 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate seq      # via conda
 # source .venv/bin/activate           # via venv
 
+cache_dir="cache/"
 model_name="gpt2-medium"
 model_short_name="gpt2"
-FA_name="ours" # select from all_attention rollout_attention last_attention    
-importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
-cache_dir="mnt/parscratch/users/cass/cache/"
+hyper="/top10_replace0.3_max3000"
 
+##########  selecting FA
+# select: ours
+# select from: all_attention rollout_attention last_attention   
+# select from: norm integrated signed
+FA_name="ours" 
+
+importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
+eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
+mkdir -p $importance_results
+mkdir -p $eva_output_dir
+mkdir -p logs/analogies/$model_name"_"$FA_name$hyper
+mkdir -p logs/analogies/$model_short_name"_"$FA_name$hyper
+
+
+# # Generate evaluation data set (Only need to be done once)
+# mkdir -p "data/analogies/"$model_short_name
+# python src/data/prepare_evaluation_analogy.py \
+#     --analogies-file data/analogies.txt \
+#     --output-dir data/analogies/gpt2 \
+#     --compact-output True \
+#     --schema-uri ../../docs/analogy.schema.json \
+#     --device cuda \
+#     --model $model_name \
+#     --cache_dir $cache_dir 
 
 
 # Run rationalization task
-mkdir -p "$importance_results"
-mkdir -p "$logpath"
 python src/rationalization/run_analogies.py \
     --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
     --model $model_name \
@@ -38,17 +62,49 @@ python src/rationalization/run_analogies.py \
     --data-dir data/analogies/$model_short_name/ \
     --importance_results_dir $importance_results \
     --device cuda \
-    --logfile "logs/analogies/"$model_short_name"_"$FA_name"_extracting.log" \
+    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
     --input_num_ratio 1 \
     --cache_dir $cache_dir
 
 
-# Evaluate results. This can be done on a local machine
-eva_output_dir="evaluation_results/analogies/ours/"
-mkdir -p $eva_output_dir
+
+# for greedy search ---> only once
+# python src/rationalization/migrate_results_analogies.py
+
+#  ONLY FOR GPT2
+echo $rationale_ratio_for_eva
 python src/evaluation/evaluate_analogies.py \
     --importance_results_dir $importance_results \
     --eva_output_dir $eva_output_dir \
     --model $model_name \
     --tokenizer $model_name \
-    --logfile "logs/analogies/"$model_short_name"_ours_eva.log" \
+    --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
+    --rational_size_ratio 0 \
+    --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
+    --cache_dir $cache_dir
+
+
+
+for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
+do
+echo "  for rationale "
+echo $rationale_ratio_for_eva
+python src/evaluation/evaluate_analogies.py \
+    --importance_results_dir $importance_results \
+    --eva_output_dir $eva_output_dir \
+    --model $model_name \
+    --tokenizer $model_name \
+    --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
+    --rational_size_ratio $rationale_ratio_for_eva \
+    --cache_dir $cache_dir
+done
+
+
+
+### evaluate ant and ratio
+echo $rationale_ratio_for_eva
+python src/evaluation/evaluate_analogies-old.py \
+    --data-dir "data/analogies/"$model_short_name \
+    --target-dir $importance_results \
+    --output-path $eva_output_dir \
+    --baseline_dir $importance_results

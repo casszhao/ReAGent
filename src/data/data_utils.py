@@ -96,7 +96,9 @@ def preprocess_analogies(analogies, tokenizer):
   # There are 14 kinds of analogies. Go through each, and create a dict of 
   # unique pairs that are both tokenized as single words.
   for analogy_index in range(1, len(split_analogies)):
+    print(print('======== analogy_index', analogy_index))
     analogy_type = split_analogies[analogy_index].split(" ")[1]
+    print(print('111 analogy_type', analogy_type))
     dense_analogies = split_analogies[analogy_index].split(" ")[2:]
     if analogy_index != len(split_analogies) - 1:
       dense_analogies = dense_analogies[:-1]  # Remove trailing whitespace.
@@ -108,14 +110,26 @@ def preprocess_analogies(analogies, tokenizer):
     second_parts = np.array([pair.split(" ")[1] for pair in unique_pairs])
     # We only keep the pairs where both words are tokenized as single word-
     # pieces using GPT-2's tokenizer.
-    valid_indices = [
-      x for x in range(len(first_parts)) 
-      if (len(tokenizer.encode(" " + first_parts[x])) == 1 and 
-          len(tokenizer.encode(" " + second_parts[x])) == 1)]
+
+    if "gpt2" in str(tokenizer.name_or_path):
+      valid_indices = [
+        x for x in range(len(first_parts)) 
+        if (len(tokenizer.encode(" " + first_parts[x])) == 1 and 
+            len(tokenizer.encode(" " + second_parts[x])) == 1)]
+    else:
+        valid_indices = [
+        x for x in range(len(first_parts)) 
+        if (len(tokenizer.encode(first_parts[x])) == 2 and 
+            len(tokenizer.encode(second_parts[x])) == 2)]  # llama and opt encode space, gpt2 does not
+
     all_analogies[analogy_type] = {}
     all_analogies[analogy_type]['a'] = first_parts[valid_indices]
     all_analogies[analogy_type]['b'] = second_parts[valid_indices]
   # Make some manual capitalization changes.
-  all_analogies['currency']['b'][6] = 'Won'
-  all_analogies['currency']['b'][4] = 'Euro'
+  try: 
+    all_analogies['currency']['b'][4] = 'Euro'
+    try: all_analogies['currency']['b'][6] = 'Won'
+    except: pass
+  except: pass
+  
   return all_analogies

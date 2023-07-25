@@ -1,0 +1,32 @@
+2023-07-20 23:54:52,282 [INFO] Rationalizing 0.json ...
+2023-07-21 00:31:35,104 [INFO] Importance score evaluated in 5000 steps.
+2023-07-21 00:31:35,109 [INFO] Rationalization done in 2202.8258652687073
+2023-07-21 00:31:35,109 [INFO] 
+2023-07-21 00:31:35,109 [INFO] 
+2023-07-21 00:31:35,109 [INFO] Input --> userob seemed Mixnd revolution SbetobMO to boot valuespowered
+ with%cc� backinglying//ob sticks abimly�ientsad nameence its S R adminndhe$.
+2023-07-21 00:31:35,109 [INFO] Target --> mile
+2023-07-21 00:31:35,109 [INFO] Rational positions --> tensor([], device='cuda:0', size=(1, 0), dtype=torch.int64)
+2023-07-21 00:31:35,109 [INFO] Rational words -->
+2023-07-21 00:31:35,109 [INFO] []
+2023-07-21 00:31:35,120 [INFO] 0.json done.
+2023-07-21 00:31:35,121 [INFO] 
+2023-07-21 00:31:35,121 [INFO] ========================
+2023-07-21 00:31:35,121 [INFO] 
+2023-07-21 00:31:35,137 [INFO] Rationalizing 1.json ...
+2023-07-21 01:08:16,515 [INFO] Importance score evaluated in 5000 steps.
+2023-07-21 01:08:16,519 [INFO] Rationalization done in 2201.3817858695984
+2023-07-21 01:08:16,519 [INFO] 
+2023-07-21 01:08:16,519 [INFO] 
+2023-07-21 01:08:16,519 [INFO] Input --> userob seemed Mixnd Open SbetobMO to boot valuespowered
+ with%cc� backinglying//ob sticks abimly�ientsad nameence its S R adminndhe$.
+2023-07-21 01:08:16,519 [INFO] Target --> arium
+2023-07-21 01:08:16,519 [INFO] Rational positions --> tensor([[29]], device='cuda:0')
+2023-07-21 01:08:16,519 [INFO] Rational words -->
+2023-07-21 01:08:16,519 [INFO] ['�']
+2023-07-21 01:08:16,530 [INFO] 1.json done.
+2023-07-21 01:08:16,530 [INFO] 
+2023-07-21 01:08:16,530 [INFO] ========================
+2023-07-21 01:08:16,531 [INFO] 
+2023-07-21 01:08:16,556 [INFO] Rationalizing 2.json ...
+2023-07-21 14:40:58,998 [INFO] Rationalizing 0.json ...

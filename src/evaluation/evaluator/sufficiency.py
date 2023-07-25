@@ -1,5 +1,7 @@
 from typing_extensions import override
 import torch
+import torch.nn.functional as F
+import torch.distributions as dist
 from transformers import AutoModelForCausalLM
 from .base_masking import BaseMaskingEvaluator
 
@@ -52,16 +54,23 @@ class SufficiencyEvaluator(BaseMaskingEvaluator):
         # by cass not by batch --> squeezed
         p = prob_masked.squeeze()
         q = prob_original.squeeze()
-        entropy = torch.nn.functional.kl_div(torch.log(q), p, reduction='sum')
-        normalized_cross_entropy = entropy / torch.log(torch.tensor(q.size()[0], dtype=torch.float32)) # to normalise to make sure the range of entropy between 0 -1
+        # entropy = torch.nn.functional.kl_div(torch.log(q), p, reduction='sum')
+        # normalized_cross_entropy = entropy / torch.log(torch.tensor(q.size()[0], dtype=torch.float32)) # to normalise to make sure the range of entropy between 0 -1
+
+        normalized_cross_entropy  = torch.sum(q * (torch.log(q/p)))
         sufficiency = 1 - max(0, normalized_cross_entropy)
 
         return sufficiency
 
+
+
+
+
+
+
 if __name__ == "__main__":
 
     from transformers import AutoModelWithLMHead, AutoTokenizer
-    
     model = AutoModelWithLMHead.from_pretrained("gpt2-medium")
     tokenizer = AutoTokenizer.from_pretrained("gpt2-medium")
 

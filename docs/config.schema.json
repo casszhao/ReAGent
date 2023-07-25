@@ -86,7 +86,8 @@
                     "type": "string",
                     "enum": [
                         "replacing",
-                        "attention"
+                        "attention",
+                        "gradient"
                     ]
                 },
                 "replacing": {
@@ -241,6 +242,21 @@
                                 "last",
                                 "all",
                                 "rollout"
+                            ]
+                        }
+                    }
+                },
+                "gradient": {
+                    "description": "Gradient importance score evaluators",
+                    "type": "object",
+                    "properties": { 
+                        "type": {
+                            "description": "Type of gradient",
+                            "type": "string",
+                            "enum": [
+                                "integrated",
+                                "norm",
+                                "signed"
                             ]
                         }
                     }

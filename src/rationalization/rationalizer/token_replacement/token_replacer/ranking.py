@@ -35,6 +35,7 @@ class RankingTokenReplacer(TokenReplacer):
         pos_sorted = torch.argsort(value, descending=True)
 
         top_n = self.top_n
+        
 
         if top_n == 0:
             top_n = int(math.ceil(self.top_n_ratio * value.shape[-1]))

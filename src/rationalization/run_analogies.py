@@ -19,8 +19,10 @@ from rationalizer.token_replacement.token_sampler.postag import POSTagTokenSampl
 from rationalizer.token_replacement.token_sampler.uniform import UniformTokenSampler
 from rationalizer.utils.serializing import serialize_rational
 from rationalizer.importance_score_evaluator.attention import AttentionImportanceScoreEvaluator
+from rationalizer.importance_score_evaluator.grad import GradientImportanceScoreEvaluator
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from natsort import natsorted
+import pathlib
 
 if __name__ == "__main__":
     
@@ -32,7 +34,7 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--cache_dir", 
                         type=str,
-                        default=None,
+                        default='cache/',
                         help="store models")
     parser.add_argument("--tokenizer", 
                         type=str,
@@ -61,7 +63,7 @@ if __name__ == "__main__":
                         default=1,
                         help="") # TODO
     
-    parser.add_argument("--logfile", 
+    parser.add_argument("--logfolder", 
                         type=str,
                         default=None,
                         help="Logfile location to output")
@@ -77,12 +79,12 @@ if __name__ == "__main__":
     logger.setLevel(loglevel)
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     
-    if args.logfile:
-        # from pathlib import Path
-        
-        # Path(args.logfile).mkdir(parents=True, exist_ok=True)
-        
-        file_handler = logging.FileHandler(args.logfile)
+    if args.logfolder:
+        if not os.path.exists(args.logfolder): 
+            print(' no such parent folder, create one: ', args.logfolder)
+            os.makedirs(args.logfolder) 
+
+        file_handler = logging.FileHandler(args.logfolder + 'run.log')
         file_handler.setLevel(loglevel)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
@@ -118,14 +120,19 @@ if __name__ == "__main__":
         
         stopping_condition_type = rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["type"]
         if stopping_condition_type == "top_k":
+            top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["top_k"]["tolerance"]
+            top_n=rationalization_config["rational"]["size"]
+            top_n_ratio=rationalization_config["rational"]["size_ratio"]
             stopping_condition_evaluator = TopKStoppingConditionEvaluator(
                 model=model, 
                 token_sampler=token_sampler, 
-                top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["top_k"]["tolerance"], 
-                top_n=rationalization_config["rational"]["size"], 
-                top_n_ratio=rationalization_config["rational"]["size_ratio"], 
+                top_k=top_k, 
+                top_n=top_n, 
+                top_n_ratio=top_n_ratio, 
                 tokenizer=tokenizer
             )
+            output_dir = output_dir + f'/top{top_k}_' # by cass
+
         elif stopping_condition_type == "dummy":
             stopping_condition_evaluator = DummyStoppingConditionEvaluator()
         else:
@@ -133,15 +140,19 @@ if __name__ == "__main__":
 
         evaluator_type = rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["type"]
         if evaluator_type == 'delta_probability':
+            replacing_ratio=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["replacing_ratio"]
+            max_steps=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["max_steps"]
+            output_dir = output_dir + f'replace{replacing_ratio}_max{max_steps}' # by cass
+
             importance_score_evaluator = DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 
                 token_replacer=UniformTokenReplacer(
                     token_sampler=token_sampler, 
-                    ratio=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["replacing_ratio"]
+                    ratio=replacing_ratio
                 ),
                 stopping_condition_evaluator=stopping_condition_evaluator,
-                max_steps=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["max_steps"]
+                max_steps=max_steps
             )
         elif evaluator_type == 'bayesian_optimization':
             importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
@@ -166,6 +177,12 @@ if __name__ == "__main__":
             model=model,
             tokenizer=tokenizer,
             attn_type=rationalization_config["importance_score_evaluator"]["attention"]["type"]
+        )
+    elif importance_score_evaluator_type == "gradient":
+        importance_score_evaluator = GradientImportanceScoreEvaluator(
+            model=model,
+            tokenizer=tokenizer,
+            grad_type=rationalization_config["importance_score_evaluator"]["gradient"]["type"]
         )
     else:
         raise ValueError(f"Invalid importance_score_evaluator_type {importance_score_evaluator_type}")
@@ -218,12 +235,12 @@ if __name__ == "__main__":
         # rationalizer.trace_start()
 
         # rationalization
-        with torch.no_grad():
-            time_start = time.time()
-            pos_rational = rationalizer.rationalize(input_tokens, target_token)
-            time_end = time.time()
-            time_elapsed = time_end - time_start
-            logging.info(f"Rationalization done in {time_elapsed}")
+        # with torch.no_grad():
+        time_start = time.time()
+        pos_rational = rationalizer.rationalize(input_tokens, target_token)
+        time_end = time.time()
+        time_elapsed = time_end - time_start
+        logging.info(f"Rationalization done in {time_elapsed}")
 
         # convert results
 
@@ -239,7 +256,10 @@ if __name__ == "__main__":
             logging.info(f"{text_rational}")
 
         # output
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
         output_filename = os.path.join(output_dir, filename)
+        print(f"==>> output_filename (importance scroes saved to): {output_filename}")
 
         # TODO: Save model for BO
         
@@ -260,6 +280,17 @@ if __name__ == "__main__":
         if rationalization_config["rationalizer"]["type"] == "aggregation" and rationalization_config["rationalizer"]["aggregation"]["save_separate_rational"]:
             pos_rationals, rationals = rationalizer.get_separate_rational(input_tokens, tokenizer)
             comments["separate_rational"] = rationals
+        
+        if rationalizer_type == "aggregation" and evaluator_type == 'delta_probability':
+            # ignore runs that not hit the stopping contition from mean
+            delta_prob_evaluator : DeltaProbImportanceScoreEvaluator = importance_score_evaluator
+            stop_mask = delta_prob_evaluator.stop_mask
+            important_score = rationalizer.importance_score_evaluator.important_score
+
+            important_score_masked = important_score * torch.unsqueeze(stop_mask, -1)
+            important_score_mean = torch.sum(important_score_masked, dim=0) / torch.sum(stop_mask)
+        else:
+            important_score_mean = torch.mean(rationalizer.importance_score_evaluator.important_score, dim=0)
 
         serialize_rational(
             output_filename,
@@ -268,7 +299,7 @@ if __name__ == "__main__":
             target_token[0], 
             pos_rational[0], 
             tokenizer, 
-            rationalizer.importance_score_evaluator.important_score[0],
+            important_score_mean,
             compact=False,
             comments=comments,
             # trace_rationalizer=rationalizer # Enable trace logs
