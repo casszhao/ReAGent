@@ -51,5 +51,5 @@ class NormalizedComprehensivenessEvaluator(BaseEvaluator):
         comprehensiveness = self.comprehensiveness_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         norm_comprehensiveness = comprehensiveness / (1 - sufficiency_0)
-        
+        #norm_comprehensiveness = comprehensiveness
         return norm_comprehensiveness

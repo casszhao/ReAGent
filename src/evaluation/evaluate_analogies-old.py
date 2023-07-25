@@ -16,9 +16,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", 
                         type=str,
-                        default="data/analogies",
+                        default="data/analogies/gpt2",
                         help="") # TODO
-    parser.add_argument("--target-dir", 
+    parser.add_argument("--target_dir", 
                         type=str,
                         default="rationalization_results/analogies/test",
                         help="") # TODO
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     logging.info(f"Ratio contain relative: {ratio_contain_relative}")
     logging.info(f"Mean baseline approximation ratio: {mean_baseline_approximation_ratio}")
 
-    with open(output_path, "w", newline="") as csv_f:
+    with open(output_path+'ant_ratio.csv', "w", newline="") as csv_f:
         writer = csv.writer(csv_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
         writer.writerow([ "Mean rational size", "Ratio no distractor", "Ratio contain relative", "Mean baseline approximation ratio" ])
         writer.writerow([ mean_rational_size.item(), ratio_no_distractor.item(), ratio_contain_relative.item(), mean_baseline_approximation_ratio.item() ])

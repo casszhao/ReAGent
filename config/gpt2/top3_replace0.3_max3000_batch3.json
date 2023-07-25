@@ -7,7 +7,7 @@
     "rationalizer": {
         "type": "aggregation",
         "aggregation": {
-            "batch_size": 5,
+            "batch_size": 3,
             "overlap_threshold": 2,
             "overlap_strict_pos": true,
             "save_separate_rational": true

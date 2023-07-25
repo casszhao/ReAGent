@@ -25,7 +25,7 @@ source activate seq      # via conda
 
 model_name="gpt2-medium"
 model_short_name="gpt2"  
-FA_name="rollout_attention" # select ours or greedy     
+FA_name="ours" # select ours or greedy     
 importance_results="rationalization_results/analogies/"$model_name"_"$FA_name
 echo "importance results (rationalization results is in --->)"
 echo importance_results
@@ -37,7 +37,7 @@ eva_output_dir="evaluation_results/analogies/"$model_name"_"$FA_name
 mkdir -p $eva_output_dir
 
 echo $rationale_ratio_for_eva
-python src/evaluation/evaluate_analogies.py \
+python src/evaluation/evaluate_analogies-old.py \
     --importance_results_dir $importance_results \
     --eva_output_dir $eva_output_dir \
     --model $model_name \

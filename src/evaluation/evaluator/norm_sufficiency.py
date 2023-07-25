@@ -50,7 +50,7 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         sufficiency = self.sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         norm_sufficiency = torch.clamp((sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
-        
+        #norm_sufficiency = sufficiency
         return norm_sufficiency
 
 if __name__ == "__main__":

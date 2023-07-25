@@ -51,5 +51,5 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
         soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
         soft_norm_sufficiency = torch.clamp((soft_sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
-        
+        #soft_norm_sufficiency = soft_sufficiency
         return soft_norm_sufficiency

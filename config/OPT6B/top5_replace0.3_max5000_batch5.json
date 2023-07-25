@@ -20,7 +20,7 @@
                 "type": "delta_probability",
                 "delta_probability": {
                     "replacing_ratio": 0.3,
-                    "max_steps": 3000
+                    "max_steps": 5000
                 }
             },
             "replacing": {

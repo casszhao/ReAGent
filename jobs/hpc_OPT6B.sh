@@ -13,7 +13,6 @@
 #$ -N opt
 #$ -m abe
 
-
 # Load modules & activate env
 
 module load Anaconda3/2022.10
@@ -21,11 +20,11 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 
 # Activate env
 source activate seq      # via conda
-# source .venv/bin/activate           # via venv
+
 cache_dir="cache/"
 model_name="KoboldAI/OPT-6.7B-Erebus"
 model_short_name="OPT6B"
-hyper="/top10_replace0.3_max3000"
+hyper="/top5_replace0.3_max5000_batch5"
 
 ##########  selecting FA
 # select: ours
@@ -38,7 +37,9 @@ eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
 mkdir -p $importance_results
 mkdir -p $eva_output_dir
 mkdir -p logs/analogies/$model_name"_"$FA_name$hyper
+logfolder=logs/analogies/$model_name"_"$FA_name$hyper
 mkdir -p logs/analogies/$model_short_name"_"$FA_name$hyper
+logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 
 
 # # Generate evaluation data set (Only need to be done once)
@@ -55,13 +56,13 @@ mkdir -p logs/analogies/$model_short_name"_"$FA_name$hyper
 
 # Run rationalization task
 python src/rationalization/run_analogies.py \
-    --rationalization-config config/aggregation.replacing_delta_prob.postag.json \
+    --rationalization-config config/$model_short_name$hyper".json" \
     --model $model_name \
     --tokenizer $model_name \
     --data-dir data/analogies/$model_short_name/ \
     --importance_results_dir $importance_results \
     --device cuda \
-    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+    --logfolder $logfolder_shortname \
     --input_num_ratio 1 \
     --cache_dir $cache_dir
 
@@ -80,17 +81,17 @@ python src/evaluation/evaluate_analogies.py \
     --eva_output_dir $eva_output_dir \
     --model $model_name \
     --tokenizer $model_name \
-    --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
+    --logfolder $logfolder_shortname \
     --rational_size_ratio $rationale_ratio_for_eva \
     --cache_dir $cache_dir
 done
 
 
 
-### evaluate ant and ratio
-echo $rationale_ratio_for_eva
-python src/evaluation/evaluate_analogies-old.py \
-    --data-dir "data/analogies/"$model_short_name \
-    --target-dir $importance_results \
-    --output-path $eva_output_dir \
-    --baseline_dir $importance_results
+# ### evaluate ant and ratio
+# echo $rationale_ratio_for_eva
+# python src/evaluation/evaluate_analogies-old.py \
+#     --data-dir "data/analogies/"$model_short_name \
+#     --target-dir $importance_results \
+#     --output-path $eva_output_dir \
+#     --baseline_dir $importance_results

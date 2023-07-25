@@ -19,7 +19,7 @@ def main():
 
     parser.add_argument("--importance_results_dir", 
                         type=str,
-                        default="rationalization_results/analogies/gpt2_ours/top3_replace0.3_max3000",
+                        default="rationalization_results/analogies/gpt2_ours/top5_replace0.3_max3000",
                         help="path for storing the importance scores extracted") # TODO
     parser.add_argument("--eva_output_dir", 
                         type=str,
@@ -175,6 +175,7 @@ def main():
         writer = csv.writer(csv_mean_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
         writer.writerow([ "suff", "comp", "random_suff", "random_comp"])
         writer.writerow([ metrics_mean[0].item(), metrics_mean[1].item(), metrics_mean[2].item(), metrics_mean[3].item()])
-
+        print("suff", metrics_mean[0].item(), "comp", metrics_mean[1].item())
+        print("random_suff", metrics_mean[2].item(), "random_comp",  metrics_mean[3].item())
 if __name__ == "__main__":
     main()

@@ -54,7 +54,6 @@ eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name
 
 
 
-
 ### evaluate flexi length
 echo $rationale_ratio_for_eva
 python src/evaluation/evaluate_analogies.py \

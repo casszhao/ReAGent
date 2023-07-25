@@ -71,11 +71,13 @@ ours_suff, ours_comp, ours_random_all_suff, ours_random_all_comp = get_one_line_
 
 suff_df = pd.DataFrame([norms_suff, signed_suff, integrated_suff, rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
 comp_df = pd.DataFrame([norms_comp, signed_comp, integrated_comp, rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
+print(f"comp_df ==>> {comp_df}")
 # suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','fix len Suff'])
 # comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','fix len Comp'])
 
 random_suff_df = pd.DataFrame([random_norms_suff, random_signed_suff, random_integrated_suff, random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
 random_comp_df = pd.DataFrame([random_norms_comp, random_signed_comp, random_integrated_comp, random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
+print(f"random_comp_df ==>> {random_comp_df}")
 
 
 # print(' ========== SUFF =========')
@@ -106,6 +108,7 @@ def div_and_save(suff_df, random_suff_df, save_name):
     
 final_suff_df = div_and_save(suff_df, random_suff_df, 'suff')
 final_comp_df = div_and_save(comp_df, random_comp_df, 'comp')
+
 
 stacked_df = pd.concat([final_suff_df, final_comp_df])
 stacked_df.to_csv(f'evaluation_results/summary/faith_summary_{model_name}.csv')
