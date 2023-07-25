@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 
 rational_size = 5
 rational_size_ratio = None
-max_steps = 3000
+max_steps = 30
 replace_ratio_for_update = 0.3
 topk_for_stopping=10
 batch=5
@@ -89,23 +89,47 @@ for target_pos in torch.arange(input_ids.shape[0], generated_ids.shape[0]):
     importance_score_map[target_pos - input_ids.shape[0], :target_pos] = rationalizer.mean_important_score
 
     print(f'{target_pos} / {generated_ids.shape[0]}')
-    print(f'Target word     --> {tokenizer.decode(target_id)[0]}', )
+    print(f'Target word     --> {tokenizer.decode(target_id)}', )
     print(f"Rational pos    --> {pos_rational}")
     print(f"Rational text   --> {text_rational}")
 
     print()
 
 
-    
-seaborn.set(rc={ 'figure.figsize': (30, 10) })
+
+
+import os
+dir = 'visual/'
+if not os.path.exists(dir):
+    os.makedirs(dir)
+output_path = f'{dir}test.csv'
+import csv
+score_list = importance_score_map.tolist()
+
+
+import csv
+
+with open(f'{dir}_test.csv', "w") as f:
+    wr = csv.writer(f)
+    wr.writerows(score_list)
+    print
+
+score_list.to_csv()
+
+#seaborn.set(rc={ 'figure.figsize': (30, 10) })
+seaborn.set(font_scale=2)
 s = seaborn.heatmap(
     importance_score_map, 
     xticklabels=generated_texts[:-1], 
     yticklabels=generated_texts[input_ids.shape[0]:], 
     annot=True, 
-    square=True).set(title=f'Explanation for ""{input_string}"", for Model {model_name}')
-s.set_xlabel('Importance distribution')
-s.set_ylabel('Target')
+    square=True)#.set(title=f'Explanation for ""{input_string}"", for Model {model_name}')
+s.set_xlabel('Importance distribution', fontsize=18)
+s.set_ylabel('Target', fontsize=33)
+s.fig.suptitle(f'Explanation for ""{input_string}"", for Model {model_name}')
 scatter_fig = s.get_figure()
-scatter_fig.savefig('visual/t1.png')
+
+
+
+scatter_fig.savefig(f'{dir}t2.png')
 print(' done')
