@@ -23,6 +23,7 @@ class GradientImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
 
         self.grad_type = grad_type
 
+    @torch.enable_grad()
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
         """Evaluate importance score of input sequence
 

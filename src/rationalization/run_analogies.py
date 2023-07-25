@@ -22,10 +22,9 @@ from rationalizer.importance_score_evaluator.attention import AttentionImportanc
 from rationalizer.importance_score_evaluator.grad import GradientImportanceScoreEvaluator
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from natsort import natsorted
-import pathlib
 
-if __name__ == "__main__":
-    
+
+def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--model", 
@@ -235,7 +234,6 @@ if __name__ == "__main__":
         # rationalizer.trace_start()
 
         # rationalization
-        # with torch.no_grad():
         time_start = time.time()
         pos_rational = rationalizer.rationalize(input_tokens, target_token)
         time_end = time.time()
@@ -311,3 +309,6 @@ if __name__ == "__main__":
         logging.info("")
         logging.info(f"========================")
         logging.info("")
+
+if __name__ == "__main__":
+    main()
