@@ -8,3 +8,4 @@ class BaseRationalizer(Traceable):
         super().__init__()
 
         self.importance_score_evaluator = importance_score_evaluator
+        self.mean_important_score = None

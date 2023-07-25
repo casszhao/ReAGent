@@ -38,9 +38,11 @@ class SampleRationalizer(BaseRationalizer):
             pos_top_n: rational position in the sequence [batch, rational_size]
 
         """
-        importance_score = self.importance_score_evaluator.evaluate(input_ids, target_id)
+        batch_importance_score = self.importance_score_evaluator.evaluate(input_ids, target_id)
+
+        self.mean_important_score = torch.mean(batch_importance_score, dim=0)
         
-        pos_sorted = torch.argsort(importance_score, dim=-1, descending=True)
+        pos_sorted = torch.argsort(batch_importance_score, dim=-1, descending=True)
 
         top_n = self.top_n
 

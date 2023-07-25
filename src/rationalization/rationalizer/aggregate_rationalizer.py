@@ -58,10 +58,12 @@ class AggregateRationalizer(BaseRationalizer):
 
         batch_input_ids = input_ids.repeat(self.batch_size, 1)
 
-        importance_scores = self.importance_score_evaluator.evaluate(batch_input_ids, target_id)
-        self.importance_scores = importance_scores
+        batch_importance_score = self.importance_score_evaluator.evaluate(batch_input_ids, target_id)
         
-        pos_sorted = torch.argsort(importance_scores, dim=-1, descending=True)
+        important_score_masked = batch_importance_score * torch.unsqueeze(self.importance_score_evaluator.stop_mask, -1)
+        self.mean_important_score = torch.sum(important_score_masked, dim=0) / torch.sum(self.importance_score_evaluator.stop_mask)
+
+        pos_sorted = torch.argsort(batch_importance_score, dim=-1, descending=True)
 
         top_n = self.top_n
 
