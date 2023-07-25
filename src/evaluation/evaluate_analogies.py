@@ -35,7 +35,7 @@ def main():
                         help="") # TODO
     parser.add_argument("--rational_size_ratio", 
                         type=float,
-                        default=1,  # soft then using 1
+                        default=1.0,  # soft then using 1
                         help="") # when using bash, it has error by cass
     parser.add_argument("--rational_size_file", 
                         type=str,

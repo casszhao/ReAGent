@@ -22,37 +22,28 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate seq      # via conda
 
 cache_dir="cache/"
-model_name="gpt2-medium"
-model_short_name="gpt2"
-hyper="/top5_replace0.3_max5000_batch8"
+model_name="gpt2-large"
 
-##########  selecting FA
-# select: ours
-# select from: all_attention rollout_attention last_attention   
-# select from: norm integrated signed
-FA_name="ours" 
+#"facebook/galactica-6.7b"
+#"facebook/galactica-1.3b"
+#"facebook/galactica-125m"
 
-importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
-eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
-mkdir -p $importance_results
-mkdir -p $eva_output_dir
-mkdir -p logs/analogies/$model_name"_"$FA_name$hyper
-logfolder=logs/analogies/$model_name"_"$FA_name$hyper
-mkdir -p logs/analogies/$model_short_name"_"$FA_name$hyper
-logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
+#"bigscience/bloom-7b1"
+#"bigscience/bloomz-1b1"
+#"bigscience/bloom-560m"
 
+#"KoboldAI/OPT-6.7B-Erebus"
 
-# # Generate evaluation data set (Only need to be done once)
-# mkdir -p "data/analogies/"$model_short_name
-# python src/data/prepare_evaluation_analogy.py \
-#     --analogies-file data/analogies.txt \
-#     --output-dir data/analogies/gpt2 \
-#     --compact-output True \
-#     --schema-uri ../../docs/analogy.schema.json \
-#     --device cuda \
-#     --model $model_name \
-#     --cache_dir $cache_dir 
+#"gpt2-medium"
+#"gpt2-large"
+
+#### NO
+#"stabilityai/FreeWilly2"
+#"TheBloke/Llama-2-13B-GPTQ"
+#"tiiuae/falcon-40b"
+#"mosaicml/mpt-7b-8k-instruct"
+
 
 
 # Run rationalization task
-python src/rationalization/notebook.py
+python src/rationalization/notebook.py --model_name $model_name

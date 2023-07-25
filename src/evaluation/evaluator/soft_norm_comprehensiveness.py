@@ -19,7 +19,8 @@ class SoftNormalizedComprehensivenessEvaluator(BaseEvaluator):
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rational_ratio=0)
+        #self.soft_sufficiency_evaluator_0 = SufficiencyEvaluator(model, rational_ratio=0)
+        self.soft_sufficiency_evaluator_0 = SoftSufficiencyEvaluator(model)
         self.soft_comprehensiveness_evaluator = SoftComprehensivenessEvaluator(model)
 
     
@@ -49,7 +50,7 @@ class SoftNormalizedComprehensivenessEvaluator(BaseEvaluator):
         
 
         soft_comprehensiveness = self.soft_comprehensiveness_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        soft_norm_comprehensiveness = soft_comprehensiveness / (1 - sufficiency_0)
+        soft_sufficiency_0 = self.soft_sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
+        soft_norm_comprehensiveness = soft_comprehensiveness / (1 - soft_sufficiency_0)
         #soft_norm_comprehensiveness = soft_comprehensiveness
         return soft_norm_comprehensiveness
