@@ -130,7 +130,7 @@ def main():
                 top_n_ratio=top_n_ratio, 
                 tokenizer=tokenizer
             )
-            output_dir = output_dir + f'/top{top_k}_' # by cass
+            #output_dir = output_dir + f'/top{top_k}_' # by cass
 
         elif stopping_condition_type == "dummy":
             stopping_condition_evaluator = DummyStoppingConditionEvaluator()

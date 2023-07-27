@@ -10,7 +10,7 @@
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#SBATCH --job-name=basel_FA
+#SBATCH --job-name=optBASE
 
 #$ -m abe
 
@@ -20,14 +20,14 @@ module load cuDNN/8.0.4.30-CUDA-11.1.1
 source activate seq      
 # source .venv/bin/activate           # via venv
 
-model_name="gpt2-medium"  # "gpt2-medium"   "KoboldAI/OPT-6.7B-Erebus"
-model_short_name="gpt2" #"gpt2"    "OPT6B"
+model_name="KoboldAI/OPT-6.7B-Erebus"  # "gpt2-medium"   "KoboldAI/OPT-6.7B-Erebus"
+model_short_name="OPT6B" #"gpt2"    "OPT6B"
 cache_dir="cache/"    
 
 
 
 
-FA_name="integrated" 
+FA_name="signed" 
 # select from : all_attention rollout_attention last_attention
 # select from: integrated norm signed
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
@@ -55,6 +55,8 @@ eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name
 
 
 ### evaluate flexi length
+if [model_short_name=="OPT6B"]
+then
 echo $rationale_ratio_for_eva
 python src/evaluation/evaluate_analogies.py \
     --importance_results_dir $importance_results \
@@ -65,6 +67,7 @@ python src/evaluation/evaluate_analogies.py \
     --rational_size_ratio 0 \
     --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
     --cache_dir $cache_dir
+fi
 
 ## evvaluate different length and soft suff/comp
 for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1

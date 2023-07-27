@@ -70,14 +70,46 @@ rationalizer = AggregateRationalizer(importance_score_evaluator=importance_score
 
 
 
-input_string = "Model explanation is a difficult "
-max_length = 12
+#input_string = "Model explanation is a difficult# "
+#input_string ="Drew appeared busy yet comfortable as she was spotted on Wednesday, on the set of a"
+input_string ="When my flight landed in, I converted my currency and slowly fell asleep. (I had a terrifying dream about my grandmother, but that's a story for another time). I was,"
+
+max_length = 55
 
 # generate prediction 
 input_ids = tokenizer(input_string, return_tensors='pt')['input_ids'][0].to(model.device)
+
 generated_ids = model.generate(input_ids=torch.unsqueeze(input_ids, 0), max_length=max_length, do_sample=False)[0]
+
 generated_texts = [ tokenizer.decode(token) for token in generated_ids ]
 print(f'generated full sequence --> {generated_texts}')
+
+
+
+print(f"len of input_ids ==>> {input_ids}")
+print(f"generated_ids ==>> {generated_ids}")
+
+immediate_probability = model(input_ids=torch.unsqueeze(input_ids, 0))[0][:, -1, :]
+immediate_probability_after_softmax = torch.softmax(immediate_probability, -1) 
+next_token_index =  len(input_ids) - len(generated_ids)
+next_token_id = generated_ids[next_token_index]
+
+print(f"==>> {next_token_id}, {tokenizer.decode(next_token_id)}")
+
+
+print(f"immediate_probability ==>> {immediate_probability}")
+print(f"immediate_probability_after_softmax ==>> {immediate_probability_after_softmax}")
+print("".center(50, "-"))
+# print(immediate_probability_after_softmax.size())
+# print(len(tokenizer))
+# print("".center(50, "-"))
+
+token_prob = immediate_probability_after_softmax[0,next_token_id]
+print(f"token_prob ==>> {token_prob}")
+print(immediate_probability_after_softmax[0,next_token_id])
+print(immediate_probability_after_softmax[0,21891])
+quit()
+
 
 
 # rationalize each generated token
