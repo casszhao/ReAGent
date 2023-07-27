@@ -87,7 +87,8 @@
                     "enum": [
                         "replacing",
                         "attention",
-                        "gradient"
+                        "gradient",
+                        "inseq"
                     ]
                 },
                 "replacing": {
@@ -244,7 +245,10 @@
                                 "rollout"
                             ]
                         }
-                    }
+                    },
+                    "required": [
+                        "type"
+                    ]
                 },
                 "gradient": {
                     "description": "Gradient importance score evaluators",
@@ -259,7 +263,28 @@
                                 "signed"
                             ]
                         }
-                    }
+                    },
+                    "required": [
+                        "type"
+                    ]
+                },
+                "inseq": {
+                    "description": "Inseq-based importance score evaluators",
+                    "type": "object",
+                    "properties": { 
+                        "type": {
+                            "description": "The attribution method used alongside the model. See https://inseq.readthedocs.io/en/latest/main_classes/feature_attribution.html#inseq.attr.FeatureAttribution",
+                            "type": "string"
+                        },
+                        "attribute_params": {
+                            "description": "Attribute parameters. See https://inseq.readthedocs.io/en/latest/main_classes/feature_attribution.html#inseq.attr.FeatureAttribution",
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "attribute_params"
+                    ]
                 }
             },
             "required": [

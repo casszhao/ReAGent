@@ -15,7 +15,7 @@
         }
     },
     "importance_score_evaluator": {
-        "type": "gradient",
+        "type": "inseq",
         "replacing": {
             "optimization": {
                 "type": "delta_probability",
@@ -57,6 +57,12 @@
         },
         "gradient": {
             "type": "integrated"
+        },
+        "inseq": {
+            "type": "input_x_gradient",
+            "attribute_params": {
+                "show_progress": false
+            }
         }
     }
 }

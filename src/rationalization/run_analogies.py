@@ -20,6 +20,7 @@ from rationalizer.token_replacement.token_sampler.uniform import UniformTokenSam
 from rationalizer.utils.serializing import serialize_rational
 from rationalizer.importance_score_evaluator.attention import AttentionImportanceScoreEvaluator
 from rationalizer.importance_score_evaluator.grad import GradientImportanceScoreEvaluator
+from rationalizer.importance_score_evaluator.inseq import InseqImportanceScoreEvaluator
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from natsort import natsorted
 
@@ -182,6 +183,13 @@ def main():
             model=model,
             tokenizer=tokenizer,
             grad_type=rationalization_config["importance_score_evaluator"]["gradient"]["type"]
+        )
+    elif importance_score_evaluator_type == "inseq":
+        importance_score_evaluator = InseqImportanceScoreEvaluator(
+            model=model,
+            tokenizer=tokenizer,
+            method=rationalization_config["importance_score_evaluator"]["inseq"]["type"],
+            attribute_params=rationalization_config["importance_score_evaluator"]["inseq"]["attribute_params"]
         )
     else:
         raise ValueError(f"Invalid importance_score_evaluator_type {importance_score_evaluator_type}")
