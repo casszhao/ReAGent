@@ -15,12 +15,13 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
 
         Args:
             model: AutoModelForCausalLM
-            rational_ratio: ratio of rational tokens
+            rationale_ratio: ratio of rational tokens
 
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rational_ratio=0)
+        self.soft_sufficiency_evaluator_0 = SufficiencyEvaluator(model, rationale_ratio=0)
+        #self.soft_sufficiency_evaluator_0 = SoftSufficiencyEvaluator(model)
         self.soft_sufficiency_evaluator = SoftSufficiencyEvaluator(model)
 
     @torch.no_grad()
@@ -49,7 +50,14 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
         
 
         soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        soft_norm_sufficiency = torch.clamp((soft_sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
+        print(' ')
+        print(f"soft_sufficiency==>> {soft_sufficiency}")
+        sufficiency_0 = self.soft_sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
+        print(f"soft sufficiency_0==>> {sufficiency_0}")
+        #soft_norm_sufficiency = torch.clamp((soft_sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
         #soft_norm_sufficiency = soft_sufficiency
+
+        soft_norm_sufficiency = max(0, soft_sufficiency-sufficiency_0)/(1-sufficiency_0)
+
+
         return soft_norm_sufficiency

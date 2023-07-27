@@ -58,5 +58,5 @@ class SoftSufficiencyEvaluator(BaseMaskingEvaluator):
         sqrt_q = torch.sqrt(q)
         distance = torch.norm(sqrt_p - sqrt_q) / torch.sqrt(torch.tensor(2.0))
         sufficiency = 1 - distance
-        print(f"==>> {sufficiency}")
+        
         return sufficiency

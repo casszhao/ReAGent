@@ -35,7 +35,7 @@ def main():
                         help="") # TODO
     parser.add_argument("--rational_size_ratio", 
                         type=float,
-                        default=1,  # soft then using 1
+                        default=1.0,  # soft then using 1
                         help="") # when using bash, it has error by cass
     parser.add_argument("--rational_size_file", 
                         type=str,
@@ -109,6 +109,10 @@ def main():
 
     metrics = []
 
+    if not os.path.exists(output_dir): 
+            print(' no such parent folder, create one: ', output_dir)
+            os.makedirs(output_dir) 
+
     with open(os.path.join(output_dir, f'details_{args.rational_size_ratio}.csv'), "w", newline="") as csv_details_f:
         details_writer = csv.writer(csv_details_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
         details_writer.writerow(['id', "suff", "comp","random_suff", "random_comp"])
@@ -161,6 +165,7 @@ def main():
             metric = [identifier, norm_suff.item(), norm_comp.item(), random_norm_suff.item(), random_norm_comp.item()]
             metrics.append(metric)
 
+            details_writer.writerow(metric)
             details_writer.writerow(metric)
             csv_details_f.flush()
 

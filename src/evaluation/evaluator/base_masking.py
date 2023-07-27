@@ -68,10 +68,13 @@ class BaseMaskingEvaluator(BaseEvaluator):
         # original prob
         if prob_original == None:
             logits_original = self.model(inputs_embeds=input_wte)["logits"]
+            print(f"logits_original.shape ==>> {logits_original.shape}")
             prob_original = torch.softmax(logits_original[:, input_ids.shape[1] - 1, :], -1) 
+            print(f"prob_original.shape ==>> {prob_original.shape}")
         
         # masked prob
         feature_masking_ratio = self.get_feature_masking_ratio(importance_scores)
+        #print(f"==>> {torch.sum(feature_masking_ratio)}")  # testing if suff 0 masking all 0
         input_wte_masked = BaseMaskingEvaluator.mask_zero_embedding(input_wte, feature_masking_ratio)
 
         logits_masked = self.model(inputs_embeds=input_wte_masked)["logits"]
