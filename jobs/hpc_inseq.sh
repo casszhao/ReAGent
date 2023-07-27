@@ -16,7 +16,9 @@
 
 
 module load Anaconda3/2022.10
-module load cuDNN/8.0.4.30-CUDA-11.1.1
+module load CUDA/11.7.0
+module load libs/boost/1.64.0/gcc-8.2-cmake-3.17.1
+# cuDNN/8.0.4.30-CUDA-11.1.1
 source activate inseq      
 # source .venv/bin/activate           # via venv
 
