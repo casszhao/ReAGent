@@ -19,11 +19,11 @@ def main():
 
     parser.add_argument("--importance_results_dir", 
                         type=str,
-                        default="rationalization_results/analogies/gpt2_ours/top5_replace0.3_max3000",
+                        default="rationalization_results/analogies/gpt2_ours/top5_replace0.2_max3000_batch5",
                         help="path for storing the importance scores extracted") # TODO
     parser.add_argument("--eva_output_dir", 
                         type=str,
-                        default="evaluation_results/analogies/gpt2_ours/test",
+                        default="evaluation_results/analogies/gpt2_ours/top5_replace0.2_max3000_batch5",
                         help="") # TODO
     parser.add_argument("--model", 
                         type=str,
@@ -48,7 +48,7 @@ def main():
     
     parser.add_argument("--logfolder", 
                         type=str,
-                        default=None,
+                        default='logs/gpt2_ours/top5_replace0.2_max3000_batch5',
                         help="Logfile location to output")
     parser.add_argument("--loglevel", 
                         type=int,
@@ -56,7 +56,7 @@ def main():
                         help="Debug level from [CRITICAL = 50, ERROR = 40, WARNING = 30, INFO = 20, DEBUG = 10, NOTSET = 0]")
     parser.add_argument("--cache_dir", 
                         type=str,
-                        default=None,
+                        default='cache/',
                         help="store models")
     args = parser.parse_args()
 

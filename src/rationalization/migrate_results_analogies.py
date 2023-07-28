@@ -14,17 +14,18 @@ from natsort import natsorted
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-dir", 
+    parser.add_argument("--data_dir", 
                         type=str,
                         default="data/analogies/gpt2/",
                         help="") # TODO
-    parser.add_argument("--input-dir", 
+    parser.add_argument("--input_dir", 
                         type=str,
-                        default="../sequential-rationales/huggingface/rationalization_results/analogies/gpt2_greedy",
+                        default="/mnt/parscratch/users/cass/seq_rationales/rationalization_results/analogies/gpt2_exhaustive/",
+                        #default="../../sequential-rationales/huggingface/rationalization_results/analogies/gpt2_exhaustive/",
                         help="") # TODO
-    parser.add_argument("--output-dir", 
+    parser.add_argument("--output_dir", 
                         type=str,
-                        default="rationalization_results/analogies/gpt2_greedy",
+                        default="rationalization_results/analogies/gpt2_exhaustive",
                         help="") # TODO
     parser.add_argument("--tokenizer", 
                         type=str,
@@ -49,7 +50,10 @@ if __name__ == "__main__":
         analogy_idx = data["comments"]["analogy_idx"]
         pair_idx = data["comments"]["pair_idx"]
 
+        
+
         result_old_path = os.path.join(input_dir, f"{analogy_idx}_{pair_idx}.json")
+        #print(' about to convert ', result_old_path)
         if not os.path.exists(result_old_path):
             logging.warning(f"[Warning] {result_old_path} not found. Skipping {filename}")
             continue

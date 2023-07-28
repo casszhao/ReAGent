@@ -24,7 +24,9 @@ source activate seq      # via conda
 cache_dir="cache/"
 model_name="gpt2-medium"
 model_short_name="gpt2"
-hyper="/top3_replace0.1_max3000_batch5"
+# hyper="/top3_replace0.1_max3000_batch5"
+hyper="/top3_replace0.1_max5000_batch5"
+
 
 ##########  selecting FA
 # select: ours
@@ -55,16 +57,16 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 
 
 # Run rationalization task
-python src/rationalization/run_analogies.py \
-    --rationalization-config config/$model_short_name$hyper".json" \
-    --model $model_name \
-    --tokenizer $model_name \
-    --data-dir data/analogies/$model_short_name/ \
-    --importance_results_dir $importance_results \
-    --device cuda \
-    --logfolder $logfolder_shortname \
-    --input_num_ratio 1 \
-    --cache_dir $cache_dir
+# python src/rationalization/run_analogies.py \
+#     --rationalization-config config/$model_short_name$hyper".json" \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --data-dir data/analogies/$model_short_name/ \
+#     --importance_results_dir $importance_results \
+#     --device cuda \
+#     --logfolder $logfolder_shortname \
+#     --input_num_ratio 1 \
+#     --cache_dir $cache_dir
 
 
 
@@ -72,6 +74,18 @@ python src/rationalization/run_analogies.py \
 # # python src/rationalization/migrate_results_analogies.py
 
 
+
+
+
+
+    
+### evaluate ANT and Ratio
+echo $rationale_ratio_for_eva
+python src/evaluation/evaluate_analogies-old.py \
+    --data-dir "data/analogies/"$model_short_name \
+    --target-dir $importance_results \
+    --output-path $eva_output_dir \
+    --baseline_dir $importance_results
 
 
 
@@ -101,12 +115,3 @@ python src/evaluation/evaluate_analogies.py \
     --rational_size_ratio 0 \
     --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
     --cache_dir $cache_dir
-
-    
-### evaluate ant and ratio
-echo $rationale_ratio_for_eva
-python src/evaluation/evaluate_analogies-old.py \
-    --data-dir "data/analogies/"$model_short_name \
-    --target-dir $importance_results \
-    --output-path $eva_output_dir \
-    --baseline_dir $importance_results

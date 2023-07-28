@@ -20,7 +20,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("--model_name", 
                     type=str,
-                    default='gpt2-medium',
+                    default='gpt2-medium', #'KoboldAI/OPT-6.7B-Erebus', #'gpt2-medium', 
                     help="path for storing the importance scores extracted") # TODO
 
 args = parser.parse_args()
@@ -31,6 +31,15 @@ device = "cuda"
 tokenizer = AutoTokenizer.from_pretrained(args.model_name, cache_dir='../../cache')
 model = AutoModelForCausalLM.from_pretrained(args.model_name, cache_dir='../../cache').to(device)
 
+
+# input_string = "Give me my bottle back. Please paraphrase this sentence::"
+# max_length = (input_string.split(' ')) * 2
+# # generate prediction 
+# input_ids = tokenizer(input_string, return_tensors='pt')['input_ids'][0].to(model.device)
+# generated_ids = model.generate(input_ids=torch.unsqueeze(input_ids, 0), do_sample=False, pad_token_id = 50256 )[0]
+# generated_texts = [ tokenizer.decode(token) for token in generated_ids ]
+# print(f"==>> {generated_texts}")
+# quit()
 
 rational_size = 5
 rational_size_ratio = None
