@@ -1,7 +1,7 @@
 #!/bin/bash
 
 module load Anaconda3/2022.10
-module load cuDNN/8.0.4.30-CUDA-11.1.1
+module load CUDA/11.8.0
 
 # Activate env
 source activate eva      # via conda

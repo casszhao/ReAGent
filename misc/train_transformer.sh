@@ -12,10 +12,10 @@
 # Load modules & activate env
 
 module load Anaconda3/2022.10
-module load cuDNN/8.0.4.30-CUDA-11.1.1
+module load CUDA/11.8.0
 
 # Activate env
-source activate seq      # via conda
+source activate dev-inseq      # via conda
 
 
 CHECKPOINT_DIR="./model/"

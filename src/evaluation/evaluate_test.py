@@ -33,14 +33,14 @@ def main():
                         type=str,
                         default="gpt2-medium",  
                         help="") # TODO
-    parser.add_argument("--rational_size_ratio", 
+    parser.add_argument("--rationale_size_ratio", 
                         type=float,
                         default=1.0,  # soft then using 1
                         help="") # when using bash, it has error by cass
     parser.add_argument("--rational_size_file", 
                         type=str,
                         default=None,
-                        help="A file that containing a json obj that maps sample-name to rational-size; rational_size_ratio will be ignored")
+                        help="A file that containing a json obj that maps sample-name to rational-size; rationale_size_ratio will be ignored")
     parser.add_argument("--device", 
                         type=str,
                         default="cuda",
@@ -60,7 +60,7 @@ def main():
                         help="store models")
     args = parser.parse_args()
 
-    print(' RATIONALE RATIO ==> ', args.rational_size_ratio)
+    print(' RATIONALE RATIO ==> ', args.rationale_size_ratio)
 
     loglevel = args.loglevel
     # setup logging system
@@ -86,7 +86,7 @@ def main():
     target_dir = args.importance_results_dir
     print(' target_dir: ', target_dir)
     output_dir = args.eva_output_dir
-    rational_size_ratio = args.rational_size_ratio
+    rationale_size_ratio = args.rationale_size_ratio
     rational_size_file = args.rational_size_file
     device = args.device
 
@@ -111,15 +111,15 @@ def main():
 
     metrics = []
 
-    with open(os.path.join(output_dir, f'details_{args.rational_size_ratio}.csv'), "w", newline="") as csv_details_f:
+    with open(os.path.join(output_dir, f'details_{args.rationale_size_ratio}.csv'), "w", newline="") as csv_details_f:
         details_writer = csv.writer(csv_details_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
         details_writer.writerow(['id', "suff", "comp","random_suff", "random_comp"])
         csv_details_f.flush()
 
-        for rational_size_ratio in [1.0]: #, 0.05, 0.1, 0.2, 0.3]:
+        for rationale_size_ratio in [1.0]: #, 0.05, 0.1, 0.2, 0.3]:
             print(' ')
-            print(' ============  rational_size_ratio  ========= ')
-            print(rational_size_ratio)
+            print(' ============  rationale_size_ratio  ========= ')
+            print(rationale_size_ratio)
 
             for filename in filenames:
                 rational_size = -1
@@ -139,19 +139,19 @@ def main():
                 random_importance_scores = normalise_random(torch.rand(importance_scores.size(), device=device))
 
 
-                if rational_size_ratio < 1:
+                if rationale_size_ratio < 1:
 
                     from evaluator.norm_sufficiency import NormalizedSufficiencyEvaluator
-                    norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, rational_size, rational_size_ratio)
+                    norm_suff_evaluator = NormalizedSufficiencyEvaluator(model, rational_size, rationale_size_ratio)
                     norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, importance_scores)
                     random_norm_suff = norm_suff_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
                     from evaluator.norm_comprehensiveness import NormalizedComprehensivenessEvaluator
-                    norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, rational_size, rational_size_ratio)
+                    norm_comp_evaluator = NormalizedComprehensivenessEvaluator(model, rational_size, rationale_size_ratio)
                     norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
                     random_norm_comp = norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
-                elif rational_size_ratio == 1.0: # eva soft
+                elif rationale_size_ratio == 1.0: # eva soft
 
                     print(' ')
                     
@@ -169,7 +169,7 @@ def main():
                     print(f"==>> norm suff {norm_suff}, {random_norm_suff}")
                     print(f"==>> norm comp {norm_comp}, {random_norm_comp}")
                 
-                else: print(' args.rational_size_ratio need to be re defined between 0 to 1. 1 for soft')
+                else: print(' args.rationale_size_ratio need to be re defined between 0 to 1. 1 for soft')
 
                 logging.info(f"{filename}:  suff & rand: {norm_suff.item()}, {random_norm_suff.item()}, comp & rand comp: {norm_comp.item()}, {random_norm_comp.item()}")
             
@@ -186,7 +186,7 @@ def main():
 
             logging.info(f"mean : {metrics_mean[0].item()}, {metrics_mean[1].item()}, {metrics_mean[2].item()}, {metrics_mean[3].item()}")
 
-            with open(os.path.join(output_dir, f'mean_{rational_size_ratio}.csv'), "w", newline="") as csv_mean_f:
+            with open(os.path.join(output_dir, f'mean_{rationale_size_ratio}.csv'), "w", newline="") as csv_mean_f:
                 print(' saving mean value')
                 writer = csv.writer(csv_mean_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
                 writer.writerow([ "suff", "comp", "random_suff", "random_comp"])

@@ -1,7 +1,7 @@
 import pandas as pd
 
 model_name="gpt2"
-hyper="top5_replace0.3_max5000_batch8"
+hyper="top3_replace0.1_max3000_batch5"
 
 def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
     eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}"
@@ -65,7 +65,7 @@ last_suff, last_comp, random_last_suff, random_last_comp = get_one_line_for_one_
 all_suff, all_comp, random_all_suff, random_all_comp = get_one_line_for_one_FA(model_name, "all_attention", ratio_list)
 
 norms_suff, norms_comp, random_norms_suff, random_norms_comp = get_one_line_for_one_FA(model_name, "norm", ratio_list)
-signed_suff, signed_comp, random_signed_suff, random_signed_comp = get_one_line_for_one_FA(model_name, "signed", ratio_list)
+signed_suff, signed_comp, random_signed_suff, random_signed_comp = get_one_line_for_one_FA(model_name, "inseq_ig", ratio_list)
 integrated_suff, integrated_comp, random_integrated_suff, random_integrated_comp = get_one_line_for_one_FA(model_name, "integrated", ratio_list)
 
 

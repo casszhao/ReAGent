@@ -16,10 +16,10 @@
 # Load modules & activate env
 
 module load Anaconda3/2022.10
-module load cuDNN/8.0.4.30-CUDA-11.1.1
+module load CUDA/11.8.0
 
 # Activate env
-source activate seq      # via conda
+source activate dev-inseq      # via conda
 
 cache_dir="cache/"
 model_name="KoboldAI/OPT-6.7B-Erebus"
@@ -82,7 +82,7 @@ python src/evaluation/evaluate_analogies.py \
     --model $model_name \
     --tokenizer $model_name \
     --logfolder $logfolder_shortname \
-    --rational_size_ratio $rationale_ratio_for_eva \
+    --rationale_size_ratio $rationale_ratio_for_eva \
     --cache_dir $cache_dir
 done
 

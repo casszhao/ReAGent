@@ -16,16 +16,16 @@
 # Load modules & activate env
 
 module load Anaconda3/2022.10
-module load cuDNN/8.0.4.30-CUDA-11.1.1
+module load CUDA/11.8.0
 
 # Activate env
-source activate seq      # via conda
+source activate dev-inseq      # via conda
 
 cache_dir="cache/"
 model_name="gpt2-medium"
 model_short_name="gpt2"
 # hyper="/top3_replace0.1_max3000_batch5"
-hyper="/top3_replace0.1_max5000_batch5"
+hyper="/top3_replace0.3_max3000_batch8"
 
 
 ##########  selecting FA
@@ -75,17 +75,11 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 
 
 
-
-
-
-    
-### evaluate ANT and Ratio
-echo $rationale_ratio_for_eva
-python src/evaluation/evaluate_analogies-old.py \
-    --data-dir "data/analogies/"$model_short_name \
-    --target-dir $importance_results \
-    --output-path $eva_output_dir \
-    --baseline_dir $importance_results
+# python src/evaluation/evaluate_analogies-old.py \
+#     --data-dir "data/analogies/"$model_short_name \
+#     --target_dir $importance_results \
+#     --output-path $eva_output_dir \
+#     --baseline_dir $importance_results
 
 
 
@@ -99,7 +93,7 @@ python src/evaluation/evaluate_analogies.py \
     --model $model_name \
     --tokenizer $model_name \
     --logfolder $logfolder_shortname \
-    --rational_size_ratio $rationale_ratio_for_eva \
+    --rationale_size_ratio $rationale_ratio_for_eva \
     --cache_dir $cache_dir
 done
 
@@ -112,6 +106,6 @@ python src/evaluation/evaluate_analogies.py \
     --model $model_name \
     --tokenizer $model_name \
     --logfolder $logfolder_shortname \
-    --rational_size_ratio 0 \
+    --rationale_size_ratio 0 \
     --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
     --cache_dir $cache_dir

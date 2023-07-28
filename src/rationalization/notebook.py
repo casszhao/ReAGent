@@ -42,7 +42,7 @@ model = AutoModelForCausalLM.from_pretrained(args.model_name, cache_dir='../../c
 # quit()
 
 rational_size = 5
-rational_size_ratio = None
+rationale_size_ratio = None
 max_steps = 3000 
 replace_ratio_for_update = 0.3 
 topk_for_stopping=5 # when you want to shorter rationale (greater importance for less tokens), give it a small number
@@ -54,7 +54,7 @@ stopping_condition_evaluator = TopKStoppingConditionEvaluator(model=model,
                                                                 token_sampler=token_sampler, 
                                                                 top_k=topk_for_stopping, 
                                                                 top_n=rational_size, 
-                                                                top_n_ratio=rational_size_ratio, 
+                                                                top_n_ratio=rationale_size_ratio, 
                                                                 tokenizer=tokenizer
                                                             )
 
@@ -73,7 +73,7 @@ rationalizer = AggregateRationalizer(importance_score_evaluator=importance_score
                                         overlap_threshold=2,
                                         overlap_strict_pos=True,
                                         top_n=rational_size, 
-                                        top_n_ratio=rational_size_ratio
+                                        top_n_ratio=rationale_size_ratio
                                     )
 
 

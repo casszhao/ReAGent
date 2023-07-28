@@ -39,8 +39,8 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         """
 
         if input_wte == None:
-            num_layers = model.config.transformer.num_layers # by cass on HPC
-            print(num_layers)
+            # num_layers = model.config.transformer.num_layers # by cass on HPC
+            # print(num_layers)
             input_wte = self.model.transformer.wte.weight[input_ids,:]
 
         # original prob

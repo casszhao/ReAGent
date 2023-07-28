@@ -152,7 +152,7 @@ def main():
     # replacing ratio during importance score updating
     updating_replacing_ratio = 0.3
     # keep top n word based on importance score for both stop condition evaluation and rationalization
-    rational_size_ratio = None
+    rationale_size_ratio = None
     rational_size = 5
     # stop when target exist in top k predictions
     stop_condition_tolerance = 5
@@ -186,7 +186,7 @@ def main():
                     token_sampler=UniformTokenSampler(tokenizer), 
                     top_k=stop_condition_tolerance, 
                     top_n=rational_size, 
-                    top_n_ratio=rational_size_ratio, 
+                    top_n_ratio=rationale_size_ratio, 
                     tokenizer=tokenizer
                 )
             ), 
@@ -194,7 +194,7 @@ def main():
             overlap_threshold=overlap_threshold,
             overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
-            top_n_ratio=rational_size_ratio
+            top_n_ratio=rationale_size_ratio
         )
     elif approach_sample_replacing_token == "inference":
         # Approach 2: sample replacing token from model inference
@@ -211,7 +211,7 @@ def main():
                     token_sampler=InferentialTokenSampler(tokenizer=tokenizer, model=model), 
                     top_k=stop_condition_tolerance, 
                     top_n=rational_size, 
-                    top_n_ratio=rational_size_ratio, 
+                    top_n_ratio=rationale_size_ratio, 
                     tokenizer=tokenizer
                 )
             ), 
@@ -219,7 +219,7 @@ def main():
             overlap_threshold=overlap_threshold,
             overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
-            top_n_ratio=rational_size_ratio
+            top_n_ratio=rationale_size_ratio
         )
     elif approach_sample_replacing_token == "postag":
         # Approach 3: sample replacing token from uniform distribution on a set of words with the same POS tag
@@ -237,7 +237,7 @@ def main():
                     token_sampler=ts, 
                     top_k=stop_condition_tolerance, 
                     top_n=rational_size, 
-                    top_n_ratio=rational_size_ratio, 
+                    top_n_ratio=rationale_size_ratio, 
                     tokenizer=tokenizer
                 )
             ), 
@@ -245,7 +245,7 @@ def main():
             overlap_threshold=overlap_threshold,
             overlap_strict_pos=overlap_strict_pos,
             top_n=rational_size, 
-            top_n_ratio=rational_size_ratio
+            top_n_ratio=rationale_size_ratio
         )
     else:
         raise ValueError("Invalid approach_sample_replacing_token")

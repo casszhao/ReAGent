@@ -17,10 +17,10 @@
 # Load modules & activate env
 
 module load Anaconda3/2022.10
-module load cuDNN/8.0.4.30-CUDA-11.1.1
+module load CUDA/11.8.0
 
 # Activate env
-source activate seq      # via conda
+source activate dev-inseq      # via conda
 # source .venv/bin/activate           # via venv
 
 model_name="gpt2-medium"
@@ -43,6 +43,6 @@ python src/evaluation/evaluate_analogies-old.py \
     --model $model_name \
     --tokenizer $model_name \
     --logfolder "logs/analogies/"$model_name"_"$FA_name \
-    --rational_size_ratio 0 \
+    --rationale_size_ratio 0 \
     --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
     --cache_dir $cache_dir
