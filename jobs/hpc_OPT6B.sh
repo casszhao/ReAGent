@@ -24,7 +24,7 @@ source activate dev-inseq      # via conda
 cache_dir="cache/"
 model_name="KoboldAI/OPT-6.7B-Erebus"
 model_short_name="OPT6B"
-hyper="/top3_replace0.2_max5000_batch10"
+hyper="/top3_replace0.3_max3000_batch3"
 
 ##########  selecting FA
 # select: ours
@@ -72,7 +72,7 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 # python src/rationalization/migrate_results_analogies.py
 
 
-for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
+for rationale_ratio_for_eva in 0.05 # 0.1 0.2 0.3 1
 do
 echo "  for rationale "
 echo $rationale_ratio_for_eva

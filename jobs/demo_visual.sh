@@ -22,7 +22,7 @@ module load CUDA/11.8.0
 source activate dev-inseq      # via conda
 
 cache_dir="cache/"
-model_name="gpt2-large"
+model_name="gpt2-medium"
 
 #"facebook/galactica-6.7b"
 #"facebook/galactica-1.3b"

@@ -1,7 +1,7 @@
 import pandas as pd
 
 model_name="gpt2"
-hyper="top3_replace0.3_max5000_batch8"
+hyper="top5_replace0.3_max5000_batch8"
 
 def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
     eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}"
