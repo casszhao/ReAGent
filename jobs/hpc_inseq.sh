@@ -10,7 +10,7 @@
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#SBATCH --job-name=optBASE
+#SBATCH --job-name=BASE
 
 #$ -m abe
 
@@ -83,5 +83,5 @@ python src/evaluation/evaluate_analogies.py \
     --tokenizer $model_name \
     --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
     --rationale_size_ratio 0 \
-    --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
+    --rationale_size_file "rationalization_results/analogies-greedy-lengths.json" \
     --cache_dir $cache_dir

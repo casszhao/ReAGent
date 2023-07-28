@@ -35,11 +35,11 @@ def main():
                         help="") # TODO
     parser.add_argument("--rationale_size_ratio", 
                         type=float,
-                        default=1.0,  # soft then using 1
+                        default=0.0,  # soft then using 1
                         help="defining rationale size, for evaluating Soft Suff and Comp, use 1.0, for fixing length as to compare with greedy search, using 0.0 ") # when using bash, it has error by cass
     parser.add_argument("--rational_size_file", 
                         type=str,
-                        default=None,
+                        default="rationalization_results/analogies-greedy-lengths.json",
                         help="A file that containing a json obj that maps sample-name to rational-size; rationale_size_ratio will be ignored")
     parser.add_argument("--device", 
                         type=str,
