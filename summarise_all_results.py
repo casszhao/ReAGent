@@ -105,7 +105,7 @@ def div_and_save(suff_df, random_suff_df, save_name):
 
     print(' =======>   final divided results =======')
     print(final_suff_df)
-    final_suff_df.to_csv(f'evaluation_results/summary/faith_summary_{model_name}_{save_name}.csv')
+    final_suff_df.to_csv(f'evaluation_results/summary/{save_name}_{model_name}_{hyper}.csv')
     return final_suff_df
     
 final_suff_df = div_and_save(suff_df, random_suff_df, 'suff')
@@ -113,4 +113,4 @@ final_comp_df = div_and_save(comp_df, random_comp_df, 'comp')
 
 
 stacked_df = pd.concat([final_suff_df, final_comp_df])
-stacked_df.to_csv(f'evaluation_results/summary/faith_summary_{model_name}_{hyper}.csv')
+stacked_df.to_csv(f'evaluation_results/summary/{model_name}_{hyper}.csv')
