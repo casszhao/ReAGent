@@ -1,7 +1,7 @@
 import pandas as pd
 
 model_name="gpt2"
-hyper="top5_replace0.3_max3000"
+hyper="top5_replace0.3_max5000_batch8"
 
 def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
     eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}"
@@ -66,22 +66,26 @@ all_suff, all_comp, random_all_suff, random_all_comp = get_one_line_for_one_FA(m
 
 norms_suff, norms_comp, random_norms_suff, random_norms_comp = get_one_line_for_one_FA(model_name, "norm", ratio_list)
 signed_suff, signed_comp, random_signed_suff, random_signed_comp = get_one_line_for_one_FA(model_name, "signed", ratio_list)
-integrated_suff, integrated_comp, random_integrated_suff, random_integrated_comp = get_one_line_for_one_FA(model_name, "integrated", ratio_list)
+integrated_suff, integrated_comp, random_integrated_suff, random_integrated_comp = get_one_line_for_one_FA(model_name, "inseq_ig", ratio_list)
+
+
 ours_suff, ours_comp, ours_random_all_suff, ours_random_all_comp = get_one_line_for_one_FA(model_name, "ours", ratio_list)
 
 suff_df = pd.DataFrame([norms_suff, signed_suff, integrated_suff, rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
 comp_df = pd.DataFrame([norms_comp, signed_comp, integrated_comp, rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
+#print(f"comp_df ==>> {comp_df}")
 # suff_df = pd.DataFrame([rollout_suff, last_suff, all_suff, ours_suff], columns=['Method','fix len Suff'])
 # comp_df = pd.DataFrame([rollout_comp, last_comp, all_comp, ours_comp], columns=['Method','fix len Comp'])
 
 random_suff_df = pd.DataFrame([random_norms_suff, random_signed_suff, random_integrated_suff, random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=['Method','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff'])
 random_comp_df = pd.DataFrame([random_norms_comp, random_signed_comp, random_integrated_comp, random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=['Method','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp'])
+#print(f"random_comp_df ==>> {random_comp_df}")
 
 
-# print(' ========== SUFF =========')
-# print(suff_df)
-# print(' ========== RANDOM SUFF =========')
-# print(random_suff_df)
+print(' ========== SUFF =========')
+print(suff_df)
+print(' ========== RANDOM SUFF =========')
+print(random_suff_df)
 # print(' ')
 # print(' ')
 # print(' ========== Comp =========')
@@ -101,11 +105,14 @@ def div_and_save(suff_df, random_suff_df, save_name):
 
     print(' =======>   final divided results =======')
     print(final_suff_df)
-    final_suff_df.to_csv(f'evaluation_results/summary/faith_summary_{model_name}_{save_name}.csv')
+    final_suff_df.to_csv(f'evaluation_results/summary/{model_name}/{save_name}_{hyper}.csv')
     return final_suff_df
     
 final_suff_df = div_and_save(suff_df, random_suff_df, 'suff')
 final_comp_df = div_and_save(comp_df, random_comp_df, 'comp')
 
+
 stacked_df = pd.concat([final_suff_df, final_comp_df])
-stacked_df.to_csv(f'evaluation_results/summary/faith_summary_{model_name}.csv')
+stacked_df.to_csv(f'evaluation_results/summary/{model_name}/{hyper}.csv')
+
+print(' Done')

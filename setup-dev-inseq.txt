@@ -1,0 +1,52 @@
+# resources
+srun --mem=16G --partition=gpu --qos=gpu --nodes=1 --gres=gpu:1 --pty bash -i
+
+# load libs
+module load Anaconda3/2022.10
+module load CUDA/11.8.0
+
+# create env
+conda create -n dev-inseq python=3.10
+
+# active env
+source activate dev-inseq
+
+# install packages
+pip install inseq
+pip install natsort
+
+# freeze packages
+pip freeze > requirments-inseq.txt
+
+
+
+# test 1: passed
+
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/eva_inseq_ig.json \
+    --model gpt2-medium \
+    --tokenizer gpt2-medium \
+    --data-dir data/analogies/gpt2/ \
+    --importance_results_dir rationalization_results/analogies/gpt2_inseq_ig \
+    --device cuda \
+    --logfolder logs/analogies/gpt2_inseq_ig \
+    --cache_dir cache
+
+# test 2: passed
+
+python src/evaluation/evaluate_analogies.py \
+    --importance_results_dir rationalization_results/analogies/gpt2_inseq_ig \
+    --eva_output_dir evaluation_results/analogies/gpt2_inseq_ig \
+    --model gpt2-medium \
+    --tokenizer gpt2-medium \
+    --logfolder logs/analogies/gpt2_inseq_ig \
+    --rationale_size_ratio 1 \
+    --cache_dir cache 
+
+# test 3: passed
+
+python src/evaluation/evaluate_analogies-old.py \
+    --data-dir data/analogies/gpt2 \
+    --target_dir rationalization_results/analogies/gpt2_inseq_ig \
+    --baseline_dir rationalization_results/analogies/gpt2_exhaustive \
+    --output-path evaluation_results/analogies/gpt2_inseq_ig/old_methods.csv 

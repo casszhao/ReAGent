@@ -46,7 +46,14 @@ class SoftComprehensivenessEvaluator(BaseMaskingEvaluator):
         p = prob_masked.squeeze()
         q = prob_original.squeeze()
         
-        normalized_cross_entropy  = torch.sum(q * (torch.log(q/p)))
-        comprehensiveness = max(0, normalized_cross_entropy)
+        p = p / torch.sum(p)
+        q = q / torch.sum(q)
+        sqrt_p = torch.sqrt(p)
+        sqrt_q = torch.sqrt(q)
+        comprehensiveness = torch.norm(sqrt_p - sqrt_q) / torch.sqrt(torch.tensor(2.0))
+        
+
+        #normalized_cross_entropy  = torch.sum(q * (torch.log(q/p)))
+        #comprehensiveness = max(0, normalized_cross_entropy)
 
         return comprehensiveness

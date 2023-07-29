@@ -24,7 +24,7 @@
     for rationalRatio in "${rationalRatioSet[@]}"; do
         echo "Run with rationalRatio: $rationalRatio"
         # run the program
-        python evaluate_analogies.py --rational_size_ratio $rationalRatio --eva_output_dir "<specify dir>"
+        python evaluate_analogies.py --rationale_size_ratio $rationalRatio --eva_output_dir "<specify dir>"
     done
 
     ```

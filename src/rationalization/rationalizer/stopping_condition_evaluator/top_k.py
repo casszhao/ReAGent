@@ -61,7 +61,9 @@ class TopKStoppingConditionEvaluator(StoppingConditionEvaluator):
 
         # Whether the result \hat{y^{(e)}_{t+1}} consistent with y_{t+1}
 
-        logits_replaced = self.model(input_ids_replaced)['logits']
+        assert input_ids_replaced.requires_grad == False, "Error: auto-diff engine not disabled"
+        with torch.no_grad():
+            logits_replaced = self.model(input_ids_replaced)['logits']
 
         if self.trace_target_likelihood != None:
             self.trace_target_likelihood.append(torch.softmax(logits_replaced, dim=-1)[:, -1, target_id])

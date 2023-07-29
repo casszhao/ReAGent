@@ -8,19 +8,19 @@ from .comprehensiveness import ComprehensivenessEvaluator
 class NormalizedSufficiencyEvaluator(BaseEvaluator):
 
     @override
-    def __init__(self, model: AutoModelForCausalLM, rational_size: int = 0, rational_ratio: float = 0) -> None:
+    def __init__(self, model: AutoModelForCausalLM, rational_size: int = 0, rationale_ratio: float = 0) -> None:
         """ Constructor
 
         Args:
             model: AutoModelForCausalLM
-            rational_size: number of rational tokens, rational_ratio will be ignored
-            rational_ratio: ratio of rational tokens
+            rational_size: number of rational tokens, rationale_ratio will be ignored
+            rationale_ratio: ratio of rational tokens
 
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rational_ratio=0)
-        self.sufficiency_evaluator = SufficiencyEvaluator(model, rational_size, rational_ratio)
+        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rationale_ratio=0)
+        self.sufficiency_evaluator = SufficiencyEvaluator(model, rational_size, rationale_ratio)
 
     @torch.no_grad()
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor, importance_scores: torch.Tensor, input_wte: torch.Tensor = None, prob_original: torch.Tensor = None) -> torch.Tensor:
@@ -39,7 +39,13 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         """
 
         if input_wte == None:
+            num_layers = self.model.config.transformer.num_layers # by cass on HPC
+            print("".center(50, "-"))
+            print("".center(50, "-"))
+            print(self.model)
+            print(num_layers)
             input_wte = self.model.transformer.wte.weight[input_ids,:]
+            quit()
 
         # original prob
         if prob_original == None:
@@ -48,9 +54,13 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         
 
         sufficiency = self.sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
+        print(' ')
+        print(f"sufficiency==>> {sufficiency}")
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        norm_sufficiency = torch.clamp((sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
-        
+        print(f"sufficiency_0==>> {sufficiency_0}")
+        #norm_sufficiency = torch.clamp((sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
+        #norm_sufficiency = sufficiency
+        norm_sufficiency = max(0,sufficiency-sufficiency_0)/(1-sufficiency_0)
         return norm_sufficiency
 
 if __name__ == "__main__":

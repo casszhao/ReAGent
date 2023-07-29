@@ -17,8 +17,8 @@
 # Load modules & activate env
 
 module load Anaconda3/2022.10
-module load cuDNN/8.0.4.30-CUDA-11.1.1
-source activate seq      # via conda
+module load CUDA/11.8.0
+source activate dev-inseq      # via conda
 
 
 python src/evaluation/gen_map_rational_size.py #llm_testing.sh

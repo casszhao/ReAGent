@@ -8,19 +8,19 @@ from .comprehensiveness import ComprehensivenessEvaluator
 class NormalizedComprehensivenessEvaluator(BaseEvaluator):
 
     @override
-    def __init__(self, model: AutoModelForCausalLM, rational_size: int = 0, rational_ratio: float = 0) -> None:
+    def __init__(self, model: AutoModelForCausalLM, rational_size: int = 0, rationale_ratio: float = 0) -> None:
         """ Constructor
 
         Args:
             model: AutoModelForCausalLM
-            rational_size: number of rational tokens, rational_ratio will be ignored
-            rational_ratio: ratio of rational tokens
+            rational_size: number of rational tokens, rationale_ratio will be ignored
+            rationale_ratio: ratio of rational tokens
 
         """
         super().__init__()
         self.model = model
-        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rational_ratio=0)
-        self.comprehensiveness_evaluator = ComprehensivenessEvaluator(model, rational_size, rational_ratio)
+        self.sufficiency_evaluator_0 = SufficiencyEvaluator(model, rationale_ratio=0)
+        self.comprehensiveness_evaluator = ComprehensivenessEvaluator(model, rational_size, rationale_ratio)
 
     
     @torch.no_grad()
@@ -49,7 +49,10 @@ class NormalizedComprehensivenessEvaluator(BaseEvaluator):
         
 
         comprehensiveness = self.comprehensiveness_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
+        print(' ')
+        print(f"comprehensiveness ==>> {comprehensiveness}")
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        norm_comprehensiveness = comprehensiveness / (1 - sufficiency_0)
-        
+        print(f"sufficiency_0 ==>> {sufficiency_0}")
+        norm_comprehensiveness = comprehensiveness / (1-sufficiency_0)
+        #norm_comprehensiveness = comprehensiveness
         return norm_comprehensiveness

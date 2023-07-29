@@ -8,18 +8,18 @@ from .base_masking import BaseMaskingEvaluator
 class ComprehensivenessEvaluator(BaseMaskingEvaluator):
 
     @override
-    def __init__(self, model: AutoModelForCausalLM, rational_size: int = 0, rational_ratio: float = 0) -> None:
+    def __init__(self, model: AutoModelForCausalLM, rational_size: int = 0, rationale_ratio: float = 0) -> None:
         """ Constructor
 
         Args:
             model: AutoModelForCausalLM
-            rational_size: number of rational tokens, rational_ratio will be ignored
-            rational_ratio: ratio of rational tokens
+            rational_size: number of rational tokens, rationale_ratio will be ignored
+            rationale_ratio: ratio of rational tokens
 
         """
         super().__init__(model)
         self.rational_size = rational_size
-        self.rational_ratio = rational_ratio
+        self.rationale_ratio = rationale_ratio
 
     @override
     def get_feature_masking_ratio(self, importance_scores: torch.Tensor) -> torch.Tensor:
@@ -34,7 +34,7 @@ class ComprehensivenessEvaluator(BaseMaskingEvaluator):
         """
         top_k = self.rational_size
         if top_k <= 0:
-            top_k = int(self.rational_ratio * importance_scores.shape[1])
+            top_k = int(self.rationale_ratio * importance_scores.shape[1])
 
         binary_rational_mask = BaseMaskingEvaluator.create_binary_rational_mask(importance_scores, top_k)
         binary_nonrational_mask = 1 - binary_rational_mask
@@ -57,7 +57,13 @@ class ComprehensivenessEvaluator(BaseMaskingEvaluator):
         p = prob_masked.squeeze()
         q = prob_original.squeeze()
         
-        normalized_cross_entropy  = torch.sum(q * (torch.log(q/p)))
-        comprehensiveness = max(0, normalized_cross_entropy)
+        p = p / torch.sum(p)
+        q = q / torch.sum(q)
+        sqrt_p = torch.sqrt(p)
+        sqrt_q = torch.sqrt(q)
+        comprehensiveness = torch.norm(sqrt_p - sqrt_q) / torch.sqrt(torch.tensor(2.0))
+
+        # normalized_cross_entropy  = torch.sum(q * (torch.log(q/p)))
+        # comprehensiveness = max(0, normalized_cross_entropy)
         
         return comprehensiveness

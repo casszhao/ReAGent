@@ -28,3 +28,10 @@ For the analogies experiment, we use the [analogies dataset](https://aclweb.org/
 - `logs`: logs
 - `notes`: misc
 - `rationalization_results`: results of rationalization
+
+
+### reproducing baseline greedy search and exhaustic search
+
+we use the code from the origin paper, Rationales for Sequential Predictions, to run the greedy search (using their off shef compatible GPT2 model) and exhaustive search.
+
+We then modify their output format to the same format as ours (`src/rationalization/migrate_results_analogies.py`). As they only provide rationales, so we fill the importance scores as 0 for non-rationales. For rationales, the importance scores are 1/n, n is the length of the rationales. It is a pesudo importance scores for using unified evaluation pipeline. 
