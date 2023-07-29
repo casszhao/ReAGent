@@ -3,6 +3,8 @@ import logging
 import torch
 from transformers import AutoModelWithLMHead, AutoTokenizer
 from .base import BaseImportanceScoreEvaluator
+from transformers.models.opt.modeling_opt import OPTForCausalLM
+from transformers.models.gpt2.modeling_gpt2 import GPT2LMHeadModel
 
 class GradientImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
     """Importance Score Evaluator
@@ -40,9 +42,19 @@ class GradientImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
         assert input_ids.shape[0] == 1, "Batch input not supported"
         assert target_id.shape[0] == input_ids.shape[0], "Inconsistent batch size"
 
-        word_token_embeds = self.model.transformer.wte(input_ids)
         position_ids = torch.arange(len(input_ids[0]))[None].long().cuda()
-        position_embeds = self.model.transformer.wpe(position_ids)
+
+        if isinstance(self.model, GPT2LMHeadModel):
+            gpt2Model: GPT2LMHeadModel = self.model
+            word_token_embeds = gpt2Model.transformer.wte(input_ids)
+            position_embeds = gpt2Model.transformer.wpe(position_ids)
+        elif isinstance(self.model, OPTForCausalLM):
+            optModel: OPTForCausalLM = self.model
+            word_token_embeds = optModel.model.decoder.embed_tokens(input_ids)
+            position_embeds = optModel.model.decoder.embed_positions(position_ids)
+        else:
+            raise ValueError(f"Unsupported model {type(self.model)}")
+
         pos_encoded_embeddings = word_token_embeds + position_embeds
 
         if self.grad_type == 'integrated':
