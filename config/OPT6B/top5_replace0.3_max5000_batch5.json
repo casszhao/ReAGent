@@ -1,5 +1,5 @@
 {
-    "$schema": "../docs/config.schema.json",
+    "$schema": "../../docs/config.schema.json",
     "rational": {
         "size": 8,
         "size_ratio": null
