@@ -55,16 +55,16 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 
 
 #  ## Run rationalization task
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/$model_short_name$hyper".json" \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name/ \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfolder $logfolder_shortname \
-#     --input_num_ratio 1 \
-#     --cache_dir $cache_dir
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/$model_short_name$hyper".json" \
+    --model $model_name \
+    --tokenizer $model_name \
+    --data-dir data/analogies/$model_short_name/ \
+    --importance_results_dir $importance_results \
+    --device cuda \
+    --logfolder $logfolder_shortname \
+    --input_num_ratio 1 \
+    --cache_dir $cache_dir
 
 
 

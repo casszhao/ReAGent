@@ -4,7 +4,7 @@
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --mem=16G
+#SBATCH --mem=82G
 #SBATCH --cpus-per-task=12
 #SBATCH --output=jobs.out/%j.log
 #SBATCH --time=4-00:00:00
@@ -22,10 +22,13 @@ module load CUDA/11.7.0
 source activate dev-inseq      
 # source .venv/bin/activate           # via venv
 
-model_name="gpt2-medium"   # "gpt2-medium"   "KoboldAI/OPT-6.7B-Erebus"
-model_short_name="gpt2"  #"gpt2"    "OPT6B"
-cache_dir="cache/"    
+model_name="KoboldAI/OPT-6.7B-Erebus"
+model_short_name="OPT6B"
 
+# "gpt2-medium"   "KoboldAI/OPT-6.7B-Erebus"
+# "gpt2"    "OPT6B"
+cache_dir="cache/"    
+config_file="config/eva_"$FA_name".json"
 
 
 
@@ -34,54 +37,56 @@ FA_name="inseq_ig"
 # select from: integrated norm signed
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
 eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name
-config_file="config/eva_"$FA_name".json"
-
-
-# # Run rationalization task, get importance distribution
-# mkdir -p $importance_results
-# mkdir -p $logpath
-
-
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/eva_inseq_ig.json \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name/ \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
-#     --cache_dir $cache_dir 
 
 
 
 
+# Run rationalization task, get importance distribution
+mkdir -p $importance_results
+mkdir -p $eva_output_dir
+mkdir -p $logpath
 
 
-# ## evvaluate different length and soft suff/comp
-# for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
-# do
-# echo "  for rationale "
-# echo $rationale_ratio_for_eva
-# python src/evaluation/evaluate_analogies.py \
-#     --importance_results_dir $importance_results \
-#     --eva_output_dir $eva_output_dir \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
-#     --rationale_size_ratio $rationale_ratio_for_eva \
-#     --cache_dir $cache_dir 
-# done
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/eva_"$FA_name".json \
+    --model $model_name \
+    --tokenizer $model_name \
+    --data-dir data/analogies/$model_short_name/ \
+    --importance_results_dir $importance_results \
+    --device cuda \
+    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+    --cache_dir $cache_dir 
 
 
 
-### evaluate flexi length
+
+
+
+## evvaluate different length and soft suff/comp
+for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
+do
+echo "  for rationale "
 echo $rationale_ratio_for_eva
 python src/evaluation/evaluate_analogies.py \
     --importance_results_dir $importance_results \
     --eva_output_dir $eva_output_dir \
     --model $model_name \
     --tokenizer $model_name \
-    --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
-    --rationale_size_ratio 0 \
-    --rationale_size_file "rationalization_results/analogies-greedy-lengths.json" \
-    --cache_dir $cache_dir
+    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+    --rationale_size_ratio $rationale_ratio_for_eva \
+    --cache_dir $cache_dir 
+done
+
+
+
+# ### evaluate flexi length
+# echo $rationale_ratio_for_eva
+# python src/evaluation/evaluate_analogies.py \
+#     --importance_results_dir $importance_results \
+#     --eva_output_dir $eva_output_dir \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --logfolder "logs/analogies/"$model_name"_"$FA_name$hyper \
+#     --rationale_size_ratio 0 \
+#     --rationale_size_file "rationalization_results/analogies-greedy-lengths.json" \
+#     --cache_dir $cache_dir
