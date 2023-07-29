@@ -4,6 +4,7 @@ from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
 from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
+import logging
 
 class NormalizedComprehensivenessEvaluator(BaseEvaluator):
 
@@ -49,10 +50,10 @@ class NormalizedComprehensivenessEvaluator(BaseEvaluator):
         
 
         comprehensiveness = self.comprehensiveness_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        print(' ')
-        print(f"comprehensiveness ==>> {comprehensiveness}")
+        logging.debug(' ')
+        logging.debug(f"comprehensiveness ==>> {comprehensiveness}")
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        print(f"sufficiency_0 ==>> {sufficiency_0}")
+        logging.debug(f"sufficiency_0 ==>> {sufficiency_0}")
         norm_comprehensiveness = comprehensiveness / (1-sufficiency_0)
         #norm_comprehensiveness = comprehensiveness
         return norm_comprehensiveness

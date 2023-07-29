@@ -70,7 +70,7 @@ def main():
     
     if args.logfolder:
         if not os.path.exists(args.logfolder): 
-            print(' no such parent folder, create one: ', args.logfolder)
+            logging.warning(' no such parent folder, create one: ', args.logfolder)
             os.makedirs(args.logfolder) 
 
         file_handler = logging.FileHandler(args.logfolder + 'eva.log')
@@ -84,7 +84,7 @@ def main():
     logger.addHandler(stdout_handler)
 
     target_dir = args.importance_results_dir
-    print(' target_dir: ', target_dir)
+    logging.debug(' target_dir: ', target_dir)
     output_dir = args.eva_output_dir
     rationale_size_ratio = args.rationale_size_ratio
     rational_size_file = args.rational_size_file
@@ -117,9 +117,9 @@ def main():
         csv_details_f.flush()
 
         for rationale_size_ratio in [1.0]: #, 0.05, 0.1, 0.2, 0.3]:
-            print(' ')
-            print(' ============  rationale_size_ratio  ========= ')
-            print(rationale_size_ratio)
+            logging.debug(' ')
+            logging.debug(' ============  rationale_size_ratio  ========= ')
+            logging.debug(rationale_size_ratio)
 
             for filename in filenames:
                 rational_size = -1
@@ -153,7 +153,7 @@ def main():
 
                 elif rationale_size_ratio == 1.0: # eva soft
 
-                    print(' ')
+                    logging.debug(' ')
                     
 
                     from evaluator.soft_norm_sufficiency import SoftNormalizedSufficiencyEvaluator
@@ -166,10 +166,10 @@ def main():
                     norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
                     random_norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
 
-                    print(f"==>> norm suff {norm_suff}, {random_norm_suff}")
-                    print(f"==>> norm comp {norm_comp}, {random_norm_comp}")
+                    logging.debug(f"==>> norm suff {norm_suff}, {random_norm_suff}")
+                    logging.debug(f"==>> norm comp {norm_comp}, {random_norm_comp}")
                 
-                else: print(' args.rationale_size_ratio need to be re defined between 0 to 1. 1 for soft')
+                else: logging.warning(' args.rationale_size_ratio need to be re defined between 0 to 1. 1 for soft')
 
                 logging.info(f"{filename}:  suff & rand: {norm_suff.item()}, {random_norm_suff.item()}, comp & rand comp: {norm_comp.item()}, {random_norm_comp.item()}")
             
@@ -187,13 +187,14 @@ def main():
             logging.info(f"mean : {metrics_mean[0].item()}, {metrics_mean[1].item()}, {metrics_mean[2].item()}, {metrics_mean[3].item()}")
 
             with open(os.path.join(output_dir, f'mean_{rationale_size_ratio}.csv'), "w", newline="") as csv_mean_f:
-                print(' saving mean value')
+                logging.debug(' saving mean value')
                 writer = csv.writer(csv_mean_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
                 writer.writerow([ "suff", "comp", "random_suff", "random_comp"])
                 writer.writerow([ metrics_mean[0].item(), metrics_mean[1].item(), metrics_mean[2].item(), metrics_mean[3].item()])
-                print("suff", metrics_mean[0].item(), "comp", metrics_mean[1].item())
-                print("random_suff", metrics_mean[2].item(), "random_comp",  metrics_mean[3].item())
-                print(' final suff :', metrics_mean[0].item()/metrics_mean[2].item())
-                print(' final comp :', metrics_mean[1].item()/metrics_mean[3].item())
+                logging.debug("suff", metrics_mean[0].item(), "comp", metrics_mean[1].item())
+                logging.debug("random_suff", metrics_mean[2].item(), "random_comp",  metrics_mean[3].item())
+                logging.debug(' final suff :', metrics_mean[0].item()/metrics_mean[2].item())
+                logging.debug(' final comp :', metrics_mean[1].item()/metrics_mean[3].item())
+
 if __name__ == "__main__":
     main()

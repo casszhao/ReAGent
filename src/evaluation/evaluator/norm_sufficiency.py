@@ -4,6 +4,7 @@ from transformers import AutoModelForCausalLM
 from .base import BaseEvaluator
 from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
+import logging
 
 class NormalizedSufficiencyEvaluator(BaseEvaluator):
 
@@ -40,10 +41,10 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
 
         if input_wte == None:
             num_layers = self.model.config.transformer.num_layers # by cass on HPC
-            print("".center(50, "-"))
-            print("".center(50, "-"))
-            print(self.model)
-            print(num_layers)
+            logging.debug("".center(50, "-"))
+            logging.debug("".center(50, "-"))
+            logging.debug(self.model)
+            logging.debug(num_layers)
             input_wte = self.model.transformer.wte.weight[input_ids,:]
             quit()
 
@@ -54,10 +55,10 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         
 
         sufficiency = self.sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        print(' ')
-        print(f"sufficiency==>> {sufficiency}")
+        logging.debug(' ')
+        logging.debug(f"sufficiency==>> {sufficiency}")
         sufficiency_0 = self.sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        print(f"sufficiency_0==>> {sufficiency_0}")
+        logging.debug(f"sufficiency_0==>> {sufficiency_0}")
         #norm_sufficiency = torch.clamp((sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
         #norm_sufficiency = sufficiency
         norm_sufficiency = max(0,sufficiency-sufficiency_0)/(1-sufficiency_0)

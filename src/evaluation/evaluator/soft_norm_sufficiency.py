@@ -6,6 +6,7 @@ from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
 from .soft_sufficiency import SoftSufficiencyEvaluator
 from .soft_comprehensiveness import SoftComprehensivenessEvaluator
+import logging
 
 class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
 
@@ -50,10 +51,10 @@ class SoftNormalizedSufficiencyEvaluator(BaseEvaluator):
         
 
         soft_sufficiency = self.soft_sufficiency_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        print(' ')
-        print(f"soft_sufficiency==>> {soft_sufficiency}")
+        logging.debug(' ')
+        logging.debug(f"soft_sufficiency==>> {soft_sufficiency}")
         sufficiency_0 = self.soft_sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        print(f"soft sufficiency_0==>> {sufficiency_0}")
+        logging.debug(f"soft sufficiency_0==>> {sufficiency_0}")
         #soft_norm_sufficiency = torch.clamp((soft_sufficiency - sufficiency_0), min=0, max=10) / (1 - sufficiency_0)
         #soft_norm_sufficiency = soft_sufficiency
 

@@ -6,6 +6,7 @@ from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
 from .soft_sufficiency import SoftSufficiencyEvaluator
 from .soft_comprehensiveness import SoftComprehensivenessEvaluator
+import logging
 
 class SoftNormalizedComprehensivenessEvaluator(BaseEvaluator):
 
@@ -50,10 +51,10 @@ class SoftNormalizedComprehensivenessEvaluator(BaseEvaluator):
         
 
         soft_comprehensiveness = self.soft_comprehensiveness_evaluator.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        print(' ')
-        print(f"soft_comprehensiveness ==>> {soft_comprehensiveness}")
+        logging.debug(' ')
+        logging.debug(f"soft_comprehensiveness ==>> {soft_comprehensiveness}")
         soft_sufficiency_0 = self.soft_sufficiency_evaluator_0.evaluate(input_ids, None, importance_scores, input_wte, prob_original)
-        print(f"soft_sufficiency_0 ==>> {soft_sufficiency_0}")
+        logging.debug(f"soft_sufficiency_0 ==>> {soft_sufficiency_0}")
         soft_norm_comprehensiveness = soft_comprehensiveness / (1-soft_sufficiency_0)
         #soft_norm_comprehensiveness = soft_comprehensiveness
         return soft_norm_comprehensiveness
