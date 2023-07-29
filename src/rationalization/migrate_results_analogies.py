@@ -10,6 +10,8 @@ from rationalizer.utils.serializing import serialize_rational
 from transformers import AutoTokenizer
 from natsort import natsorted
 
+import logging
+
 
 if __name__ == "__main__":
     
@@ -53,7 +55,7 @@ if __name__ == "__main__":
         
 
         result_old_path = os.path.join(input_dir, f"{analogy_idx}_{pair_idx}.json")
-        #print(' about to convert ', result_old_path)
+        #logging.debug(' about to convert ', result_old_path)
         if not os.path.exists(result_old_path):
             logging.warning(f"[Warning] {result_old_path} not found. Skipping {filename}")
             continue

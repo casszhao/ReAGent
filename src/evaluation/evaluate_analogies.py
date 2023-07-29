@@ -11,6 +11,7 @@ import torch
 from transformers import AutoModelForCausalLM
 
 from natsort import natsorted
+import logging
 
 @torch.no_grad()
 def main():
@@ -60,7 +61,7 @@ def main():
                         help="store models")
     args = parser.parse_args()
 
-    print(' RATIONALE RATIO ==> ', args.rationale_size_ratio)
+    logging.debug(' RATIONALE RATIO ==> ', args.rationale_size_ratio)
 
     loglevel = args.loglevel
     # setup logging system
@@ -70,7 +71,7 @@ def main():
     
     if args.logfolder:
         if not os.path.exists(args.logfolder): 
-            print(' no such parent folder, create one: ', args.logfolder)
+            logging.warning(' no such parent folder, create one: ', args.logfolder)
             os.makedirs(args.logfolder) 
 
         file_handler = logging.FileHandler(args.logfolder + 'eva.log')
@@ -84,7 +85,7 @@ def main():
     logger.addHandler(stdout_handler)
 
     target_dir = args.importance_results_dir
-    print(' target_dir: ', target_dir)
+    logging.debug(' target_dir: ', target_dir)
     output_dir = args.eva_output_dir
     rationale_size_ratio = args.rationale_size_ratio
     rational_size_file = args.rational_size_file
@@ -110,7 +111,7 @@ def main():
     metrics = []
 
     if not os.path.exists(output_dir): 
-            print(' no such parent folder, create one: ', output_dir)
+            logging.warning(' no such parent folder, create one: ', output_dir)
             os.makedirs(output_dir) 
 
     with open(os.path.join(output_dir, f'details_{args.rationale_size_ratio}.csv'), "w", newline="") as csv_details_f:
@@ -176,11 +177,12 @@ def main():
     logging.info(f"mean - {metrics_mean[0].item()}, {metrics_mean[1].item()}, {metrics_mean[2].item()}, {metrics_mean[3].item()}")
 
     with open(os.path.join(output_dir, f'mean_{args.rationale_size_ratio}.csv'), "w", newline="") as csv_mean_f:
-        print(' saving mean value')
+        logging.debug(' saving mean value')
         writer = csv.writer(csv_mean_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
         writer.writerow([ "suff", "comp", "random_suff", "random_comp"])
         writer.writerow([ metrics_mean[0].item(), metrics_mean[1].item(), metrics_mean[2].item(), metrics_mean[3].item()])
-        print("suff", metrics_mean[0].item(), "comp", metrics_mean[1].item())
-        print("random_suff", metrics_mean[2].item(), "random_comp",  metrics_mean[3].item())
+        logging.debug("suff", metrics_mean[0].item(), "comp", metrics_mean[1].item())
+        logging.debug("random_suff", metrics_mean[2].item(), "random_comp",  metrics_mean[3].item())
+
 if __name__ == "__main__":
     main()
