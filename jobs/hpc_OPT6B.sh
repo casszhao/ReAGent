@@ -30,7 +30,7 @@ hyper="/top3_replace0.3_max3000_batch3"
 # select: ours
 # select from: all_attention rollout_attention last_attention   
 # select from: norm integrated signed
-FA_name="ours" 
+FA_name="inseq_ig" 
 
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
 eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
@@ -54,17 +54,17 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 #     --cache_dir $cache_dir 
 
 
-# # Run rationalization task
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/$model_short_name$hyper".json" \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name/ \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfolder $logfolder_shortname \
-#     --input_num_ratio 1 \
-#     --cache_dir $cache_dir
+#  ## Run rationalization task
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/$model_short_name$hyper".json" \
+    --model $model_name \
+    --tokenizer $model_name \
+    --data-dir data/analogies/$model_short_name/ \
+    --importance_results_dir $importance_results \
+    --device cuda \
+    --logfolder $logfolder_shortname \
+    --input_num_ratio 1 \
+    --cache_dir $cache_dir
 
 
 
@@ -72,7 +72,7 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 # python src/rationalization/migrate_results_analogies.py
 
 
-for rationale_ratio_for_eva in 0.05 # 0.1 0.2 0.3 1
+for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
 do
 echo "  for rationale "
 echo $rationale_ratio_for_eva
@@ -88,10 +88,10 @@ done
 
 
 
-### evaluate ant and ratio
-echo $rationale_ratio_for_eva
-python src/evaluation/evaluate_analogies-old.py \
-    --data-dir "data/analogies/"$model_short_name \
-    --target-dir $importance_results \
-    --output-path $eva_output_dir \
-    --baseline_dir $importance_results
+# ### evaluate ant and ratio
+# echo $rationale_ratio_for_eva
+# python src/evaluation/evaluate_analogies-old.py \
+#     --data-dir "data/analogies/"$model_short_name \
+#     --target-dir $importance_results \
+#     --output-path $eva_output_dir \
+#     --baseline_dir $importance_results

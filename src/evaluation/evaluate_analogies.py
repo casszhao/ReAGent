@@ -158,6 +158,7 @@ def main():
                 soft_norm_comp_evaluator = SoftNormalizedComprehensivenessEvaluator(model)
                 norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, importance_scores)
                 random_norm_comp = soft_norm_comp_evaluator.evaluate(input_ids, target_id, random_importance_scores)
+                #print(f"==>> {random_norm_comp}")
             
             else: print(' args.rationale_size_ratio need to be re defined between 0 to 1. 1 for soft')
 
