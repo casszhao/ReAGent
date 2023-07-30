@@ -1,4 +1,6 @@
 
+import argparse
+import json
 import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -14,6 +16,15 @@ from evaluation.evaluator.soft_norm_comprehensiveness import SoftNormalizedCompr
 import seaborn
 
 import csv
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--rationalization-config", 
+                    type=str,
+                    default="config/test.json",
+                    help="") # TODO
+
+args = parser.parse_args()
 
 # config global
 device = "cuda"
@@ -42,39 +53,142 @@ soft_norm_comp_evaluator = SoftNormalizedComprehensivenessEvaluator(model)
 
 # init rationalizer
 
-rational_size = 5
-rational_size_ratio = None
+with open(args.rationalization_config) as f_config:
+    rationalization_config = json.load(f_config)
 
-token_sampler = POSTagTokenSampler(tokenizer=tokenizer, device=device)
+importance_score_evaluator_type = rationalization_config["importance_score_evaluator"]["type"]
 
-stopping_condition_evaluator = TopKStoppingConditionEvaluator(
-    model=model, 
-    token_sampler=token_sampler, 
-    top_k=10, 
-    top_n=rational_size, 
-    top_n_ratio=rational_size_ratio, 
-    tokenizer=tokenizer
-)
+if importance_score_evaluator_type == "replacing":
 
-importance_score_evaluator = DeltaProbImportanceScoreEvaluator(
-    model=model, 
-    tokenizer=tokenizer, 
-    token_replacer=UniformTokenReplacer(
-        token_sampler=token_sampler, 
-        ratio=0.3
-    ),
-    stopping_condition_evaluator=stopping_condition_evaluator,
-    max_steps=3000
-)
+    replacing_type = rationalization_config["importance_score_evaluator"]["replacing"]["replacing"]["type"]
+    if replacing_type == "uniform":
+        from rationalization.rationalizer.token_replacement.token_sampler.uniform import \
+            UniformTokenSampler
+        token_sampler = UniformTokenSampler(tokenizer)
+    elif replacing_type == "inferential":
+        from rationalization.rationalizer.token_replacement.token_sampler.inferential import \
+            InferentialTokenSampler
+        token_sampler = InferentialTokenSampler(tokenizer=tokenizer, model=model)
+    elif replacing_type == "postag":
+        from rationalization.rationalizer.token_replacement.token_sampler.postag import \
+            POSTagTokenSampler
+        token_sampler = POSTagTokenSampler(tokenizer=tokenizer, device=device)
+    else:
+        raise ValueError(f"Invalid replacement_sampling: {replacing_type}")
+    
+    stopping_condition_type = rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["type"]
+    if stopping_condition_type == "top_k":
+        from rationalization.rationalizer.stopping_condition_evaluator.top_k import \
+            TopKStoppingConditionEvaluator
+        top_k=rationalization_config["importance_score_evaluator"]["replacing"]["stopping_condition"]["top_k"]["tolerance"]
+        top_n=rationalization_config["rational"]["size"]
+        top_n_ratio=rationalization_config["rational"]["size_ratio"]
+        stopping_condition_evaluator = TopKStoppingConditionEvaluator(
+            model=model, 
+            token_sampler=token_sampler, 
+            top_k=top_k, 
+            top_n=top_n, 
+            top_n_ratio=top_n_ratio, 
+            tokenizer=tokenizer
+        )
+        #output_dir = output_dir + f'/top{top_k}_' # by cass
 
-rationalizer = AggregateRationalizer(
-    importance_score_evaluator=importance_score_evaluator,
-    batch_size=5,
-    overlap_threshold=2,
-    overlap_strict_pos=True,
-    top_n=rational_size, 
-    top_n_ratio=rational_size_ratio
-)
+    elif stopping_condition_type == "dummy":
+        from rationalization.rationalizer.stopping_condition_evaluator.dummy import \
+            DummyStoppingConditionEvaluator
+        stopping_condition_evaluator = DummyStoppingConditionEvaluator()
+    else:
+        raise ValueError(f"Invalid stopping_condition: {stopping_condition_type}")
+
+    evaluator_type = rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["type"]
+    if evaluator_type == 'delta_probability':
+        from rationalization.rationalizer.importance_score_evaluator.delta_prob import \
+            DeltaProbImportanceScoreEvaluator
+        from rationalization.rationalizer.token_replacement.token_replacer.uniform import \
+            UniformTokenReplacer
+        replacing_ratio=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["replacing_ratio"]
+        max_steps=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["max_steps"]
+        output_dir = output_dir + f'replace{replacing_ratio}_max{max_steps}' # by cass
+        importance_score_evaluator = DeltaProbImportanceScoreEvaluator(
+            model=model, 
+            tokenizer=tokenizer, 
+            token_replacer=UniformTokenReplacer(
+                token_sampler=token_sampler, 
+                ratio=replacing_ratio
+            ),
+            stopping_condition_evaluator=stopping_condition_evaluator,
+            max_steps=max_steps
+        )
+    elif evaluator_type == 'bayesian_optimization':
+        from rationalization.rationalizer.importance_score_evaluator.bayesian_opti import \
+            BayesianOptimizationImportanceScoreEvaluator
+        from rationalization.rationalizer.token_replacement.token_replacer.ranking import \
+            RankingTokenReplacer
+        importance_score_evaluator = BayesianOptimizationImportanceScoreEvaluator(
+            model=model, 
+            tokenizer=tokenizer, 
+            token_replacer=RankingTokenReplacer(
+                token_sampler=token_sampler, 
+                top_n=rationalization_config["rational"]["size"], 
+                top_n_ratio=rationalization_config["rational"]["size_ratio"], 
+            ),
+            stopping_condition_evaluator=stopping_condition_evaluator,
+            sample_multiplier=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["bayesian_optimization"]["sampling"]["multiplier"],
+            sample_increment=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["bayesian_optimization"]["sampling"]["increment"],
+            training_config=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["bayesian_optimization"]["training"],
+            optimizing_config=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["bayesian_optimization"]["optimizing"]
+        )
+    else:
+        raise ValueError(f"Invalid evaluator-type: {evaluator_type}")
+
+elif importance_score_evaluator_type == "attention":
+    from rationalization.rationalizer.importance_score_evaluator.attention import \
+        AttentionImportanceScoreEvaluator
+    importance_score_evaluator = AttentionImportanceScoreEvaluator(
+        model=model,
+        tokenizer=tokenizer,
+        attn_type=rationalization_config["importance_score_evaluator"]["attention"]["type"]
+    )
+elif importance_score_evaluator_type == "gradient":
+    from rationalization.rationalizer.importance_score_evaluator.grad import \
+        GradientImportanceScoreEvaluator
+    importance_score_evaluator = GradientImportanceScoreEvaluator(
+        model=model,
+        tokenizer=tokenizer,
+        grad_type=rationalization_config["importance_score_evaluator"]["gradient"]["type"]
+    )
+elif importance_score_evaluator_type == "inseq":
+    from rationalization.rationalizer.importance_score_evaluator.inseq import \
+        InseqImportanceScoreEvaluator
+    importance_score_evaluator = InseqImportanceScoreEvaluator(
+        model=model,
+        tokenizer=tokenizer,
+        method=rationalization_config["importance_score_evaluator"]["inseq"]["type"],
+        attribute_params=rationalization_config["importance_score_evaluator"]["inseq"]["attribute_params"]
+    )
+else:
+    raise ValueError(f"Invalid importance_score_evaluator_type {importance_score_evaluator_type}")
+    
+rationalizer_type = rationalization_config["rationalizer"]["type"]
+if rationalizer_type == "sampling":
+    from rationalization.rationalizer.sample_rationalizer import SampleRationalizer
+    rationalizer = SampleRationalizer(
+        importance_score_evaluator=importance_score_evaluator, 
+        top_n=rationalization_config["rational"]["size"], 
+        top_n_ratio=rationalization_config["rational"]["size_ratio"]
+    )
+elif rationalizer_type == "aggregation":
+    from rationalization.rationalizer.aggregate_rationalizer import AggregateRationalizer
+    rationalizer = AggregateRationalizer(
+        importance_score_evaluator=importance_score_evaluator,
+        batch_size=rationalization_config["rationalizer"]["aggregation"]["batch_size"],
+        overlap_threshold=rationalization_config["rationalizer"]["aggregation"]["overlap_threshold"],
+        overlap_strict_pos=rationalization_config["rationalizer"]["aggregation"]["overlap_strict_pos"],
+        top_n=rationalization_config["rational"]["size"], 
+        top_n_ratio=rationalization_config["rational"]["size_ratio"]
+    )
+else:
+    raise ValueError(f"Invalid rationalizer_type {rationalizer_type}")
 
 
 
