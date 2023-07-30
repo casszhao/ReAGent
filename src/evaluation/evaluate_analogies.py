@@ -40,7 +40,7 @@ def main():
                         help="defining rationale size, for evaluating Soft Suff and Comp, use 1.0, for fixing length as to compare with greedy search, using 0.0 ") # when using bash, it has error by cass
     parser.add_argument("--rational_size_file", 
                         type=str,
-                        default="rationalization_results/analogies-greedy-lengths.json",
+                        default=None,
                         help="A file that containing a json obj that maps sample-name to rational-size; rationale_size_ratio will be ignored")
     parser.add_argument("--device", 
                         type=str,
@@ -121,10 +121,10 @@ def main():
 
         for filename in filenames:
             rational_size = -1
-            # if args.rational_size_file != None:
-            #     rational_size = rational_size_dict[filename]
-            try: rational_size = rational_size_dict[filename]
-            except: pass
+            if args.rational_size_file != None:
+                rational_size = rational_size_dict[filename]
+            # try: rational_size = rational_size_dict[filename]
+            # except: pass
 
             path_target = os.path.join(dirpath, filename)
             with open(path_target) as f:
