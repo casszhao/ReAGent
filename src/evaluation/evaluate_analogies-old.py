@@ -28,7 +28,7 @@ if __name__ == "__main__":
                         help="") # TODO
     parser.add_argument("--output-path", 
                         type=str,
-                        default="evaluation_results/analogies/test.csv",
+                        default="evaluation_results/analogies/test-old.csv",
                         help="") # TODO
     # parser.add_argument("--tokenizer", 
     #                     type=str,
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     logging.info(f"Ratio contain relative: {ratio_contain_relative}")
     logging.info(f"Mean baseline approximation ratio: {mean_baseline_approximation_ratio}")
 
-    with open(output_path+'ant_ratio.csv', "w", newline="") as csv_f:
+    with open(output_path, "w", newline="") as csv_f:
         writer = csv.writer(csv_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
         writer.writerow([ "Mean rational size", "Ratio no distractor", "Ratio contain relative", "Mean baseline approximation ratio" ])
         writer.writerow([ mean_rational_size.item(), ratio_no_distractor.item(), ratio_contain_relative.item(), mean_baseline_approximation_ratio.item() ])
