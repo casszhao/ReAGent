@@ -1,0 +1,23 @@
+available inseq FAs:
+
+'integrated_gradients', 
+'input_x_gradient'
+
+'lime', 
+'discretized_integrated_gradients', 
+
+'attention', 
+
+'gradient_shap', 
+'occlusion', 
+'deeplift', 
+'layer_deeplift', 
+'layer_gradient_x_activation', 
+'layer_integrated_gradients', 
+'saliency', 
+
+
+using inseq 'integrated_gradients' (ig) and 'input_x_gradient' (signed) for OPT
+Emb Gradient (input_x_gradient/signed): embedding gradients multiplied by the embeddings 
+
+using our own l2 Gradient (norm/): L2 gradient norms of embeddings 

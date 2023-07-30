@@ -24,7 +24,7 @@ source activate dev-inseq      # via conda
 cache_dir="cache/"
 model_name="KoboldAI/OPT-6.7B-Erebus"
 model_short_name="OPT6B"
-hyper="/top3_replace0.3_max3000_batch3"
+hyper="/top5_replace0.3_max5000_batch8"
 
 ##########  selecting FA
 # select: ours
@@ -54,7 +54,7 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 #     --cache_dir $cache_dir 
 
 
-# # Run rationalization task
+#  ## Run rationalization task
 # python src/rationalization/run_analogies.py \
 #     --rationalization-config config/$model_short_name$hyper".json" \
 #     --model $model_name \
@@ -72,7 +72,7 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 # python src/rationalization/migrate_results_analogies.py
 
 
-for rationale_ratio_for_eva in 0.05 # 0.1 0.2 0.3 1
+for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
 do
 echo "  for rationale "
 echo $rationale_ratio_for_eva
@@ -88,10 +88,10 @@ done
 
 
 
-### evaluate ant and ratio
-echo $rationale_ratio_for_eva
-python src/evaluation/evaluate_analogies-old.py \
-    --data-dir "data/analogies/"$model_short_name \
-    --target-dir $importance_results \
-    --output-path $eva_output_dir \
-    --baseline_dir $importance_results
+# ### evaluate ant and ratio
+# echo $rationale_ratio_for_eva
+# python src/evaluation/evaluate_analogies-old.py \
+#     --data-dir "data/analogies/"$model_short_name \
+#     --target-dir $importance_results \
+#     --output-path $eva_output_dir \
+#     --baseline_dir $importance_results

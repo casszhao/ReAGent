@@ -1,0 +1,68 @@
+{
+    "$schema": "../docs/config.schema.json",
+    "rational": {
+        "size": 5,
+        "size_ratio": null
+    },
+    "rationalizer": {
+        "type": "sampling",
+        "sampling": { },
+        "aggregation": {
+            "batch_size": 5,
+            "overlap_threshold": 3,
+            "overlap_strict_pos": true,
+            "save_separate_rational": true
+        }
+    },
+    "importance_score_evaluator": {
+        "type": "inseq",
+        "replacing": {
+            "optimization": {
+                "type": "delta_probability",
+                "delta_probability": {
+                    "replacing_ratio": 0.3,
+                    "max_steps": 5000
+                },
+                "bayesian_optimization": {
+                    "sampling": {
+                        "multiplier": 1,
+                        "increment": 30
+                    },
+                    "training": {
+                        "warmup_steps": 256,
+                        "num_samples": 128,
+                        "thinning": 16
+                    },
+                    "optimizing": {
+                        "num_restarts": 10,
+                        "raw_samples": 1024
+                    }
+                }
+            },
+            "replacing": {
+                "type": "uniform",
+                "uniform": { },
+                "inferential": { },
+                "postag": { }
+            },
+            "stopping_condition": {
+                "type": "top_k",
+                "top_k": {
+                    "tolerance": 5
+                }
+            }
+        },
+        "attention": {
+            "type": "last"
+        },
+        "gradient": {
+            "type": "integrated"
+        },
+        "inseq": {
+            "type": "integrated_gradients",
+            "attribute_params": {
+                "show_progress": false
+            }
+        }
+    }
+}
