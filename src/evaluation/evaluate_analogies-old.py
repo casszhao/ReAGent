@@ -30,10 +30,14 @@ if __name__ == "__main__":
                         type=str,
                         default="evaluation_results/analogies/test-old.csv",
                         help="") # TODO
+    parser.add_argument("--rational_size_override", 
+                    type=int,
+                    default=-1,
+                    help="override rational_size")
     parser.add_argument("--rational_size_file", 
                     type=str,
                     default=None,
-                    help="A file that containing a json obj that maps sample-name to rational-size; rationale_size_ratio will be ignored")
+                    help="A file that containing a json obj that maps sample-name to rational-size; rational_size_override will be ignored")
 
     # parser.add_argument("--tokenizer", 
     #                     type=str,
@@ -47,6 +51,7 @@ if __name__ == "__main__":
     output_path = args.output_path
     # tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
 
+    rational_size_override = args.rational_size_override
     if args.rational_size_file != None:
         with open(args.rational_size_file) as f:
             rational_size_dict = json.load(f)
@@ -71,10 +76,12 @@ if __name__ == "__main__":
         else:
             with open(path_data) as f:
                 data = json.load(f)
-
-            if args.rational_size_file != None:
-                rational_size_override = rational_size_dict[filename]
-                rational_size_target = rational_size_override
+            
+            if args.rational_size_file != None or rational_size_override > 0:
+                if args.rational_size_file != None:
+                    rational_size_target = rational_size_dict[filename]
+                else:
+                    rational_size_target = rational_size_override
                 importance_scores = torch.tensor(result_target["importance-scores"])
                 pos_sorted = torch.argsort(importance_scores, descending=True)
                 pos_rational = pos_sorted[:rational_size_target]
