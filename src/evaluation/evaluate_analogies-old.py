@@ -70,7 +70,7 @@ if __name__ == "__main__":
             # no_distractors
             pos_rational = torch.tensor(result_target["rational-positions"])
             non_distractor_rational = (pos_rational < data["distractor"]["start"]) + (pos_rational > data["distractor"]["end"])
-            no_distractor = torch.sum(non_distractor_rational) == rational_sizes
+            no_distractor = torch.sum(non_distractor_rational) == rational_size_target
             no_distractors.append(no_distractor)
 
             # contain_relatives
