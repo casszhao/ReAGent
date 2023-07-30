@@ -11,7 +11,7 @@
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
 #$ -N opt
-#$ -m abe
+#$ -m norm
 
 # Load modules & activate env
 
@@ -24,39 +24,26 @@ source activate dev-inseq      # via conda
 cache_dir="cache/"
 model_name="KoboldAI/OPT-6.7B-Erebus"
 model_short_name="OPT6B"
-hyper="/top3_replace0.3_max3000_batch3"
 
 ##########  selecting FA
-# select: ours
 # select from: all_attention rollout_attention last_attention   
-# select from: norm integrated signed
-FA_name="ours" 
+# select from: norm 
+FA_name="norm" 
+config_file=config/eva_OPT6B_$FA_name.json
 
-importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
-eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
+importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
+eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name
 mkdir -p $importance_results
 mkdir -p $eva_output_dir
-mkdir -p logs/analogies/$model_name"_"$FA_name$hyper
-logfolder=logs/analogies/$model_name"_"$FA_name$hyper
-mkdir -p logs/analogies/$model_short_name"_"$FA_name$hyper
-logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
-
-
-# # Generate evaluation data set (Only need to be done once)
-# mkdir -p "data/analogies/"$model_short_name
-# python src/data/prepare_evaluation_analogy.py \
-#     --analogies-file data/analogies.txt \
-#     --output-dir data/analogies/gpt2 \
-#     --compact-output True \
-#     --schema-uri ../../docs/analogy.schema.json \
-#     --device cuda \
-#     --model $model_name \
-#     --cache_dir $cache_dir 
+mkdir -p logs/analogies/$model_name"_"$FA_name
+logfolder=logs/analogies/$model_name"_"$FA_name
+mkdir -p logs/analogies/$model_short_name"_"$FA_name
+logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name
 
 
 #  ## Run rationalization task
 python src/rationalization/run_analogies.py \
-    --rationalization-config config/$model_short_name$hyper".json" \
+    --rationalization-config $config_file \
     --model $model_name \
     --tokenizer $model_name \
     --data-dir data/analogies/$model_short_name/ \
@@ -66,10 +53,6 @@ python src/rationalization/run_analogies.py \
     --input_num_ratio 1 \
     --cache_dir $cache_dir
 
-
-
-# for greedy search ---> only once
-# python src/rationalization/migrate_results_analogies.py
 
 
 for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
@@ -85,13 +68,3 @@ python src/evaluation/evaluate_analogies.py \
     --rationale_size_ratio $rationale_ratio_for_eva \
     --cache_dir $cache_dir
 done
-
-
-
-# ### evaluate ant and ratio
-# echo $rationale_ratio_for_eva
-# python src/evaluation/evaluate_analogies-old.py \
-#     --data-dir "data/analogies/"$model_short_name \
-#     --target-dir $importance_results \
-#     --output-path $eva_output_dir \
-#     --baseline_dir $importance_results

@@ -1,6 +1,6 @@
 from typing_extensions import override
 import torch
-from transformers import AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, GPT2LMHeadModel, OPTForCausalLM
 from .base import BaseEvaluator
 from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
@@ -40,13 +40,15 @@ class NormalizedSufficiencyEvaluator(BaseEvaluator):
         """
 
         if input_wte == None:
-            num_layers = self.model.config.transformer.num_layers # by cass on HPC
-            logging.debug("".center(50, "-"))
-            logging.debug("".center(50, "-"))
-            logging.debug(self.model)
-            logging.debug(num_layers)
-            input_wte = self.model.transformer.wte.weight[input_ids,:]
-            quit()
+
+            if isinstance(self.model, GPT2LMHeadModel):
+                gpt2Model: GPT2LMHeadModel = self.model
+                input_wte = gpt2Model.transformer.wte.weight[input_ids,:]
+            elif isinstance(self.model, OPTForCausalLM):
+                optModel: OPTForCausalLM = self.model
+                input_wte = optModel.model.decoder.embed_tokens(input_ids)
+            else:
+                raise ValueError(f"Unsupported model {type(self.model)}")
 
         # original prob
         if prob_original == None:

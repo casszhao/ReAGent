@@ -2,8 +2,7 @@ from typing_extensions import override
 import torch
 import torch.nn as nn
 soft_max = nn.Softmax(dim=1)
-
-from transformers import AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, GPT2LMHeadModel, OPTForCausalLM
 from .base import BaseEvaluator
 import logging
 
@@ -63,8 +62,17 @@ class BaseMaskingEvaluator(BaseEvaluator):
 
         """
         
+
         if input_wte == None:
-            input_wte = self.model.transformer.wte.weight[input_ids,:]
+
+            if isinstance(self.model, GPT2LMHeadModel):
+                gpt2Model: GPT2LMHeadModel = self.model
+                input_wte = gpt2Model.transformer.wte.weight[input_ids,:]
+            elif isinstance(self.model, OPTForCausalLM):
+                optModel: OPTForCausalLM = self.model
+                input_wte = optModel.model.decoder.embed_tokens(input_ids)
+            else:
+                raise ValueError(f"Unsupported model {type(self.model)}")
 
         # original prob
         if prob_original == None:
