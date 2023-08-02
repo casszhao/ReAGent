@@ -101,11 +101,11 @@ def div_and_save(suff_df, random_suff_df, save_name):
     for col in suff_df.columns:
         for row in suff_df.index:
             if isinstance(suff_df.at[row, col], float) and isinstance(random_suff_df.at[row, col], float):
-                final_suff_df.at[row, col] = suff_df.at[row, col] / random_suff_df.at[row, col]
+                final_suff_df.at[row, col] = suff_df.at[row, col] - random_suff_df.at[row, col]
 
     print(' =======>   final divided results =======')
     print(final_suff_df)
-    final_suff_df.to_csv(f'evaluation_results/summary/{model_name}/{save_name}_{hyper}.csv')
+    final_suff_df.to_csv(f'evaluation_results/summary/{model_name}/{save_name}_{hyper}_minus.csv')
     return final_suff_df
     
 final_suff_df = div_and_save(suff_df, random_suff_df, 'suff')
@@ -113,6 +113,6 @@ final_comp_df = div_and_save(comp_df, random_comp_df, 'comp')
 
 
 stacked_df = pd.concat([final_suff_df, final_comp_df])
-stacked_df.to_csv(f'evaluation_results/summary/{model_name}/{hyper}.csv')
+stacked_df.to_csv(f'evaluation_results/summary/{model_name}/{hyper}_minus.csv')
 
 print(' Done')

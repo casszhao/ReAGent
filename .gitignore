@@ -39,3 +39,5 @@ jobs.out
 
 # model caches
 cache
+
+*.png

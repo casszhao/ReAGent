@@ -22,22 +22,30 @@ if __name__ == "__main__":
                         type=str,
                         default="rationalization_results/analogies/test",
                         help="") # TODO
+    # parser.add_argument("--model_short_name", 
+    #                     type=str,
+    #                     default="gpt2",
+    #                     help="") # TODO
+    # parser.add_argument("--fa_name", 
+    #                     type=str,
+    #                     default="all_attention",
+    #                     help="") # TODO
+    parser.add_argument("--output_path", 
+                        type=str,
+                        default=f"evaluation_results/analogies/test-old.csv",
+                        help="") # TODO
     parser.add_argument("--baseline_dir", 
                         type=str,
                         default="rationalization_results/analogies/gpt2_exhaustive",
                         help="") # TODO
-    parser.add_argument("--output-path", 
-                        type=str,
-                        default="evaluation_results/analogies/test-old.csv",
-                        help="") # TODO
     parser.add_argument("--rational_size_override", 
                     type=int,
                     default=-1,
-                    help="override rational_size")
+                    help="override rational_size, range from 1 up, if so, None for args.rational_size_file")
     parser.add_argument("--rational_size_file", 
                     type=str,
                     default=None,
-                    help="A file that containing a json obj that maps sample-name to rational-size; rational_size_override will be ignored")
+                    help="A file containing a json that maps sample_name to rationale-size; rational_size_overide will be ignored.")
 
     # parser.add_argument("--tokenizer", 
     #                     type=str,
@@ -47,14 +55,21 @@ if __name__ == "__main__":
 
     data_dir = args.data_dir
     target_dir = args.target_dir
+    print(f"target_dir ==>> {target_dir}")
     baseline_dir = args.baseline_dir
     output_path = args.output_path
+    # output_path = f"evaluation_results/analogies/{args.model_short_name}_{args.fa_name}/"
+    
     # tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
+
+
 
     rational_size_override = args.rational_size_override
     if args.rational_size_file != None:
         with open(args.rational_size_file) as f:
             rational_size_dict = json.load(f)
+        print("".center(50, "-"))
+        print('length file loaded!')
 
     rational_sizes = []
     no_distractors = []
@@ -102,23 +117,24 @@ if __name__ == "__main__":
             relative_hits = pos_rational == data["relative"]
             contain_relative = torch.sum(relative_hits) > 0
             contain_relatives.append(contain_relative)
-
-        path_baseline = os.path.join(baseline_dir, filename)
-        if not os.path.exists(path_baseline):
-            logging.warning(f"[Warning] {path_baseline} not found. Skipping baseline.")
-        else:
-            with open(path_baseline) as f:
-                result_baseline = json.load(f)
-            
-            if args.rational_size_file != None:
-                rational_size_override = rational_size_dict[filename]
-                rational_size_baseline = rational_size_override
+        
+        if (baseline_dir):
+            path_baseline = os.path.join(baseline_dir, filename)
+            if not os.path.exists(path_baseline):
+                logging.warning(f"[Warning] {path_baseline} not found. Skipping baseline.")
             else:
-                rational_size_baseline = result_baseline["rational-size"]
+                with open(path_baseline) as f:
+                    result_baseline = json.load(f)
+                
+                if args.rational_size_file != None:
+                    rational_size_override = rational_size_dict[filename]
+                    rational_size_baseline = rational_size_override
+                else:
+                    rational_size_baseline = result_baseline["rational-size"]
 
-            # baseline_approximation_ratios
-            baseline_approximation_ratio = rational_size_target / rational_size_baseline
-            baseline_approximation_ratios.append(baseline_approximation_ratio)
+                # baseline_approximation_ratios
+                baseline_approximation_ratio = rational_size_target / rational_size_baseline
+                baseline_approximation_ratios.append(baseline_approximation_ratio)
     
     mean_rational_size = torch.mean(torch.tensor(rational_sizes, dtype=torch.float))
     ratio_no_distractor = torch.mean(torch.tensor(no_distractors, dtype=torch.float))

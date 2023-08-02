@@ -24,7 +24,7 @@ source activate dev-inseq      # via conda
 cache_dir="cache/"
 model_name="KoboldAI/OPT-6.7B-Erebus"
 model_short_name="OPT6B"
-hyper="/top5_replace0.3_max5000_batch8"
+hyper="/top3_replace0.1_max3000_batch5"
 
 ##########  selecting FA
 # select: ours

@@ -1,0 +1,20 @@
+{
+    "$schema": "../docs/config.schema.json",
+    "rational": {
+        "size": 5,
+        "size_ratio": null
+    },
+    "rationalizer": {
+        "type": "sampling",
+        "sampling": { }
+    },
+    "importance_score_evaluator": {
+        "type": "inseq",
+        "inseq": {
+            "type": "gradient_shap",
+            "attribute_params": {
+                "show_progress": false
+            }
+        }
+    }
+}
