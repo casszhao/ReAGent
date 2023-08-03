@@ -9,7 +9,8 @@
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#$ -N gpt2
+#SBATCH --job-name=Bas-OPT1B
+
 #$ -m abe
 
 
@@ -22,10 +23,14 @@ module load CUDA/11.8.0
 source activate dev-inseq      # via conda
 
 cache_dir="cache/"
-model_name="EleutherAI/gpt-j-6b"
-# gpt2-medium, gpt2-xl, EleutherAI/gpt-j-6b, 
-# facebook/opt-350m, facebook/opt-1.3b, and KoboldAI/OPT-6.7B-Erebus
-model_short_name="gpt6b" 
+model_name="KoboldAI/OPT-6.7B-Erebus"
+# "gpt2-medium"
+# "gpt2-xl"
+# "EleutherAI/gpt-j-6b"
+# "facebook/opt-350m"
+# "facebook/opt-1.3b"
+# "KoboldAI/OPT-6.7B-Erebus"
+model_short_name="OPT6B" 
 # gpt2 gpt2_xl gpt6b
 # OPT350M OPT1B OPT6B
 
@@ -33,14 +38,17 @@ model_short_name="gpt6b"
 
 ##########  selecting FA
 # select: ours
-# select from: all_attention rollout_attention last_attention   
-# select from: norm integrated signed
+# select from: "attention_rollout" "attention_last" "attention"
+# select from: "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
 
 
 
-
-for FA_name in "rollout_attention" "rollout_attention" "norm"
-# "gradient_shap" "integrated_gradients" "input_x_gradient" "attention" "ours" 
+for FA_name in "norm" "gradient_shap" "integrated_gradients" "input_x_gradient"
+# "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
+#  "attention" "attention_rollout" "attention_last" 
+#   "ours" 
+do
+for dataset in 'tellmewhy' 'wikitext'
 do
 python src/benchmark.py \
     --model $model_name \
@@ -49,5 +57,6 @@ python src/benchmark.py \
     --stride 2 \
     --max_new_tokens 10 \
     --cache_dir $cache_dir \
-    --testing_data_name "wikitext"
+    --testing_data_name $dataset
+done
 done

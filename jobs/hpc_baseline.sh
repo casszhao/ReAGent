@@ -4,7 +4,7 @@
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --mem=16G
+#SBATCH --mem=82G
 #SBATCH --cpus-per-task=12
 #SBATCH --output=jobs.out/%j.log
 #SBATCH --time=4-00:00:00
@@ -20,28 +20,28 @@ module load CUDA/11.8.0
 source activate dev-inseq      
 # source .venv/bin/activate           # via venv
 
-model_name="gpt2-medium"   # "gpt2-medium"   "KoboldAI/OPT-6.7B-Erebus"
-model_short_name="gpt2"  #"gpt2"    "OPT6B"
+model_name="gpt2-xl"
+model_short_name="gpt2_xl"  
 cache_dir="cache/"    
 
 
 
 
-FA_name="inseq_ig" 
-# select from : all_attention rollout_attention last_attention
-# select from: integrated norm signed
+FA_name="attention_last" 
+# select from: "attention_rollout" "attention_last" "attention"
+# select from: "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
 eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name
 config_file="config/eva_"$FA_name".json"
 
 
-# # Run rationalization task, get importance distribution
-# mkdir -p $importance_results
-# mkdir -p $logpath
+# Run rationalization task, get importance distribution
+mkdir -p $importance_results
+mkdir -p $logpath
 
 
 python src/rationalization/run_analogies.py \
-    --rationalization-config config/eva_inseq_ig.json \
+    --rationalization-config config/eva_$FA_name.json \
     --model $model_name \
     --tokenizer $model_name \
     --data-dir data/analogies/$model_short_name/ \

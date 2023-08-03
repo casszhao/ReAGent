@@ -1,0 +1,8 @@
+,FAs,Soft Suff,Soft Comp
+0,Grad norms,0.0,0.0
+1,GradxEmb,0.0,0.0
+2,Integrated Grad,0.0,0.0
+3,Gradient Shap,0.0,0.0
+4,Attention Rollout,0.0005117672929372652,0.008599482942372562
+5,Attention Last,-0.0012321136967784606,0.00904828466009349
+6,Attention,0.0,0.0

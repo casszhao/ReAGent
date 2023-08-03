@@ -142,7 +142,7 @@ def main():
                 UniformTokenReplacer
             replacing_ratio=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["replacing_ratio"]
             max_steps=rationalization_config["importance_score_evaluator"]["replacing"]["optimization"]["delta_probability"]["max_steps"]
-            output_dir = output_dir + f'replace{replacing_ratio}_max{max_steps}' # by cass
+            # output_dir = output_dir + f'replace{replacing_ratio}_max{max_steps}' # by cass
             importance_score_evaluator = DeltaProbImportanceScoreEvaluator(
                 model=model, 
                 tokenizer=tokenizer, 

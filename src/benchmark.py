@@ -22,11 +22,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--model", 
                     type=str,
                     default="facebook/opt-350m", 
-                    help="select from ===> facebook/opt-350m facebook/opt-1.3b gpt2-medium gpt2-xl gpt-j-6B EleutherAI/gpt-j-6b") 
+                    help="select from ===> facebook/opt-350m facebook/opt-1.3b gpt2-medium gpt2-xl EleutherAI/gpt-j-6b") 
 parser.add_argument("--model_shortname", 
                     type=str,
                     default="OPT350M", 
-                    help="select from ===> OPT350M gpt2_xl gpt6B OPT350M OPT1B OPT6B ") 
+                    help="select from ===> OPT350M gpt2_xl gpt6b OPT350M OPT1B OPT6B ") 
 parser.add_argument("--testing_data_name", 
                     type=str,
                     default="tellmewhy",
@@ -92,6 +92,11 @@ soft_norm_comp_evaluator = SoftNormalizedComprehensivenessEvaluator(model)
 rational_size = 3
 rational_size_ratio = None
 
+stopping_top_k = 3
+replacing = 0.1
+max_step = 5000
+batch = 5
+
 if args.method == 'ours':
     
     token_sampler = POSTagTokenSampler(tokenizer=tokenizer, device=device)
@@ -99,7 +104,7 @@ if args.method == 'ours':
     stopping_condition_evaluator = TopKStoppingConditionEvaluator(
     model=model, 
     token_sampler=token_sampler, 
-    top_k=3, 
+    top_k=stopping_top_k, 
     top_n=rational_size, 
     top_n_ratio=rational_size_ratio, 
     tokenizer=tokenizer
@@ -110,28 +115,28 @@ if args.method == 'ours':
         tokenizer=tokenizer, 
         token_replacer=UniformTokenReplacer(
             token_sampler=token_sampler, 
-            ratio=0.1
+            ratio=replacing
         ),
         stopping_condition_evaluator=stopping_condition_evaluator,
-        max_steps=5000
+        max_steps=max_step
     )
 
 
     rationalizer = AggregateRationalizer(
         importance_score_evaluator=importance_score_evaluator,
-        batch_size=5,
+        batch_size=batch,
         overlap_threshold=2,
         overlap_strict_pos=True,
         top_n=rational_size, 
         top_n_ratio=rational_size_ratio
     )
 
-elif args.method == 'last_attention' or args.method == 'rollout_attention':
+elif args.method == 'attention_last' or args.method == 'attention_rollout':
     from rationalization.rationalizer.importance_score_evaluator.attention import AttentionImportanceScoreEvaluator
     importance_score_evaluator = AttentionImportanceScoreEvaluator(
             model=model,
             tokenizer=tokenizer,
-            attn_type= args.method
+            attn_type= args.method.replace("attention_", "")
         )
     from rationalization.rationalizer.sample_rationalizer import SampleRationalizer
     rationalizer = SampleRationalizer(
@@ -296,6 +301,10 @@ for i, input_text in enumerate(input_text_list):
 
     except Exception as e:
         print(f'[Warn] failed on {i}')
-    
-        continue
+        # print(type(e))
+        # print(e)
+        import traceback
+        traceback.print_exception(e)
+
+        # continue
     
