@@ -9,7 +9,7 @@
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#SBATCH --job-name=Bas-OPT1B
+#SBATCH --job-name=All_opt350
 
 #$ -m abe
 
@@ -23,27 +23,22 @@ module load CUDA/11.8.0
 source activate dev-inseq      # via conda
 
 cache_dir="cache/"
-model_name="KoboldAI/OPT-6.7B-Erebus"
+model_name="facebook/opt-350m"
 # "gpt2-medium"
 # "gpt2-xl"
 # "EleutherAI/gpt-j-6b"
 # "facebook/opt-350m"
 # "facebook/opt-1.3b"
 # "KoboldAI/OPT-6.7B-Erebus"
-model_short_name="OPT6B" 
+model_short_name="OPT350M" 
 # gpt2 gpt2_xl gpt6b
 # OPT350M OPT1B OPT6B
 
 
 
-##########  selecting FA
-# select: ours
-# select from: "attention_rollout" "attention_last" "attention"
-# select from: "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
 
-
-
-for FA_name in "norm" "gradient_shap" "integrated_gradients" "input_x_gradient"
+for FA_name in "gradient_shap" "integrated_gradients" "input_x_gradient" "attention" "attention_rollout" "attention_last" "ours" 
+##########  selecting FA "ours" "norm"
 # "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
 #  "attention" "attention_rollout" "attention_last" 
 #   "ours" 

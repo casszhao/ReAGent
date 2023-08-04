@@ -24,12 +24,12 @@ source activate dev-inseq      # via conda
 cache_dir="cache/"
 
 model_name="EleutherAI/gpt-j-6b"
-"gpt2-medium"
-"gpt2-xl"
-"EleutherAI/gpt-j-6b"
-"facebook/opt-350m"
-"facebook/opt-1.3b"
-"KoboldAI/OPT-6.7B-Erebus"
+# "gpt2-medium"
+# "gpt2-xl"
+# "EleutherAI/gpt-j-6b"
+# "facebook/opt-350m"
+# "facebook/opt-1.3b"
+# "KoboldAI/OPT-6.7B-Erebus"
 model_short_name="gpt6b" 
 # gpt2 gpt2_xl gpt6b
 # OPT350M OPT1B OPT6B

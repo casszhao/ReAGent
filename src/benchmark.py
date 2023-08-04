@@ -17,24 +17,46 @@ import csv
 import os
 
 
+'''
+Example for python:
+
+import os
+os.environ['TRANSFORMERS_CACHE'] = '/blabla/cache/'
+Example for bash:
+
+export TRANSFORMERS_CACHE=/blabla/cache/
+'''
+
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--model", 
                     type=str,
-                    default="EleutherAI/gpt-j-6b", 
-                    help="select from ===> facebook/opt-350m facebook/opt-1.3b gpt2-medium gpt2-xl EleutherAI/gpt-j-6b") 
+                    default="EleutherAI/gpt-j-6b",
+                    help="select from ===> facebook/opt-350m facebook/opt-1.3b KoboldAI/OPT-6.7B-Erebus \
+                        gpt2-medium gpt2-xl EleutherAI/gpt-j-6b") 
 parser.add_argument("--model_shortname", 
                     type=str,
                     default="gpt6b", 
-                    help="select from ===> OPT350M gpt2_xl gpt6b OPT350M OPT1B OPT6B ") 
+                    help="select from ===> OPT350M gpt2 gpt2_xl gpt6b OPT350M OPT1B OPT6B ") 
+
 parser.add_argument("--testing_data_name", 
                     type=str,
-                    default="tellmewhy",
-                    help="") # TODO
+                    default="wikitext",
+                    help="select between wikitext and tellmewhy") 
+
 parser.add_argument("--method", 
                     type=str,
-                    default="ours", 
-                    help="FAs, like last_attention rollout_attention gradient_shap, 'integrated_gradients', 'input_x_gradient', 'attention'") # TODO
+                    default="integrated_gradients", 
+                    help="FAs, like \
+                    attention attention_last attention_rollout \
+                    gradient_shap  integrated_gradients  input_x_gradient norm ") # TODO
+## OPT6B cannot run norm
+## gpt2 wikitext run gradient_shap, only a few data 
+## gpt2 wikitext run input_x_gradient, only a few data 
+## gpt2_xl wikitext run attention / gradient_shap / input_x_gradient, only a few data ==> raise ValueError("Start and end attribution positions cannot be the same.")ValueError: Start and end attribution positions cannot be the same.
+
+
 parser.add_argument("--stride", 
                     type=int,
                     default=2, 
@@ -79,8 +101,8 @@ with open(input_file, "r") as in_f:
 
 # init model
 
-tokenizer = AutoTokenizer.from_pretrained(args.model, cache_dir='cache/')
-model = AutoModelForCausalLM.from_pretrained(args.model, cache_dir='cache/').to(device)
+tokenizer = AutoTokenizer.from_pretrained(args.model, cache_dir='/mnt/parscratch/users/cass/seq_rationales/cache/') # , padding_side='left'
+model = AutoModelForCausalLM.from_pretrained(args.model, cache_dir='/mnt/parscratch/users/cass/seq_rationales/cache/').to(device)
 
 # init evaluator
 
@@ -157,8 +179,8 @@ elif args.method == 'norm':  # l2
         top_n=3,
         #top_n_ratio=
     )
-else:
-    assert args.method in ['integrated_gradients', 'input_x_gradient', 'attention', 'gradient_shap'] # input_x_gradient = signed in self written
+else: 
+    # assert args.method in ['integrated_gradients', 'input_x_gradient', 'attention', 'gradient_shap'] # input_x_gradient = signed in self written
     from rationalization.rationalizer.importance_score_evaluator.inseq import InseqImportanceScoreEvaluator
     importance_score_evaluator = InseqImportanceScoreEvaluator(
         model=model, 

@@ -1,6 +1,6 @@
 from typing_extensions import override
 import torch
-from transformers import AutoModelForCausalLM, GPT2LMHeadModel, OPTForCausalLM
+from transformers import AutoModelForCausalLM, GPT2LMHeadModel, OPTForCausalLM, GPTJForCausalLM
 from .base import BaseEvaluator
 from .sufficiency import SufficiencyEvaluator
 from .comprehensiveness import ComprehensivenessEvaluator
@@ -49,6 +49,9 @@ class SoftNormalizedComprehensivenessEvaluator(BaseEvaluator):
             elif isinstance(self.model, OPTForCausalLM):
                 optModel: OPTForCausalLM = self.model
                 input_wte = optModel.model.decoder.embed_tokens(input_ids)
+            elif isinstance(self.model, GPTJForCausalLM):
+                gptjModel: GPTJForCausalLM = self.model
+                input_wte = gptjModel.transformer.wte.weight[input_ids,:]
             else:
                 raise ValueError(f"Unsupported model {type(self.model)}")
 

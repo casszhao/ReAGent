@@ -35,19 +35,17 @@ def get_one_line_for_one_FA(model_name, FA_name, task_name):
     lis.append((comp_mean-random_comp_mean)/20)
     return lis
 
-model_name="gpt2_xl"
-# "OPT6B"
-# "gpt2"
-dataset = 'tellmewhy'
+
 
 all_results = []
-for model_name in ["gpt2","gpt2_xl", "OPT1B", "OPT6B"]: # "gpt2","gpt2_xl", "OPT1B", "OPT6B"
+for model_name in ["OPT350M", "gpt2", "gpt2_xl", "OPT1B", "OPT6B"]: # "gpt2","gpt2_xl", "OPT1B", "OPT6B"
 # "gpt6b", "OPT350M", 
     for dataset in ['tellmewhy', 'wikitext']:
         print()
         print()
         print(f' ============== {model_name},  {dataset}  ============== ')
-        norm = get_one_line_for_one_FA(model_name, "norm", dataset)
+        try: norm = get_one_line_for_one_FA(model_name, "norm", dataset)
+        except: norm = None
         signed = get_one_line_for_one_FA(model_name, "input_x_gradient", dataset)
         integrated = get_one_line_for_one_FA(model_name, "integrated_gradients", dataset)
         gradient_shap = get_one_line_for_one_FA(model_name, "gradient_shap", dataset)
