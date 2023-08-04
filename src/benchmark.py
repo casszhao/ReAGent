@@ -21,11 +21,11 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("--model", 
                     type=str,
-                    default="facebook/opt-350m", 
+                    default="EleutherAI/gpt-j-6b", 
                     help="select from ===> facebook/opt-350m facebook/opt-1.3b gpt2-medium gpt2-xl EleutherAI/gpt-j-6b") 
 parser.add_argument("--model_shortname", 
                     type=str,
-                    default="OPT350M", 
+                    default="gpt6b", 
                     help="select from ===> OPT350M gpt2_xl gpt6b OPT350M OPT1B OPT6B ") 
 parser.add_argument("--testing_data_name", 
                     type=str,
@@ -33,7 +33,7 @@ parser.add_argument("--testing_data_name",
                     help="") # TODO
 parser.add_argument("--method", 
                     type=str,
-                    default="norm", 
+                    default="ours", 
                     help="FAs, like last_attention rollout_attention gradient_shap, 'integrated_gradients', 'input_x_gradient', 'attention'") # TODO
 parser.add_argument("--stride", 
                     type=int,

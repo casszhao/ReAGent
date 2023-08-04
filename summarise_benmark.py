@@ -2,15 +2,6 @@ import pandas as pd
 import os
 
 
-    
-
-model_name="gpt2_xl"
-# "OPT6B"
-# "gpt2"
-dataset = 'tellmewhy'
-#hyper="top5_replace0.3_max5000_batch8"
-
-
 
 def get_one_line_for_one_FA(model_name, FA_name, task_name):
     print(' ====> ', FA_name)
@@ -49,7 +40,9 @@ model_name="gpt2_xl"
 # "gpt2"
 dataset = 'tellmewhy'
 
-for model_name in [ "gpt2","gpt2_xl", "gpt6b", "OPT350M", "OPT1B", "OPT6B"]: # 
+all_results = []
+for model_name in ["gpt2","gpt2_xl", "OPT1B", "OPT6B"]: # "gpt2","gpt2_xl", "OPT1B", "OPT6B"
+# "gpt6b", "OPT350M", 
     for dataset in ['tellmewhy', 'wikitext']:
         print()
         print()
@@ -65,8 +58,14 @@ for model_name in [ "gpt2","gpt2_xl", "gpt6b", "OPT350M", "OPT1B", "OPT6B"]: #
         ours = get_one_line_for_one_FA(model_name, "ours", dataset)
 
         df = pd.DataFrame([norm, signed, integrated, gradient_shap,\
-                            rollout_attention, last_attention, attention], columns=['FAs', 'Soft Suff', 'Soft Comp'])
+                            rollout_attention, last_attention, attention, ours], columns=['FAs', 'Soft Suff', 'Soft Comp'])
         print(df)
         os.makedirs(f'evaluation_results/summary/benchmark/{dataset}/', exist_ok=True)
         df.to_csv(f'evaluation_results/summary/benchmark/{dataset}/{model_name}_{dataset}.csv')
+        df['Model'] = model_name
+        df['Data'] = dataset
+        all_results.append(df)
 
+
+df = pd.concat(all_results)
+df.to_csv(f'evaluation_results/summary/benchmark/ALL.csv')
