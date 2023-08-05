@@ -38,7 +38,7 @@ def get_one_line_for_one_FA(model_name, FA_name, task_name):
 
 
 all_results = []
-for model_name in ["OPT350M", "gpt2", "gpt2_xl", "OPT1B", "OPT6B"]: # "gpt2","gpt2_xl", "OPT1B", "OPT6B"
+for model_name in ["gpt6b", "OPT350M", "gpt2", "gpt2_xl", "OPT1B", "OPT6B"]: # "gpt2","gpt2_xl", "OPT1B", "OPT6B"
 # "gpt6b", "OPT350M", 
     for dataset in ['tellmewhy', 'wikitext']:
         print()

@@ -1,3 +1,3 @@
 norm_suff_mean,random_suff_mean,norm_comp_mean,random_comp_mean,final suff,final comp,target_tokens
-0.0002067520108539611,0.0008388964342884719,0.16598455607891083,0.045078910887241364,0.24645712971687317,218.03372192382812," Because$ was$ kid$
+0.0,0.0,0.2764236629009247,0.03415496274828911,nan,inf," Because$ was$ kid$
 $'m"

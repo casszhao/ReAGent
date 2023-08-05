@@ -10,24 +10,35 @@
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#SBATCH --job-name=optBASE
+#SBATCH --job-name=G6B_norm
 
 #$ -m abe
 
+export TRANSFORMERS_CACHE=/mnt/parscratch/users/cass/seq_rationales/cache/
 
 module load Anaconda3/2022.10
 module load CUDA/11.8.0
 source activate dev-inseq      
 # source .venv/bin/activate           # via venv
 
-model_name="gpt2-xl"
-model_short_name="gpt2_xl"  
-cache_dir="cache/"    
+
+model_name="EleutherAI/gpt-j-6b"
+# "gpt2-medium"
+# "gpt2-xl"
+# "EleutherAI/gpt-j-6b"
+# "facebook/opt-350m"
+# "facebook/opt-1.3b"
+# "KoboldAI/OPT-6.7B-Erebus"
+model_short_name="gpt6b" 
+# gpt2 gpt2_xl gpt6b
+# OPT350M OPT1B OPT6B
+
+cache_dir="./cache/"    
 
 
 
 
-FA_name="attention_last" 
+FA_name="norm" 
 # select from: "attention_rollout" "attention_last" "attention"
 # select from: "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name

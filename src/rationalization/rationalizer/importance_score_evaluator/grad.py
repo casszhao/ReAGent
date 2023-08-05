@@ -1,7 +1,7 @@
 import logging
 
 import torch
-from transformers import AutoModelWithLMHead, AutoTokenizer
+from transformers import AutoModelWithLMHead, AutoTokenizer, GPTJForCausalLM
 from .base import BaseImportanceScoreEvaluator
 from transformers.models.opt.modeling_opt import OPTForCausalLM
 from transformers.models.gpt2.modeling_gpt2 import GPT2LMHeadModel
@@ -48,14 +48,20 @@ class GradientImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
             gpt2Model: GPT2LMHeadModel = self.model
             word_token_embeds = gpt2Model.transformer.wte(input_ids)
             position_embeds = gpt2Model.transformer.wpe(position_ids)
+            pos_encoded_embeddings = word_token_embeds + position_embeds
         elif isinstance(self.model, OPTForCausalLM):
             optModel: OPTForCausalLM = self.model
             word_token_embeds = optModel.model.decoder.embed_tokens(input_ids)
             position_embeds = optModel.model.decoder.embed_positions(position_ids)
+            pos_encoded_embeddings = word_token_embeds + position_embeds
+        elif isinstance(self.model, GPTJForCausalLM):
+            gptjModel: GPTJForCausalLM = self.model
+            word_token_embeds = gptjModel.transformer.wte(input_ids)
+            pos_encoded_embeddings = gptjModel.transformer.wte(input_ids)
         else:
             raise ValueError(f"Unsupported model {type(self.model)}")
 
-        pos_encoded_embeddings = word_token_embeds + position_embeds
+        
 
         if self.grad_type == 'integrated':
             # Approximate integrated gradient.

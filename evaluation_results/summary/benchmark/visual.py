@@ -3,10 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-dataset = 'tellmewhy' # tellmewhy
+dataset = 'wikitext' # tellmewhy wikitext
 
 model_name_dict = { 'gpt2':'GPT2 354M', 'gpt2_xl': 'GPT2 1.5B', 'gpt6b': 'GPT-J 6B', \
-                    'OPT350M': 'OPT 350M', 'OPT1B':'OPT 1.3B', 'OPT6B':'OPT 6,7B', \
+                    'OPT350M': 'OPT 350M', 'OPT1B':'OPT 1.3B', 'OPT6B':'OPT 6.7B', \
                     'GradxEmb':'Grad x Emb', }
 
 df = pd.read_csv('./evaluation_results/summary/benchmark/ALL.csv')
@@ -29,12 +29,13 @@ plt.subplot(3,1,3)  # row colum
 axs[2].set_visible(False)
 
 plt.subplot(3,1,1)  # row colum
-sns.barplot(x="Model", y="Soft Suff", hue="FAs", data=suff, errorbar=None,  width= 0.6) # , height=8
+sns.barplot(x="Model", y="Soft Comp", hue="FAs", data=comp, errorbar=None, width= 0.6,
+            order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B'])
 plt.xlabel('Models', fontweight='bold')
-#plt.xticks(['A', 'B', 'C', 'D'])
 
 plt.subplot(3,1,2)  # row colum
-sns.barplot(x="Model", y="Soft Comp", hue="FAs", data=comp, errorbar=None, width= 0.6)
+sns.barplot(x="Model", y="Soft Suff", hue="FAs", data=suff, errorbar=None,  width= 0.6,
+            order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B']) # , height=8
 plt.xlabel('Models', fontweight='bold')
 
 
