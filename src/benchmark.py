@@ -32,12 +32,12 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("--model", 
                     type=str,
-                    default="EleutherAI/gpt-j-6b",
+                    default="gpt2-medium",
                     help="select from ===> facebook/opt-350m facebook/opt-1.3b KoboldAI/OPT-6.7B-Erebus \
                         gpt2-medium gpt2-xl EleutherAI/gpt-j-6b") 
 parser.add_argument("--model_shortname", 
                     type=str,
-                    default="gpt6b", 
+                    default="gpt2", 
                     help="select from ===> OPT350M gpt2 gpt2_xl gpt6b OPT350M OPT1B OPT6B ") 
 
 parser.add_argument("--testing_data_name", 
@@ -47,7 +47,7 @@ parser.add_argument("--testing_data_name",
 
 parser.add_argument("--method", 
                     type=str,
-                    default="attention_rollout", 
+                    default="norm", 
                     help="FAs, like \
                     attention attention_last attention_rollout \
                     gradient_shap  integrated_gradients  input_x_gradient norm ") # TODO
@@ -258,7 +258,6 @@ for i, input_text in enumerate(input_text_list):
             target_id_step = torch.unsqueeze(generated_ids[target_pos], 0)
             importance_score_step = torch.unsqueeze(importance_score_map[target_pos - input_ids.shape[0], :target_pos], 0)
             random_importance_scores = normalise_random(torch.rand(importance_score_step.size(), device=device))
-            
 
             norm_suff = soft_norm_suff_evaluator.evaluate(input_ids_step, target_id_step, importance_score_step)
             random_suff = soft_norm_suff_evaluator.evaluate(input_ids_step, target_id_step, random_importance_scores)
@@ -270,7 +269,6 @@ for i, input_text in enumerate(input_text_list):
             norm_comp_all.append(norm_comp)
             random_comp_all.append(random_comp)
 
-
             table_details.append([target_pos.item() + 1, target_token, norm_suff.item(), random_suff.item(), norm_comp.item(), random_comp.item()])
             print(f"target_pos: {target_pos + 1}, target_token: {target_token}, norm_suff: {norm_suff}, random_suff: {random_suff}, norm_comp: {norm_comp}, random_comp:{random_comp}")
         
@@ -281,6 +279,7 @@ for i, input_text in enumerate(input_text_list):
         print(random_suff_all)
         norm_suff_mean = torch.mean(torch.tensor(norm_suff_all, device=device))
         norm_comp_mean = torch.mean(torch.tensor(norm_comp_all, device=device))
+
         random_suff_mean = torch.mean(torch.tensor(random_suff_all, device=device))
         random_comp_mean = torch.mean(torch.tensor(random_comp_all, device=device))
 

@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-dataset = 'wikitext' # tellmewhy wikitext
+dataset = 'tellmewhy' # tellmewhy wikitext
 
 model_name_dict = { 'gpt2':'GPT2 354M', 'gpt2_xl': 'GPT2 1.5B', 'gpt6b': 'GPT-J 6B', \
                     'OPT350M': 'OPT 350M', 'OPT1B':'OPT 1.3B', 'OPT6B':'OPT 6.7B', \
@@ -35,7 +35,7 @@ plt.xlabel('Models', fontweight='bold')
 
 plt.subplot(3,1,2)  # row colum
 sns.barplot(x="Model", y="Soft Suff", hue="FAs", data=suff, errorbar=None,  width= 0.6,
-            order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B']) # , height=8
+            order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B', 'GPT-J 6B']) # , height=8
 plt.xlabel('Models', fontweight='bold')
 
 
