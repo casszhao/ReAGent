@@ -36,16 +36,17 @@ model_short_name="gpt6b"
 # OPT350M OPT1B OPT6B
 
 
+FA_name="attention_last"
+# "integrated_gradients" "input_x_gradient" "attention" "attention_rollout" "attention_last" 
 
-
-for FA_name in "ours" "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" "attention" "attention_rollout" "attention_last" 
-##########  selecting FA "ours" "norm"
-# "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
-#  "attention" "attention_rollout" "attention_last" 
-#   "ours" 
-do
-for dataset in 'wikitext' 'tellmewhy' 
-do
+# for FA_name in "ours" "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" "attention" "attention_rollout" "attention_last" 
+# ##########  selecting FA "ours" "norm"
+# # "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
+# #  "attention" "attention_rollout" "attention_last" 
+# #   "ours" 
+# do
+# for dataset in 'wikitext' 'tellmewhy' 
+# do
 python src/benchmark.py \
     --model $model_name \
     --model_shortname $model_short_name \
@@ -53,6 +54,6 @@ python src/benchmark.py \
     --stride 2 \
     --max_new_tokens 10 \
     --cache_dir $cache_dir \
-    --testing_data_name $dataset
+    --testing_data_name tellmewhy
 done
-done
+# done

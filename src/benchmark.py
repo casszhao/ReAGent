@@ -47,7 +47,7 @@ parser.add_argument("--testing_data_name",
 
 parser.add_argument("--method", 
                     type=str,
-                    default="gradient_shap", 
+                    default="attention_rollout", 
                     help="FAs, like \
                     attention attention_last attention_rollout \
                     gradient_shap  integrated_gradients  input_x_gradient norm ") # TODO
