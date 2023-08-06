@@ -164,16 +164,16 @@
         "created-by": "run_analogies.py",
         "args": {
             "model": "KoboldAI/OPT-6.7B-Erebus",
-            "cache_dir": "cache/",
+            "cache_dir": "./cache/",
             "tokenizer": "KoboldAI/OPT-6.7B-Erebus",
             "data_dir": "data/analogies/OPT6B/",
-            "importance_results_dir": "rationalization_results/analogies/OPT6B_inseq_gradient_shap",
+            "importance_results_dir": "rationalization_results/analogies/OPT6B_gradient_shap",
             "device": "cuda",
-            "rationalization_config": "config/inseq_gradient_shap.json",
-            "input_num_ratio": 1.0,
-            "logfolder": "logs/analogies/OPT6B_inseq_gradient_shap",
+            "rationalization_config": "config/eva_gradient_shap.json",
+            "input_num_ratio": 1,
+            "logfolder": "logs/analogies/OPT6B_gradient_shap",
             "loglevel": 20
         },
-        "time_elapsed": 0.454089879989624
+        "time_elapsed": 0.45606565475463867
     }
 }

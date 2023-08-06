@@ -137,7 +137,7 @@ model_name_dict = { 'gpt2':'GPT2 354M', 'gpt2_xl': 'GPT2 1.5B', 'gpt6b': 'GPT-J 
 
 all_results = []
 
-for model_name in ['gpt2', 'gpt2_xl', 'OPT1B', 'OPT6B']: #'gpt6b', 'OPT350M', 
+for model_name in ['OPT350M', 'gpt2', 'gpt2_xl', 'OPT1B', 'OPT6B', 'gpt6b']: #'gpt6b', 
     temp = get_one_model(model_name, ratio_list)
     temp['Model'] = model_name
     all_results.append(temp)
@@ -147,40 +147,51 @@ df = pd.concat(all_results)
 
 df.replace(model_name_dict,inplace=True)
 
-suff = df[["FAs","Soft Suff","Model"]]
-comp = df[["FAs","Soft Comp","Model"]]
+soft_or_mean = 'Soft' # soft or Mean
+
+def plot_for_mean_or_soft(soft_or_mean):
+    suff = df[["FAs",f"{soft_or_mean} Suff","Model"]]
+    comp = df[["FAs",f"{soft_or_mean} Comp","Model"]]
 
 
-plt.figure(figsize=(22, 22))
-fig, axs = plt.subplots(nrows=3, ncols=1, sharex=False, ) #squeeze=True,
-#fig.title('Wikitext sentence-level faithfulness')
+    plt.figure(figsize=(22, 22))
+    fig, axs = plt.subplots(nrows=3, ncols=1, sharex=False, ) #squeeze=True,
+    #fig.title('Wikitext sentence-level faithfulness')
 
-plt.subplot(3,1,3)  # row colum
-axs[2].set_visible(False)
+    plt.subplot(3,1,3)  # row colum
+    axs[2].set_visible(False)
 
-plt.subplot(3,1,1)  # row colum
-sns.barplot(x="Model", y="Soft Comp", hue="FAs", data=comp, errorbar=None, width= 0.6,
-            order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B']) #, 'GPT-J 6B'
-plt.xlabel('Models', fontweight='bold')
+    plt.subplot(3,1,1)  # row colum
+    sns.barplot(x="Model", y=f"{soft_or_mean} Comp", hue="FAs", data=comp, errorbar=None, width= 0.6,
+                order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B', 'GPT-J 6B']) #
+    plt.xlabel('Models', fontweight='bold')
 
-plt.subplot(3,1,2)  # row colum
-sns.barplot(x="Model", y="Soft Suff", hue="FAs", data=suff, errorbar=None,  width= 0.6,
-            order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B']) # , height=8
-plt.xlabel('Models', fontweight='bold')
+    plt.subplot(3,1,2)  # row colum
+    sns.barplot(x="Model", y=f"{soft_or_mean} Suff", hue="FAs", data=suff, errorbar=None,  width= 0.6,
+                order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B', 'GPT-J 6B']) # , height=8
+    plt.xlabel('Models', fontweight='bold')
 
 
 
-handles, labels = axs[0].get_legend_handles_labels()
+    handles, labels = axs[0].get_legend_handles_labels()
 
-fig.legend(handles[:8], labels[:8], ncol=4, loc='center', bbox_to_anchor=(0.5, 0.21), fontsize=9) # 00 0.4 middle 0.8 top
-# fig.legend(nrow=1, loc='lower right', bbox_to_anchor=(1.19, 0.1)) #
-plt.legend()
-axs[0].get_legend().remove()
-axs[1].get_legend().remove()
-# Add xticks on the middle of the group bars
+    fig.legend(handles[:8], labels[:8], ncol=4, loc='center', bbox_to_anchor=(0.5, 0.21), fontsize=9) # 00 0.4 middle 0.8 top
+    # fig.legend(nrow=1, loc='lower right', bbox_to_anchor=(1.19, 0.1)) #
+    plt.legend()
+    axs[0].get_legend().remove()
+    axs[1].get_legend().remove()
+    # Add xticks on the middle of the group bars
 
-fig.suptitle('Token-level Faithfulness', fontsize=15)
-fig.tight_layout() 
-plt.show()
+    fig.suptitle('Token-level Faithfulness', fontsize=15)
+    fig.tight_layout() 
+    plt.show()
 
-plt.savefig(f"./evaluation_results/summary/analogies/token.png",bbox_inches='tight')
+    plt.savefig(f"./evaluation_results/summary/analogies/token_{soft_or_mean}.png",bbox_inches='tight')
+
+
+plot_for_mean_or_soft('Soft')
+plot_for_mean_or_soft('Mean')
+plot_for_mean_or_soft('5%')
+plot_for_mean_or_soft('10%')
+plot_for_mean_or_soft('20%')
+plot_for_mean_or_soft('30%')

@@ -9,33 +9,31 @@
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#SBATCH --job-name=gpt6b
+#SBATCH --job-name=OPT350M
 #$ -m abe
-
+export TRANSFORMERS_CACHE=/mnt/parscratch/users/cass/seq_rationales/cache/
 
 # Load modules & activate env
 
 module load Anaconda3/2022.10
 module load CUDA/11.8.0
-
-# Activate env
-source activate dev-inseq      # via conda
+source activate dev-inseq     
 
 cache_dir="cache/"
 
-model_name="EleutherAI/gpt-j-6b"
+model_name="KoboldAI/OPT-6.7B-Erebus"
 # "gpt2-medium"
 # "gpt2-xl"
 # "EleutherAI/gpt-j-6b"
 # "facebook/opt-350m"
 # "facebook/opt-1.3b"
 # "KoboldAI/OPT-6.7B-Erebus"
-model_short_name="gpt6b" 
+model_short_name="OPT6B" 
 # gpt2 gpt2_xl gpt6b
 # OPT350M OPT1B OPT6B
 
 # hyper="/top3_replace0.1_max3000_batch5"
-hyper="/top3_replace0.1_max5000_batch5"
+hyper="/top3_replace0.3_max3000_batch10"
 
 
 ##########  selecting FA
@@ -43,6 +41,7 @@ hyper="/top3_replace0.1_max5000_batch5"
 # select from: all_attention attention_rollout attention_last   
 # select from: norm integrated signed
 FA_name="ours" 
+
 
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
 eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
@@ -66,26 +65,20 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 #     --cache_dir $cache_dir 
 
 
-# # Run rationalization task
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/$hyper.json \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfolder $logfolder_shortname \
-#     --input_num_ratio 1 \
-#     --cache_dir $cache_dir
+# Run rationalization task
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/$hyper.json \
+    --model $model_name \
+    --tokenizer $model_name \
+    --data-dir data/analogies/$model_short_name \
+    --importance_results_dir $importance_results \
+    --device cuda \
+    --logfolder $logfolder_shortname \
+    --input_num_ratio 1 \
+    --cache_dir $cache_dir
 
 
-
-# # for greedy search ---> only once
-# # python src/rationalization/migrate_results_analogies.py
-
-
-
-for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 1
+for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 0.4 0.5 1
 do
 echo "  for rationale "
 echo $rationale_ratio_for_eva
@@ -100,14 +93,19 @@ python src/evaluation/evaluate_analogies.py \
 done
 
 
-#  ONLY FOR GPT2
-echo $rationale_ratio_for_eva
-python src/evaluation/evaluate_analogies.py \
-    --importance_results_dir $importance_results \
-    --eva_output_dir $eva_output_dir \
-    --model $model_name \
-    --tokenizer $model_name \
-    --logfolder $logfolder_shortname \
-    --rationale_size_ratio 0 \
-    --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
-    --cache_dir $cache_dir
+
+# # for greedy search ---> only once
+# # python src/rationalization/migrate_results_analogies.py
+
+
+# #  ONLY FOR GPT2
+# echo $rationale_ratio_for_eva
+# python src/evaluation/evaluate_analogies.py \
+#     --importance_results_dir $importance_results \
+#     --eva_output_dir $eva_output_dir \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --logfolder $logfolder_shortname \
+#     --rationale_size_ratio 0 \
+#     --rational_size_file "rationalization_results/analogies-greedy-lengths.json" \
+#     --cache_dir $cache_dir

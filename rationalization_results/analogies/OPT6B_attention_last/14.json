@@ -164,16 +164,16 @@
         "created-by": "run_analogies.py",
         "args": {
             "model": "KoboldAI/OPT-6.7B-Erebus",
-            "cache_dir": "cache/",
+            "cache_dir": "./cache/",
             "tokenizer": "KoboldAI/OPT-6.7B-Erebus",
             "data_dir": "data/analogies/OPT6B/",
-            "importance_results_dir": "rationalization_results/analogies/OPT6B_last_attention",
+            "importance_results_dir": "rationalization_results/analogies/OPT6B_attention_last",
             "device": "cuda",
-            "rationalization_config": "config/eva_last_attention.json",
+            "rationalization_config": "config/eva_attention_last.json",
             "input_num_ratio": 1,
-            "logfolder": "logs/analogies/OPT6B_last_attention",
+            "logfolder": "logs/analogies/OPT6B_attention_last",
             "loglevel": 20
         },
-        "time_elapsed": 0.07740521430969238
+        "time_elapsed": 0.07614803314208984
     }
 }

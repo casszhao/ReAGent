@@ -170,7 +170,7 @@
         "created-by": "run_analogies.py",
         "args": {
             "model": "gpt2-xl",
-            "cache_dir": "cache/",
+            "cache_dir": "./cache/",
             "tokenizer": "gpt2-xl",
             "data_dir": "data/analogies/gpt2_xl/",
             "importance_results_dir": "rationalization_results/analogies/gpt2_xl_attention_rollout",
@@ -180,6 +180,6 @@
             "logfolder": "logs/analogies/gpt2_xl_attention_rollout",
             "loglevel": 20
         },
-        "time_elapsed": 0.03415203094482422
+        "time_elapsed": 0.036034584045410156
     }
 }

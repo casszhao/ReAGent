@@ -138,6 +138,6 @@
             "logfolder": "logs/analogies/gpt6b_input_x_gradient",
             "loglevel": 20
         },
-        "time_elapsed": 0.22190523147583008
+        "time_elapsed": 0.16760516166687012
     }
 }

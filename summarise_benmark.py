@@ -45,8 +45,8 @@ for model_name in ["gpt6b", "OPT350M", "gpt2", "gpt2_xl", "OPT1B", "OPT6B"]: # "
         print()
         print()
         print(f' ============== {model_name},  {dataset}  ============== ')
-        try: norm = get_one_line_for_one_FA(model_name, "norm", dataset)
-        except: norm = None
+        # try: norm = get_one_line_for_one_FA(model_name, "norm", dataset)
+        # except: norm = None
         signed = get_one_line_for_one_FA(model_name, "input_x_gradient", dataset)
         integrated = get_one_line_for_one_FA(model_name, "integrated_gradients", dataset)
         gradient_shap = get_one_line_for_one_FA(model_name, "gradient_shap", dataset)
@@ -56,9 +56,7 @@ for model_name in ["gpt6b", "OPT350M", "gpt2", "gpt2_xl", "OPT1B", "OPT6B"]: # "
         attention = get_one_line_for_one_FA(model_name, "attention", dataset)
         ours = get_one_line_for_one_FA(model_name, "ours", dataset)
 
-        try: df = pd.DataFrame([norm, signed, integrated, gradient_shap,\
-                            rollout_attention, last_attention, attention, ours], columns=['FAs', 'Soft Suff', 'Soft Comp'])
-        except: df = pd.DataFrame([signed, integrated, gradient_shap,\
+        df = pd.DataFrame([signed, integrated, gradient_shap,\
                             rollout_attention, last_attention, attention, ours], columns=['FAs', 'Soft Suff', 'Soft Comp'])
         print(df)
         

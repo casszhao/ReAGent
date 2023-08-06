@@ -183,6 +183,6 @@
             "logfolder": "logs/analogies/OPT1B_input_x_gradient",
             "loglevel": 20
         },
-        "time_elapsed": 0.0802621841430664
+        "time_elapsed": 0.05601215362548828
     }
 }

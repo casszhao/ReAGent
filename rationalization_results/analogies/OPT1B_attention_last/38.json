@@ -186,6 +186,6 @@
             "logfolder": "logs/analogies/OPT1B_attention_last",
             "loglevel": 20
         },
-        "time_elapsed": 0.0211031436920166
+        "time_elapsed": 0.019932985305786133
     }
 }

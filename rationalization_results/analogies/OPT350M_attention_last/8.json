@@ -186,6 +186,6 @@
             "logfolder": "logs/analogies/OPT350M_attention_last",
             "loglevel": 20
         },
-        "time_elapsed": 0.012946128845214844
+        "time_elapsed": 0.012347221374511719
     }
 }

@@ -182,7 +182,7 @@
         "created-by": "run_analogies.py",
         "args": {
             "model": "gpt2-xl",
-            "cache_dir": "cache/",
+            "cache_dir": "./cache/",
             "tokenizer": "gpt2-xl",
             "data_dir": "data/analogies/gpt2_xl/",
             "importance_results_dir": "rationalization_results/analogies/gpt2_xl_integrated_gradients",
@@ -192,6 +192,6 @@
             "logfolder": "logs/analogies/gpt2_xl_integrated_gradients",
             "loglevel": 20
         },
-        "time_elapsed": 1.1834228038787842
+        "time_elapsed": 1.2224466800689697
     }
 }

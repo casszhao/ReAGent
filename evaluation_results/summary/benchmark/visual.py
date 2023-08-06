@@ -29,7 +29,7 @@ plt.subplot(3,1,3)  # row colum
 axs[2].set_visible(False)
 
 plt.subplot(3,1,1)  # row colum
-sns.barplot(x="Model", y="Soft Comp", hue="FAs", data=comp, errorbar=None, width= 0.6,
+sns.barplot(x="Model", y="Soft Comp", hue="FAs", data=comp, errorbar=None, #width= 0.6,
             order=['OPT 350M','OPT 1.3B', 'OPT 6.7B','GPT2 354M', 'GPT2 1.5B', 'GPT-J 6B'])
 plt.xlabel('Models', fontweight='bold')
 

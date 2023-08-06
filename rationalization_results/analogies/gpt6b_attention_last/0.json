@@ -171,6 +171,6 @@
             "logfolder": "logs/analogies/gpt6b_attention_last",
             "loglevel": 20
         },
-        "time_elapsed": 0.7586948871612549
+        "time_elapsed": 0.8183114528656006
     }
 }
