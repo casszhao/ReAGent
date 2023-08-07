@@ -141,6 +141,6 @@
             "logfolder": "logs/analogies/OPT350M_input_x_gradient",
             "loglevel": 20
         },
-        "time_elapsed": 0.03938794136047363
+        "time_elapsed": 0.03519630432128906
     }
 }

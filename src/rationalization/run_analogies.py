@@ -28,7 +28,7 @@ def main():
                         help="") # TODO
     parser.add_argument("--data-dir", 
                         type=str,
-                        default="data/analogies",
+                        default="data/analogies/gpt2",
                         help="") # TODO
     parser.add_argument("--importance_results_dir", 
                         type=str,

@@ -63,7 +63,7 @@ class GradientImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
 
         
 
-        if self.grad_type == 'integrated':
+        if self.grad_type == 'integrated_gradients':
             # Approximate integrated gradient.
             path_integral_steps = 100
             all_gradients = []
@@ -87,7 +87,7 @@ class GradientImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
                 full_logits[0, -1].log_softmax(-1)[target_id], word_token_embeds)[0]
             if self.grad_type == 'norm':
                 grad_scores = embedding_grad.norm(dim=-1).view(-1)
-            elif self.grad_type == 'signed':
+            elif self.grad_type == 'signed':  # input_x_gradient
                 grad_scores = torch.sum(embedding_grad * pos_encoded_embeddings, dim=-1)[0]
             logit_importance_score = torch.unsqueeze(grad_scores, 0)
         

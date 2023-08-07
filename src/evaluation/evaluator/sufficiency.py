@@ -57,14 +57,19 @@ class SufficiencyEvaluator(BaseMaskingEvaluator):
         # entropy = torch.nn.functional.kl_div(torch.log(q), p, reduction='sum')
         # normalized_cross_entropy = entropy / torch.log(torch.tensor(q.size()[0], dtype=torch.float32)) # to normalise to make sure the range of entropy between 0 -1
 
-        p = p / torch.sum(p)
-        q = q / torch.sum(q)
-        sqrt_p = torch.sqrt(p)
-        sqrt_q = torch.sqrt(q)
-        distance = torch.norm(sqrt_p - sqrt_q) / torch.sqrt(torch.tensor(2.0)) # the closer distance, the more faithful, the lower H value
-        sufficiency = 1 - distance
+        # p = p / torch.sum(p)
+        # q = q / torch.sum(q)
+        # sqrt_p = torch.sqrt(p)
+        # sqrt_q = torch.sqrt(q)
+        # distance = torch.norm(sqrt_p - sqrt_q) / torch.sqrt(torch.tensor(2.0)) # the closer distance, the more faithful, the lower H value
+        # sufficiency = 1 - distance
         
         #sufficiency = 1 - max(0, normalized_cross_entropy)
+
+        sqrt_p = torch.sqrt(p)
+        sqrt_q = torch.sqrt(q)
+        distance = torch.sum( torch.pow((sqrt_p - sqrt_q), 2)  / torch.sqrt(torch.tensor(2.0)) )
+        sufficiency = 1 - distance
 
         return sufficiency
 

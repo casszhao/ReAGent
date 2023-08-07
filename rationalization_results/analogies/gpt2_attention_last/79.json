@@ -171,6 +171,6 @@
             "logfolder": "logs/analogies/gpt2_attention_last",
             "loglevel": 20
         },
-        "time_elapsed": 0.013452529907226562
+        "time_elapsed": 0.012988805770874023
     }
 }

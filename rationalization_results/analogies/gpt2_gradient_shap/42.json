@@ -171,6 +171,6 @@
             "logfolder": "logs/analogies/gpt2_gradient_shap",
             "loglevel": 20
         },
-        "time_elapsed": 0.11624741554260254
+        "time_elapsed": 0.06765890121459961
     }
 }

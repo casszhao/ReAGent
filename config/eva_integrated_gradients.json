@@ -56,7 +56,7 @@
             "type": "last"
         },
         "gradient": {
-            "type": "integrated"
+            "type": "integrated_gradients"
         },
         "inseq": {
             "type": "integrated_gradients",

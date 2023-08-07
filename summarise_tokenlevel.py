@@ -5,15 +5,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+
+
+
 model_name="gpt2"
-hyper="top3_replace0.1_max5000_batch5"
+hyper="top3_replace0.3_max3000_batch5"
+hyper2="top3_replace0.1_max5000_batch5"
+# "/top3_replace0.3_max3000_batch5"
 flex = False
 
 def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
-    eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}"
-    if FA_name == 'ours': eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}/{hyper}"
-    print(f"==>> eva_output_dir: {eva_output_dir}")
-
 
     suff_list = [FA_name.replace('_', ' ').title()]
     comp_list = [FA_name.replace('_', ' ').title()]
@@ -25,12 +26,21 @@ def get_one_line_for_one_FA(model_name, FA_name,ratio_list):
     random_suff_mean = 0
     random_comp_mean = 0
 
-
     
     diff_ratio_len = int(len(ratio_list)-1)
     for ratio in ratio_list:
         print('=========> ', ratio)
-        faithful_results = pd.read_csv(eva_output_dir+f'/mean_{ratio}.csv')
+        eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}"
+
+        if FA_name == 'ours': 
+            try: 
+                eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}/{hyper}"
+                faithful_results = pd.read_csv(eva_output_dir+f'/mean_{ratio}.csv')
+            except:
+                eva_output_dir=f"evaluation_results/analogies/{model_name}_{FA_name}/{hyper2}"
+                faithful_results = pd.read_csv(eva_output_dir+f'/mean_{ratio}.csv')
+        else:
+            faithful_results = pd.read_csv(eva_output_dir+f'/mean_{ratio}.csv')
 
         if 0 < ratio < 1: # 0.05 - 0.3
             suff_list.append(faithful_results['suff'][0])
@@ -79,27 +89,14 @@ def minus_and_save(suff_df, random_suff_df, save_name):
     return final_suff_df
     
 
-
-if flex == True:
-    ratio_list = [0.05, 0.1, 0.2, 0.3, 0.0, 1.0] # 0 here for flexible len from greedy search and 1 for soft
-    columns_suff_name = ['FAs','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff']
-    columns_comp_name = ['FAs','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp']
-else: 
-    ratio_list = [0.05, 0.1, 0.2, 0.3, 1.0]
-    columns_suff_name = ['FAs','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'Soft Suff']
-    columns_comp_name = ['FAs','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'Soft Comp']
-
-
 def get_one_model(model_name, ratio_list):
     rollout_suff, rollout_comp, random_rollout_suff, random_rollout_comp = get_one_line_for_one_FA(model_name, "attention_rollout", ratio_list)
     last_suff, last_comp, random_last_suff, random_last_comp = get_one_line_for_one_FA(model_name, "attention_last", ratio_list)
     all_suff, all_comp, random_all_suff, random_all_comp = get_one_line_for_one_FA(model_name, "attention", ratio_list)
 
-    #norms_suff, norms_comp, random_norms_suff, random_norms_comp = get_one_line_for_one_FA(model_name, "norm", ratio_list)
     signed_suff, signed_comp, random_signed_suff, random_signed_comp = get_one_line_for_one_FA(model_name, "input_x_gradient", ratio_list)
     integrated_suff, integrated_comp, random_integrated_suff, random_integrated_comp = get_one_line_for_one_FA(model_name, "integrated_gradients", ratio_list)
     shap_suff, shap_comp, random_shap_suff, random_shap_comp = get_one_line_for_one_FA(model_name, "gradient_shap", ratio_list)
-
 
     ours_suff, ours_comp, ours_random_all_suff, ours_random_all_comp = get_one_line_for_one_FA(model_name, "ours", ratio_list)
 
@@ -108,14 +105,14 @@ def get_one_model(model_name, ratio_list):
 
     random_suff_df = pd.DataFrame([random_signed_suff, random_integrated_suff, random_shap_suff, random_rollout_suff, random_last_suff, random_all_suff, ours_random_all_suff], columns=columns_suff_name)
     random_comp_df = pd.DataFrame([random_signed_comp, random_integrated_comp, random_shap_comp, random_rollout_comp, random_last_comp, random_all_comp, ours_random_all_comp], columns=columns_comp_name)
-    #print(f"random_comp_df ==>> {random_comp_df}")
 
-
-    print(' ========== SUFF =========')
-    print(suff_df)
-    print(' ========== RANDOM SUFF =========')
-    print(random_suff_df)
-
+    if model_name == 'OPT350M':
+        print(' ========== SUFF COMP =========')
+        print(suff_df)
+        print(comp_df)
+        print(' ========== RANDOM =========')
+        print(random_suff_df)
+        print(random_comp_df)
 
 
     final_suff_df = minus_and_save(suff_df, random_suff_df, 'suff')
@@ -129,6 +126,24 @@ def get_one_model(model_name, ratio_list):
     return stacked_df
 
 
+ratio_list1 = [0.05, 0.1, 0.2, 0.3]
+ratio_list = [0.05] #0.1, 0.2, 0.3, 0.4, 0.5
+if flex == True:
+    ratio_list = ratio_list + [0.0, 1.0] # 0 here for flexible len from greedy search and 1 for soft
+    columns_suff_name = ['FAs','5% Suff', '10% Suff', '20% Suff', '30% Suff', 'Mean Suff', 'FlexLen Suff', 'Soft Suff']
+    columns_comp_name = ['FAs','5% Comp', '10% Comp', '20% Comp', '30% Comp', 'Mean Comp', 'FlexLen Comp', 'Soft Comp']
+else: 
+    ratio_list = ratio_list + [1.0]
+    suff_name=['FAs']
+    comp_name=['FAs']
+    for ratio in ratio_list[:-1]:
+        ratio_per = int(ratio*100)
+        suff_name.append(f"{ratio_per}% Suff")
+        comp_name.append(f"{ratio_per}% Comp")
+    columns_suff_name = suff_name + ['Mean Suff', 'Soft Suff']
+    columns_comp_name = comp_name + ['Mean Comp', 'Soft Comp']
+
+
 
 model_name_dict = { 'gpt2':'GPT2 354M', 'gpt2_xl': 'GPT2 1.5B', 'gpt6b': 'GPT-J 6B', \
                     'OPT350M': 'OPT 350M', 'OPT1B':'OPT 1.3B', 'OPT6B':'OPT 6.7B', \
@@ -139,15 +154,35 @@ all_results = []
 
 for model_name in ['OPT350M', 'gpt2', 'gpt2_xl', 'OPT1B', 'OPT6B', 'gpt6b']: #'gpt6b', 
     temp = get_one_model(model_name, ratio_list)
+    
+
+
+    suff=temp[suff_name]
+    melt=pd.melt(suff, id_vars=['FAs'])
+    plt.figure(figsize=(11, 11))
+    sns.boxplot( x="FAs", y="value", data=melt )
+    plt.suptitle(f'{model_name} Token-level Faithfulness', fontsize=15)
+    plt.show()
+    plt.savefig(f"./evaluation_results/summary/analogies/{model_name}_token_suff_mean.png",bbox_inches='tight')
+
+    comp=temp[comp_name]
+    melt=pd.melt(comp, id_vars=['FAs'])
+    #plt.figure(figsize=(22, 11))
+    sns.boxplot( x="FAs", y="value", data=melt ) #sns.boxplot( x="Model", y="value", hue="FAs", data=melt )
+    plt.show()
+    plt.savefig(f"./evaluation_results/summary/analogies/{model_name}_token_comp_mean.png",bbox_inches='tight')
+    
+    
     temp['Model'] = model_name
+    temp.replace(model_name_dict,inplace=True)
     all_results.append(temp)
 
 
 df = pd.concat(all_results)
 
-df.replace(model_name_dict,inplace=True)
+# df.replace(model_name_dict,inplace=True)
+df.to_csv('evaluation_results/summary/token_level_all.csv')
 
-soft_or_mean = 'Soft' # soft or Mean
 
 def plot_for_mean_or_soft(soft_or_mean):
     suff = df[["FAs",f"{soft_or_mean} Suff","Model"]]
@@ -182,7 +217,7 @@ def plot_for_mean_or_soft(soft_or_mean):
     axs[1].get_legend().remove()
     # Add xticks on the middle of the group bars
 
-    fig.suptitle('Token-level Faithfulness', fontsize=15)
+    fig.suptitle('LongRA (token-level)', fontsize=15)
     fig.tight_layout() 
     plt.show()
 
@@ -190,8 +225,8 @@ def plot_for_mean_or_soft(soft_or_mean):
 
 
 plot_for_mean_or_soft('Soft')
-plot_for_mean_or_soft('Mean')
-plot_for_mean_or_soft('5%')
-plot_for_mean_or_soft('10%')
-plot_for_mean_or_soft('20%')
-plot_for_mean_or_soft('30%')
+# plot_for_mean_or_soft('Mean')
+# plot_for_mean_or_soft('5%')
+# plot_for_mean_or_soft('10%')
+# plot_for_mean_or_soft('20%')
+# plot_for_mean_or_soft('30%')

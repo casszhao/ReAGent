@@ -141,6 +141,6 @@
             "logfolder": "logs/analogies/OPT350M_attention_rollout",
             "loglevel": 20
         },
-        "time_elapsed": 0.013086795806884766
+        "time_elapsed": 0.014703989028930664
     }
 }

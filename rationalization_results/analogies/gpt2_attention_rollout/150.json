@@ -180,6 +180,6 @@
             "logfolder": "logs/analogies/gpt2_attention_rollout",
             "loglevel": 20
         },
-        "time_elapsed": 0.014620780944824219
+        "time_elapsed": 0.013672590255737305
     }
 }

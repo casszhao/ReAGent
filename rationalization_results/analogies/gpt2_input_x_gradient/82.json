@@ -192,6 +192,6 @@
             "logfolder": "logs/analogies/gpt2_input_x_gradient",
             "loglevel": 20
         },
-        "time_elapsed": 0.09775114059448242
+        "time_elapsed": 0.051218509674072266
     }
 }

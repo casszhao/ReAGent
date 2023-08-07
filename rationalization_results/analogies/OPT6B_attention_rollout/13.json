@@ -195,6 +195,6 @@
             "logfolder": "logs/analogies/OPT6B_attention_rollout",
             "loglevel": 20
         },
-        "time_elapsed": 0.08085322380065918
+        "time_elapsed": 0.08086514472961426
     }
 }

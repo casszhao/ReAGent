@@ -195,6 +195,6 @@
             "logfolder": "logs/analogies/OPT1B_gradient_shap",
             "loglevel": 20
         },
-        "time_elapsed": 0.150254487991333
+        "time_elapsed": 0.11506247520446777
     }
 }

@@ -21,19 +21,19 @@ source activate dev-inseq
 
 cache_dir="cache/"
 
-model_name="KoboldAI/OPT-6.7B-Erebus"
+model_name="facebook/opt-350m"
 # "gpt2-medium"
 # "gpt2-xl"
 # "EleutherAI/gpt-j-6b"
 # "facebook/opt-350m"
 # "facebook/opt-1.3b"
 # "KoboldAI/OPT-6.7B-Erebus"
-model_short_name="OPT6B" 
+model_short_name="OPT350M" 
 # gpt2 gpt2_xl gpt6b
 # OPT350M OPT1B OPT6B
 
 # hyper="/top3_replace0.1_max3000_batch5"
-hyper="/top3_replace0.3_max3000_batch10"
+hyper="/top3_replace0.1_max5000_batch5"
 
 
 ##########  selecting FA
@@ -65,32 +65,29 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 #     --cache_dir $cache_dir 
 
 
-# Run rationalization task
-python src/rationalization/run_analogies.py \
-    --rationalization-config config/$hyper.json \
-    --model $model_name \
-    --tokenizer $model_name \
-    --data-dir data/analogies/$model_short_name \
-    --importance_results_dir $importance_results \
-    --device cuda \
-    --logfolder $logfolder_shortname \
-    --input_num_ratio 1 \
-    --cache_dir $cache_dir
+# # Run rationalization task
+# python src/rationalization/run_analogies.py \
+#     --rationalization-config config/$hyper.json \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --data-dir data/analogies/$model_short_name \
+#     --importance_results_dir $importance_results \
+#     --device cuda \
+#     --logfolder $logfolder_shortname \
+#     --input_num_ratio 1 \
+#     --cache_dir $cache_dir
 
 
-for rationale_ratio_for_eva in 0.05 0.1 0.2 0.3 0.4 0.5 1
-do
-echo "  for rationale "
-echo $rationale_ratio_for_eva
+
 python src/evaluation/evaluate_analogies.py \
     --importance_results_dir $importance_results \
     --eva_output_dir $eva_output_dir \
     --model $model_name \
     --tokenizer $model_name \
     --logfolder $logfolder_shortname \
-    --rationale_size_ratio $rationale_ratio_for_eva \
+    --rationale_size_ratio 1 \
     --cache_dir $cache_dir
-done
+
 
 
 
