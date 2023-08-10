@@ -47,6 +47,11 @@ def main():
                         default="cuda",
                         help="") # TODO
     
+    parser.add_argument("--seed", 
+                        type=int,
+                        default=42,
+                        help="Random seed")
+    
     parser.add_argument("--logfolder", 
                         type=str,
                         default='logs/gpt2_inseq_ig', #gpt2_ours/top5_replace0.2_max3000_batch5',
@@ -62,6 +67,12 @@ def main():
     args = parser.parse_args()
 
     logging.debug(' RATIONALE RATIO ==> ', args.rationale_size_ratio)
+
+    rand_seed: int = args.seed
+    if rand_seed:
+        torch.manual_seed(rand_seed)
+        torch.use_deterministic_algorithms(True)
+
 
     loglevel = args.loglevel
     # setup logging system
