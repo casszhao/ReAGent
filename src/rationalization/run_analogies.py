@@ -49,6 +49,12 @@ def main():
                         default=1,
                         help="") # TODO
     
+    parser.add_argument("--seed", 
+                        type=int,
+                        default=42,
+                        help="Random seed")
+
+    
     parser.add_argument("--logfolder", 
                         type=str,
                         default=None,
@@ -58,6 +64,11 @@ def main():
                         default=20,
                         help="Debug level from [CRITICAL = 50, ERROR = 40, WARNING = 30, INFO = 20, DEBUG = 10, NOTSET = 0]")
     args = parser.parse_args()
+
+    rand_seed: int = args.seed
+    if rand_seed:
+        torch.manual_seed(rand_seed)
+        torch.use_deterministic_algorithms(True)
 
     loglevel = args.loglevel
     # setup logging system
