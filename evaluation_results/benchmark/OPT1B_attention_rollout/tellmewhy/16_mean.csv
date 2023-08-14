@@ -1,0 +1,3 @@
+norm_suff_mean,random_suff_mean,norm_comp_mean,random_comp_mean,final suff,final comp,target_tokens
+0.03128765895962715,0.008960279636085033,0.012488147243857384,0.010796303860843182,3.4918172359466553,0.3450658917427063," Because$ loved$.$
+$ loved"

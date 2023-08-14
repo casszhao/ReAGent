@@ -1,6 +1,9 @@
+botorch
 datasets
 fairseq
 matplotlib
+natsort
+nltk
 numpy
 pandas
 sacrebleu

@@ -1,0 +1,17 @@
+{
+    "$schema": "../docs/config.schema.json",
+    "rational": {
+        "size": 5,
+        "size_ratio": null
+    },
+    "rationalizer": {
+        "type": "sampling",
+        "sampling": { }
+    },
+    "importance_score_evaluator": {
+        "type": "attention",
+        "attention": {
+            "type": "last"
+        }
+    }
+}

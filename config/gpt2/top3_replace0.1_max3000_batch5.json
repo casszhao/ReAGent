@@ -1,0 +1,38 @@
+{
+    "$schema": "../../docs/config.schema.json",
+    "rational": {
+        "size": 8,
+        "size_ratio": null
+    },
+    "rationalizer": {
+        "type": "aggregation",
+        "aggregation": {
+            "batch_size": 5,
+            "overlap_threshold": 2,
+            "overlap_strict_pos": true,
+            "save_separate_rational": true
+        }
+    },
+    "importance_score_evaluator": {
+        "type": "replacing",
+        "replacing": {
+            "optimization": {
+                "type": "delta_probability",
+                "delta_probability": {
+                    "replacing_ratio": 0.1,
+                    "max_steps": 3000
+                }
+            },
+            "replacing": {
+                "type": "postag",
+                "postag": { }
+            },
+            "stopping_condition": {
+                "type": "top_k",
+                "top_k": {
+                    "tolerance": 3
+                }
+            }
+        }
+    }
+}
