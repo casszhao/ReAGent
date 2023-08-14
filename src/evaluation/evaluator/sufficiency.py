@@ -43,13 +43,16 @@ class SufficiencyEvaluator(BaseMaskingEvaluator):
         """ Get metric score
 
         Args:
-            prob_original: prob_original [batch]
-            prob_masked: prob_masked [batch]
+            prob_original: prob_original [batch, feature_out]
+            prob_masked: prob_masked [batch, feature_out]
 
         Return:
             score [batch]
 
         """
+        assert prob_masked.shape[0] == 1, "Invalid batch size > 1"
+        assert prob_masked.shape[0] == 1, "Invalid batch size > 1"
+        # TODO: why squeeze?
 
         # by cass not by batch --> squeezed
         p = prob_masked.squeeze()
