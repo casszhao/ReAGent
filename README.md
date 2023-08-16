@@ -1,19 +1,23 @@
-# SEQ_RATIONALE
+# A Model-agnostic Feature Attribution Method for Generative Language Models
 
-## Setup Environment
+<p align="center">
+<img src="docs/heatmap.png" height="300" />
+</p>
+
+## Environment Setup
 
 We are running experiments with Python 3.10
 
 ### Making virtual environment
 
-#### With conda
+#### (Option 1) With conda
 
 1. install anaconda/miniconda
 2. create a conda environment `conda create -n env-reagent python=3.10`
 3. activate environment `source activate env-reagent`
 4. install package dependencies `pip install -r requirements.txt`
 
-#### With venv
+#### (Option 2) With venv
 
 1. install python 3.10
 2. create a virtual environment `python3 -m venv .venv`
@@ -27,6 +31,31 @@ Run the following command
 ```sh
 python setup_nltk.py
 ```
+
+## Demo notebook
+
+Open and run the jupyter notebook `src/notebook.ipynb`. You may see outputs like:
+
+### Importance distribution plots
+
+<p align="center">
+<img src="docs/im-dist-demo.png" height="300" />
+</p>
+
+### Evaluation Metrics
+
+| target_pos | arget_token | norm_suff | norm_comp |
+| --- | --- | --- | --- |
+16 | Bangkok | 0.0 | 0.055724624544382095
+18 | I | 0.0011335751041769981 | 0.08005993813276291
+20 | in | 0.0010249933693557978 | 0.07356485724449158
+22 | hotel | 0.0 | 0.04137211665511131
+24 | with | 0.0 | 0.022249441593885422
+
+| target_tokens | norm_suff_mean | norm_comp_mean |
+| --- | --- | --- |
+| Bangkok$ I$ in$ hotel$ with | 0.00043171370634809136 | 0.05459419637918472 |
+
 ## Token level experiment
 
 This experiment has been split into multiple steps.
@@ -128,11 +157,11 @@ It will load attribution results form `--importance_results_dir` and output eval
 A dataset is a plaintext TXT file in `data/benchmark` where each line is a prompt. Dataset used in our experiments are
 
 - wikitext.txt
-- wikitext2.txt
-- tellmewhy.txt
+<!-- - wikitext2.txt -->
+<!-- - tellmewhy.txt -->
 - tellmewhy2.txt
 
-<!-- TODO: Source required -->
+<!-- TODO: Data source required -->
 
 ### Run the experiment
 
