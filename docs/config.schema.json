@@ -169,6 +169,7 @@
                                     "enum": [
                                         "uniform",
                                         "inferential",
+                                        "inferential-m",
                                         "postag"
                                     ]
                                 },
@@ -181,6 +182,20 @@
                                     "description": "Config for inferential type",
                                     "type": "object",
                                     "properties": { }
+                                },
+                                "inferential-m": {
+                                    "description": "Config for inferential-m type",
+                                    "type": "object",
+                                    "properties": {
+                                        "model": {
+                                            "description": "Model for inferential replacement",
+                                            "type": "string"
+                                        },
+                                        "tokenizer": {
+                                            "description": "Tokenizer for inferential replacement",
+                                            "type": "string"
+                                        }
+                                     }
                                 },
                                 "postag": {
                                     "description": "Config for postag type",
