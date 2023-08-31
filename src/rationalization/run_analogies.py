@@ -118,6 +118,19 @@ def main():
             from rationalizer.token_replacement.token_sampler.postag import \
                 POSTagTokenSampler
             token_sampler = POSTagTokenSampler(tokenizer=tokenizer, device=device)
+        elif replacing_type == "inferential-m":
+            from rationalizer.token_replacement.token_sampler.inferential_m import \
+                InferentialMTokenSampler
+            sampler_tokenizer = AutoTokenizer.from_pretrained(
+                rationalization_config["importance_score_evaluator"]["replacing"]["replacing"]["inferential-m"]["tokenizer"], 
+                cache_dir=args.cache_dir)
+            sampler_model = AutoModelForCausalLM.from_pretrained(
+                rationalization_config["importance_score_evaluator"]["replacing"]["replacing"]["inferential-m"]["model"], 
+                cache_dir=args.cache_dir).to(device)
+            token_sampler = InferentialMTokenSampler(
+                source_tokenizer=tokenizer,
+                sampler_tokenizer=sampler_tokenizer,
+                sampler_model=sampler_model)
         else:
             raise ValueError(f"Invalid replacement_sampling: {replacing_type}")
         
