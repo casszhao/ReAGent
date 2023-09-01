@@ -50,9 +50,13 @@ class InferentialMTokenSampler(TokenSampler):
                    continue
 
                 # following tokens
+                text_prefix = self.source_tokenizer.decode(inputs[seq_i, :pos_i])
+                probe_prefix = torch.tensor([self.sampler_tokenizer.encode(text_prefix)], device=inputs.device)
 
-                probe_prefix = torch.tensor([self.sampler_tokenizer.encode(self.source_tokenizer.decode(inputs[seq_i, :pos_i]))], device=inputs.device)
-                probe_prefix = probe_prefix[:,:-1]  # trim <eos>
+                from transformers import RobertaTokenizerFast
+                if isinstance(self.sampler_tokenizer, RobertaTokenizerFast):
+                    probe_prefix = probe_prefix[:,:-1]  # trim EOS
+                    
                 output_replacing_m = self.sampler_model(probe_prefix)
                 logits_replacing_m = output_replacing_m['logits']
                 logits_replacing_m_last = logits_replacing_m[:,-1]
