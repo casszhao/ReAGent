@@ -50,19 +50,26 @@ class InferentialMTokenSampler(TokenSampler):
                    continue
 
                 # following tokens
+
                 text_prefix = self.source_tokenizer.decode(inputs[seq_i, :pos_i])
-                probe_prefix = torch.tensor([self.sampler_tokenizer.encode(text_prefix)], device=inputs.device)
+                text_prefix_m = text_prefix.replace(self.source_tokenizer.eos_token, self.sampler_tokenizer.eos_token).replace(self.source_tokenizer.bos_token, self.sampler_tokenizer.bos_token)
+                probe_prefix_m = torch.tensor([self.sampler_tokenizer.encode(text_prefix_m)], device=inputs.device)
 
                 from transformers import RobertaTokenizerFast
                 if isinstance(self.sampler_tokenizer, RobertaTokenizerFast):
-                    probe_prefix = probe_prefix[:,:-1]  # trim EOS
+                    probe_prefix_m = probe_prefix_m[:,:-1]  # trim EOS
                     
-                output_replacing_m = self.sampler_model(probe_prefix)
+                output_replacing_m = self.sampler_model(probe_prefix_m)
                 logits_replacing_m = output_replacing_m['logits']
                 logits_replacing_m_last = logits_replacing_m[:,-1]
                 id_infer_m = torch.argmax(logits_replacing_m_last, dim=-1)
 
-                seq_li.append(id_infer_m.item())
+                text_infer_m = self.sampler_tokenizer.decode(id_infer_m)
+                text_infer = text_infer_m.replace(self.sampler_tokenizer.eos_token, self.source_tokenizer.eos_token).replace(self.sampler_tokenizer.bos_token, self.source_tokenizer.bos_token)
+                id_infer = self.source_tokenizer.encode(text_infer)
+                id_infer_fst = id_infer[0]
+
+                seq_li.append(id_infer_fst)
 
             batch_li.append(seq_li)
         
