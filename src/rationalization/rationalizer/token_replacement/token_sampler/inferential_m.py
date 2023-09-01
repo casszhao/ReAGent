@@ -1,5 +1,5 @@
 import torch
-from transformers import AutoModelWithLMHead, AutoTokenizer
+from transformers import AutoModelWithLMHead, AutoTokenizer, BertForMaskedLM
 from typing_extensions import override
 
 from .base import TokenSampler
@@ -11,13 +11,13 @@ class InferentialMTokenSampler(TokenSampler):
     """
 
     @override
-    def __init__(self, source_tokenizer: AutoTokenizer, sampler_tokenizer: AutoTokenizer, sampler_model: AutoModelWithLMHead) -> None:
+    def __init__(self, source_tokenizer: AutoTokenizer, sampler_tokenizer: AutoTokenizer, sampler_model: BertForMaskedLM) -> None:
         """Constructor
 
         Args:
             source_tokenizer: A Huggingface AutoTokenizer for decoding the inputs.
             sampler_tokenizer: A Huggingface AutoTokenizer for inference the output.
-            sampler_model: A Huggingface AutoModelWithLMHead for inference the output.
+            sampler_model: A Huggingface BertForMaskedLM for inference the output.
 
         """
         super().__init__()
@@ -42,61 +42,30 @@ class InferentialMTokenSampler(TokenSampler):
         batch_li = []
         for seq_i in torch.arange(inputs.shape[0]):
             seq_li = []
+            input_tokens = [ self.source_tokenizer.decode(i) for i in inputs[seq_i] ]
             for pos_i in torch.arange(inputs.shape[1]):
+                tokens_masked = input_tokens[:]
+                tokens_masked[pos_i] = self.sampler_tokenizer.mask_token
 
-                # first token
-                if pos_i == 0:
-                   seq_li.append(inputs[seq_i, 0])
-                   continue
+                text_masked = ''.join(tokens_masked)
 
-                # following tokens
+                tokens_alt = self.sampler_tokenizer.tokenize(text_masked)
+                masked_pos_alt = tokens_alt.index(self.sampler_tokenizer.mask_token)
+                ids_alt = torch.tensor(self.sampler_tokenizer.convert_tokens_to_ids(tokens_alt), device=inputs.device)
 
-                text_prefix = self.source_tokenizer.decode(inputs[seq_i, :pos_i])
-                text_prefix_m = text_prefix.replace(self.source_tokenizer.eos_token, self.sampler_tokenizer.eos_token).replace(self.source_tokenizer.bos_token, self.sampler_tokenizer.bos_token)
-                probe_prefix_m = torch.tensor([self.sampler_tokenizer.encode(text_prefix_m)], device=inputs.device)
+                logits_pred_alt = self.sampler_model(torch.unsqueeze(ids_alt, 0))['logits'][0]
+                logits_mask_pred_alt = logits_pred_alt[masked_pos_alt]
 
-                from transformers import RobertaTokenizerFast
-                if isinstance(self.sampler_tokenizer, RobertaTokenizerFast):
-                    probe_prefix_m = probe_prefix_m[:,:-1]  # trim EOS
-                    
-                output_replacing_m = self.sampler_model(probe_prefix_m)
-                logits_replacing_m = output_replacing_m['logits']
-                logits_replacing_m_last = logits_replacing_m[:,-1]
-                id_infer_m = torch.argmax(logits_replacing_m_last, dim=-1)
+                id_pred_alt = torch.argmax(logits_mask_pred_alt, dim=-1)
 
-                text_infer_m = self.sampler_tokenizer.decode(id_infer_m)
-                text_infer = text_infer_m.replace(self.sampler_tokenizer.eos_token, self.source_tokenizer.eos_token).replace(self.sampler_tokenizer.bos_token, self.source_tokenizer.bos_token)
-                id_infer = self.source_tokenizer.encode(text_infer)
-                id_infer_fst = id_infer[0]
+                text_pred = self.sampler_tokenizer.convert_ids_to_tokens(id_pred_alt.item())
+                id_pred = self.source_tokenizer.convert_tokens_to_ids(text_pred)
+                id_pred_fst = id_pred
 
-                seq_li.append(id_infer_fst)
+                seq_li.append(id_pred_fst)
 
             batch_li.append(seq_li)
         
         res = torch.tensor(batch_li, device=inputs.device)
 
         return res
-
-if __name__ == "__main__":
-    from transformers import AutoModelForCausalLM, AutoTokenizer
-    device = "cpu"
-
-    source_tokenizer = AutoTokenizer.from_pretrained("gpt2", cache_dir="cache")
-    source_model = AutoModelForCausalLM.from_pretrained("gpt2", cache_dir="cache").to(device)
-    source_model.eval()
-
-    sampler_tokenizer = AutoTokenizer.from_pretrained("roberta-base", cache_dir="cache")
-    sampler_model = AutoModelForCausalLM.from_pretrained("roberta-base", cache_dir="cache").to(device)
-    sampler_model.eval()
-
-    sampler = InferentialMTokenSampler(source_tokenizer, sampler_tokenizer, sampler_model)
-
-    text = "This is a test sequence"
-    inputs = torch.tensor([ source_tokenizer.encode(text) ], device=device)
-
-    outputs = sampler.sample(inputs)
-
-    print(outputs)
-    print(source_tokenizer.decode(outputs[0]))
-
-
