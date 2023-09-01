@@ -121,10 +121,11 @@ def main():
         elif replacing_type == "inferential-m":
             from rationalizer.token_replacement.token_sampler.inferential_m import \
                 InferentialMTokenSampler
+            from transformers import AutoModelForMaskedLM
             sampler_tokenizer = AutoTokenizer.from_pretrained(
                 rationalization_config["importance_score_evaluator"]["replacing"]["replacing"]["inferential-m"]["tokenizer"], 
                 cache_dir=args.cache_dir)
-            sampler_model = AutoModelForCausalLM.from_pretrained(
+            sampler_model = AutoModelForMaskedLM.from_pretrained(
                 rationalization_config["importance_score_evaluator"]["replacing"]["replacing"]["inferential-m"]["model"], 
                 cache_dir=args.cache_dir).to(device)
             token_sampler = InferentialMTokenSampler(

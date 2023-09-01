@@ -1,5 +1,5 @@
 import torch
-from transformers import AutoModelWithLMHead, AutoTokenizer, BertForMaskedLM
+from transformers import AutoTokenizer, AutoModelForMaskedLM
 from typing_extensions import override
 
 from .base import TokenSampler
@@ -11,7 +11,7 @@ class InferentialMTokenSampler(TokenSampler):
     """
 
     @override
-    def __init__(self, source_tokenizer: AutoTokenizer, sampler_tokenizer: AutoTokenizer, sampler_model: BertForMaskedLM) -> None:
+    def __init__(self, source_tokenizer: AutoTokenizer, sampler_tokenizer: AutoTokenizer, sampler_model: AutoModelForMaskedLM) -> None:
         """Constructor
 
         Args:
