@@ -216,6 +216,7 @@
                                     "type": "string",
                                     "enum": [
                                         "top_k",
+                                        "infinite",
                                         "dummy"
                                     ]
                                 },

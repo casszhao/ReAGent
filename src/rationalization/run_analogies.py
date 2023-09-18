@@ -152,6 +152,10 @@ def main():
             )
             #output_dir = output_dir + f'/top{top_k}_' # by cass
 
+        elif stopping_condition_type == "infinite":
+            from rationalizer.stopping_condition_evaluator.infinite import \
+                InfiniteStoppingConditionEvaluator
+            stopping_condition_evaluator = InfiniteStoppingConditionEvaluator()
         elif stopping_condition_type == "dummy":
             from rationalizer.stopping_condition_evaluator.dummy import \
                 DummyStoppingConditionEvaluator
