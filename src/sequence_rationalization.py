@@ -3,7 +3,7 @@ import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import argparse
 import torch
-
+import json
 from rationalization.rationalizer.aggregate_rationalizer import AggregateRationalizer
 from rationalization.rationalizer.importance_score_evaluator.delta_prob import DeltaProbImportanceScoreEvaluator
 from rationalization.rationalizer.stopping_condition_evaluator.top_k import TopKStoppingConditionEvaluator
@@ -15,7 +15,6 @@ from evaluation.evaluator.soft_norm_comprehensiveness import SoftNormalizedCompr
 import seaborn
 
 import csv
-import os
 
 
 
@@ -34,22 +33,22 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("--model", 
                     type=str,
-                    default="gpt2-xl",
+                    default="EleutherAI/gpt-j-6b",
                     help="select from ===> facebook/opt-350m facebook/opt-1.3b KoboldAI/OPT-6.7B-Erebus \
                         gpt2-medium gpt2-xl EleutherAI/gpt-j-6b") 
 parser.add_argument("--model_shortname", 
                     type=str,
-                    default="gpt2_xl", 
+                    default="gpt6b", 
                     help="select from ===> OPT350M gpt2 gpt2_xl gpt6b OPT350M OPT1B OPT6B ") 
 
 parser.add_argument("--testing_data_name", 
                     type=str,
-                    default="tellmewhy",
+                    default="tellmewhy2",
                     help="select between wikitext and tellmewhy") 
 
 parser.add_argument("--method", 
                     type=str,
-                    default="integrated_gradients", 
+                    default="gradient_shap", 
                     help="ours, like \
                     attention attention_last attention_rollout \
                     gradient_shap  integrated_gradients  input_x_gradient norm ") # TODO
@@ -60,7 +59,7 @@ parser.add_argument("--method",
 
 parser.add_argument("--stride", 
                     type=int,
-                    default=2, 
+                    default=1, 
                     help="") # TODO
 parser.add_argument("--max_new_tokens", 
                     type=int,
@@ -71,10 +70,10 @@ parser.add_argument("--cache_dir",
                     type=str,
                     default='cache/',
                     help="store models")
-parser.add_argument("--data-dir", 
-                    type=str,
-                    default="data/analogies",
-                    help="") # TODO
+# parser.add_argument("--data-dir", 
+#                     type=str,
+#                     default="data/gpt",
+#                     help="") # TODO
 parser.add_argument("--if_image", 
                     type=bool,
                     default=False,
@@ -115,10 +114,12 @@ soft_norm_comp_evaluator = SoftNormalizedComprehensivenessEvaluator(model)
 rational_size = 3
 rational_size_ratio = None
 
+# tested with 3 0.1 5000 5
+
 stopping_top_k = 3
 replacing = 0.1
-max_step = 5000
-batch = 5
+max_step = 3000
+batch = 3
 
 if args.method == 'ours':
     
@@ -221,35 +222,51 @@ for i, input_text in enumerate(input_text_list):
         importance_scores = []
         importance_score_map = torch.zeros([generated_ids.shape[0] - input_ids.shape[0], generated_ids.shape[0] - 1], device=device)
 
-
+        skipped_pos = set()
 
         for target_pos in torch.arange(input_ids.shape[0], generated_ids.shape[0]):
 
-            
-            
             # extract target
             target_id = generated_ids[target_pos]
 
-            # rationalization
-            pos_rational = rationalizer.rationalize(torch.unsqueeze(generated_ids[:target_pos], 0), torch.unsqueeze(target_id, 0))[0]
+            try:
 
+                # rationalization
+                pos_rational = rationalizer.rationalize(torch.unsqueeze(generated_ids[:target_pos], 0), torch.unsqueeze(target_id, 0))[0]
+
+            except ValueError as e:
+                print(f'[Warn] failed on {i} - {target_pos}')
+                import traceback
+                traceback.print_exception(e)
+
+                skipped_pos.add(target_pos)
+
+                continue
+            
             ids_rational = generated_ids[pos_rational]
             text_rational = [ tokenizer.decode([id_rational]) for id_rational in ids_rational ]
 
+            if rationalizer.mean_important_score.shape[0] != target_pos:
+                print(f'[Warn] failed on {i} - {target_pos}: length of importance score does not match')
+                skipped_pos.add(target_pos)
+                continue
+
             importance_score_map[target_pos - input_ids.shape[0], :target_pos] = rationalizer.mean_important_score
+            
             print(rationalizer.mean_important_score)
             print(f'{target_pos + 1} / {generated_ids.shape[0]}')
             print(f'Target word     --> {tokenizer.decode(target_id)}', )
             print(f"Rational pos    --> {pos_rational}")
             print(f"Rational text   --> {text_rational}")
             print()
-
-            raw_dict[tokenizer.decode(target_id)] = {'target_pos': target_pos,
-                                                        'Rational_pos': pos_rational,
-                                                        'Rational_text': text_rational,
-                                                        'importance_distribution': rationalizer.mean_important_score}
             
-
+            raw_dict[tokenizer.decode(target_id)] = {'target_pos': target_pos.item(),
+                                                    'Rational_pos': [ i.item() for i in pos_rational ],
+                                                    'Rational_text': text_rational,
+                                                    'importance_distribution': [ i.item() for i in rationalizer.mean_important_score]}
+            
+            # breakpoint()
+        # breakpoint()
         # evaluation
         
         norm_suff_all = []
@@ -263,6 +280,9 @@ for i, input_text in enumerate(input_text_list):
         
 
         for target_pos in torch.arange(input_ids.shape[0], generated_ids.shape[0], args.stride):
+            
+            if target_pos in skipped_pos:
+                continue
 
             target_token = tokenizer.decode(generated_ids[target_pos])
             target_token_all.append(target_token)
@@ -271,8 +291,6 @@ for i, input_text in enumerate(input_text_list):
             target_id_step = torch.unsqueeze(generated_ids[target_pos], 0)
             importance_score_step = torch.unsqueeze(importance_score_map[target_pos - input_ids.shape[0], :target_pos], 0)
             random_importance_scores = normalise_random(torch.rand(importance_score_step.size(), device=device))
-            #importance_score_step = soft_max(importance_score_step)
-            #random_importance_scores = soft_max(random_importance_scores)
 
             norm_suff = soft_norm_suff_evaluator.evaluate(input_ids_step, target_id_step, importance_score_step)
             random_suff = soft_norm_suff_evaluator.evaluate(input_ids_step, target_id_step, random_importance_scores)
@@ -286,12 +304,17 @@ for i, input_text in enumerate(input_text_list):
 
             table_details.append([target_pos.item() + 1, target_token, norm_suff.item(), random_suff.item(), norm_comp.item(), random_comp.item()])
             print(f"target_pos: {target_pos + 1}, target_token: {target_token}, norm_suff: {norm_suff}, random_suff: {random_suff}, norm_comp: {norm_comp}, random_comp:{random_comp}")
-        
+
+
         print(table_details)
         print("".center(50, "-"))
         print(random_comp_all)
         print("".center(50, "-"))
         print(random_suff_all)
+
+        if len(norm_suff_all) <= 0:
+            print(f'[Warn] No results for {i}')
+
         norm_suff_mean = torch.mean(torch.tensor(norm_suff_all, device=device))
         norm_comp_mean = torch.mean(torch.tensor(norm_comp_all, device=device))
 
@@ -303,8 +326,9 @@ for i, input_text in enumerate(input_text_list):
 
         # export generated_texts
 
+        raw_dumps = json.dumps(raw_dict, indent=4)
         with open(os.path.join(output_dir, f'{i}_raw.json'), 'w')  as outfile:
-            outfile.write(raw_dict)
+            outfile.write(raw_dumps)
 
         with open(os.path.join(output_dir, f'{i}_output.txt'), 'w') as outfile:
             outfile.writelines(generated_texts)
@@ -315,6 +339,7 @@ for i, input_text in enumerate(input_text_list):
             [ norm_suff_mean.item(), random_suff_mean.item(), norm_comp_mean.item(), random_comp_mean.item(), (norm_suff_mean / random_suff_mean).item(), (random_comp_mean /norm_suff_mean).item(), "$".join(target_token_all)],
         ]
 
+        
         with open(os.path.join(output_dir, f'{i}_details.csv'), 'w', newline='') as csvfile:
             csvWriter = csv.writer(csvfile)
             csvWriter.writerows(table_details)
@@ -344,6 +369,7 @@ for i, input_text in enumerate(input_text_list):
         # print(e)
         import traceback
         traceback.print_exception(e)
+        raise e
 
         # continue
     

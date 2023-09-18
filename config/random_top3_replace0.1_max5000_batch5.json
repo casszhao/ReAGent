@@ -8,7 +8,7 @@
         "type": "aggregation",
         "aggregation": {
             "batch_size": 5,
-            "overlap_threshold": 3,
+            "overlap_threshold": 5,
             "overlap_strict_pos": true,
             "save_separate_rational": true
         }
@@ -19,18 +19,18 @@
             "optimization": {
                 "type": "delta_probability",
                 "delta_probability": {
-                    "replacing_ratio": 0.3,
+                    "replacing_ratio": 0.1,
                     "max_steps": 5000
                 }
             },
             "replacing": {
                 "type": "uniform",
-                "uniform": { }
+                "postag": { }
             },
             "stopping_condition": {
                 "type": "top_k",
                 "top_k": {
-                    "tolerance": 5
+                    "tolerance": 3
                 }
             }
         }

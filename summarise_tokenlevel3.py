@@ -49,7 +49,7 @@ def minus_and_save(suff_df, random_suff_df, save_name):
     for col in suff_df.columns:
         for row in suff_df.index:
             if isinstance(suff_df.at[row, col], float) and isinstance(random_suff_df.at[row, col], float):
-                final_suff_df.at[row, col] = suff_df.at[row, col] / random_suff_df.at[row, col]
+                final_suff_df.at[row, col] = suff_df.at[row, col] - random_suff_df.at[row, col]
 
     print(' =======>   final divided results =======')
     print(final_suff_df)

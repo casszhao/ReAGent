@@ -21,26 +21,27 @@ source activate dev-inseq
 
 cache_dir="cache/"
 
-model_name="facebook/opt-350m"
+model_name="gpt2-medium"
 # "gpt2-medium"
 # "gpt2-xl"
 # "EleutherAI/gpt-j-6b"
 # "facebook/opt-350m"
 # "facebook/opt-1.3b"
 # "KoboldAI/OPT-6.7B-Erebus"
-model_short_name="OPT350M" 
+model_short_name="gpt2" 
 # gpt2 gpt2_xl gpt6b
 # OPT350M OPT1B OPT6B
 
 # hyper="/top3_replace0.1_max3000_batch5"
-hyper="/top3_replace0.1_max5000_batch5"
+hyper="/top3_replace0.3_max3000_batch5"
 
 
 ##########  selecting FA
 # select: ours
 # select from: all_attention attention_rollout attention_last   
 # select from: norm integrated signed
-FA_name="ours" 
+rand_seed=46
+FA_name="ours_seed$rand_seed" 
 
 
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
@@ -51,6 +52,8 @@ mkdir -p logs/analogies/$model_name"_"$FA_name$hyper
 logfolder=logs/analogies/$model_name"_"$FA_name$hyper
 mkdir -p logs/analogies/$model_short_name"_"$FA_name$hyper
 logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
+
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
 
 
 # # Generate evaluation data set (Only need to be done once)
@@ -65,17 +68,18 @@ logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 #     --cache_dir $cache_dir 
 
 
-# # Run rationalization task
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/$hyper.json \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfolder $logfolder_shortname \
-#     --input_num_ratio 1 \
-#     --cache_dir $cache_dir
+# Run rationalization task
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/$hyper.json \
+    --model $model_name \
+    --tokenizer $model_name \
+    --data-dir data/analogies/$model_short_name \
+    --importance_results_dir $importance_results \
+    --device cuda \
+    --logfolder $logfolder_shortname \
+    --input_num_ratio 1 \
+    --cache_dir $cache_dir \
+    --seed $rand_seed
 
 
 
@@ -86,7 +90,8 @@ python src/evaluation/evaluate_analogies.py \
     --tokenizer $model_name \
     --logfolder $logfolder_shortname \
     --rationale_size_ratio 1 \
-    --cache_dir $cache_dir
+    --cache_dir $cache_dir \
+    --seed $rand_seed
 
 
 

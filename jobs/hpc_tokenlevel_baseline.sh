@@ -10,7 +10,7 @@
 #SBATCH --time=4-00:00:00
 #SBATCH --mail-user=zhixue.zhao@sheffield.ac.uk
 
-#SBATCH --job-name=OPT6B
+#SBATCH --job-name=gpt2_xl
 
 #$ -m abe
 
@@ -35,13 +35,13 @@ model_short_name="OPT6B"
 
 cache_dir="./cache/"    
 
-
+FA_name='lime'
 
 
 
 # FA_name="integrated_gradients"
-for FA_name in "attention_rollout" "attention_last" "attention" "gradient_shap" "integrated_gradients" "input_x_gradient"
-do
+# for FA_name in "attention_rollout" "attention_last" "attention" "gradient_shap" "integrated_gradients" "input_x_gradient"
+# do
 # select from: "attention_rollout" "attention_last" "attention"
 # select from: "norm" "gradient_shap" "integrated_gradients" "input_x_gradient" 
 importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name
@@ -54,15 +54,15 @@ config_file="config/eva_"$FA_name".json"
 # mkdir -p $logpath
 
 
-# python src/rationalization/run_analogies.py \
-#     --rationalization-config config/eva_$FA_name.json \
-#     --model $model_name \
-#     --tokenizer $model_name \
-#     --data-dir data/analogies/$model_short_name/ \
-#     --importance_results_dir $importance_results \
-#     --device cuda \
-#     --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
-#     --cache_dir $cache_dir 
+python src/rationalization/run_analogies.py \
+    --rationalization-config config/eva_$FA_name.json \
+    --model $model_name \
+    --tokenizer $model_name \
+    --data-dir data/analogies/$model_short_name/ \
+    --importance_results_dir $importance_results \
+    --device cuda \
+    --logfolder "logs/analogies/"$model_short_name"_"$FA_name \
+    --cache_dir $cache_dir 
 
 
 ## evvaluate different length and soft suff/comp
@@ -80,7 +80,7 @@ python src/evaluation/evaluate_analogies.py \
     --cache_dir $cache_dir 
 
 
-done
+#done
 # ### evaluate flexi length
 # echo $rationale_ratio_for_eva
 # python src/evaluation/evaluate_analogies.py \
@@ -96,33 +96,33 @@ done
 
 
 
-# hyper="/top3_replace0.1_max3000_batch5"
-hyper="/top3_replace0.1_max5000_batch5"
+# # hyper="/top3_replace0.1_max3000_batch5"
+# hyper="/top3_replace0.1_max5000_batch5"
 
 
-##########  selecting FA
-# select: ours
-# select from: all_attention attention_rollout attention_last   
-# select from: norm integrated signed
-FA_name="ours"
+# ##########  selecting FA
+# # select: ours
+# # select from: all_attention attention_rollout attention_last   
+# # select from: norm integrated signed
+# FA_name="ours"
 
-importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
-eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
-mkdir -p $importance_results
-mkdir -p $eva_output_dir
-mkdir -p logs/analogies/$model_name"_"$FA_name$hyper
-logfolder=logs/analogies/$model_name"_"$FA_name$hyper
-mkdir -p logs/analogies/$model_short_name"_"$FA_name$hyper
-logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
+# importance_results="rationalization_results/analogies/"$model_short_name"_"$FA_name$hyper
+# eva_output_dir="evaluation_results/analogies/"$model_short_name"_"$FA_name$hyper
+# mkdir -p $importance_results
+# mkdir -p $eva_output_dir
+# mkdir -p logs/analogies/$model_name"_"$FA_name$hyper
+# logfolder=logs/analogies/$model_name"_"$FA_name$hyper
+# mkdir -p logs/analogies/$model_short_name"_"$FA_name$hyper
+# logfolder_shortname=logs/analogies/$model_short_name"_"$FA_name$hyper
 
 
-python src/evaluation/evaluate_analogies.py \
-    --importance_results_dir $importance_results \
-    --eva_output_dir $eva_output_dir \
-    --model $model_name \
-    --tokenizer $model_name \
-    --logfolder $logfolder_shortname \
-    --rationale_size_ratio 1 \
-    --cache_dir $cache_dir
+# python src/evaluation/evaluate_analogies.py \
+#     --importance_results_dir $importance_results \
+#     --eva_output_dir $eva_output_dir \
+#     --model $model_name \
+#     --tokenizer $model_name \
+#     --logfolder $logfolder_shortname \
+#     --rationale_size_ratio 1 \
+#     --cache_dir $cache_dir
 
 

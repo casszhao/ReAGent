@@ -71,7 +71,7 @@ def main():
     rand_seed: int = args.seed
     if rand_seed:
         torch.manual_seed(rand_seed)
-        torch.use_deterministic_algorithms(True)
+        torch.use_deterministic_algorithms(True, warn_only=True)
 
 
     loglevel = args.loglevel

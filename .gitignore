@@ -41,3 +41,6 @@ jobs.out
 cache
 
 *.png
+
+evaluation_results
+rationalization_results
