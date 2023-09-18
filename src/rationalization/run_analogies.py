@@ -63,6 +63,17 @@ def main():
                         type=int,
                         default=20,
                         help="Debug level from [CRITICAL = 50, ERROR = 40, WARNING = 30, INFO = 20, DEBUG = 10, NOTSET = 0]")
+
+    parser.add_argument("--trace", 
+                        type=bool,
+                        default=False,
+                        help="Enable trace")
+
+    parser.add_argument("--trace-stride", 
+                        type=int,
+                        default=100,
+                        help="Stride of the trace")
+
     args = parser.parse_args()
 
     rand_seed: int = args.seed
@@ -100,6 +111,9 @@ def main():
 
     with open(args.rationalization_config) as f_config:
         rationalization_config = json.load(f_config)
+
+    trace = args.trace
+    trace_stride = args.trace_stride
 
     importance_score_evaluator_type = rationalization_config["importance_score_evaluator"]["type"]
 
@@ -280,6 +294,9 @@ def main():
         logging.info(f"Rationalizing {filename} ...")
 
         # rationalizer.trace_start()
+        if trace:
+            rationalizer.importance_score_evaluator.trace_stride = trace_stride
+            rationalizer.trace_start()
 
         # rationalization
         time_start = time.time()
@@ -338,6 +355,7 @@ def main():
         else:
             important_score_mean = torch.mean(rationalizer.importance_score_evaluator.important_score, dim=0)
 
+        trace_rationalizer = rationalizer if trace else None
         serialize_rational(
             output_filename,
             data["id"], 
@@ -348,10 +366,12 @@ def main():
             important_score_mean,
             compact=False,
             comments=comments,
-            # trace_rationalizer=rationalizer # Enable trace logs
+            trace_rationalizer=trace_rationalizer # Enable trace logs
         )
         
         # rationalizer.trace_stop()
+        if trace:
+            rationalizer.trace_stop()
 
         logging.info(f'{filename} done.')
         logging.info("")

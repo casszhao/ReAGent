@@ -114,7 +114,7 @@ class DeltaProbImportanceScoreEvaluator(BaseImportanceScoreEvaluator):
             logit_importance_score = ~torch.unsqueeze(self.stop_mask, 1) * logit_importance_score_update + torch.unsqueeze(self.stop_mask, 1) * logit_importance_score
 
             self.important_score = torch.softmax(logit_importance_score, -1)
-            if self.trace_importance_score != None:
+            if self.trace_importance_score != None and self.num_steps % self.trace_stride == 0:
                 self.trace_importance_score.append(self.important_score)
 
             # Evaluate stop condition

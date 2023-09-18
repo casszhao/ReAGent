@@ -28,6 +28,7 @@ class BaseImportanceScoreEvaluator(Traceable):
 
         self.trace_importance_score = None
         self.trace_target_likelihood_original = None
+        self.trace_stride = 1
 
     def evaluate(self, input_ids: torch.Tensor, target_id: torch.Tensor) -> torch.Tensor:
         """Evaluate importance score of input sequence
