@@ -1,0 +1,184 @@
+generated full sequence --> ['Bow', 'man', ' Creek', ' is', ' a', ' 26', '-', 'mile', ' (', '42', ' km', ')', ' long', ' t', 'ribut', 'ary', ' of', ' the', ' Sus', 'que', 'h', 'anna', ' River', ' in', ' Lu', 'zer', 'ne', ' County', ' and', ' Wyoming', ' County', ' ', '\xa0', '(', 'see', ' map', ' below', ').', ' It', ' is', ' a', ' popular']
+[Warn] failed on 0
+generated full sequence --> ['Hom', 'arus', ' gam', 'mar', 'us', ',', ' known', ' as', ' the', ' European', ' lobster', ' or', ' common', ' lobster', ' ', '\xa0', '(', ' ', '\xa0', 'L', 'ob', 'ster', ' ', '\xa0', 'L']
+[Warn] failed on 1
+generated full sequence --> ['Robert', ' B', 'oul', 'ter', ' is', ' an', ' English', ' film', ',', ' television', ' and', ' theatre', ' actor', ' ', '\xa0', 'who', ' has', ' appeared', ' in', ' films', ' such', ' as', ' The', ' Last']
+[Warn] failed on 2
+generated full sequence --> ['Super', ' Mario', ' Land', ' is', ' a', ' 1989', ' side', '-', 'sc', 'rolling', ' platform', ' video', ' game', ' ', '\xa0', 'developed', ' by', ' Nintendo', ' and', ' published', ' by', ' Nintendo', '.', ' It']
+[Warn] failed on 3
+generated full sequence --> ['The', ' gold', ' dollar', ' or', ' gold', ' one', '-', 'dollar', ' piece', ' was', ' a', ' coin', ' struck', ' as', ' a', ' regular', ' issue', ' by', ' the', ' United', ' States', ' Bureau', ' ', 'ern', 'ment', ' in', ' 18', '48', '.', ' It', ' was', ' the', ' first']
+                                                                                                                                                                                 
+╭────────────────────────────────────────────────────────────────────────── Attributing with lime ──────────────────────────────────────────────────────────────────────────╮    
+│                                                                                                                                                                           │    
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ern  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │    
+│                                                                                                                                                                           │    
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯    
+                                                                                                                                                                                 tensor([0.0212, 0.0354, 0.0154, 0.1077, 0.0006, 0.1241, 0.0610, 0.0530, 0.0091,
+        0.0441, 0.0585, 0.0637, 0.0203, 0.0501, 0.0807, 0.0126, 0.0252, 0.0037,
+        0.0090, 0.0358, 0.0614, 0.0433, 0.0643])
+24 / 33
+Target word     --> ern
+Rational pos    --> tensor([ 5,  3, 14])
+Rational text   --> [' one', ' or', ' a']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([0.0200, 0.0019, 0.0579, 0.0587, 0.0579, 0.0441, 0.0818, 0.0498, 0.0284,
+        0.0065, 0.0568, 0.0312, 0.0419, 0.0206, 0.0624, 0.0291, 0.0129, 0.0499,
+        0.0802, 0.0475, 0.0563, 0.0746, 0.0024, 0.0274])
+25 / 33
+Target word     --> ment
+Rational pos    --> tensor([ 6, 18, 21])
+Rational text   --> ['-', ' the', ' Bureau']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│  in                                                                                                                                                                           │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([0.0223, 0.0388, 0.0285, 0.0371, 0.0573, 0.0421, 0.0243, 0.0372, 0.0288,
+        0.0302, 0.0538, 0.0022, 0.0335, 0.0251, 0.0039, 0.0243, 0.1102, 0.0271,
+        0.0705, 0.0516, 0.0821, 0.0781, 0.0193, 0.0551, 0.0168])
+26 / 33
+Target word     -->  in
+Rational pos    --> tensor([16, 20, 21])
+Rational text   --> [' issue', ' States', ' Bureau']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│  in  18                                                                                                                                                                       │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([0.0122, 0.0994, 0.0585, 0.0180, 0.0564, 0.0382, 0.0638, 0.0396, 0.0537,
+        0.0465, 0.0013, 0.0062, 0.0435, 0.0467, 0.0524, 0.0364, 0.0266, 0.0467,
+        0.0246, 0.0044, 0.0370, 0.0073, 0.0030, 0.0613, 0.0302, 0.0857])
+27 / 33
+Target word     -->  18
+Rational pos    --> tensor([ 1, 25,  6])
+Rational text   --> [' gold', ' in', '-']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│  in 1848                                                                                                                                                                      │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([0.0186, 0.0581, 0.0090, 0.0441, 0.0219, 0.0723, 0.0146, 0.0335, 0.0156,
+        0.0122, 0.0084, 0.0424, 0.0530, 0.0115, 0.0253, 0.0026, 0.0714, 0.0160,
+        0.0019, 0.0622, 0.0428, 0.0423, 0.0528, 0.0665, 0.0580, 0.0604, 0.0827])
+28 / 33
+Target word     --> 48
+Rational pos    --> tensor([26,  5, 16])
+Rational text   --> [' 18', ' one', ' issue']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│  in 1848.                                                                                                                                                                     │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([4.3254e-03, 1.9680e-02, 4.6753e-02, 1.4771e-02, 5.7232e-02, 3.2459e-02,
+        1.6620e-03, 3.4634e-02, 3.1511e-02, 6.7119e-02, 9.1675e-02, 2.6028e-02,
+        1.2520e-04, 4.1076e-02, 3.1245e-03, 6.6111e-02, 2.2956e-02, 5.4500e-02,
+        2.9699e-03, 2.1457e-03, 1.3291e-02, 2.8587e-02, 4.1491e-02, 1.1071e-02,
+        8.3675e-03, 7.6000e-02, 3.8780e-02, 1.6155e-01])
+29 / 33
+Target word     --> .
+Rational pos    --> tensor([27, 10, 25])
+Rational text   --> ['48', ' a', ' in']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│  in 1848.  It                                                                                                                                                                 │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([0.0110, 0.0531, 0.0459, 0.0503, 0.0344, 0.0089, 0.0067, 0.0024, 0.0226,
+        0.0220, 0.0035, 0.0393, 0.0742, 0.0108, 0.0108, 0.0394, 0.0361, 0.0368,
+        0.0260, 0.0335, 0.0859, 0.0109, 0.0698, 0.0379, 0.0628, 0.0190, 0.0331,
+        0.0304, 0.0825])
+30 / 33
+Target word     -->  It
+Rational pos    --> tensor([20, 28, 12])
+Rational text   --> [' States', '.', ' struck']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│  in 1848. It  was                                                                                                                                                             │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([0.0391, 0.0570, 0.0272, 0.0139, 0.0262, 0.0485, 0.0411, 0.0400, 0.0338,
+        0.0331, 0.0391, 0.0207, 0.0008, 0.0276, 0.0308, 0.0116, 0.0143, 0.0347,
+        0.0444, 0.0131, 0.0472, 0.0418, 0.0461, 0.0189, 0.0146, 0.0200, 0.0142,
+        0.0189, 0.0382, 0.1430])
+31 / 33
+Target word     -->  was
+Rational pos    --> tensor([29,  1,  5])
+Rational text   --> [' It', ' gold', ' one']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│  in 1848. It was  the                                                                                                                                                         │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([0.0003, 0.0326, 0.0160, 0.0373, 0.0655, 0.0176, 0.0242, 0.0231, 0.0118,
+        0.0218, 0.0033, 0.0151, 0.0044, 0.0058, 0.0363, 0.0517, 0.0083, 0.0170,
+        0.0772, 0.0521, 0.0675, 0.0033, 0.0219, 0.0019, 0.0517, 0.0419, 0.0379,
+        0.0116, 0.0568, 0.0096, 0.1745])
+32 / 33
+Target word     -->  the
+Rational pos    --> tensor([30, 18, 20])
+Rational text   --> [' was', ' the', ' States']
+
+                                                                                                                                                                                 
+╭──────────────────────────────────────────────────────────────────────────── Attributing with lime ────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                                                               │
+│  0. The gold dollar or gold one-dollar piece was a coin struck as a regular issue by the United States Bureau ernment  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00  │
+│  in 1848. It was the  first                                                                                                                                                   │
+│                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                                                 tensor([0.0453, 0.0231, 0.0208, 0.0274, 0.0206, 0.0345, 0.0439, 0.0478, 0.0563,
+        0.0111, 0.0102, 0.0336, 0.0590, 0.0209, 0.0284, 0.0226, 0.0436, 0.0236,
+        0.0057, 0.0388, 0.0776, 0.0093, 0.0188, 0.0535, 0.0238, 0.0116, 0.0295,
+        0.0161, 0.0125, 0.0119, 0.0877, 0.0306])
+33 / 33
+Target word     -->  first
+Rational pos    --> tensor([30, 20, 12])
+Rational text   --> [' was', ' States', ' struck']
+
+target_pos: 24, target_token: ern, norm_suff: 0.0, random_suff: 0.0, norm_comp: 0.009252754971385002, random_comp:0.00834109541028738
+target_pos: 25, target_token: ment, norm_suff: 0.0, random_suff: 0.0, norm_comp: 0.001029264647513628, random_comp:0.007312342990189791
+target_pos: 26, target_token:  in, norm_suff: 0.0, random_suff: 0.0, norm_comp: 0.000785415293648839, random_comp:0.0007230325718410313
+target_pos: 27, target_token:  18, norm_suff: 0.0, random_suff: 0.0, norm_comp: 0.0011974405497312546, random_comp:0.00047912044101394713
+target_pos: 28, target_token: 48, norm_suff: 0.07329265773296356, random_suff: 0.05163922905921936, norm_comp: 0.00020983308786526322, random_comp:0.00013451209815684706
+[Warn] failed on 4 - 28
+[Warn] failed on 4
+generated full sequence --> ['The', ' Sinclair', ' Scientific', ' Program', 'mable', ' was', ' introduced', ' in', ' 1975', ' ', '\xa0', 'and', ' was', ' the', ' first', ' commercial', ' radio', ' receiver', ' to', ' feature']
+[Warn] failed on 5
+generated full sequence --> ['An', ' iron', 'clad', ' is', ' a', ' steam', '-', 'pro', 'pelled', ' wars', 'hip', ' protected', ' by', ' iron', ' or', ' steel', ' armor', ' plates', ' ', '\xa0', 'that', ' can', ' withstand', ' a', ' direct', ' hit', ' from', ' a', ' missile']
+[Warn] failed on 6
+generated full sequence --> ['Little', ' G', 'idding', ' is', ' the', ' fourth', ' and', ' final', ' poem', ' of', ' T', '.', ' S', '.', ' Eliot', " '", 's', ' Four', ' Quart', 'ets', ' ', '\xa0', '(', '18', '90', '-', '19', '40', ').', ' It', ' is']
+[Warn] failed on 7
+generated full sequence --> ['Cl', 'ay', 'ton', ' Edward', ' Kers', 'haw', ' (', ' born', ' March', ' 19', ',', ' 1988', ' )', ' is', ' an', ' American', ' professional', ' baseball', ' pitcher', ' ', '\xa0', 'who', ' is', ' currently', ' playing', ' for', ' the', ' Los', ' Angeles', ' Dodgers']
+[Warn] failed on 8
+generated full sequence --> ['A', ' culinary', ' nut', ' is', ' a', ' dry', ',', ' edible', ' fruit', ' or', ' seed', ' that', ' usually', ',', ' but', ' not', ' always', ',', ' has', ' a', ' high', ' fat', ' content', ' ', '\xa0', '(', 'usually', ' around', ' 30', '%', ' fat', ').', ' ', '\xa0']
+[Warn] failed on 9
+generated full sequence --> ['The', ' Supreme', ' Court', ' of', ' Canada', ' is', ' the', ' highest', ' court', ' of', ' Canada', '.', ' It', ' was', ' established', ' ', '\xa0', 'in', ' 18', '67', '.', ' It', ' is', ' the', ' highest', ' court']
+[Warn] failed on 10
+generated full sequence --> ['U', 'ran', 'us', ',', ' the', ' seventh', ' planet', ' of', ' the', ' Solar', ' System', ',', ' has', ' 27', ' known', ' moons', ' ', '\xa0', '(', 'including', ' the', ' largest', ',', ' Titan', '),', ' and', ' is']
+[Warn] failed on 11

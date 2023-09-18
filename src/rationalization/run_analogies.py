@@ -61,7 +61,7 @@ def main():
                         help="Logfile location to output")
     parser.add_argument("--loglevel", 
                         type=int,
-                        default=20,
+                        default=50,
                         help="Debug level from [CRITICAL = 50, ERROR = 40, WARNING = 30, INFO = 20, DEBUG = 10, NOTSET = 0]")
     args = parser.parse_args()
 
