@@ -127,7 +127,7 @@ def main():
 
     with open(os.path.join(output_dir, f'details_{args.rationale_size_ratio}.csv'), "w", newline="") as csv_details_f:
         details_writer = csv.writer(csv_details_f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
-        details_writer.writerow(['id', "step", "suff", "comp","random_suff", "random_comp"])
+        details_writer.writerow(['sample_id', "trace_idx", "suff", "comp","random_suff", "random_comp"])
         csv_details_f.flush()
 
         for filename in filenames:
