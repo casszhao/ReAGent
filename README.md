@@ -1,4 +1,4 @@
-# A Model-agnostic Feature Attribution Method for Generative Language Models
+# ReAGent: A Model-agnostic Feature Attribution Method for Generative Language Models
 
 <p align="center">
 <img src="docs/heatmap.png" height="300" />
