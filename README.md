@@ -10,7 +10,7 @@ Official implementation of ReAGent, as presented in our paper (ReLM at AAAI24):
 
 ## Demo notebook
 
-Open and run the jupyter notebook [`src/notebook.ipynb`](src/notebook.ipynb). You may see outputs like:
+Open and run the jupyter notebook [`src/notebook.ipynb`](src/notebook.ipynb) or the [Colab demo](https://colab.research.google.com/github/casszhao/ReAGent/blob/master/notebook-colab.ipynb). You may see outputs like:
 
 ### Importance distribution plots
 
