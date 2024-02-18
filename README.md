@@ -1,4 +1,3 @@
-# ReAGent: A Model-agnostic Feature Attribution Method for Generative Language Models
 
 Official implementation of ReAGent, as presented in our paper (ReLM at AAAI24):
 
@@ -8,11 +7,24 @@ Official implementation of ReAGent, as presented in our paper (ReLM at AAAI24):
 <img src="docs/heatmap.png" height="300" />
 </p>
 
+cite us:
+```
+@inproceedings{zhao2024reagent,
+  title= "ReAGent: Towards A Model-agnostic Feature Attribution Method for Generative Language Models",
+  author= "Zhao, Zhixue and Shan, Boxuan",
+  booktitle= "Proceedings of AAAI Workshop on Responsible Language Models",
+  year= "2024"，
+  url = "https://arxiv.org/pdf/2402.00794.pdf"
+}
+```
+
 ## Demo notebook
 
-Open and run the jupyter notebook [`src/notebook.ipynb`](src/notebook.ipynb) or the [Colab demo](https://colab.research.google.com/github/casszhao/ReAGent/blob/master/notebook-colab.ipynb). You may see outputs like:
+Run demo: the jupyter notebook [`src/notebook.ipynb`](src/notebook.ipynb) or the [Colab demo](https://colab.research.google.com/github/casszhao/ReAGent/blob/master/notebook-colab.ipynb). 
 
-### Importance distribution plots
+You could try your own model and input, you may see importance distribution plots like:
+
+
 
 <p align="center">
 <img src="docs/im-dist-demo.png" height="300" />
