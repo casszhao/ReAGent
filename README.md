@@ -1,8 +1,23 @@
 # ReAGent: A Model-agnostic Feature Attribution Method for Generative Language Models
 
+Official implementation of ReAGent, as presented in our paper (ReLM at AAAI24):
+
+[ReAGent: A Model-agnostic Feature Attribution Method for Generative Language Models](https://arxiv.org/pdf/2402.00794.pdf)
+
 <p align="center">
 <img src="docs/heatmap.png" height="300" />
 </p>
+
+## Demo notebook
+
+Open and run the jupyter notebook [`src/notebook.ipynb`](src/notebook.ipynb). You may see outputs like:
+
+### Importance distribution plots
+
+<p align="center">
+<img src="docs/im-dist-demo.png" height="300" />
+</p>
+
 
 ## Environment Setup
 
@@ -31,16 +46,6 @@ Run the following command
 ```sh
 python setup_nltk.py
 ```
-
-## Demo notebook
-
-Open and run the jupyter notebook `src/notebook.ipynb`. You may see outputs like:
-
-### Importance distribution plots
-
-<p align="center">
-<img src="docs/im-dist-demo.png" height="300" />
-</p>
 
 ### Evaluation Metrics
 
